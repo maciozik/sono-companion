@@ -1,0 +1,22 @@
+#snackbar {
+    position: absolute;
+    left: 50%;
+    bottom: 100dvh;
+    padding: 15px;
+    width: max-content;
+    color: #9AA;
+    background-color: #151515;
+    border-radius: 6px;
+    transform: translateX(-50%);
+    font-size: .8rem;
+    text-align: center;
+    opacity: 0;
+    z-index: 1000;
+    transition: opacity 1500ms linear, bottom 0ms linear 1500ms;
+
+    &.show {
+        bottom: calc(var(--footer-height) + 5px);
+        opacity: 1;
+        transition: opacity 150ms linear;
+    }
+}

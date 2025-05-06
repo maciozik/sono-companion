@@ -1,0 +1,132 @@
+@keyframes timestamp-blink {
+    50%, to {
+        color: var(--cyan);
+    }
+}
+
+#sonometer {
+    /* View Layout */
+    --sono-gauge-mt: 5%;
+    --sono-gauge-h : 30%;
+    --sono-infos-mt: 10%;
+    --sono-infos-h : 15%;
+    --sono-ctrls-mt: 10%;
+    --sono-ctrls-h : 18%;
+    --view-mb: 12%;
+
+    #sonometer-gauge {
+        display: grid;
+        align-items: center;
+        margin-top: var(--sono-gauge-mt);
+        height: var(--sono-gauge-h);
+    }
+
+    #sonometer-infos {
+        display: flex;
+        margin-top: var(--sono-infos-mt);
+        height: var(--sono-infos-h);
+
+        & > div {
+            width: 50%;
+        }
+
+        .db-current {
+            margin-top: -9px;
+
+            g-icon {
+                display: none;
+
+                &.active {
+                    display: block;
+                }
+            }
+        }
+    }
+
+    #sonometer-controls {
+        display: flex;
+        margin-top: var(--sono-ctrls-mt);
+        height: var(--sono-ctrls-h);
+
+        & > div {
+            width: 33.33%;
+        }
+
+        .play-btn {
+            g-icon.pause {
+                font-size: 3.5rem;
+            }
+
+            .timestamp {
+                position: absolute;
+                margin-top: 35px;
+                color: var(--cyan);
+                font-size: .95rem;
+                font-weight: 500;
+                text-align: center;
+                opacity: 0;
+                transition: opacity 50ms linear;
+            }
+
+            &:not(.no-timestamp) g-icon {
+                transition: margin-top 150ms ease-out,
+                            margin-left 0ms linear 150ms,
+                            transform 50ms linear 150ms,
+                            opacity 0ms linear 150ms;
+            }
+        }
+    }
+
+    &.run {
+        .play-btn:not(.no-timestamp) {
+            g-icon {
+                margin-top: -25px;
+                transform: scale(.8) !important;
+                transition: transform 50ms linear,
+                            margin-top 250ms ease-out 150ms,
+                            opacity 0ms linear 150ms
+                            !important;
+
+                &.play {
+                    margin-left: -1px;
+                }
+            }
+
+            .timestamp {
+                opacity: 1 !important;
+                transition: opacity 150ms ease-out 250ms !important;
+            }
+        }
+    }
+
+    &.pause {
+        #sonometer-controls {
+            .timestamp, .play-btn.no-timestamp g-icon {
+                color: light-dark(var(--bg-contrast), var(--grey-pale));
+                animation: timestamp-blink 500ms linear 250ms;
+                animation-iteration-count: infinite;
+                animation-direction: alternate;
+            }
+        }
+    }
+
+    &.pause, &:not(.run) {
+
+        #sonometer-gauge {
+            .gauge {
+                .graduation:before {
+                    color: var(--grey) !important;
+                }
+                .gauge-pointer:after {
+                    border-right-color: var(--grey);
+                }
+            }
+        }
+
+        #sonometer-infos {
+            .db-current g-icon {
+                color: var(--grey);
+            }
+        }
+    }
+}

@@ -1,0 +1,171 @@
+import Setting from '../classes/Setting.js';
+import Modal from '../classes/Modal.js';
+
+export default class SettingAction extends Setting
+{
+    /** @type {string|null} The module to load (from the js\modules\ folder, without the .js extension). */
+    module = new String();
+
+    /** @type {Function} The method to execute from the module if it exists, or an arbitrary code. */
+    action = new Function();
+
+    has_action = new Boolean();
+    require_confirmation = new Boolean();
+
+    constructor ()
+    {
+        super();
+
+        this.module = this.dataset.module || null;
+
+        this.has_action = (this.dataset.action !== undefined) ? true : false;
+        this.require_confirmation = (this.dataset.requireConfirmation === undefined || this.dataset.requireConfirmation === 'false') ? false : true;
+
+        // Remove the useless attributes.
+        this.removeAttribute('data-module');
+        this.removeAttribute('data-require-confirmation');
+    }
+
+    /**
+     * When the element is connected to the DOM.
+     */
+    connectedCallback()
+    {
+        super.connectedCallback();
+
+        // Render the setting.
+        this.render();
+
+        // Set the action.
+        this.setAction();
+    }
+
+    /**
+     * Set the action to execute if needed.
+     */
+    async setAction()
+    {
+        if (this.has_action) {
+
+            // Get the action to execute.
+            const action = this.dataset.action.trim();
+
+            // If the module exists, set the method from the module as the action.
+            if (this.module !== null) {
+                const module_path = `../modules/${this.module}.js`;
+                const module = await import(module_path);
+                this.action = module[action];
+            }
+            // Else, set the arbitrary code as the action.
+            else {
+                this.action = () => eval(action);
+            }
+        }
+
+        // Remove the useless attributes.
+        this.removeAttribute('data-action');
+    }
+
+    /**
+     * Handle the interection with the setting, by either showing a confirmation modal if needed, or executing the action directly.
+     */
+    handle()
+    {
+        if (this.has_action) {
+            // If a confirmation is required, show the confirmation modal.
+            if (this.require_confirmation) {
+                this.showConfirmation();
+            }
+            // Else, execute the action directly.
+            else {
+                this.execute();
+            }
+        }
+    }
+
+    /**
+     * Show the confirmation modal.
+     */
+    showConfirmation()
+    {
+        const _this = this;
+
+        const ConfirmationModal = (new Modal())
+            .setText(this.title + " ?")
+            .setSecondaryBtn("Annuler");
+
+        // Define the primary button callback ot execute the action.
+        ConfirmationModal.setPrimaryBtn("Valider", () => {
+            Modal.close().then(() => {
+                _this.execute();
+            });
+        });
+
+        // Open the modal.
+        ConfirmationModal.open();
+    }
+
+    /**
+     * Execute the action.
+     */
+    execute()
+    {
+        this.action();
+    }
+
+    /**
+     * Render the HTML.
+     */
+    render()
+    {
+        // Add the class and the tappable options if needed.
+        this.classList.add('setting');
+
+        if (this.has_action) {
+            this.dataset.tappable =  'click follow-tap';
+        }
+
+        // Set the content.
+        this.innerHTML = `
+            <div class="setting-top">
+                <div class="setting-text">
+                    <p class="setting-title ${ this.danger ? 'danger' : ''}">
+                        ${this.title}
+                    </p>
+                    ${this.getInfoHTML()}
+                </div>
+                <div class="setting-choice">
+                    ${this.getRightIconHTML()}
+                </div>
+            </div>
+        `;
+    }
+
+    /**
+     * Get the info tag if there is an info to show, and add an additional message if a confirmation is required.
+     * @returns {string|''}
+     */
+    getInfoHTML()
+    {
+        this.info += (this.require_confirmation) ? " <b>Une confirmation sera demandée.</b>" : "";
+        return super.getInfoHTML();
+    }
+
+    /**
+     * Get the right arrow icon if there is an action to execute.
+     * @returns {string|''}
+     */
+    getRightIconHTML()
+    {
+        return (this.has_action) ? `
+            <g-icon data-name="chevron_right"></g-icon>
+        ` : '';
+    }
+
+    // These methods are not implemented in this class.
+    set() { return false; }
+    reset() {}
+    getResetButtonHTML() {}
+}
+
+customElements.define('setting-action', SettingAction);

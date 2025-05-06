@@ -1,0 +1,131 @@
+#tempo {
+    /* View Layout */
+    --tempo-metro-mt: 5%;
+    --tempo-metro-h : 15%;
+    --tempo-bpm-sel-mt: 0%;
+    --tempo-bpm-sel-h : 20%;
+    --tempo-infos-mt: 5%;
+    --tempo-infos-h : 15%;
+    --tempo-ctrls-mt: 10%;
+    --tempo-ctrls-h : 15%;
+    --view-mb: 15%;
+
+    #tempo-metronome {
+        display: grid;
+        align-items: center;
+        margin-top: var(--tempo-metro-mt);
+        padding: 0 24px;
+        height: var(--tempo-metro-h);
+    }
+
+    #tempo-bpm-selector {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-top: var(--tempo-bpm-sel-mt);
+        padding: 0 8px;
+        height: var(--tempo-bpm-sel-h);
+
+        .bpm-half, .bpm-dec, .bpm-inc, .bpm-double {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-grow: 1;
+
+            .bpm-modifier-btn {
+                display: grid;
+                place-items: center;
+                padding-right: 1px;
+                width: 100%;
+                aspect-ratio: 1;
+                background-color: var(--bg-contrast);
+                border-radius: 3px;
+                font-family: 'Roboto';
+                font-size: .95rem;
+                font-weight: 500;
+
+                &.ontap:before {
+                    --circle-opacity: .1 !important;
+                    --circle-animation-duration: 200ms !important;
+                }
+            }
+        }
+
+        .bpm-wheel {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 40%;
+
+            .bpm-wheel-center {
+                position: relative;
+                text-align: center;
+
+                .bpm-value {
+                    font-size: 4rem;
+                    font-weight: 300;
+                    transition: transform 100ms linear;
+
+                    &.blink {
+                        color: var(--cyan);
+                        // transition: color 50ms linear;
+                    }
+
+                    &.tap-tempo-listen {
+                        color: var(--yellow);
+                        transform: translateY(-16px);
+
+                        & + g-icon {
+                            opacity: 1;
+                            transition-delay: 50ms;
+                        }
+                    }
+
+                    &.limit {
+                        color: var(--red);
+                    }
+                }
+
+                g-icon {
+                    display: block;
+                    position: absolute;
+                    margin-top: -24px;
+                    width: 100%;
+                    text-align: center;
+                    color: var(--grey);
+                    font-size: 1.4rem;
+                    opacity: 0;
+                    transition: opacity 100ms linear;
+                }
+            }
+        }
+    }
+
+    #tempo-infos {
+        display: flex;
+        margin-top: var(--tempo-infos-mt);
+        height: var(--tempo-infos-h);
+
+        & > div {
+            width: 50%;
+        }
+    }
+
+    #tempo-controls {
+        display: flex;
+        margin-top: var(--tempo-ctrls-mt);
+        height: var(--tempo-ctrls-h);
+
+        & > div {
+            width: 33.33%;
+        }
+
+        .tap-tempo-btn {
+            &.active {
+                color: var(--yellow);
+            }
+        }
+    }
+}

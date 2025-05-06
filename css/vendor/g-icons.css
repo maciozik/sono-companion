@@ -1,0 +1,56 @@
+@font-face {
+    font-family: 'Material Icons';
+    font-style: normal;
+    font-weight: 400;
+    src: url(../../fonts/MaterialIcons.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Material Icons Round';
+    font-style: normal;
+    font-weight: 400;
+    src: url(../../fonts/MaterialIconsRound.otf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Material Icons Outlined';
+    font-style: normal;
+    font-weight: 400;
+    src: url(../../fonts/MaterialIconsOutlined.otf) format('truetype');
+}
+
+.material-icons, .material-icons-round, .material-icons-outlined {
+    display: inline-block;
+    font-size: 1em;
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1em;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+.material-icons {
+    font-family: 'Material Icons';
+}
+
+.material-icons-round {
+    font-family: 'Material Icons Round';
+}
+
+.material-icons-outlined {
+    font-family: 'Material Icons Outlined';
+}

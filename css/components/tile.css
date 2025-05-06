@@ -1,0 +1,87 @@
+.tile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: 500;
+
+    .title, g-icon {
+        line-height: 2rem;
+
+        &.cyan {
+            color: var(--cyan);
+        }
+    }
+
+    .title {
+        color: var(--grey);
+        font-size: 1.05rem;
+        font-weight: 400;
+        text-transform: uppercase;
+    }
+
+    g-icon {
+        font-size: 2rem;
+    }
+
+    .label, .info {
+        margin-top: 7px;
+        line-height: 1em;
+
+        &.info {
+            font-size: 1.2rem;
+
+            &.cyan {
+                color: var(--cyan);
+            }
+
+            &.big {
+                font-size: 1.8rem;
+                font-weight: 400;
+            }
+
+            &.very-big {
+                font-size: 2.8rem;
+                font-weight: 300;
+
+                .decimal {
+                    font-weight: 400;
+                }
+            }
+
+            .unit, .decimal {
+                color: var(--grey);
+
+                &.unit {
+                    font-size: .9em;
+                }
+
+                &.decimal {
+                    font-size: .7em;
+                }
+            }
+        }
+
+        &.label {
+            font-size: .9rem;
+        }
+
+        &.no-gap {
+            margin-top: 0;
+        }
+    }
+
+    &.grey {
+        color: var(--grey);
+    }
+
+    &[data-tappable] {
+        &.ontap:before {
+            --circle-animation-duration: 200ms !important;
+        }
+    }
+
+    &.disabled > * {
+        color: var(--grey-pale);
+    }
+}

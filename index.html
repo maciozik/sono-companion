@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="fr" data-color-scheme="dark">
+<head>
+    <meta charset="UTF-8">
+    <title>Sono Companion</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="theme-color" content="#009898">
+    <meta name="theme-color" content="#009898" media="(prefers-color-scheme: dark)">
+
+    <link rel="manifest" href="manifest.json">
+
+    <script src="js/modules/utils/color_scheme.js"></script>
+    <script src="js/modules/utils/loader.js" defer></script>
+    <script type="module" src="js/app.js" defer></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <link href="css/app.css" rel="stylesheet">
+</head>
+<body>
+
+    <!-- HEADER -->
+
+    <header>
+
+        <h1>Sono Companion</h1>
+
+        <div id="settings-btn" data-load="settings" data-tappable=".4 250ms">
+            <g-icon data-name="tune"></g-icon>
+        </div>
+
+    </header>
+
+    <!-- VIEWS -->
+
+    <main>
+
+        <!-- VIEW: Sonometer -->
+
+        <section class="view" id="sonometer" data-name="Sonomètre">
+
+            <!-- Calibration value -->
+            <div class="calibration" data-load="settings">
+                <span class="calibration-value"></span>
+                <g-icon data-name="gps_fixed" data-y=-0.5></g-icon>
+            </div>
+
+            <!-- Gauge -->
+            <section id="sonometer-gauge">
+
+                <div class="gauge" data-db="0">
+                    <div class="gauge-arcs">
+                        <div class="gauge-arc-safe">
+                            <div class="gauge-graduations"></div>
+                        </div>
+                        <div class="gauge-arc-danger">
+                            <div class="gauge-graduations"></div>
+                        </div>
+                    </div>
+                    <div class="gauge-pointer"></div>
+                </div>
+
+                <!-- Graduation Template -->
+                <template id="graduation-template">
+                    <div class="graduation" data-value="" data-indicator=""></div>
+                </template>
+
+            </section>
+
+            <!-- Informations -->
+            <section id="sonometer-infos">
+
+                <div class="db-average tile">
+                    <p class="title">Moy</p>
+                    <p class="info big">
+                        <span class="integral">00</span><span class="decimal">.0</span>
+                    </p>
+                </div>
+
+                <div class="db-current tile">
+                    <g-icon data-name="volume_off" data-x=1 class="off active"></g-icon>
+                    <g-icon data-name="volume_mute" data-x=-4.2 class="low"></g-icon>
+                    <g-icon data-name="volume_down" data-x=-1.5 class="normal"></g-icon>
+                    <g-icon data-name="volume_up" data-x=1.2 class="loud"></g-icon>
+                    <p class="info very-big">
+                        <span class="integral">00</span><span class="decimal">.0</span>
+                    </p>
+                </div>
+
+                <div class="db-max tile">
+                    <p class="title">Max</p>
+                    <p class="info big">
+                        <span class="integral">00</span><span class="decimal">.0</span>
+                    </p>
+                </div>
+
+            </section>
+
+            <!-- Controls -->
+            <section id="sonometer-controls">
+
+                <!-- Reset button -->
+                <div class="sonometer-reset-btn tile grey disabled" data-tappable>
+                    <g-icon data-name="settings_backup_restore"></g-icon>
+                    <p class="label">Réinitialiser</p>
+                </div>
+
+                <!-- Play button -->
+                <div class="sonometer-play">
+                    <div class="play-btn adaptative" data-tappable="pointerup">
+                        <g-icon data-name="play_arrow" data-x=-1 class="play"></g-icon>
+                        <g-icon data-name="pause" class="pause"></g-icon>
+                        <div class="timestamp blink">0:00:00</div>
+                    </div>
+                </div>
+
+                <div></div>
+
+            </section>
+
+        </section>
+
+        <!-- VIEW: Frequency Spectrum -->
+
+        <section class="view" id="spectrum" data-name="Spectre audio">
+
+            <div class="container" id="visualizer"></div>
+
+        </section>
+
+        <!-- VIEW: Tempo -->
+
+        <section class="view" id="tempo" data-name="Métronome">
+
+            <!-- Metronome -->
+            <section id="tempo-metronome">
+                <div class="metronome disabled" data-bpm="90">
+                    <div class="metronome-line">
+                        <div class="metronome-circle"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Bpm Selector -->
+            <section id="tempo-bpm-selector">
+
+                <!-- Decrease bpm -->
+                <div class="bpm-half">
+                    <div class="bpm-modifier-btn" data-modifier="/2" data-tappable="click">÷2</div>
+                </div>
+                <div class="bpm-dec">
+                    <div class="bpm-modifier-btn" data-modifier="-5" data-tappable="click">−5</div>
+                    <div class="bpm-modifier-btn" data-modifier="-1" data-tappable="click">−1</div>
+                </div>
+
+                <!-- Bpm wheel -->
+                <div class="bpm-wheel">
+                    <div class="bpm-wheel-center">
+                        <div class="bpm-value">90</div>
+                        <g-icon data-name="touch_app"></g-icon>
+                    </div>
+                </div>
+
+                <!-- Increase bpm -->
+                <div class="bpm-inc">
+                    <div class="bpm-modifier-btn" data-modifier="+5" data-tappable="click">+5</div>
+                    <div class="bpm-modifier-btn" data-modifier="+1" data-tappable="click">+1</div>
+                </div>
+                <div class="bpm-double">
+                    <div class="bpm-modifier-btn" data-modifier="x2" data-tappable="click">×2</div>
+                </div>
+
+            </section>
+
+            <!-- Informations -->
+            <section id="tempo-infos">
+
+                <div class="tempo-ms tile">
+                    <g-icon data-name="timer"></g-icon>
+                    <p class="info">
+                        <span class="value">667</span> <span class="unit">ms</span>
+                    </p>
+                </div>
+
+                <div class="tempo-m tile">
+                    <g-icon data-name="straighten"></g-icon>
+                    <p class="info">
+                        <span class="value">227</span> <span class="unit">m</span>
+                    </p>
+                </div>
+
+            </section>
+
+            <!-- Controls -->
+            <section id="tempo-controls">
+
+                <!-- Replay button -->
+                <div class="metronome-replay-btn tile grey disabled" data-tappable>
+                    <g-icon data-name="replay"></g-icon>
+                    <p class="label">Relancer</p>
+                </div>
+
+                <!-- Play button -->
+                <div class="metronome-play">
+                    <!-- TODO Make on-pointer-down generic for both view event and tappable event -->
+                    <div class="play-btn adaptative on-pointer-down" data-tappable>
+                        <g-icon data-name="play_arrow" data-x=-1 class="play"></g-icon>
+                        <g-icon data-name="stop" class="stop"></g-icon>
+                    </div>
+                </div>
+
+                <!-- Tap Tempo button -->
+                <div class="tap-tempo-btn tile grey" data-tappable>
+                    <g-icon data-name="touch_app"></g-icon>
+                    <p class="label">Tap Tempo</p>
+                </div>
+
+            </section>
+
+        </section>
+
+        <!-- VIEW: Music -->
+
+        <section class="view" id="playlists" data-name="Playlists musicales">
+
+        </section>
+
+        <!-- VIEW: Settings -->
+
+        <section class="view right" id="settings" data-name="Réglages">
+
+            <!-- Application Settings -->
+            <h2>Application</h2>
+
+            <section data-context="app">
+
+                <setting-list
+                    data-name="color_scheme"
+                    data-title="Thème">
+                        <select-item data-value="system" data-selected>Système</select-item>
+                        <select-item data-value="dark">Sombre</select-item>
+                        <select-item data-value="light">Clair</select-item>
+                </setting-list>
+
+                <setting-switch
+                    data-name="allow_vibrations" data-disable-group-on-false="vibrations" data-value=true
+                    data-title="Autoriser les vibrations"
+                ></setting-switch>
+
+            </section>
+
+            <!-- Sound Settings -->
+            <h2>Entrée son</h2>
+
+            <section data-context="sound">
+
+                <setting-range
+                    data-name="audio_calibration" data-allow-reset
+                    data-value=0 data-suffix=" dB" data-min=-30 data-max=30 data-step=0.5
+                    data-title="Calibrage audio"
+                    data-info="Ajuste le volume audio global affiché par l'application. À étalonner avec un sonomètre."
+                ></setting-range>
+
+                <setting-list
+                    data-name="frequency_weighting"
+                    data-title="Pondération fréquentielle">
+                        <select-item data-value="A" data-selected>dB(A)</select-item>
+                        <select-item data-value="B">dB(B)</select-item>
+                        <select-item data-value="U">dB(U)</select-item>
+                </setting-list>
+
+                <setting-list
+                    data-name="microphone"
+                    data-title="Microphone"
+                    data-info="Microphone à utiliser pour capter le son.">
+                        <select-item data-value="front" data-selected>Avant</select-item>
+                        <select-item data-value="back">Arrière</select-item>
+                </setting-list>
+
+            </section>
+
+            <!-- Sonometer Settings -->
+            <h2>Sonomètre</h2>
+
+            <section data-context="sonometer">
+
+                <setting-switch
+                    data-name="enable_sonometer" data-disable-group-on-false="sonometer" data-value=true
+                    data-title="Afficher l'onglet Sonomètre"
+                ></setting-switch>
+
+                <setting-range
+                    data-name="gauge_min" data-groups="sonometer" data-allow-reset
+                    data-value=0 data-suffix=" dB" data-min=0 data-max=60 data-step=10
+                    data-title="Minimum de la gauge"
+                ></setting-range>
+
+                <setting-range
+                    data-name="gauge_max" data-groups="sonometer" data-allow-reset
+                    data-value=130 data-suffix=" dB" data-min=120 data-max=150 data-step=10
+                    data-title="Maximum de la gauge"
+                ></setting-range>
+
+                <setting-range
+                    data-name="danger_zone" data-groups="sonometer" data-allow-reset
+                    data-value=100 data-suffix=" dB" data-min=80 data-max=110 data-step=10
+                    data-title="Zone de danger"
+                    data-info="Niveau au-delà duquel la gauge devient rouge."
+                ></setting-range>
+
+                <setting-list
+                    data-name="gauge_step" data-groups="sonometer"
+                    data-title="Écart entre les graduations">
+                        <select-item data-value="5">5</select-item>
+                        <select-item data-value="10" data-selected>10</select-item>
+                        <select-item data-value="20">20</select-item>
+                </setting-list>
+
+                <setting-switch
+                    data-name="show_timestamp" data-groups="sonometer" data-value=true
+                    data-title="Afficher le chronomètre"
+                ></setting-switch>
+
+            </section>
+
+            <!-- Specter Settings -->
+            <h2>Spectre audio</h2>
+
+            <section data-context="spectrum">
+
+                <setting-switch
+                    data-name="enable_spectrum" data-disable-group-on-false="spectrum" data-value=true
+                    data-title="Afficher l'onglet Spectre"
+                ></setting-switch>
+
+            </section>
+
+            <!-- Tempo Settings -->
+            <h2>Métronome</h2>
+
+            <section data-context="tempo">
+
+                <setting-switch
+                    data-name="enable_tempo" data-disable-group-on-false="tempo" data-value=true
+                    data-title="Afficher l'onglet Tempo"
+                ></setting-switch>
+
+                <setting-range
+                    data-name="bpm_min" data-groups="tempo" data-allow-reset
+                    data-value=30 data-suffix=" bpm" data-min=10 data-max=60 data-step=10
+                    data-title="BPM minimum"
+                ></setting-range>
+
+                <setting-range
+                    data-name="bpm_max" data-groups="tempo" data-allow-reset
+                    data-value=360 data-suffix=" bpm" data-min=120 data-max=360 data-step=10
+                    data-title="BPM maximum"
+                ></setting-range>
+
+                <setting-switch
+                    data-name="metronome_click" data-groups="tempo" data-value=true
+                    data-title="Activer le clic sonore"
+                ></setting-switch>
+
+                <setting-switch
+                    data-name="metronome_vibrate" data-groups="tempo vibrations" data-value=true
+                    data-title="Vibrer à chaque battement"
+                ></setting-switch>
+
+            </section>
+
+            <!-- Playlists Settings -->
+            <h2>Playlists musicales</h2>
+
+            <section data-context="playlists">
+
+                <setting-switch
+                    data-name="enable_playlists" data-disable-group-on-false="playlists" data-value=true
+                    data-title="Afficher l'onglet Playlists"
+                ></setting-switch>
+
+            </section>
+
+            <!-- Miscellaneous Settings -->
+            <h2>Divers</h2>
+
+            <section data-context="misc">
+
+                <setting-switch
+                    data-name="show_last_tab_opened" data-value=true
+                    data-title="Afficher le dernier onglet ouvert"
+                    data-info="Lance l'application sur le dernier onglet ouvert."
+                ></setting-switch>
+
+                <setting-switch
+                    data-name="keep_screen_awake_at_run" data-value=true data-allow-reset
+                    data-title="Garder l'écran allumé si actif"
+                    data-info="Empêche l'extinction de l'écran si l'onglet affiché est actif."
+                ></setting-switch>
+
+                <setting-switch
+                    data-name="always_keep_screen_awake" data-value=true data-allow-reset
+                    data-title="Toujours garder l'écran allumé"
+                    data-info="Empêche l'extinction de l'écran tant que l'application est ouverte."
+                ></setting-switch>
+
+            </section>
+
+            <!-- Application Settings -->
+            <h2>À propos</h2>
+
+            <section data-context="about">
+
+                <setting-action
+                    data-name="version"
+                    data-title="Version" data-info="1.0.0"
+                ></setting-action>
+
+                <setting-action
+                    data-name="open_github"
+                    data-action="window.open('https://github.com/Ixrec/OuterWildsArchipelagoRandomizer')"
+                    data-title="GitHub du projet"
+                ></setting-action>
+
+                <setting-action
+                    data-name="reset_all_settings" data-danger
+                    data-module="settings" data-action="reset" data-require-confirmation
+                    data-title="Réinitialiser tous les réglages"
+                    data-info="Tous les réglages seront réinitialisés à leur valeur d'origine."
+                ></setting-action>
+
+            </section>
+
+            <p class="app-credits"><strong>Sono Companion</strong> v1.0.0</p>
+
+        </section>
+
+    </main>
+
+    <!-- NAV BAR -->
+
+    <footer>
+        <nav>
+
+            <section class="nav-tab hide" data-load="sonometer" data-tappable data-needs-audio-permission>
+                <g-icon data-name="speed" data-y=1></g-icon>
+                <p class="tab-title">Sonomètre</p>
+                <p class="tab-label-run">
+                    <g-icon data-name="play_arrow"></g-icon>
+                    <span class="tab-info"></span>
+                </p>
+            </section>
+
+            <section class="nav-tab hide" data-load="spectrum" data-tappable data-needs-audio-permission>
+                <g-icon data-name="graphic_eq"></g-icon>
+                <p class="tab-title">Spectre</p>
+                <p class="tab-label-run">
+                    <g-icon data-name="play_arrow"></g-icon>
+                    <span class="tab-info"></span>
+                </p>
+            </section>
+
+            <section class="nav-tab hide" data-load="tempo" data-tappable>
+                <g-icon data-name="swipe_down" data-x=-1></g-icon>
+                <p class="tab-title">Tempo</p>
+                <p class="tab-label-run">
+                    <g-icon data-name="play_arrow"></g-icon>
+                    <span class="tab-info"></span>
+                </p>
+            </section>
+
+            <section class="nav-tab hide" data-load="playlists" data-tappable>
+                <g-icon data-name="library_music"></g-icon>
+                <p class="tab-title">Playlists</p>
+                <p class="tab-label-run">
+                    <g-icon data-name="play_arrow"></g-icon>
+                    <span class="tab-info"></span>
+                </p>
+            </section>
+
+            <p class="no-tab" data-load="settings">
+                Veuillez afficher au moins un onglet dans les réglages.
+            </p>
+
+        </nav>
+    </footer>
+
+    <!-- OVERLAY -->
+
+    <div id="overlay" data-context="view">
+        <div class="modal" role="dialog">
+            <div class="modal-title"></div>
+            <div class="modal-text"></div>
+            <div class="modal-btns">
+                <div class="modal-btn-secondary btn btn-no-fill" data-tappable="click"></div>
+                <div class="modal-btn-primary btn btn-no-fill" data-tappable="click"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SNACKBAR -->
+
+    <div id="snackbar"></div>
+
+    <!-- SCROLLBAR -->
+
+    <div id="scrollbar" class="hide">
+        <div class="scrollbar-thumb"></div>
+    </div>
+
+    <!-- LOADER -->
+
+    <div id="loader">
+        <div class="loader-animation">
+            <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="too-long-msg">
+            Le chargement prend plus de temps que prévu.<br>
+            <div class="btn btn-no-fill">Réessayer</div>
+        </div>
+    </div>
+
+</body>
+</html>

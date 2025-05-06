@@ -1,0 +1,85 @@
+/**  NORMALIZE  **/
+@import url(./vendor/normalize.css);
+
+/**  APP  **/
+@import url(./modules/root.css);
+@import url(./modules/layout.css);
+@import url(./modules/tags.css);
+
+/**  VIEWS  **/
+@import url(./modules/sonometer.css);
+@import url(./modules/tempo.css);
+@import url(./modules/settings.css);
+
+/**  VIEWS PARTS  **/
+@import url(./components/gauge.css);
+@import url(./components/metronome.css);
+
+/**  PARTS COMPONENTS  **/
+@import url(./components/loader.css);
+@import url(./components/modal.css);
+@import url(./components/scrollbar.css);
+@import url(./components/snackbar.css);
+
+/**  CLASSES COMPONENTS  **/
+@import url(./components/btn.css);
+@import url(./components/play-btn.css);
+@import url(./components/tile.css);
+@import url(./components/switch.css);
+@import url(./components/slider.css);
+@import url(./components/tappable.css);
+
+/**  VENDOR  **/
+@import url(./vendor/g-icons.css);
+
+/**  MEDIA QUERIES  **/
+@import url(./modules/media_queries.css);
+
+
+
+
+
+
+
+
+.container {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    width: 100%;
+    padding: 10px;
+}
+.bar {
+    width: calc(100% / var(--bands) - 5px);
+    background: var(--cyan);
+    transition: height 0.1s ease-out;
+}
+.labels {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 5px;
+    width: 90%;
+}
+.scale {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-end;
+    left: -40px;
+    height: 100%;
+    padding-right: 10px;
+}
+.grid-line {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: var(--invert);
+    opacity: .1;
+}
+.grid-line.fine {
+    height: 1px;
+    background: var(--invert);
+    opacity: .1;
+}

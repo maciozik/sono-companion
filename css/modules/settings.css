@@ -1,0 +1,168 @@
+#settings {
+    --setting-padding-sides: calc(var(--header-margin-left) + 1px);
+    display: block;
+    padding-left: 0;
+    padding-right: 0;
+
+    h2 {
+        display: flex;
+        padding: 20px var(--setting-padding-sides) 5px;
+        color: var(--cyan);
+        font-size: .75rem;
+        font-weight: 500;
+        text-transform: uppercase;
+
+        g-icon {
+            margin-right: 4px;
+            font-size: .9rem;
+            transform: translateY(1px);
+        }
+    }
+
+    .setting {
+        display: grid;
+        align-items: center;
+        padding: 9px 0 10px;
+        min-height: 68px;
+        overflow: hidden;
+
+        // &:not(:last-child) {
+        //     border-bottom: 1px solid #FFF1;
+        // }
+
+        .setting-top, .setting-bottom {
+            padding: 0 var(--setting-padding-sides);
+            width: 100%;
+        }
+
+        .setting-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+
+            .setting-text {
+
+                .setting-title {
+                    font-size: .85rem;
+
+                    .reset-btn {
+                        display: inline-block;
+                        padding: 2px 2px 0;
+                        color: var(--yellow);
+                        font-size: .98em;
+                        font-weight: bold;
+                        line-height: 0;
+                        transform: translateY(2px);
+
+                        &.hide {
+                            display: none;
+                        }
+                    }
+
+                    &.danger {
+                        color: var(--red);
+                    }
+                }
+
+                .setting-info {
+                    margin-top: 3px;
+                    color: var(--grey);
+                    font-size: .7rem;
+                    line-height: 1.2em;
+                    letter-spacing: -0.04px;
+                }
+            }
+
+            .setting-choice {
+                display: flex;
+                justify-content: right;
+                align-items: center;
+                white-space: nowrap;
+
+                // TODO Regroup all in one classname?
+                .select-list, .setting-value, g-icon {
+                    line-height: 2rem;
+                }
+
+                .select-list, .setting-value {
+                    /* TODO Manage the changes of the width due to change of content differently? */
+                    /* Put each value on a ghost element to calculate the max width? */
+                    min-width: 60px;
+                    color: var(--grey);
+                    font-size: .8rem;
+                    font-weight: 500;
+                    text-align: right;
+                    letter-spacing: -0.2px;
+                    transition: color 80ms linear;
+
+                    .select-item {
+                        display: none;
+
+                        &[data-selected] {
+                            display: block;
+                        }
+
+                        .radio-btn {
+                            display: none;
+                        }
+                    }
+
+                    &.active {
+                        color: var(--invert);
+                    }
+                }
+
+                & > g-icon {
+                    margin-left: 2px;
+                    margin-right: -7px;
+                    font-size: 1.5rem;
+                }
+            }
+        }
+
+        .setting-bottom {
+            .slider {
+                margin-top: 4px;
+            }
+        }
+
+        &.disabled {
+            color: var(--grey);
+
+            .setting-info, .setting-choice, .select-list, .setting-value {
+                color: var(--grey-pale) !important;
+                transition: none !important;
+            }
+
+            .setting-title .reset-btn {
+                color: var(--grey-pale) !important;
+            }
+
+            .switch {
+                background-color: var(--grey-pale);
+
+                &:before {
+                    border-color: var(--grey-pale);
+                }
+            }
+
+            .slider {
+                .slider-fill, .slider-thumb {
+                    background-color: var(--grey-pale);
+                }
+            }
+        }
+
+        &.ontap:before {
+            --circle-opacity: 0.015 !important;
+        }
+    }
+
+    .app-credits {
+        margin: 24px 0 20px;
+        color: var(--grey-pale);
+        font-size: .7rem;
+        text-align: center;
+    }
+}

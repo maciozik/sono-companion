@@ -1,0 +1,23 @@
+#scrollbar {
+    --scrollbar-margin-top: 5px;
+    --scrollbar-width: 4px;
+    --scrollbar-thumb-height: 50px;
+
+    position: fixed;
+    top: var(--header-height);
+    right: 3px;
+    margin-top: var(--scrollbar-margin-top);
+    width: var(--scrollbar-width);
+    height: calc((100% - var(--footer-height) - var(--header-height)) - var(--scrollbar-margin-top));
+
+    .scrollbar-thumb {
+        width: 100%;
+        height: var(--scrollbar-thumb-height);
+        background: #111;
+        border-radius: calc(var(--scrollbar-width) / 2);
+    }
+
+    &.hide {
+        display: none;
+    }
+}

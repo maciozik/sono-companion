@@ -1,0 +1,35 @@
+.switch {
+    --switch-height: 1em;
+    --switch-ratio: 2.1/1;
+    --switch-width: calc(var(--switch-height) * var(--switch-ratio));
+
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: var(--switch-width);
+    height: var(--switch-height);
+    background-color: var(--red);
+    border-radius: calc(var(--switch-height) / 2);
+    transition: background-color 0ms linear 20ms;
+
+    &:before {
+        content: "";
+        display: block;
+        height: 125%;
+        aspect-ratio: 1;
+        background-color: var(--bg);
+        border: 2px solid var(--red);
+        border-radius: 50%;
+        transition: transform 200ms var(--ease-out), border-color 0ms linear 20ms;
+        z-index: 10;
+    }
+
+    &[data-value=true] {
+        background-color: var(--cyan);
+
+        &:before {
+            border-color: var(--cyan);
+            transform: translateX(calc(var(--switch-width) - 100%));
+        }
+    }
+}

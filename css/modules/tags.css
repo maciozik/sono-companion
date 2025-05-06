@@ -1,0 +1,13 @@
+b, strong {
+    font-weight: 600;
+
+    &[data-w='500'] {
+        font-weight: 500;
+    }
+    &[data-w='700'] {
+        font-weight: 700;
+    }
+    &[data-w='800'] {
+        font-weight: 800;
+    }
+}

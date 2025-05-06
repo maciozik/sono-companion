@@ -1,0 +1,82 @@
+@keyframes bar-grow {
+    from {
+        transform: default;
+        background-color: default;
+    }
+    15% {
+        transform: scaleY(1);
+        background-color: var(--cyan);
+    }
+    50% {
+        background-color: var(--cyan);
+    }
+    80% {
+        transform: default;
+    }
+    to {
+        transform: default;
+        background-color: default;
+    }
+}
+
+#loader {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100dvw;
+    height: 100dvh;
+    background: var(--bg);
+    z-index: 100000;
+
+    .loader-animation {
+        display: flex;
+        align-items: center;
+
+        /* Bars */
+        span {
+            display: inline-block;
+            margin: 1.4px;
+            width: 2px;
+            height: 28px;
+            aspect-ratio: 1;
+            background-color: var(--grey-pale);
+            border-radius: 1px;
+            transform: scaleY(.2);
+            animation: bar-grow 1500ms ease-out infinite;
+
+            /*  ▫ ■ ▫ ■ ▫  */
+            &:nth-child(even) {
+                height: 26px;
+                animation-delay: 150ms;
+            }
+            /*  ■ ▫ ▫ ▫ ■  */
+            &:nth-child(odd):not(:nth-child(3)) {
+                height: 24px;
+                animation-delay: 300ms;
+            }
+        }
+    }
+
+    .too-long-msg {
+        display: none;
+        position: absolute;
+        top: 50%;
+        margin-top: 35px;
+        color: var(--grey);
+        font-size: .8rem;
+        font-weight: 500;
+        text-align: center;
+
+        &.show {
+            display: block;
+        }
+    }
+
+    &.hide {
+        display: none;
+    }
+}

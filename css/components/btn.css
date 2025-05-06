@@ -1,0 +1,37 @@
+.btn {
+    padding: var(--btn-padding-top-bottom) var(--btn-padding-left-right);
+    color: #DDD;
+    background-color: var(--cyan);
+    border-radius: 6px;
+    font-size: .8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    overflow: hidden;
+
+    &.btn-no-fill {
+        color: var(--cyan);
+        background: none;
+        overflow: visible;
+    }
+
+    &:not(.btn-no-fill).ontap:before {
+        --circle-opacity: .2 !important;
+        background-color: black !important;
+    }
+
+    g-icon {
+        font-size: 1.2rem;
+        line-height: .8rem;
+        transform: translateY(4px);
+
+        &.left {
+            margin-left: -5px;
+            margin-right: 4px;
+        }
+
+        &.right {
+            margin-left: 4px;
+            margin-right: -5px;
+        }
+    }
+}

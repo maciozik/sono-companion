@@ -1,0 +1,34 @@
+.play-btn {
+    container-type: size;
+    display: grid;
+    place-items: center;
+    position: relative;
+    aspect-ratio: 1;
+    background-color: var(--bg-contrast);
+    border-radius: 50%;
+    overflow: hidden;
+
+    g-icon {
+        position: absolute;
+        color: var(--cyan);
+        font-size: 64cqh;
+        opacity: 0;
+        transition: opacity 100ms linear;
+    }
+
+    &.adaptative {
+        --play-btn-adaptative-margins: 10px;
+        margin: var(--play-btn-adaptative-margins);
+        top: calc(50% - var(--play-btn-adaptative-margins));
+        left: calc(50% - var(--play-btn-adaptative-margins));
+        transform: translateX(-50%) translateY(-50%);
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    &.ontap:before {
+        --circle-opacity: .15 !important;
+        --circle-animation-duration: 250ms !important;
+        background-color: var(--cyan) !important;
+    }
+}

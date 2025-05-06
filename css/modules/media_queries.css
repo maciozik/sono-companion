@@ -1,0 +1,20 @@
+/* Force a portrait display. */
+@media (min-aspect-ratio: 9/16) {
+
+    main {
+        .view {
+            --maximum-view-width: calc(100dvh * 9 / 16);
+            justify-self: center;
+            inset: 0;
+            width: var(--maximum-view-width);
+        }
+    }
+
+    footer {
+        padding: 0;
+
+        nav {
+            border-radius: 0;
+        }
+    }
+}

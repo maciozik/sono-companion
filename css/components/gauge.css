@@ -1,0 +1,176 @@
+.gauge {
+    --gauge-arc-thickness: 7px;
+    --gauge-graduations-size: 12px;
+    --gauge-graduations-thickness: 4.5px;
+    --gauge-pointer-size: 38%;
+    --gauge-pointer-thickness: 5px;
+    --gauge-pointer-tip-size: 2px;
+    --gauge-pointer-transition-duration: 50ms; /* TODO To override in JS. */
+
+    --gauge-padding-sides: 10%;
+    --gauge-clip-path-margins: 20px;
+    --gcp-bm: calc(100% + 20px);
+    --gcp-pl: calc(var(--gauge-padding-sides) - 1px);
+    --gcp-pr: calc(100% - var(--gauge-padding-sides) + 1px);
+
+    display: grid;
+    padding: var(--gauge-clip-path-margins) var(--gauge-padding-sides) 0;
+    clip-path: polygon(0 0, 100% 0, 100% var(--gcp-bm), var(--gcp-pr) var(--gcp-bm), var(--gcp-pr) 100%, var(--gcp-pl) 100%, var(--gcp-pl) var(--gcp-bm), 0 var(--gcp-bm));
+
+    .gauge-arcs {
+        --gauge-arcs-rotation: 0deg; /* Overridden in JS. */
+        position: relative;
+        transform: rotate(calc(-180deg + var(--gauge-arcs-rotation)));
+        transform-origin: 50% calc(100% - (var(--gauge-graduations-thickness) / 2));
+
+        .gauge-arc-safe, .gauge-arc-danger {
+            display: grid;
+            align-items: center;
+            width: 100%;
+            aspect-ratio: 2/1;
+            border-width: var(--gauge-arc-thickness);
+            border-style: solid;
+            border-bottom: none;
+            border-radius: 100vw 100vw 0 0;
+            transform-origin: 50% 100%;
+
+            .gauge-graduations {
+                position: absolute;
+                left: 50%;
+                bottom: 0;
+                width: calc(50% + 1px);
+                height: var(--gauge-graduations-thickness);
+                transform-origin: 100% 50%;
+
+                .graduation {
+                    --graduation-color: transparent;
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(90deg,
+                        var(--graduation-color) var(--gauge-graduations-size),
+                        transparent var(--gauge-graduations-size));
+                    transform-origin: 100% 50%;
+
+                    /* Gauge Values */
+                    &:before {
+                        content: attr(data-value);
+                        position: absolute;
+                        width: 30px;
+                        color: var(--grey);
+                        transform: rotate(-90deg)
+                            translateX(calc(-1/2 * var(--gauge-graduations-thickness) + 8px))
+                            translateY(calc(-24px - var(--gauge-arc-thickness)));
+                        text-align: center;
+                        font-size: .7rem;
+                        font-weight: 600;
+                        opacity: .5;
+                        transition: all 80ms linear 20ms;
+                    }
+
+                    /* Gauge Indicators */
+                    &:after {
+                        content: attr(data-indicator);
+                        position: absolute;
+                        margin-top: calc(-1 * (-1/2 * var(--gauge-graduations-thickness) + 8px));
+                        margin-left: calc(var(--gauge-graduations-size) + 5px);
+                        font-size: .7rem;
+                        font-weight: 600;
+                        text-transform: uppercase;
+                    }
+
+                    &.active {
+                        &:before {
+                            opacity: 1;
+                            transition: none;
+                        }
+                    }
+
+                    &.indicator-reverse {
+                        &:after {
+                            transform: rotate(180deg);
+                        }
+                    }
+                }
+            }
+        }
+
+        .gauge-arc-safe {
+            position: relative;
+            border-color: var(--cyan);
+            transform: translate3d(0, 0, 0);
+
+            .gauge-graduations {
+                transform: translateX(-100%) rotate(180deg);
+
+                .graduation {
+                    --graduation-color: var(--cyan);
+
+                    &.active {
+                        &:before {
+                            color: var(--invert);
+                        }
+                    }
+
+                    &:after {
+                        color: var(--cyan);
+                    }
+                }
+            }
+        }
+
+        .gauge-arc-danger {
+            content: "";
+            position: absolute;
+            top: 0;
+            margin-top: calc(-1 * var(--gauge-graduations-thickness));
+            border-color: var(--red);
+            transform: rotate(180deg) translate3d(0, 0, 0);
+
+            .gauge-graduations {
+                transform: translateX(-100%);
+
+                .graduation {
+                    --graduation-color: var(--red);
+
+                    &.active {
+                        &:before {
+                            color: var(--red);
+                        }
+                    }
+
+                    &:after {
+                        color: var(--red);
+                    }
+                }
+            }
+        }
+    }
+
+    .gauge-pointer {
+        position: relative;
+        justify-self: center;
+        container-type: size;
+        margin-top: calc(-1 * var(--gauge-pointer-thickness));
+        margin-left: calc(-1 * var(--gauge-pointer-size));
+        width: var(--gauge-pointer-size);
+        height: var(--gauge-pointer-thickness);
+        transform: rotate(0deg);
+        transform-origin: 100% 50%;
+        transition: transform var(--gauge-pointer-transition-duration) ease-out;
+
+        /* Triangle Pointer */
+        &:after {
+            --gauge-pointer-borders-size: (var(--gauge-pointer-thickness) - var(--gauge-pointer-tip-size)) / 2;
+            content: "";
+            position: absolute;
+            right: 0;
+            width: 0;
+            height: 100%;
+            border-right: 100cqw solid var(--invert);
+            border-top: calc(var(--gauge-pointer-borders-size)) solid transparent;
+            border-bottom: calc(var(--gauge-pointer-borders-size)) solid transparent;
+            border-radius: var(--gauge-pointer-thickness);
+        }
+    }
+}
