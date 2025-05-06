@@ -1,5 +1,5 @@
 import * as View from './view.js';
-import { $metronome } from './metronome.js'; // TODO Copy selector instead of importing?
+import { $metronome } from './metronome.js'; // REFACTOR Copy selector instead of importing?
 import * as Settings from './settings.js';
 
 export const DEFAULT_BPM = 90;

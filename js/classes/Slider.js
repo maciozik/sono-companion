@@ -199,7 +199,7 @@ export default class Slider
             console.warn(`The number of values (${nb_values}) exceeds the width of the slider (${this.$sliderLine.width}).`);
         }
 
-        // TODO Remove.
+        // REMOVE For DEV purpose only.
         // this.showVisualClues();
     }
 
@@ -248,7 +248,7 @@ export default class Slider
                 _this.move(event.clientX);
 
                 // Emit the 'move' event on the slider.
-                // TODO Useless?
+                // REMOVE Useless?
                 _this.emitEvent('move', event);
             }
         }, {
@@ -318,8 +318,7 @@ export default class Slider
         if (type !== 'move') console.debugType('emit_event', type, this.value);
     }
 
-    /** FOR DEV PURPOSE ONLY */
-    // TODO Remove.
+    // REMOVE Show visual clues for sliders.
     showVisualClues()
     {
         for (let i = this.min; i <= this.max; i += this.step) {

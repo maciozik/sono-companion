@@ -80,8 +80,8 @@ for (const $loadViewBtn of View.$loadViewBtns) {
         if ('needsAudioPermission' in this.dataset) {
 
             // Check if the audio permission is granted, and show the modal if not.
-            // TODO: Too much code, refactor.
-            // TODO: Open the modal at the load of the app if necessary.
+            // REFACTOR Too much code.
+            // TODO Open the modal at the load of the app if necessary.
             AudioPermission.isGranted(
                 () => {
                     // startAudio();
@@ -97,7 +97,7 @@ for (const $loadViewBtn of View.$loadViewBtns) {
                                 },
                                 null,
                                 () => {
-                                    // TODO: Display another modal to explain how reset permission.
+                                    // TODO Display another modal to explain how reset permission.
                                 }
                             );
                         })
@@ -200,7 +200,7 @@ Settings.init();
 
 
 
-// TODO Move all the code of app.js to their respective modules?
+// REFACTOR Move all the code of app.js to their respective modules?
 // TODO Use @example or ```, and @link for the documentation.
 // TODO Add a data-change-timing to list settings to choose when setting the value and vibrate?
 

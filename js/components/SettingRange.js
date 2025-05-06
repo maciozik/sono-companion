@@ -82,7 +82,7 @@ export default class SettingRange extends Setting
             this.Slider.setPosition();
             this.setSettingValue();
         } else {
-            // TODO The value in the storage is reset before the slider values are initialized.
+            // FIXME The value in the storage is reset before the slider values are initialized.
             // return false;
         }
 

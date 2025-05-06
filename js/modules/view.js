@@ -172,7 +172,7 @@ export function getTabFromViewId(view_id)
  */
 export function updateTab(label, view_id = getCurrent().id)
 {
-    // TODO Automate the update of the tab label (maybe with a data-* attr on the element that must be copy and a onchange() event).
+    // REFACTOR Automate the update of the tab label (maybe with a data-* attr on the element that must be copy and a onchange() event).
     const $tab = getTabFromViewId(view_id);
     $tab.querySelector('.tab-info').textContent = label;
 }
@@ -271,7 +271,7 @@ document.addEventListener('visibilitychange', async () => {
 
 /*  SETTINGS  */
 
-// TODO To refactor.
+// REFACTOR Too much code?
 Settings.oninit(null, function () {
 
     // Load the last view loaded if the user setting is true, and if the tab is visible.

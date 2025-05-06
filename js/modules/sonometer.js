@@ -282,7 +282,7 @@ async function getVolume()
     await audioContext.resume();
 
     // Get the audio stream from the microphone.
-    // TODO Put this in a global function? And manage the audio permission.
+    // REFACTOR Put this in a global function? And manage the audio permission.
     stream = await navigator.mediaDevices.getUserMedia({ audio: true });
     const MicSourceNode = audioContext.createMediaStreamSource(stream);
 
