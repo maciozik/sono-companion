@@ -1,5 +1,4 @@
 import * as View from './view.js';
-import { $metronome } from './metronome.js'; // REFACTOR Copy selector instead of importing?
 import * as Settings from './settings.js';
 
 export const DEFAULT_BPM = 90;
@@ -32,7 +31,7 @@ var tapTempoTimeout;
  */
 export function get(unit = 'bpm')
 {
-    var tempo = parseInt($metronome.dataset.bpm);
+    var tempo = parseInt($bpmValue.dataset.bpm);
     tempo = convert(tempo, 'bpm', unit);
 
     return tempo;
@@ -52,7 +51,7 @@ export function set(bpm)
 
     bpm = Math.round(bpm);
 
-    $metronome.dataset.bpm = bpm;
+    $bpmValue.dataset.bpm = bpm;
     $bpmValue.textContent = bpm;
 
     $tempoMs.querySelector('.value').textContent = get('ms');
