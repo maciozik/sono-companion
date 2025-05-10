@@ -14,17 +14,17 @@ const $metronomeCircle = $metronome.querySelector('.metronome-circle');
 export const $playBtn = document.querySelector('#tempo #tempo-controls .play-btn');
 export const $replayBtn = document.querySelector('#tempo #tempo-controls .metronome-replay-btn');
 
-var metronomeInterval;
+let metronomeInterval;
 
 /**
  * Run the metronome.
  */
 export function run()
 {
-    var bpm = Tempo.get('bpm');
-    var bpm_ms = Tempo.get('ms');
-    var direction = 'right';
-    var feedback_at_run = false;
+    let bpm = Tempo.get('bpm');
+    let bpm_ms = Tempo.get('ms');
+    let direction = 'right';
+    let feedback_at_run = false;
 
     // Set the transition duration to match with the bpm.
     $metronomeCircle.style.transitionDuration = bpm_ms + 'ms';

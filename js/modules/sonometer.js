@@ -21,12 +21,12 @@ export const $playBtn = $view.querySelector('#sonometer-controls .play-btn');
 export const $resetBtn = $view.querySelector('#sonometer-controls .sonometer-reset-btn');
 
 /** @type {AudioContext} */
-var audioContext;
+let audioContext;
 /** @type {Promise<MediaStream>} */
-var stream;
+let stream;
 
 /** @type {{ current: { real_time: number, max_local: number }, average: { value: number, nb: number }, max: number }} */
-var volume = {
+let volume = {
     current: {
         real_time: Gauge.MIN(),
         max_local: Gauge.MIN()
@@ -38,11 +38,11 @@ var volume = {
     max: Gauge.MIN()
 }
 
-var timestamp = 0;
+let timestamp = 0;
 
-var stopped = true;
-var refreshInfosInterval;
-var timestampInterval;
+let stopped = true;
+let refreshInfosInterval;
+let timestampInterval;
 
 /**
  * Run the sonometer.

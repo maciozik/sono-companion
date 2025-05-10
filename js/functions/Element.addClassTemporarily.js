@@ -6,7 +6,7 @@
  */
 Element.prototype.addClassTemporarily = function (class_name, timeout)
 {
-    var $this = this;
+    let $this = this;
     $this.classList.add(class_name);
 
     setTimeout(() => {

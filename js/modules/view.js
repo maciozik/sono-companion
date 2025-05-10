@@ -10,7 +10,7 @@ export const $tabs = $nav.querySelectorAll('.nav-tab');
 
 export const $loadViewBtns = document.querySelectorAll('[data-load]');
 
-var wakeLock = null;
+let wakeLock = null;
 
 /**
  * Load a view.

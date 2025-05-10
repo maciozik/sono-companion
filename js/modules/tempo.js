@@ -20,9 +20,9 @@ const $tempoM = $view.querySelector('#tempo-infos .tempo-m .info');
 
 export const $tapBtn = $view.querySelector('#tempo-controls .tap-tempo-btn');
 
-var tapTempoTimestamps = new Array();
-var tapTempoTimeGaps = new Array();
-var tapTempoTimeout;
+let tapTempoTimestamps = new Array();
+let tapTempoTimeGaps = new Array();
+let tapTempoTimeout;
 
 /**
  * Get the bpm.
@@ -31,7 +31,7 @@ var tapTempoTimeout;
  */
 export function get(unit = 'bpm')
 {
-    var tempo = parseInt($bpmValue.dataset.bpm);
+    let tempo = parseInt($bpmValue.dataset.bpm);
     tempo = convert(tempo, 'bpm', unit);
 
     return tempo;
@@ -68,8 +68,8 @@ export function set(bpm)
  */
 function convert(tempo, from_unit, to_unit)
 {
-    var bpm = new Number();
-    var converted_tempo = new Number();
+    let bpm = new Number();
+    let converted_tempo = new Number();
 
     try {
         // First convert to bpm.
@@ -99,22 +99,22 @@ function convert(tempo, from_unit, to_unit)
  */
 export function tap()
 {
-    var timestamp  = Date.now();
+    let timestamp  = Date.now();
 
     // Save the timestamp of the new tap.
-    var ts_length = tapTempoTimestamps.push(timestamp);
+    let ts_length = tapTempoTimestamps.push(timestamp);
 
     // Reset the timeout at each tap.
     resetTap(TAP_TEMPO_RESET_DELAY);
 
     // If the user tapped at least two times.
     if (ts_length > 1) {
-        var prev_value = tapTempoTimestamps[ts_length-2];
-        var curr_value = tapTempoTimestamps[ts_length-1];
-        var interval = curr_value - prev_value;
+        let prev_value = tapTempoTimestamps[ts_length-2];
+        let curr_value = tapTempoTimestamps[ts_length-1];
+        let interval = curr_value - prev_value;
 
         // Save the time gap between the new tap and the previous.
-        var i_length = tapTempoTimeGaps.push(interval);
+        let i_length = tapTempoTimeGaps.push(interval);
 
         // Remove the oldest time gap if there is too much time gaps.
         if (i_length > TAP_TEMPO_INTERVALS_LIMIT) {
@@ -122,7 +122,7 @@ export function tap()
         }
 
         // Calculate the average.
-        var average = tapTempoTimeGaps.reduce((a, b) => a + b) / i_length;
+        let average = tapTempoTimeGaps.reduce((a, b) => a + b) / i_length;
         set(convert(average, 'ms', 'bpm'));
 
         // Display the visual clues.
