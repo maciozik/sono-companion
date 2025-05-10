@@ -190,14 +190,14 @@ export function init()
     // When everything is loaded.
     window.addEventListener('load', () => {
 
-        // Emit the global 'settings:oninit' event.
-        document.dispatchEvent(new CustomEvent('settings:oninit'));
-
         // Emit the 'oninit' and 'onsync' events on all settings.
         for (let setting of settings) {
             emitEvent(setting.name, setting.value, 'oninit');
             emitEvent(setting.name, setting.value, 'onsync');
         }
+
+        // Emit the global 'settings:oninit' event.
+        document.dispatchEvent(new CustomEvent('settings:oninit'));
 
         // Check if the visibility of some settings must change.
         checkVisibility();

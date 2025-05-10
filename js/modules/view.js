@@ -271,27 +271,14 @@ document.addEventListener('visibilitychange', async () => {
 
 /*  SETTINGS  */
 
-// REFACTOR Too much code?
 Settings.oninit(null, function () {
 
     // Load the last view loaded if the user setting is true, and if the tab is visible.
-    if (
-        Settings.get('show_last_tab_opened')
-    && Settings.get(`enable_${STORAGE_LAST_VIEW_LOADED()}`)
-    ) {
+    if (Settings.get('show_last_tab_opened') && Settings.get(`enable_${STORAGE_LAST_VIEW_LOADED()}`)) {
         load(STORAGE_LAST_VIEW_LOADED());
     }
     // Else, load the first visible tab, or the settings if no tab is visible.
     else {
         load(getFirstVisible() || 'settings');
-    }
-
-    // Show or hide the nav tabs depending on the user settings.
-    for (const $tab of $tabs) {
-        if (Settings.get(`enable_${$tab.dataset.load}`)) {
-            $tab.classList.remove('hide');
-        } else {
-            $tab.classList.add('hide');
-        }
     }
 });
