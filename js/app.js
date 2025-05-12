@@ -51,156 +51,17 @@ if (!ENV.DEV_MODE) {
     document.addEventListener("contextmenu", event => event.preventDefault());
 }
 
-/**  VIEWS  **/
+/**  MODULES  **/
 
-// Prevent any interaction on disabled elements.
-['click', 'pointerdown', 'pointerup'].forEach(event_type => {
-    document.addEventListener(event_type, event => {
-        if (event.target.closest('.disabled')) {
-            event.stopPropagation();
-            event.preventDefault();
-        }
-    }, true);
-});
-
-// Click on elements that load a view.
-for (const $loadViewBtn of View.$loadViewBtns) {
-
-    $loadViewBtn.addEventListener('pointerdown', function () {
-
-        let view_id = this.dataset.load;
-
-        // Hide all existing modals instantly.
-        Modal.close(0, true);
-
-        // Load the view.
-        View.load(view_id);
-
-        // If the view loaded needs the audio permission.
-        if ('needsAudioPermission' in this.dataset) {
-
-            // Check if the audio permission is granted, and show the modal if not.
-            // REFACTOR Too much code.
-            // TODO Open the modal at the load of the app if necessary.
-            AudioPermission.isGranted(
-                () => {
-                    // startAudio();
-                },
-                () => {
-                    (new Modal("Accès au microphone"))
-                        .setText(ENV.APP.NAME + " a besoin de l'accès à votre microphone pour analyser le son ambiant.")
-                        .setPrimaryBtn(`Donner l'accès <g-icon data-name="mic" class="right"></g-icon>`, () => {
-                            AudioPermission.grant(
-                                () => {
-                                    Modal.close();
-                                    // startAudio();
-                                },
-                                null,
-                                () => {
-                                    // TODO Display another modal to explain how reset permission.
-                                }
-                            );
-                        })
-                        .setSecondaryBtn(null)
-                        .setContext('view')
-                        .disallowClickOutside()
-                        .open();
-                }
-            );
-        }
-    });
-}
-
-/**  VIEW: Sonometer  **/
-
-// TODO Keep pressing for 0.5s to reset?
-Sonometer.$resetBtn.addEventListener('pointerup', function () {
-    View.stop();
-});
-
-/**  VIEW: Tempo  **/
-
-// Click on a bpm modifier button.
-for (const $bpmModifierBtn of Tempo.$bpmModifierBtns) {
-
-    $bpmModifierBtn.addEventListener('click', function () {
-        let modifier = this.dataset.modifier;
-        let bpm = Tempo.get('bpm');
-
-        switch (modifier) {
-            case 'x2': bpm *= 2; break;
-            case '/2': bpm /= 2; break;
-            default  : bpm += parseInt(modifier); break;
-        }
-
-        View.stop();
-        Tempo.set(bpm);
-    });
-}
-
-// Click on the metronome replay button.
-Metronome.$replayBtn.addEventListener('pointerdown', function () {
-    Metronome.replay();
-});
-
-// Click on the Tap Tempo button.
-Tempo.$tapBtn.addEventListener('pointerdown', () => {
-    View.stop();
-    Tempo.tap();
-});
-
-Tempo.set(Tempo.DEFAULT_BPM);
-
-/* VIEW: Settings */
-
-// For each setting.
-for (const $setting of Settings.$settings) {
-
-    // Click on a setting.
-    $setting.addEventListener('click', function () {
-
-        // If the setting is a switch.
-        if (this instanceof SettingSwitch)      this.toggle();
-        // If the setting is a list.
-        else if (this instanceof SettingList)   this.showList();
-        // If the setting is an action.
-        else if (this instanceof SettingAction) this.handle();
-    });
-
-    // Show or hide the reset button when a setting changes.
-    Settings.onsync($setting.name, (event) => {
-
-        if (event.detail.value === $setting.default_value) {
-            $setting.querySelector('.reset-btn')?.classList.add('hide');
-        } else {
-            $setting.querySelector('.reset-btn')?.classList.remove('hide');
-        }
-    });
-}
-
-// Click on a select item in the modal.
-Modal.$modal.addDynamicEventListener('click', '.select-item', function () {
-    SettingList.selectItem(this, Modal.$modal);
-});
-
-// Click on a reset button of a setting.
-document.querySelectorAll('.setting .reset-btn').forEach($resetBtn => {
-
-    $resetBtn.addEventListener('click', function (event) {
-
-        const $setting = this.closest('.setting');
-        $setting.reset();
-
-        event.stopPropagation()
-    });
-});
-
-// Init the settings.
-Settings.init();
+View.__init__();
+Sonometer.__init__();
+Gauge.__init__();
+Tempo.__init__();
+Metronome.__init__();
+Settings.__init__();
 
 
 
-// REFACTOR Move all the code of app.js to their respective modules?
 // TODO Use @example or ```, and @link for the documentation.
 // TODO Add a data-change-timing to list settings to choose when setting the value and vibrate?
 
@@ -209,6 +70,8 @@ Settings.init();
 
 
 
+
+// REMOVE Example code for spectrum.
 
 // 31 bandes.
 const bandFrequencies = [20, 25, 31, 40, 50, 63, 80, 100, 125, 160, 200, 250, 315,

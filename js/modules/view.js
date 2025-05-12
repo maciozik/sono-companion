@@ -1,5 +1,7 @@
-import * as Storage from './storage.js';
+import Modal from '../classes/Modal.js';
 import * as Settings from './settings.js';
+import * as Storage from './storage.js';
+import * as AudioPermission from './utils/audio_permission.js';
 
 export const STORAGE_LAST_VIEW_LOADED = () => Storage.get('last_view_loaded') || 'sonometer';
 
@@ -224,61 +226,125 @@ async function releaseWakeLock()
     });
 }
 
-/*  EVENT LISTENERS  */
+/**
+ * Init the module and its components.
+ * Called once.
+ */
+export function __init__()
+{
+    // Click on elements that load a view.
+    for (const $loadViewBtn of $loadViewBtns) {
 
-// Bind an event to the play button of every views, if it exists.
-for (const $view of $views) {
+        $loadViewBtn.addEventListener('pointerdown', function () {
 
-    const $playBtn = $view.querySelector('.play-btn');
+            let view_id = this.dataset.load;
 
-    if ($playBtn !== null) {
+            // Hide all existing modals instantly.
+            Modal.close(0, true);
 
-        let event = ($playBtn.classList.contains('on-pointer-down')) ? 'pointerdown' : 'pointerup'
+            // Load the view.
+            load(view_id);
 
-        $playBtn.addEventListener(event, () => {
+            // If the view loaded needs the audio permission.
+            // REFACTOR Move to a new file.
+            if ('needsAudioPermission' in this.dataset) {
 
-            // Define the mode that should be set.
-            let non_run_mode = ($playBtn.querySelector('.pause') !== null) ? 'pause' : 'stop';
-
-            if (!isRun() || isPause()) {
-                run($view.id);
-            } else if (non_run_mode === 'pause') {
-                pause($view.id);
-            } else {
-                stop($view.id);
+                // Check if the audio permission is granted, and show the modal if not.
+                // REFACTOR Too much code.
+                // TODO Open the modal at the load of the app if necessary.
+                AudioPermission.isGranted(
+                    () => {
+                        // startAudio();
+                    },
+                    () => {
+                        (new Modal("Accès au microphone"))
+                            .setText(ENV.APP.NAME + " a besoin de l'accès à votre microphone pour analyser le son ambiant.")
+                            .setPrimaryBtn(`Donner l'accès <g-icon data-name="mic" class="right"></g-icon>`, () => {
+                                AudioPermission.grant(
+                                    () => {
+                                        Modal.close();
+                                        // startAudio();
+                                    },
+                                    null,
+                                    () => {
+                                        // TODO Display another modal to explain how reset permission.
+                                    }
+                                );
+                            })
+                            .setSecondaryBtn(null)
+                            .setContext('view')
+                            .disallowClickOutside()
+                            .open();
+                    }
+                );
             }
         });
     }
-}
 
-// Listen the settings to toggle the visibility of the tabs if necessary.
-$nav.querySelectorAll('.nav-tab').forEach($tab => {
-    let view_id = $tab.dataset.load;
-    let event_type = `enable_${view_id}`;
+    // Bind an event to the play button of every views, if it exists.
+    // REFACTOR Too much code.
+    for (const $view of $views) {
 
-    Settings.onsync(event_type, event => {
-        setTabVisibility(view_id, event.detail.value);
+        const $playBtn = $view.querySelector('.play-btn');
+
+        if ($playBtn !== null) {
+
+            let event = ($playBtn.classList.contains('on-pointer-down')) ? 'pointerdown' : 'pointerup'
+
+            $playBtn.addEventListener(event, () => {
+
+                // Define the mode that should be set.
+                let non_run_mode = ($playBtn.querySelector('.pause') !== null) ? 'pause' : 'stop';
+
+                if (!isRun() || isPause()) {
+                    run($view.id);
+                } else if (non_run_mode === 'pause') {
+                    pause($view.id);
+                } else {
+                    stop($view.id);
+                }
+            });
+        }
+    }
+
+    // Prevent any interaction on disabled elements.
+    ['click', 'pointerdown', 'pointerup'].forEach(event_type => {
+        document.addEventListener(event_type, event => {
+            if (event.target.closest('.disabled')) {
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        }, true);
     });
-});
 
-// Request the Wake Lock if necessary when the app gets the focus.
-// TODO Pause or stop the view if the state is not visible (emit an event?).
-document.addEventListener('visibilitychange', async () => {
-    if (isRun() && !isPause() && document.visibilityState === 'visible') {
-        requestWakeLock();
-    }
-});
+    // Listen the settings to toggle the visibility of the tabs if necessary.
+    $nav.querySelectorAll('.nav-tab').forEach($tab => {
+        let view_id = $tab.dataset.load;
+        let event_type = `enable_${view_id}`;
 
-/*  SETTINGS  */
+        Settings.onsync(event_type, event => {
+            setTabVisibility(view_id, event.detail.value);
+        });
+    });
 
-Settings.oninit(null, function () {
+    // Request the Wake Lock if necessary when the app gets the focus.
+    // TODO Pause or stop the view if the state is not visible (emit an event?).
+    document.addEventListener('visibilitychange', async () => {
+        if (isRun() && !isPause() && document.visibilityState === 'visible') {
+            requestWakeLock();
+        }
+    });
 
-    // Load the last view loaded if the user setting is true, and if the tab is visible.
-    if (Settings.get('show_last_tab_opened') && Settings.get(`enable_${STORAGE_LAST_VIEW_LOADED()}`)) {
-        load(STORAGE_LAST_VIEW_LOADED());
-    }
-    // Else, load the first visible tab, or the settings if no tab is visible.
-    else {
-        load(getFirstVisible() || 'settings');
-    }
-});
+    // Load the correct view at launch.
+    Settings.oninit(null, function () {
+
+        // Load the last view loaded if the user setting is true, and if the tab is visible.
+        if (Settings.get('show_last_tab_opened') && Settings.get(`enable_${STORAGE_LAST_VIEW_LOADED()}`)) {
+            load(STORAGE_LAST_VIEW_LOADED());
+        }
+        // Else, load the first visible tab, or the settings if no tab is visible.
+        else {
+            load(getFirstVisible() || 'settings');
+        }
+    });
+}

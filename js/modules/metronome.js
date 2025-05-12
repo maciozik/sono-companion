@@ -122,6 +122,13 @@ function feedback()
     }
 }
 
-// Listen the events emitted by the view.
-document.addEventListener('run:tempo', run);
-document.addEventListener('stop:tempo', stop);
+/**
+ * Init the module and its components.
+ * Called once.
+ */
+export function __init__()
+{
+    // Listen the events emitted by the view.
+    document.addEventListener('run:tempo', run);
+    document.addEventListener('stop:tempo', stop);
+}

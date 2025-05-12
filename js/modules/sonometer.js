@@ -300,17 +300,30 @@ async function getVolume()
     };
 }
 
-// Listen the events emitted by the view.
-document.addEventListener('run:sonometer', run);
-document.addEventListener('pause:sonometer', pause);
-document.addEventListener('stop:sonometer', reset);
+/**
+ * Init the module and its components.
+ * Called once.
+ */
+export function __init__()
+{
+    // Click on the reset button.
+    // TODO Keep pressing for 0.5s to reset?
+    $resetBtn.addEventListener('pointerup', function () {
+        View.stop();
+    });
 
-// Show the audio calibration information.
-Settings.onsync('audio_calibration', event => {
-    setCalibrationInfo(event.detail.value);
-});
+    // Show the audio calibration information.
+    Settings.onsync('audio_calibration', event => {
+        setCalibrationInfo(event.detail.value);
+    });
 
-// Show or hide the timestamp.
-Settings.onsync('show_timestamp', event => {
-    $playBtn.classList.toggle('no-timestamp', !event.detail.value);
-});
+    // Show or hide the timestamp.
+    Settings.onsync('show_timestamp', event => {
+        $playBtn.classList.toggle('no-timestamp', !event.detail.value);
+    });
+
+    // Listen the events emitted by the view.
+    document.addEventListener('run:sonometer', run);
+    document.addEventListener('pause:sonometer', pause);
+    document.addEventListener('stop:sonometer', reset);
+}

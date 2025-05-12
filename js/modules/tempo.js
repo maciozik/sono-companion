@@ -1,4 +1,5 @@
 import * as View from './view.js';
+import * as Metronome from './metronome.js';
 import * as Settings from './settings.js';
 
 export const DEFAULT_BPM = 90;
@@ -145,11 +146,51 @@ export function resetTap(delay = 0)
     }, delay);
 }
 
-// Update the bpm if the settings change.
-Settings.onchange(['bpm_min', 'bpm_max'], event => {
-    let bpm = get();
-    bpm = Math.clamp(bpm, BPM_MIN(), BPM_MAX());
-    set(bpm);
+/**
+ * Init the module and its components.
+ * Called once.
+ */
+export function __init__()
+{
+    // Set the default tempo.
+    set(DEFAULT_BPM);
 
-    View.stop('tempo');
-});
+    // Click on a bpm modifier button.
+    for (const $bpmModifierBtn of $bpmModifierBtns) {
+
+        $bpmModifierBtn.addEventListener('click', function () {
+            let modifier = this.dataset.modifier;
+            let bpm = get('bpm');
+
+            switch (modifier) {
+                case 'x2': bpm *= 2; break;
+                case '/2': bpm /= 2; break;
+                default  : bpm += parseInt(modifier); break;
+            }
+
+            View.stop();
+            set(bpm);
+        });
+    }
+
+    // Click on the metronome replay button.
+    // FIXME: Do not import metronome.js globally.
+    Metronome.$replayBtn.addEventListener('pointerdown', function () {
+        Metronome.replay();
+    });
+
+    // Click on the Tap Tempo button.
+    $tapBtn.addEventListener('pointerdown', () => {
+        View.stop();
+        tap();
+    });
+
+    // Update the bpm if the settings change.
+    Settings.onchange(['bpm_min', 'bpm_max'], event => {
+        let bpm = get();
+        bpm = Math.clamp(bpm, BPM_MIN(), BPM_MAX());
+        set(bpm);
+
+        View.stop('tempo');
+    });
+}

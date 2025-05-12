@@ -1,5 +1,7 @@
+import Modal from '../classes/Modal.js';
 import Setting from '../classes/Setting.js';
 import SettingSwitch from '../components/SettingSwitch.js';
+import SettingList from '../components/SettingList.js';
 import SettingAction from '../components/SettingAction.js';
 import * as Storage from './storage.js';
 
@@ -287,11 +289,56 @@ export function onsync(setting_names, callback)
     bindEvent(setting_names, callback, 'onsync');
 }
 
-/*  EVENT LISTENERS  */
+/**
+ * Init the module and its components.
+ * Called once.
+ */
+export function __init__()
+{
+    // For each setting.
+    for (const $setting of $settings) {
 
-// TODO Finish.
-onsync('gauge_step', event => {
-    document.querySelector('.setting[data-name=gauge_min]').setStep(event.detail.value);
-    document.querySelector('.setting[data-name=gauge_max]').setStep(event.detail.value);
-    document.querySelector('.setting[data-name=danger_zone]').setStep(event.detail.value);
-});
+        // Click on a setting.
+        $setting.addEventListener('click', function () {
+
+            // If the setting is a switch.
+            if (this instanceof SettingSwitch)      this.toggle();
+            // If the setting is a list.
+            else if (this instanceof SettingList)   this.showList();
+            // If the setting is an action.
+            else if (this instanceof SettingAction) this.handle();
+        });
+
+        // Show or hide the reset button when a setting changes.
+        onsync($setting.name, (event) => {
+            let is_default = event.detail.value === $setting.default_value;
+            $setting.querySelector('.reset-btn')?.classList.toggle('hide', is_default);
+        });
+    }
+
+    // Click on a select item in the modal.
+    Modal.$modal.addDynamicEventListener('click', '.select-item', function () {
+        SettingList.selectItem(this, Modal.$modal);
+    });
+
+    // Click on a reset button of a setting.
+    document.querySelectorAll('.setting .reset-btn').forEach($resetBtn => {
+
+        $resetBtn.addEventListener('click', function (event) {
+            const $setting = this.closest('.setting');
+            $setting.reset();
+            event.stopPropagation()
+        });
+    });
+
+    // Change the gauge parameters.
+    // TODO Finish.
+    onsync('gauge_step', event => {
+        document.querySelector('.setting[data-name=gauge_min]').setStep(event.detail.value);
+        document.querySelector('.setting[data-name=gauge_max]').setStep(event.detail.value);
+        document.querySelector('.setting[data-name=danger_zone]').setStep(event.detail.value);
+    });
+
+    // Init the settings.
+    init();
+}

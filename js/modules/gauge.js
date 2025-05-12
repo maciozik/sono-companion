@@ -109,8 +109,15 @@ function convertToDegree(value)
     return value * 180 / (MAX() - MIN());
 }
 
-// Create the gauge once the settings are initialized.
-Settings.oninit(null, create);
+/**
+ * Init the module and its components.
+ * Called once.
+ */
+export function __init__()
+{
+    // Create the gauge once the settings are initialized.
+    Settings.oninit(null, create);
 
-// Recreate the gauge if the settings change.
-Settings.onchange(['gauge_min', 'gauge_max', 'danger_zone', 'gauge_step'], recreate);
+    // Recreate the gauge if the settings change.
+    Settings.onchange(['gauge_min', 'gauge_max', 'danger_zone', 'gauge_step'], recreate);
+}
