@@ -20,12 +20,12 @@ import SettingRange from './components/SettingRange.js';
 import SettingAction from './components/SettingAction.js';
 import Modal from './classes/Modal.js';
 
-import * as Settings from './modules/settings.js';
 import * as View from './modules/view.js';
 import * as Sonometer from './modules/sonometer.js';
 import * as Gauge from './modules/gauge.js';
 import * as Tempo from './modules/tempo.js';
 import * as Metronome from './modules/metronome.js';
+import * as Settings from './modules/settings.js';
 
 import * as AudioPermission from './modules/utils/audio_permission.js';
 import './modules/utils/tappable.js';
@@ -53,17 +53,21 @@ if (!ENV.DEV_MODE) {
 
 /**  MODULES  **/
 
-View.__init__();
-Sonometer.__init__();
-Gauge.__init__();
-Tempo.__init__();
-Metronome.__init__();
-Settings.__init__();
+const modules = {
+    View,
+    Sonometer,
+    Gauge,
+    Tempo,
+    Metronome,
+    Settings
+};
 
-
-
-// TODO Use @example or ```, and @link for the documentation.
-// TODO Add a data-change-timing to list settings to choose when setting the value and vibrate?
+// Call the __init__ function of each module by passing them all modules reference.
+for (const module of Object.values(modules)) {
+    if (typeof module.__init__ === 'function') {
+        module.__init__(modules);
+    }
+}
 
 
 

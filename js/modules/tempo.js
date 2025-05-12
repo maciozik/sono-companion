@@ -1,5 +1,3 @@
-import * as View from './view.js';
-import * as Metronome from './metronome.js';
 import * as Settings from './settings.js';
 
 export const DEFAULT_BPM = 90;
@@ -148,9 +146,10 @@ export function resetTap(delay = 0)
 
 /**
  * Init the module and its components.
- * Called once.
+ * Called only once during application startup.
+ * @param {Object} modules All the main modules loaded in app.js, got via destructuring.
  */
-export function __init__()
+export function __init__({ View, Metronome, Settings })
 {
     // Set the default tempo.
     set(DEFAULT_BPM);
@@ -174,7 +173,6 @@ export function __init__()
     }
 
     // Click on the metronome replay button.
-    // FIXME: Do not import metronome.js globally.
     Metronome.$replayBtn.addEventListener('pointerdown', function () {
         Metronome.replay();
     });

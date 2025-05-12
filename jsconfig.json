@@ -9,6 +9,9 @@
         "strictFunctionTypes": true,
         "strictNullChecks": true
     },
+    "include": [
+        "**/*.js"
+    ],
     "exclude": [
         "node_modules",
         "**/node_modules/*"

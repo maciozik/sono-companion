@@ -2,7 +2,7 @@
 
 ### Sonomètre
   - [ ] Exposimètre / Alerte au dépassement du maximum sur une période ?
-  - [ ] Affichage db(A), dB(C), ...
+  - [ ] Affichage db(A), dB\(C), ...
 
 ### Spectre
   - [ ] Spectre en fréquences / 31 bandes.
@@ -34,9 +34,11 @@
 ### Global
   - [ ] Changer pour des paramètres indépendants pour chaque vue ?
   - [ ] **Pour toutes les vues :** choix de l'info à afficher dans le **nav tab** ?
+  - [ ] Permettre de définir le timing de changement de valeur et de vibration sur les `SettingList`.
+    -  Ajouter un attribut `data-change-after` aux `<setting-list>`, avec comme valeurs possibles `select` et `modal-close`.
 
 ### Sonomètre
-  - [ ] Écart entre les graduations de 5, 10 ou 20 ?
+  - [ ] Écart entre les graduations de 5, 10 ou 20 dB ?
   - [ ] Temps de refresh des infos.
     - Peut-être passer en real-time pour la valeur courante si le temps de refresh devient long.
 
