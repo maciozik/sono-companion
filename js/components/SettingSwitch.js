@@ -34,6 +34,14 @@ export default class SettingSwitch extends Setting
     }
 
     /**
+     * Entry point at a user interaction.
+     */
+    trigger()
+    {
+        this.toggle();
+    }
+
+    /**
      * Set the value of the switch.
      * @param {boolean} value
      * @returns {true}

@@ -48,6 +48,16 @@ export default class Setting extends HTMLElement
     }
 
     /**
+     * Entry point at a user interaction.
+     * @abstract This method **must** be implemented in the `Setting*` child classes, if the user can click it.
+     */
+    trigger()
+    {
+        console.error('The method trigger() is not implemented.');
+        return false;
+    }
+
+    /**
      * Set the value of the setting.
      * @abstract This method **must** be implemented in the `Setting*` child classes, if the type of setting admits a value.
      * @returns {boolean} False if the value cannot be set.

@@ -1,5 +1,5 @@
-import Setting from '../classes/Setting.js';
 import Modal from '../classes/Modal.js';
+import Setting from '../classes/Setting.js';
 
 export default class SettingAction extends Setting
 {
@@ -38,6 +38,14 @@ export default class SettingAction extends Setting
 
         // Set the action.
         this.setAction();
+    }
+
+    /**
+     * Entry point at a user interaction.
+     */
+    trigger()
+    {
+        this.handle();
     }
 
     /**

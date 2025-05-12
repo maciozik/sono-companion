@@ -82,8 +82,8 @@ export default class SettingRange extends Setting
             this.Slider.setPosition();
             this.setSettingValue();
         } else {
-            // FIXME The value in the storage is reset before the slider values are initialized.
-            // return false;
+            // FIXME Fixed? The value in the storage is reset before the slider values are initialized.
+            return false;
         }
 
         return true;
@@ -172,6 +172,9 @@ export default class SettingRange extends Setting
             app.vibrate();
         });
     }
+
+    // These methods are not implemented in this class.
+    trigger() { return false; }
 }
 
 customElements.define('setting-range', SettingRange);

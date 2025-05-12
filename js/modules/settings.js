@@ -1,6 +1,5 @@
 import Modal from '../classes/Modal.js';
 import Setting from '../classes/Setting.js';
-import SettingSwitch from '../components/SettingSwitch.js';
 import SettingList from '../components/SettingList.js';
 import SettingAction from '../components/SettingAction.js';
 import * as Storage from './storage.js';
@@ -300,13 +299,7 @@ export function __init__()
 
         // Click on a setting.
         $setting.addEventListener('click', function () {
-
-            // If the setting is a switch.
-            if (this instanceof SettingSwitch)      this.toggle();
-            // If the setting is a list.
-            else if (this instanceof SettingList)   this.showList();
-            // If the setting is an action.
-            else if (this instanceof SettingAction) this.handle();
+            this.trigger();
         });
 
         // Show or hide the reset button when a setting changes.

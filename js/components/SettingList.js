@@ -1,5 +1,5 @@
-import Setting from '../classes/Setting.js';
 import Modal from '../classes/Modal.js';
+import Setting from '../classes/Setting.js';
 import * as Settings from '../modules/settings.js';
 
 export default class SettingList extends Setting
@@ -29,6 +29,14 @@ export default class SettingList extends Setting
 
         // Set the necessary elements.
         this.$list = this.querySelector('.select-list');
+    }
+
+    /**
+     * Entry point at a user interaction.
+     */
+    trigger()
+    {
+        this.showList();
     }
 
     /**
