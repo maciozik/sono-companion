@@ -19,6 +19,7 @@
         margin: 0 calc(var(--slider-thumb-size) / 2);
         width: 100%;
         height: var(--slider-line-height);
+        color: var(--cyan);
         background-color: var(--grey-pale);
         border-radius: calc(var(--slider-line-height) / 2);
         transition: height 80ms linear;
@@ -26,7 +27,7 @@
         .slider-fill {
             width: var(--slider-thumb-left);
             height: 100%;
-            background-color: var(--cyan);
+            background-color: currentColor;
             border-radius: inherit;
         }
 
@@ -36,7 +37,7 @@
             width: var(--slider-thumb-size);
             aspect-ratio: 1;
             transform: translateX(-50%);
-            background-color: var(--cyan);
+            background-color: currentColor;
             border-radius: 50%;
             transition: box-shadow 100ms linear;
         }

@@ -140,16 +140,12 @@
             }
 
             .switch {
-                background-color: var(--grey-pale);
-
-                &:before {
-                    border-color: var(--grey-pale);
-                }
+                color: var(--grey-pale);
             }
 
             .slider {
-                .slider-fill, .slider-thumb {
-                    background-color: var(--grey-pale);
+                .slider-line {
+                    color: var(--grey-pale);
                 }
             }
         }
