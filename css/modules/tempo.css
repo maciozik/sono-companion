@@ -1,3 +1,12 @@
+@keyframes tap-tempo-btn-blink {
+    from, 30% {
+        color: var(--yellow);
+    }
+    70%, to {
+        color: var(--grey);
+    }
+}
+
 #tempo {
     /* View Layout */
     --tempo-metro-mt: 5%;
@@ -123,8 +132,15 @@
         }
 
         .tap-tempo-btn {
+
             &.active {
                 color: var(--yellow);
+            }
+
+            &.blink {
+                animation: tap-tempo-btn-blink 250ms linear 450ms infinite;
+                animation-iteration-count: infinite;
+                animation-direction: alternate;
             }
         }
     }

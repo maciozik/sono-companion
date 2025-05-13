@@ -106,6 +106,9 @@ export function tap()
     // Reset the timeout at each tap.
     resetTap(TAP_TEMPO_RESET_DELAY);
 
+    // Change the color.
+    $tapBtn.classList.add('active', 'blink');
+
     // If the user tapped at least two times.
     if (ts_length > 1) {
         let prev_value = tapTempoTimestamps[ts_length-2];
@@ -124,9 +127,9 @@ export function tap()
         let average = tapTempoTimeGaps.reduce((a, b) => a + b) / i_length;
         set(convert(average, 'ms', 'bpm'));
 
-        // Display the visual clues.
+        // Toggle the visual clues.
         $bpmValue.classList.add('tap-tempo-listen');
-        $tapBtn.addClassTemporarily('active', 100);
+        $tapBtn.classList.remove('blink');
     }
 }
 
@@ -137,10 +140,12 @@ export function tap()
 export function resetTap(delay = 0)
 {
     clearTimeout(tapTempoTimeout);
+
     tapTempoTimeout = setTimeout(() => {
         tapTempoTimestamps = [];
         tapTempoTimeGaps = [];
         $bpmValue.classList.remove('tap-tempo-listen');
+        $tapBtn.classList.remove('active', 'blink');
     }, delay);
 }
 
