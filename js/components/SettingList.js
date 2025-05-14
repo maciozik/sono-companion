@@ -123,19 +123,17 @@ export default class SettingList extends Setting
 
         // Set the content.
         this.innerHTML = `
-            <div class="setting-top">
-                <div class="setting-text">
-                    <p class="setting-title ${ this.danger ? 'danger' : ''}">
-                        ${this.title} ${super.getResetButtonHTML()}
-                    </p>
-                    ${super.getInfoHTML()}
+            <div class="setting-text">
+                <p class="setting-title ${ this.danger ? 'danger' : ''}">
+                    ${this.title} ${super.getResetButtonHTML()}
+                </p>
+                ${super.getInfoHTML()}
+            </div>
+            <div class="setting-choice">
+                <div class="select-list">
+                    ${this.getSelectItemsHTML()}
                 </div>
-                <div class="setting-choice">
-                    <div class="select-list">
-                        ${this.getSelectItemsHTML()}
-                    </div>
-                    <g-icon data-name="chevron_right"></g-icon>
-                </div>
+                <g-icon data-name="chevron_right"></g-icon>
             </div>
         `;
     }

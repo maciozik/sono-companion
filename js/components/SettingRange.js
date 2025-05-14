@@ -114,23 +114,19 @@ export default class SettingRange extends Setting
 
         // Set the content.
         this.innerHTML = `
-            <div class="setting-top">
-                <div class="setting-text">
-                    <p class="setting-title ${ this.danger ? 'danger' : ''}">
-                        ${this.title} ${super.getResetButtonHTML()}
-                    </p>
-                    ${super.getInfoHTML()}
-                </div>
-                <div class="setting-choice">
-                    <div class="setting-value"></div>
-                </div>
+            <div class="setting-text">
+                <p class="setting-title ${ this.danger ? 'danger' : ''}">
+                    ${this.title} ${super.getResetButtonHTML()}
+                </p>
+                ${super.getInfoHTML()}
             </div>
-            <div class="setting-bottom">
-                <div class="slider" data-value="${this.value}" data-suffix="${this.suffix}" data-min="${this.min}" data-max="${this.max}" data-step="${this.step}">
-                    <div class="slider-line">
-                        <div class="slider-fill"></div>
-                        <div class="slider-thumb"></div>
-                    </div>
+            <div class="setting-choice">
+                <div class="setting-value"></div>
+            </div>
+            <div class="slider" data-value="${this.value}" data-suffix="${this.suffix}" data-min="${this.min}" data-max="${this.max}" data-step="${this.step}">
+                <div class="slider-line">
+                    <div class="slider-fill"></div>
+                    <div class="slider-thumb"></div>
                 </div>
             </div>
         `;

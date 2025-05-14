@@ -21,7 +21,11 @@
 
     .setting {
         display: grid;
-        align-items: center;
+        grid-template-rows: minmax(0, 1fr);
+        grid-template-areas:
+            "text choice"
+            "slider slider";
+        grid-column-gap: 20px;
         padding: 9px 0 10px;
         min-height: 68px;
         overflow: hidden;
@@ -30,101 +34,95 @@
         //     border-bottom: 1px solid #FFF1;
         // }
 
-        .setting-top, .setting-bottom {
-            padding: 0 var(--setting-padding-sides);
-            width: 100%;
-        }
+        .setting-text {
+            grid-area: text;
+            align-self: center;
+            padding-left: var(--setting-padding-sides);
 
-        .setting-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
+            .setting-title {
+                font-size: .85rem;
 
-            .setting-text {
+                .reset-btn {
+                    display: inline-block;
+                    padding: 2px 2px 0;
+                    color: var(--yellow);
+                    font-size: .98em;
+                    font-weight: bold;
+                    line-height: 0;
+                    transform: translateY(2px);
 
-                .setting-title {
-                    font-size: .85rem;
-
-                    .reset-btn {
-                        display: inline-block;
-                        padding: 2px 2px 0;
-                        color: var(--yellow);
-                        font-size: .98em;
-                        font-weight: bold;
-                        line-height: 0;
-                        transform: translateY(2px);
-
-                        &.hide {
-                            display: none;
-                        }
-                    }
-
-                    &.danger {
-                        color: var(--red);
-                    }
-                }
-
-                .setting-info {
-                    margin-top: 3px;
-                    color: var(--grey);
-                    font-size: .7rem;
-                    line-height: 1.2em;
-                    letter-spacing: -0.04px;
-                }
-            }
-
-            .setting-choice {
-                display: flex;
-                justify-content: right;
-                align-items: center;
-                white-space: nowrap;
-
-                // TODO Regroup all in one classname?
-                .select-list, .setting-value, g-icon {
-                    line-height: 2rem;
-                }
-
-                .select-list, .setting-value {
-                    /* TODO Manage the changes of the width due to change of content differently? */
-                    /* Put each value on a ghost element to calculate the max width? */
-                    min-width: 60px;
-                    color: var(--grey);
-                    font-size: .8rem;
-                    font-weight: 500;
-                    text-align: right;
-                    letter-spacing: -0.2px;
-                    transition: color 80ms linear;
-
-                    .select-item {
+                    &.hide {
                         display: none;
-
-                        &[data-selected] {
-                            display: block;
-                        }
-
-                        .radio-btn {
-                            display: none;
-                        }
-                    }
-
-                    &.active {
-                        color: var(--invert);
                     }
                 }
 
-                & > g-icon {
-                    margin-left: 2px;
-                    margin-right: -7px;
-                    font-size: 1.5rem;
+                &.danger {
+                    color: var(--red);
                 }
+            }
+
+            .setting-info {
+                margin-top: 3px;
+                color: var(--grey);
+                font-size: .7rem;
+                line-height: 1.2em;
+                letter-spacing: -0.04px;
             }
         }
 
-        .setting-bottom {
-            .slider {
-                margin-top: 4px;
+        .setting-choice {
+            grid-area: choice;
+            display: flex;
+            justify-self: right;
+            align-items: center;
+            padding-right: var(--setting-padding-sides);
+            white-space: nowrap;
+
+            // TODO Regroup all in one classname?
+            .select-list, .setting-value, g-icon {
+                line-height: 2rem;
             }
+
+            .select-list, .setting-value {
+                /* TODO Manage the changes of the width due to change of content differently? */
+                /* Put each value on a ghost element to calculate the max width? */
+                min-width: 60px;
+                color: var(--grey);
+                font-size: .8rem;
+                font-weight: 500;
+                text-align: right;
+                letter-spacing: -0.2px;
+                transition: color 80ms linear;
+
+                .select-item {
+                    display: none;
+
+                    &[data-selected] {
+                        display: block;
+                    }
+
+                    .radio-btn {
+                        display: none;
+                    }
+                }
+
+                &.active {
+                    color: var(--invert);
+                }
+            }
+
+            & > g-icon {
+                margin-left: 2px;
+                margin-right: -7px;
+                font-size: 1.5rem;
+            }
+        }
+
+        .slider {
+            grid-area: slider;
+            margin-top: 4px;
+            padding-left: var(--setting-padding-sides);
+            padding-right: var(--setting-padding-sides);
         }
 
         &.disabled {

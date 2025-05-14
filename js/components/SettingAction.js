@@ -135,16 +135,14 @@ export default class SettingAction extends Setting
 
         // Set the content.
         this.innerHTML = `
-            <div class="setting-top">
-                <div class="setting-text">
-                    <p class="setting-title ${ this.danger ? 'danger' : ''}">
-                        ${this.title}
-                    </p>
-                    ${this.getInfoHTML()}
-                </div>
-                <div class="setting-choice">
-                    ${this.getRightIconHTML()}
-                </div>
+            <div class="setting-text">
+                <p class="setting-title ${ this.danger ? 'danger' : ''}">
+                    ${this.title}
+                </p>
+                ${this.getInfoHTML()}
+            </div>
+            <div class="setting-choice">
+                ${this.getRightIconHTML()}
             </div>
         `;
     }
