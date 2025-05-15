@@ -5,7 +5,6 @@
     padding-right: 0;
 
     h2 {
-        display: flex;
         padding: 20px var(--setting-padding-sides) 5px;
         color: var(--cyan);
         font-size: .75rem;
@@ -78,12 +77,7 @@
             padding-right: var(--setting-padding-sides);
             white-space: nowrap;
 
-            // TODO Regroup all in one classname?
-            .select-list, .setting-value, g-icon {
-                line-height: 2rem;
-            }
-
-            .select-list, .setting-value {
+            .select-list, .slider-value {
                 /* TODO Manage the changes of the width due to change of content differently? */
                 /* Put each value on a ghost element to calculate the max width? */
                 min-width: 60px;
@@ -128,23 +122,13 @@
         &.disabled {
             color: var(--grey);
 
-            .setting-info, .setting-choice, .select-list, .setting-value {
-                color: var(--grey-pale) !important;
-                transition: none !important;
-            }
-
-            .setting-title .reset-btn {
-                color: var(--grey-pale) !important;
-            }
-
-            .switch {
-                color: var(--grey-pale);
-            }
-
+            .setting-title .reset-btn,
+            .setting-info,
+            .setting-choice :is(.select-list, .slider-value, g-icon),
+            .switch,
             .slider {
-                .slider-line {
-                    color: var(--grey-pale);
-                }
+                color: var(--grey-pale);
+                transition: none;
             }
         }
 

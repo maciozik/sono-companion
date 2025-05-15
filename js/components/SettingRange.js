@@ -50,7 +50,7 @@ export default class SettingRange extends Setting
 
         // Set the necessary elements.
         this.$slider = this.querySelector('.slider');
-        this.$settingValue = this.querySelector('.setting-value');
+        this.$settingValue = this.querySelector('.slider-value');
 
         // Create and link the Slider instance to the setting.
         this.Slider = new Slider(this.$slider);
@@ -121,7 +121,7 @@ export default class SettingRange extends Setting
                 ${super.getInfoHTML()}
             </div>
             <div class="setting-choice">
-                <div class="setting-value"></div>
+                <div class="slider-value"></div>
             </div>
             <div class="slider" data-value="${this.value}" data-suffix="${this.suffix}" data-min="${this.min}" data-max="${this.max}" data-step="${this.step}">
                 <div class="slider-line">

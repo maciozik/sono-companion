@@ -10,6 +10,7 @@
     width: 100%;
     height: var(--slider-thumb-size);
     padding: calc((var(--slider-thumb-size) / 2) + var(--slider-thumb-shadow)) 0;
+    color: var(--cyan);
     touch-action: pan-y;
 
     .slider-line {
@@ -19,7 +20,6 @@
         margin: 0 calc(var(--slider-thumb-size) / 2);
         width: 100%;
         height: var(--slider-line-height);
-        color: var(--cyan);
         background-color: var(--grey-pale);
         border-radius: calc(var(--slider-line-height) / 2);
         transition: height 80ms linear;

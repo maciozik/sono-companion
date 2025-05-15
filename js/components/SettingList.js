@@ -133,7 +133,7 @@ export default class SettingList extends Setting
                 <div class="select-list">
                     ${this.getSelectItemsHTML()}
                 </div>
-                <g-icon data-name="chevron_right"></g-icon>
+                <g-icon data-name="chevron_right" data-y=0.3></g-icon>
             </div>
         `;
     }
@@ -153,7 +153,8 @@ export default class SettingList extends Setting
 
             select_items_html += `
                 <div class="select-item" data-value="${value}" ${selected}>
-                    <span class="radio-btn"></span>${label}
+                    <span class="radio-btn"></span>
+                    <span>${label}</span>
                 </div>
             `;
         }
