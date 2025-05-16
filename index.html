@@ -417,12 +417,12 @@
 
                 <setting-action
                     data-name="version"
-                    data-title="Version" data-info="1.0.0"
+                    data-title="Version" data-info="..."
                 ></setting-action>
 
                 <setting-action
                     data-name="open_github"
-                    data-action="window.open('https://github.com/Ixrec/OuterWildsArchipelagoRandomizer')"
+                    data-action="window.open(`https://github.com/${ENV.GITHUB}`)"
                     data-title="GitHub du projet"
                 ></setting-action>
 
@@ -435,7 +435,10 @@
 
             </section>
 
-            <p class="app-credits"><strong>Sono Companion</strong> v1.0.0</p>
+            <p class="app-credits">
+                <strong>Sono Companion</strong>
+                <span class="app-version"></span>
+            </p>
 
         </section>
 

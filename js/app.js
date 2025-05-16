@@ -51,6 +51,23 @@ if (!ENV.DEV_MODE) {
     document.addEventListener("contextmenu", event => event.preventDefault());
 }
 
+// Get the current version from GitHub tags.
+window.fetch(`https://api.github.com/repos/${ENV.GITHUB}/tags`)
+    .then(response => {
+        if (!response.ok) throw new Error(`HTTP error ${response.status}.`);
+        return response.json();
+    })
+    .then(tags => {
+        const $version = document.querySelector('setting-action[data-name=version] .setting-info');
+        const $credits = document.querySelector('.app-credits .app-version');
+        let version = tags?.[0]?.name?.replace(/^v/, "");
+
+        $version.textContent = version + ENV.APP.VERSION_SUFFIX;
+        $credits.textContent = "v" + version;
+        ENV.APP.VERSION = version;
+    })
+    .catch(error => console.error(error));
+
 /**  MODULES  **/
 
 const modules = {
