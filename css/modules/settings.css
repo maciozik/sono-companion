@@ -29,10 +29,6 @@
         min-height: 68px;
         overflow: hidden;
 
-        // &:not(:last-child) {
-        //     border-bottom: 1px solid #FFF1;
-        // }
-
         .setting-text {
             grid-area: text;
             align-self: center;
@@ -78,27 +74,34 @@
             white-space: nowrap;
 
             .select-list, .slider-value {
-                /* TODO Manage the changes of the width due to change of content differently? */
-                /* Put each value on a ghost element to calculate the max width? */
-                min-width: 60px;
                 color: var(--grey);
                 font-size: .8rem;
                 font-weight: 500;
                 text-align: right;
                 letter-spacing: -0.2px;
                 transition: color 80ms linear;
+            }
+
+            .select-list {
+                display: grid;
 
                 .select-item {
-                    display: none;
+                    grid-area: 1 / 1;
+                    visibility: hidden;
 
                     &[data-selected] {
-                        display: block;
+                        visibility: visible;
                     }
 
                     .radio-btn {
                         display: none;
                     }
                 }
+            }
+
+            .slider-value {
+                /* FIXME Fix the width of the container to the biggest value. */
+                min-width: 60px;
 
                 &.active {
                     color: var(--invert);
