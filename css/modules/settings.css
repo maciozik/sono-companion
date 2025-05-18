@@ -100,8 +100,8 @@
             }
 
             .slider-value {
-                /* FIXME Fix the width of the container to the biggest value. */
-                min-width: 60px;
+                --slider-value-width: auto; /* Overridden in JS. */
+                width: var(--slider-value-width);
 
                 &.active {
                     color: var(--invert);

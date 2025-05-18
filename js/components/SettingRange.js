@@ -52,8 +52,12 @@ export default class SettingRange extends Setting
         this.$slider = this.querySelector('.slider');
         this.$settingValue = this.querySelector('.slider-value');
 
-        // Create and link the Slider instance to the setting.
+        // Init and link the Slider instance to the setting.
         this.Slider = new Slider(this.$slider);
+        this.Slider.init()
+
+        // Set the width of the setting value.
+        this.setSettingValueWidth();
 
         // Bind the pointer events to the slider, and init it.
         this.Slider.bindEvents();
@@ -95,6 +99,25 @@ export default class SettingRange extends Setting
     setSettingValue()
     {
         this.$settingValue.textContent = this.Slider.getValueWithSuffix();
+        this.$settingValue.style.visibility = 'visible';
+    }
+
+    /**
+     * Lock the width of the setting value to its widest possible value from the range.
+     */
+    setSettingValueWidth()
+    {
+        let width = 0;
+        this.$settingValue.style.visibility = 'hidden';
+
+        // Fill with all possible values successively, and save the greatest width.
+        for (let value in this.Slider.values) {
+            this.$settingValue.textContent = this.Slider.getValueWithSuffix(parseInt(value));
+            let current_width = this.$settingValue.offsetWidth;
+            width = (width < current_width) ? current_width : width;
+        }
+
+        this.$settingValue.style.setProperty('--slider-value-width', `${width + 1}px`);
     }
 
     setStep(step)

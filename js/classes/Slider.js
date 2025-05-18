@@ -81,7 +81,6 @@ export default class Slider
      */
     getPositionFromValue(value)
     {
-        this.init();
         let position = this.values[value]?.position;
         return (position !== undefined) ? position : null;
     }
@@ -132,19 +131,20 @@ export default class Slider
     }
 
     /**
-     * Get the current value with its suffix.
+     * Get the value with its suffix.
+     * @param {Number} [value] *Default: the current value.*
      * @returns {string}
      */
-    getValueWithSuffix()
+    getValueWithSuffix(value = this.value)
     {
-        let value = this.value.addZeros(this.getNbDecimals(), 'trailing');
+        let formatted_value = value.addZeros(this.getNbDecimals(), 'trailing');
 
         // Add the signs if necessary.
         if (this.min < 0) {
-            value = (this.value < 0) ? value.replace('-', '−') : '+' + value;
+            formatted_value = (value < 0) ? formatted_value.replace('-', '−') : '+' + formatted_value;
         }
 
-        return value + this.suffix;
+        return formatted_value + this.suffix;
     }
 
     /**
@@ -211,9 +211,6 @@ export default class Slider
         const _this = this;
 
         this.$slider.addEventListener('pointerdown', function (event) {
-
-            // Define all the possible values of the slider.
-            _this.init();
 
             // Create a controller to abort the events after a pointer release.
             _this.#pointerEventsAbort = new AbortController();
