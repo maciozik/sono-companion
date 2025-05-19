@@ -5,33 +5,21 @@
 }
 
 #sonometer {
-    /* View Layout */
-    --sono-gauge-mt: 5%;
-    --sono-gauge-h : 30%;
-    --sono-infos-mt: 10%;
-    --sono-infos-h : 15%;
-    --sono-ctrls-mt: 10%;
-    --sono-ctrls-h : 18%;
-    --view-mb: 12%;
 
     #sonometer-gauge {
         display: grid;
         align-items: center;
-        margin-top: var(--sono-gauge-mt);
-        height: var(--sono-gauge-h);
     }
 
     #sonometer-infos {
         display: flex;
-        margin-top: var(--sono-infos-mt);
-        height: var(--sono-infos-h);
 
         & > div {
             width: 50%;
         }
 
         .db-current {
-            margin-top: -9px;
+            margin-top: -6px;
 
             g-icon {
                 display: none;
@@ -45,8 +33,6 @@
 
     #sonometer-controls {
         display: flex;
-        margin-top: var(--sono-ctrls-mt);
-        height: var(--sono-ctrls-h);
 
         & > div {
             width: 33.33%;

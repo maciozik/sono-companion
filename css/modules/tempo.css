@@ -8,32 +8,18 @@
 }
 
 #tempo {
-    /* View Layout */
-    --tempo-metro-mt: 5%;
-    --tempo-metro-h : 15%;
-    --tempo-bpm-sel-mt: 0%;
-    --tempo-bpm-sel-h : 20%;
-    --tempo-infos-mt: 5%;
-    --tempo-infos-h : 15%;
-    --tempo-ctrls-mt: 10%;
-    --tempo-ctrls-h : 15%;
-    --view-mb: 15%;
 
     #tempo-metronome {
         display: grid;
         align-items: center;
-        margin-top: var(--tempo-metro-mt);
-        padding: 0 24px;
-        height: var(--tempo-metro-h);
+        padding: 0 22px;
     }
 
     #tempo-bpm-selector {
         display: flex;
         justify-content: center;
         gap: 12px;
-        margin-top: var(--tempo-bpm-sel-mt);
         padding: 0 8px;
-        height: var(--tempo-bpm-sel-h);
 
         .bpm-half, .bpm-dec, .bpm-inc, .bpm-double {
             display: flex;
@@ -114,8 +100,6 @@
 
     #tempo-infos {
         display: flex;
-        margin-top: var(--tempo-infos-mt);
-        height: var(--tempo-infos-h);
 
         & > div {
             width: 50%;
@@ -124,8 +108,6 @@
 
     #tempo-controls {
         display: flex;
-        margin-top: var(--tempo-ctrls-mt);
-        height: var(--tempo-ctrls-h);
 
         & > div {
             width: 33.33%;

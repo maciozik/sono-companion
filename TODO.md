@@ -24,8 +24,8 @@
 ### Divers
   - [ ] Empêcher l'extinction de l'écran au play d'une vue.
   - [ ] Héberger les fonts Google en local.
-  - [ ] Remplacer le layout de chaque setting par un grid ?
-  - [ ] Remplacer le layout des composants du body par un grid ?
+  - [x] Remplacer le layout de chaque setting par un grid ?
+  - [x] Remplacer le layout des composants du body par un grid ?
 
 ---
 
