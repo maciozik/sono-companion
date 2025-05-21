@@ -299,7 +299,7 @@ export function __init__({})
     for (const $setting of $settings) {
 
         // Click on a setting.
-        $setting.addEventListener('click', function () {
+        $setting.addEventListener('trigger', function () {
             this.trigger();
         });
 
@@ -318,7 +318,7 @@ export function __init__({})
     // Click on a reset button of a setting.
     document.querySelectorAll('.setting .reset-btn').forEach($resetBtn => {
 
-        $resetBtn.addEventListener('click', function (event) {
+        $resetBtn.addEventListener('trigger', function (event) {
             const $setting = this.closest('.setting');
             $setting.reset();
             event.stopPropagation()

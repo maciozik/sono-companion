@@ -15,6 +15,6 @@ setTimeout(() => {
 }, 4000);
 
 // Click on the reload button.
-$loaderTooLongMsgBtn.addEventListener('click', () => {
+$loaderTooLongMsgBtn.addEventListener('trigger', () => {
     window.location.reload();
 });

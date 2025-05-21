@@ -162,7 +162,7 @@ export function __init__({ View, Metronome, Settings })
     // Click on a bpm modifier button.
     for (const $bpmModifierBtn of $bpmModifierBtns) {
 
-        $bpmModifierBtn.addEventListener('click', function () {
+        $bpmModifierBtn.addEventListener('trigger', function () {
             let modifier = this.dataset.modifier;
             let bpm = get('bpm');
 
@@ -178,12 +178,12 @@ export function __init__({ View, Metronome, Settings })
     }
 
     // Click on the metronome replay button.
-    Metronome.$replayBtn.addEventListener('pointerdown', function () {
+    Metronome.$replayBtn.addEventListener('trigger', function () {
         Metronome.replay();
     });
 
     // Click on the Tap Tempo button.
-    $tapBtn.addEventListener('pointerdown', () => {
+    $tapBtn.addEventListener('trigger', () => {
         View.stop();
         tap();
     });

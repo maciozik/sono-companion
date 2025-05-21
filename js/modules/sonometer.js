@@ -309,7 +309,7 @@ export function __init__({ View, Settings })
 {
     // Click on the reset button.
     // TODO Keep pressing for 0.5s to reset?
-    $resetBtn.addEventListener('pointerup', function () {
+    $resetBtn.addEventListener('trigger', function () {
         View.stop();
     });
 

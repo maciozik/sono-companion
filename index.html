@@ -29,7 +29,7 @@
 
         <h1>Sono Companion</h1>
 
-        <div id="settings-btn" data-load="settings" data-tappable=".4 250ms">
+        <div id="settings-btn" data-load="settings" data-tappable="pointerdown 0.4 250ms">
             <g-icon data-name="tune"></g-icon>
         </div>
 
@@ -104,7 +104,7 @@
             <section id="sonometer-controls" data-rows=7>
 
                 <!-- Reset button -->
-                <div class="sonometer-reset-btn tile grey disabled" data-tappable>
+                <div class="sonometer-reset-btn tile grey disabled" data-tappable="pointerup">
                     <g-icon data-name="settings_backup_restore"></g-icon>
                     <p class="label">Réinitialiser</p>
                 </div>
@@ -150,11 +150,11 @@
 
                 <!-- Decrease bpm -->
                 <div class="bpm-half">
-                    <div class="bpm-modifier-btn" data-modifier="/2" data-tappable="click">÷2</div>
+                    <div class="bpm-modifier-btn" data-modifier="/2" data-tappable>÷2</div>
                 </div>
                 <div class="bpm-dec">
-                    <div class="bpm-modifier-btn" data-modifier="-5" data-tappable="click">−5</div>
-                    <div class="bpm-modifier-btn" data-modifier="-1" data-tappable="click">−1</div>
+                    <div class="bpm-modifier-btn" data-modifier="-5" data-tappable>−5</div>
+                    <div class="bpm-modifier-btn" data-modifier="-1" data-tappable>−1</div>
                 </div>
 
                 <!-- Bpm wheel -->
@@ -167,11 +167,11 @@
 
                 <!-- Increase bpm -->
                 <div class="bpm-inc">
-                    <div class="bpm-modifier-btn" data-modifier="+5" data-tappable="click">+5</div>
-                    <div class="bpm-modifier-btn" data-modifier="+1" data-tappable="click">+1</div>
+                    <div class="bpm-modifier-btn" data-modifier="+5" data-tappable>+5</div>
+                    <div class="bpm-modifier-btn" data-modifier="+1" data-tappable>+1</div>
                 </div>
                 <div class="bpm-double">
-                    <div class="bpm-modifier-btn" data-modifier="x2" data-tappable="click">×2</div>
+                    <div class="bpm-modifier-btn" data-modifier="x2" data-tappable>×2</div>
                 </div>
 
             </section>
@@ -199,22 +199,21 @@
             <section id="tempo-controls" data-rows=4>
 
                 <!-- Replay button -->
-                <div class="metronome-replay-btn tile grey disabled" data-tappable>
+                <div class="metronome-replay-btn tile grey disabled" data-tappable="pointerdown">
                     <g-icon data-name="replay"></g-icon>
                     <p class="label">Relancer</p>
                 </div>
 
                 <!-- Play button -->
                 <div class="metronome-play">
-                    <!-- TODO Make on-pointer-down generic for both view event and tappable event -->
-                    <div class="play-btn adaptative on-pointer-down" data-tappable>
+                    <div class="play-btn adaptative" data-tappable="pointerdown">
                         <g-icon data-name="play_arrow" data-x=-1 class="play"></g-icon>
                         <g-icon data-name="stop" class="stop"></g-icon>
                     </div>
                 </div>
 
                 <!-- Tap Tempo button -->
-                <div class="tap-tempo-btn tile grey" data-tappable>
+                <div class="tap-tempo-btn tile grey" data-tappable="pointerdown">
                     <g-icon data-name="touch_app"></g-icon>
                     <p class="label">Tap Tempo</p>
                 </div>
@@ -499,8 +498,8 @@
             <div class="modal-title"></div>
             <div class="modal-text"></div>
             <div class="modal-btns">
-                <div class="modal-btn-secondary btn btn-no-fill" data-tappable="click"></div>
-                <div class="modal-btn-primary btn btn-no-fill" data-tappable="click"></div>
+                <div class="modal-btn-secondary btn btn-no-fill" data-tappable></div>
+                <div class="modal-btn-primary btn btn-no-fill" data-tappable></div>
             </div>
         </div>
     </div>
@@ -523,7 +522,7 @@
         </div>
         <div class="too-long-msg">
             Le chargement prend plus de temps que prévu.<br>
-            <div class="btn btn-no-fill">Réessayer</div>
+            <div class="btn btn-no-fill" data-tappable="0.02 300ms">Réessayer</div>
         </div>
     </div>
 

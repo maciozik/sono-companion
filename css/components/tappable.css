@@ -44,6 +44,12 @@
         }
     }
 
+    &[data-tappable~=no-circle] {
+        &:before {
+            display: none;
+        }
+    }
+
     &.ontap {
         &:before {
             opacity: var(--circle-opacity);

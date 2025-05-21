@@ -235,7 +235,7 @@ export function __init__({ Settings })
     // Click on elements that load a view.
     for (const $loadViewBtn of $loadViewBtns) {
 
-        $loadViewBtn.addEventListener('pointerdown', function () {
+        $loadViewBtn.addEventListener('trigger', function () {
 
             let view_id = this.dataset.load;
 
@@ -289,9 +289,7 @@ export function __init__({ Settings })
 
         if ($playBtn !== null) {
 
-            let event = ($playBtn.classList.contains('on-pointer-down')) ? 'pointerdown' : 'pointerup'
-
-            $playBtn.addEventListener(event, () => {
+            $playBtn.addEventListener('trigger', () => {
 
                 // Define the mode that should be set.
                 let non_run_mode = ($playBtn.querySelector('.pause') !== null) ? 'pause' : 'stop';

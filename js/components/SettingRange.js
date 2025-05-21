@@ -133,7 +133,7 @@ export default class SettingRange extends Setting
     {
         // Add the class and the tappable options.
         this.classList.add('setting');
-        this.dataset.tappable = 'follow-tap trigger-manually';
+        this.dataset.tappable = 'trigger-manually follow-tap';
 
         // Set the content.
         this.innerHTML = `

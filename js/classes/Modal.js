@@ -87,7 +87,7 @@ export default class Modal
         this.#primaryCallback = (callback !== undefined) ? callback : default_callback;
 
         // Bind the callback to the button.
-        Modal.$modalBtnPrimary.addEventListener('click', this.#primaryCallback.bind(this), {
+        Modal.$modalBtnPrimary.addEventListener('trigger', this.#primaryCallback.bind(this), {
             signal: Modal.#listenersAbort.signal
         });
 
@@ -108,7 +108,7 @@ export default class Modal
         this.#secondaryCallback = (callback !== undefined) ? callback : default_callback;
 
         // Bind the callback to the button.
-        Modal.$modalBtnSecondary.addEventListener('click', this.#secondaryCallback.bind(this), {
+        Modal.$modalBtnSecondary.addEventListener('trigger', this.#secondaryCallback.bind(this), {
             signal: Modal.#listenersAbort.signal
         });
 
