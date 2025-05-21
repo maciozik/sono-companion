@@ -20,7 +20,7 @@
         --invert: #CAD0D0;
         --grey: #707A7A;
         --grey-pale: #404A4A;
-        --bg: #202020;
+        --bg: #202122;
         --bg-contrast: #181818;
     }
 
@@ -43,15 +43,6 @@
     user-select: none;
     -webkit-tap-highlight-color: transparent;
     color-scheme: light;
-}
-
-/* Hide the scrollbar. */
-::-webkit-scrollbar {
-    display: none;
-}
-html, body, .view {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
 }
 
 html {

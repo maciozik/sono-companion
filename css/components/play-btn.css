@@ -10,6 +10,7 @@
 
     g-icon {
         position: absolute;
+        margin-top: 1px;
         color: var(--cyan);
         font-size: 64cqh;
         opacity: 0;
