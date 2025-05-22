@@ -71,7 +71,7 @@ for (const $tappable of $tappables) {
             this.style.setProperty('--tappable-height', `${tappable.height}px`);
 
             // Run the animation.
-            this.classList.add('ontap');
+            this.addClassTemporarily('ontap', 'animationend');
 
             // Emit the 'trigger' event.
             this.dispatchEvent(new CustomEvent('trigger'));
@@ -93,10 +93,5 @@ for (const $tappable of $tappables) {
         if (!this.is('trigger-manually')) {
             this.triggerTappable(event);
         }
-    });
-
-    // Reset the animation after it ends.
-    $tappable.addEventListener('animationend', function () {
-        this.classList.remove('ontap');
     });
 }
