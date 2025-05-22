@@ -55,6 +55,7 @@ footer {
     nav {
         display: flex;
         justify-content: space-around;
+        position: relative;
         height: 100%;
         padding: 0 8px;
         background-color: var(--bg-contrast);
@@ -119,12 +120,15 @@ footer {
 
         p.no-tab {
             display: none;
-            align-self: center;
+            align-items: center;
+            position: absolute;
+            inset: 0;
             color: var(--grey-pale);
             font-size: 0.7rem;
+            text-align: center;
 
             &.show {
-                display: block;
+                display: grid;
             }
         }
     }

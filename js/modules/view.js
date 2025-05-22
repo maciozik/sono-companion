@@ -1,4 +1,5 @@
 import Modal from '../classes/Modal.js';
+import * as Settings from './settings.js';
 import * as Storage from './storage.js';
 import * as AudioPermission from './utils/audio_permission.js';
 
@@ -15,12 +16,14 @@ let wakeLock = null;
 
 /**
  * Load a view.
- * @param {string} view_id
+ * @param {string} view The id of the view, or settings:`setting_name` to make the setting blink.
  * @fires load
  * @fires load:`view_id`
  */
-export function load(view_id)
+// REFACTOR Too much code? Move some in load events?
+export function load(view)
 {
+    let [view_id, setting_name] = view.split(':');
     const $view = document.getElementById(view_id);
     let view_title = $view.dataset.name;
 
@@ -48,6 +51,16 @@ export function load(view_id)
         requestWakeLock();
     } else {
         releaseWakeLock();
+    }
+
+    // Make the setting blink if necessary.
+    if (view_id === 'settings' && setting_name !== undefined) {
+        let transition = window.getComputedStyle(Settings.$view).getPropertyValue('transition-duration');
+        let settings_view_transition_duration = transition.endsWith('s') ? parseFloat(transition) * 1000 : parseFloat(transition);
+
+        setTimeout(() => {
+            Settings.blink(setting_name);
+        }, settings_view_transition_duration - 100);
     }
 
     // Emit 'load' events.

@@ -139,6 +139,22 @@ export function checkVisibility()
 }
 
 /**
+ * Make the setting blink after scrolling to it.
+ * @param {string} setting_name
+ */
+export function blink(setting_name)
+{
+    let $setting = getSettingFromName(setting_name);
+
+    $setting.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+    });
+
+    $setting.addClassTemporarily('blink', 'animationend');
+}
+
+/**
  * Get the setting element with the name given.
  * @param {string} setting_name
  * @returns {HTMLElement}
