@@ -93,5 +93,6 @@ for (const $tappable of $tappables) {
         if (!this.is('trigger-manually')) {
             this.triggerTappable(event);
         }
+        event.stopPropagation();
     });
 }

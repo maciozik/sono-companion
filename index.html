@@ -265,7 +265,7 @@
                 ></setting-range>
 
                 <setting-list
-                    data-name="frequency_weighting"
+                    data-name="frequency_weighting" data-allow-reset
                     data-title="Pondération fréquentielle">
                         <select-item data-value="A" data-selected>dB(A)</select-item>
                         <select-item data-value="B">dB(B)</select-item>
@@ -396,13 +396,13 @@
                 ></setting-switch>
 
                 <setting-switch
-                    data-name="keep_screen_awake_at_run" data-value=true data-allow-reset
+                    data-name="keep_screen_awake_at_run" data-value=true
                     data-title="Garder l'écran allumé si actif"
                     data-info="Empêche l'extinction de l'écran si l'onglet affiché est actif."
                 ></setting-switch>
 
                 <setting-switch
-                    data-name="always_keep_screen_awake" data-value=true data-allow-reset
+                    data-name="always_keep_screen_awake" data-value=false
                     data-title="Toujours garder l'écran allumé"
                     data-info="Empêche l'extinction de l'écran tant que l'application est ouverte."
                 ></setting-switch>

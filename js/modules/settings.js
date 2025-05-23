@@ -337,7 +337,6 @@ export function __init__({})
         $resetBtn.addEventListener('trigger', function (event) {
             const $setting = this.closest('.setting');
             $setting.reset();
-            event.stopPropagation()
         });
     });
 
