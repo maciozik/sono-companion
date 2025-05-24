@@ -31,8 +31,6 @@ export default class Setting extends HTMLElement
         this.danger = (this.dataset.danger === undefined || this.dataset.danger === 'false') ? false : true;
         this.groups = this.dataset.groups?.split(' ') || [];
 
-        this.bindEvents();
-
         // Remove the useless attributes.
         this.removeAttribute('data-title');
         this.removeAttribute('data-info');
@@ -49,7 +47,7 @@ export default class Setting extends HTMLElement
 
     /**
      * Entry point at a user interaction.
-     * @abstract This method **must** be implemented in the `Setting*` child classes, if the user can click it.
+     * @abstract This method **must** be implemented in the child classes.
      */
     trigger()
     {
@@ -59,12 +57,22 @@ export default class Setting extends HTMLElement
 
     /**
      * Set the value of the setting.
-     * @abstract This method **must** be implemented in the `Setting*` child classes, if the type of setting admits a value.
+     * @abstract This method **must** be implemented in the child classes.
      * @returns {boolean} False if the value cannot be set.
      */
     set()
     {
         console.error('The method set() is not implemented.');
+        return false;
+    }
+
+    /**
+     * Render the HTML.
+     * @abstract This method **must** be implemented in the child classes.
+     */
+    render()
+    {
+        console.error('The method render() is not implemented.');
         return false;
     }
 
@@ -114,7 +122,7 @@ export default class Setting extends HTMLElement
     }
 
     /**
-     * Get the info tag if there is an info to show.
+     * Get the HTML of the info tag if there is an info to show.
      * @returns {string|''}
      */
     getInfoHTML()
@@ -125,7 +133,7 @@ export default class Setting extends HTMLElement
     }
 
     /**
-     * Get the reset button if the setting allow the reset.
+     * Get the HTML of the reset button if the setting allow the reset.
      * @returns {string|''}
      */
     getResetButtonHTML()
@@ -136,10 +144,36 @@ export default class Setting extends HTMLElement
     }
 
     /**
-     * Bind events to the setting.
+     * Get the reset button.
+     * @returns {HTMLElement|null}
+     */
+    getResetButton()
+    {
+        return this.querySelector('.reset-btn');
+    }
+
+    /**
+     * Bind some generic events to the setting.
+     * This method **should** be implemented in the child classes.
      */
     bindEvents()
     {
+        // Click on the setting.
+        this.addEventListener('trigger', () => {
+            this.trigger();
+        });
+
+        // Click on the reset button.
+        this.getResetButton()?.addEventListener('trigger', () => {
+            this.reset();
+        });
+
+        // Show or hide the reset button when the setting changes.
+        Settings.onsync(this.name, (event) => {
+            let is_default = event.detail.value === this.default_value;
+            this.getResetButton()?.classList.toggle('hide', is_default);
+        });
+
         // Wait for all the settings to be initialized.
         Settings.oninit(null, this.setParentSettings());
     }

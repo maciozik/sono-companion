@@ -311,33 +311,11 @@ export function onsync(setting_names, callback)
  */
 export function __init__({})
 {
-    // For each setting.
-    for (const $setting of $settings) {
-
-        // Click on a setting.
-        $setting.addEventListener('trigger', function () {
-            this.trigger();
-        });
-
-        // Show or hide the reset button when a setting changes.
-        onsync($setting.name, (event) => {
-            let is_default = event.detail.value === $setting.default_value;
-            $setting.querySelector('.reset-btn')?.classList.toggle('hide', is_default);
-        });
-    }
-
     // Click on a select item in the modal.
+    // REFACTOR Create a custom element to generate a new modal each time it is needed?
+    //          In that case, bind the modal to its setting and move this code into the bindEvents() function of SettingList.
     Modal.$modal.addDynamicEventListener('click', '.select-item', function () {
         SettingList.selectItem(this, Modal.$modal);
-    });
-
-    // Click on a reset button of a setting.
-    document.querySelectorAll('.setting .reset-btn').forEach($resetBtn => {
-
-        $resetBtn.addEventListener('trigger', function (event) {
-            const $setting = this.closest('.setting');
-            $setting.reset();
-        });
     });
 
     // Change the gauge parameters.

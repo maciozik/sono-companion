@@ -26,8 +26,9 @@ export default class SettingSwitch extends Setting
     {
         super.connectedCallback();
 
-        // Render the setting.
+        // Render the setting and bind the events.
         this.render();
+        this.bindEvents();
 
         // Set the necessary elements.
         this.$switch = this.querySelector('.switch');
@@ -96,6 +97,14 @@ export default class SettingSwitch extends Setting
                 <div class="switch" data-value=${this.value}></div>
             </div>
         `;
+    }
+
+    /**
+     * Bind some generic events to the setting.
+     */
+    bindEvents()
+    {
+        super.bindEvents();
     }
 }
 

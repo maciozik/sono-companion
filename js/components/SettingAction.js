@@ -33,8 +33,9 @@ export default class SettingAction extends Setting
     {
         super.connectedCallback();
 
-        // Render the setting.
+        // Render the setting and bind the events.
         this.render();
+        this.bindEvents();
 
         // Set the action.
         this.setAction();
@@ -148,7 +149,7 @@ export default class SettingAction extends Setting
     }
 
     /**
-     * Get the info tag if there is an info to show, and add an additional message if a confirmation is required.
+     * Get the HTML of the info tag if there is an info to show, and add an additional message if a confirmation is required.
      * @returns {string|''}
      */
     getInfoHTML()
@@ -158,7 +159,7 @@ export default class SettingAction extends Setting
     }
 
     /**
-     * Get the right arrow icon if there is an action to execute.
+     * Get the HTML of the right arrow icon if there is an action to execute.
      * @returns {string|''}
      */
     getRightIconHTML()
@@ -166,6 +167,14 @@ export default class SettingAction extends Setting
         return (this.has_action) ? `
             <g-icon data-name="chevron_right"></g-icon>
         ` : '';
+    }
+
+    /**
+     * Bind some generic events to the setting.
+     */
+    bindEvents()
+    {
+        super.bindEvents();
     }
 
     // These methods are not implemented in this class.

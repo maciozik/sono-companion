@@ -24,8 +24,9 @@ export default class SettingList extends Setting
     {
         super.connectedCallback();
 
-        // Render the setting.
+        // Render the setting and bind the events.
         this.render();
+        this.bindEvents();
 
         // Set the necessary elements.
         this.$list = this.querySelector('.select-list');
@@ -139,7 +140,7 @@ export default class SettingList extends Setting
     }
 
     /**
-     * Get the list of all the select items.
+     * Get the HTML of the list of all the select items.
      * @returns {string}
      */
     getSelectItemsHTML()
@@ -160,6 +161,14 @@ export default class SettingList extends Setting
         }
 
         return select_items_html;
+    }
+
+    /**
+     * Bind some generic events to the setting.
+     */
+    bindEvents()
+    {
+        super.bindEvents();
     }
 }
 

@@ -66,8 +66,8 @@ export default class SettingRange extends Setting
         // Set the value on the setting.
         this.setSettingValue();
 
-        // Bind the slider events to update the setting.
-        this.bindSliderEvents();
+        // Bind the events to the setting.
+        this.bindEvents();
     }
 
     /**
@@ -156,10 +156,12 @@ export default class SettingRange extends Setting
     }
 
     /**
-     * Bind the `move`, `change` and `end` events listeners of the slider to update the setting.
+     * Bind some generic events to the setting.
+     * Bind the `move`, `change` and `end` events from the slider to update the setting.
      */
-    bindSliderEvents()
+    bindEvents()
     {
+        super.bindEvents();
         const _this = this;
 
         // When the slider moves.
