@@ -1,6 +1,7 @@
 import * as View from './view.js';
 import * as Gauge from './gauge.js';
 import * as Settings from './settings.js';
+import * as NavTab from './utils/nav-tab.js';
 
 const CALIBRATION = () => Settings.get('audio_calibration');
 const REFRESH_INFOS_INTERVAL = 200;
@@ -218,7 +219,7 @@ function refreshInfo(as_current_volume = 'max_local')
             else setVolumeIcon('loud');
 
             // Update the label of the tab with current volume.
-            View.updateTab(`${Math.trunc(info.value)} dB`, 'sonometer');
+            NavTab.updateTab(`${Math.trunc(info.value)} dB`, 'sonometer');
         }
     }
 

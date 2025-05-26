@@ -246,10 +246,9 @@ function emitEvent(setting_name, value, type = 'onsync')
 {
     let name = `setting:${type}:${setting_name}`;
 
-    document.dispatchEvent(new CustomEvent(
-        name,
-        { detail: { value: value }}
-    ));
+    document.dispatchEvent(new CustomEvent(name, { detail: {
+        value: value
+    }}));
 
     if (type === 'onchange') console.debugType('emit_event', name, value);
 }
@@ -316,6 +315,23 @@ export function __init__({})
     //          In that case, bind the modal to its setting and move this code into the bindEvents() function of SettingList.
     Modal.$modal.addDynamicEventListener('click', '.select-item', function () {
         SettingList.selectItem(this, Modal.$modal);
+    });
+
+    // When the view is loaded.
+    document.addEventListener('load', event => {
+
+        const view_id = event.detail.view_id;
+        const setting_name = event.detail.setting_name;
+
+        // Make the setting blink if necessary.
+        if (view_id === 'settings' && setting_name !== undefined) {
+            let transition = window.getComputedStyle($view).getPropertyValue('transition-duration');
+            let settings_view_transition_duration = transition.endsWith('s') ? parseFloat(transition) * 1000 : parseFloat(transition);
+
+            setTimeout(() => {
+                blink(setting_name);
+            }, settings_view_transition_duration - 100);
+        }
     });
 
     // Change the gauge parameters.

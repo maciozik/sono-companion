@@ -1,6 +1,7 @@
 import * as View from './view.js';
 import * as Tempo from './tempo.js';
 import * as Settings from './settings.js';
+import * as NavTab from './utils/nav-tab.js';
 
 const METRONOME_ANIMATION_BPM_LIMIT = 240;
 const METRONOME_ENABLED_BPM_LIMIT   = 300;
@@ -55,7 +56,7 @@ export function run()
     Tempo.resetTap();
 
     // Update the label of the tab.
-    View.updateTab(`${bpm} bpm`);
+    NavTab.updateTab(`${bpm} bpm`);
 }
 
 /**

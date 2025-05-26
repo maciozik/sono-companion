@@ -27,9 +27,11 @@ import * as Tempo from './modules/tempo.js';
 import * as Metronome from './modules/metronome.js';
 import * as Settings from './modules/settings.js';
 
-import * as AudioPermission from './modules/utils/audio_permission.js';
+import * as NavTab from './modules/utils/nav-tab.js';
 import './modules/utils/tappable.js';
+import './modules/utils/play-btn.js';
 import './modules/utils/scrollbar.js';
+import * as AudioPermission from './modules/utils/audio_permission.js';
 
 /**  APP  **/
 
@@ -72,6 +74,7 @@ window.fetch(`https://api.github.com/repos/${ENV.GITHUB}/tags`)
 
 const modules = {
     View,
+    NavTab,
     Sonometer,
     Gauge,
     Tempo,

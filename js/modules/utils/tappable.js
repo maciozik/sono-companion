@@ -76,6 +76,9 @@ for (const $tappable of $tappables) {
             // Emit the 'trigger' event.
             this.dispatchEvent(new CustomEvent('trigger'));
         }
+
+        event.preventDefault();
+        event.stopPropagation();
     }
 
     // Define the type of event.
@@ -93,6 +96,5 @@ for (const $tappable of $tappables) {
         if (!this.is('trigger-manually')) {
             this.triggerTappable(event);
         }
-        event.stopPropagation();
     });
 }
