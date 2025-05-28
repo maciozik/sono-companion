@@ -1,5 +1,5 @@
-import * as View from '../view.js';
-import * as Settings from '../settings.js';
+import * as View from '../views/view.js';
+import * as Settings from '../views/settings.js';
 
 const $scrollbar = document.getElementById('scrollbar');
 const $scrollbarThumb = $scrollbar.querySelector('.scrollbar-thumb');

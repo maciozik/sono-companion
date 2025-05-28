@@ -2,42 +2,45 @@
 
 import './env.js';
 
-import './functions/addDynamicEventListener.js';
-import './functions/Element.addClassTemporarily.js';
-import './functions/Math.roundFloat.js';
-import './functions/Math.clamp.js';
-import './functions/Math.float.js';
-import './functions/Number.addZeros.js';
-import './functions/app.vibrate.js';
-import './functions/console.debugType.js';
-import './functions/snippets/log.js';
+/**  UTILS  **/
+import './utils/addDynamicEventListener.js';
+import './utils/element/addClassTemporarily.js';
+import './utils/math/roundFloat.js';
+import './utils/math/clamp.js';
+import './utils/math/float.js';
+import './utils/number/addZeros.js';
+import './utils/app.vibrate.js';
+import './utils/console/debugType.js';
 
-import './components/IncludeHTML.js';
-import './components/GIcon.js';
-import SettingSwitch from './components/SettingSwitch.js';
-import SettingList from './components/SettingList.js';
-import SettingRange from './components/SettingRange.js';
-import SettingAction from './components/SettingAction.js';
-import Modal from './classes/Modal.js';
+/**  CUSTOM ELEMENTS  **/
+import './custom-elements/SettingSwitch.js';
+import './custom-elements/SettingList.js';
+import './custom-elements/SettingRange.js';
+import './custom-elements/SettingAction.js';
+import './custom-elements/GIcon.js';
+import './custom-elements/IncludeHTML.js';
 
-import * as View from './modules/view.js';
-import * as Sonometer from './modules/sonometer.js';
-import * as Gauge from './modules/gauge.js';
-import * as Tempo from './modules/tempo.js';
-import * as Metronome from './modules/metronome.js';
-import * as Settings from './modules/settings.js';
+/**  VIEWS  **/
+import * as View from './views/view.js';
+import * as Sonometer from './views/sonometer.js';
+import * as Tempo from './views/tempo.js';
+import * as Settings from './views/settings.js';
 
-import * as NavTab from './modules/utils/nav-tab.js';
-import './modules/utils/tappable.js';
-import './modules/utils/play-btn.js';
-import './modules/utils/scrollbar.js';
-import * as AudioPermission from './modules/utils/audio_permission.js';
+/**  WIDGETS  **/
+import * as Gauge from './widgets/gauge.js';
+import * as Metronome from './widgets/metronome.js';
+
+/**  COMPONENTS  **/
+import * as NavTab from './components/nav-tab.js';
+import './components/play-btn.js';
+import './components/tappable.js';
+import './components/scrollbar.js';
 
 /**  APP  **/
 
 // Run the service worker.
 if ('serviceWorker' in navigator && !ENV.DEV_MODE) {
-    navigator.serviceWorker.register('js/serviceworker.js')
+    navigator.serviceWorker.register('js/core/serviceworker.js')
         .then(registration => console.debug("Service Worker registered:", registration))
         .catch(error => console.error("Service Worker not registered:", error));
 }

@@ -1,4 +1,4 @@
-import * as Settings from '../modules/settings.js';
+import * as Settings from '../views/settings.js';
 
 const ALLOW_VIBRATIONS = () => Settings.get('allow_vibrations');
 const DEFAULT_DURATION = 10;

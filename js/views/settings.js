@@ -1,8 +1,8 @@
 import Modal from '../classes/Modal.js';
 import Setting from '../classes/Setting.js';
-import SettingList from '../components/SettingList.js';
-import SettingAction from '../components/SettingAction.js';
-import * as Storage from './storage.js';
+import SettingList from '../custom-elements/SettingList.js';
+import SettingAction from '../custom-elements/SettingAction.js';
+import * as Storage from '../core/storage.js';
 
 export const $view = document.getElementById('settings');
 

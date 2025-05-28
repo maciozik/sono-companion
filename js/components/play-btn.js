@@ -1,4 +1,4 @@
-import * as View from '../view.js';
+import * as View from '../views/view.js';
 
 const $playBtns = document.getElementsByClassName('play-btn');
 

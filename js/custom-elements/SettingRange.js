@@ -1,6 +1,6 @@
 import Setting from '../classes/Setting.js';
 import Slider from '../classes/Slider.js';
-import * as Settings from '../modules/settings.js';
+import * as Settings from '../views/settings.js';
 
 export default class SettingRange extends Setting
 {

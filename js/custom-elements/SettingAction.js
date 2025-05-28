@@ -3,10 +3,14 @@ import Setting from '../classes/Setting.js';
 
 export default class SettingAction extends Setting
 {
-    /** @type {string|null} The module to load (from the js\modules\ folder, without the .js extension). */
+    /** The module to load (from the js\ folder, without the .js extension).
+     * @type {string|null}
+     */
     module = new String();
 
-    /** @type {Function} The method to execute from the module if it exists, or an arbitrary code. */
+    /** The method to execute from the module if it exists, or an arbitrary code.
+     * @type {Function}
+     */
     action = new Function();
 
     has_action = new Boolean();
@@ -61,7 +65,7 @@ export default class SettingAction extends Setting
 
             // If the module exists, set the method from the module as the action.
             if (this.module !== null) {
-                const module_path = `../modules/${this.module}.js`;
+                const module_path = `../${this.module}.js`;
                 const module = await import(module_path);
                 this.action = module[action];
             }

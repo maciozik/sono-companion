@@ -5,13 +5,14 @@
     <title>Sono Companion</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <meta name="theme-color" content="#009898">
+    <!-- FIXME Color of the status bar does not align with the color scheme when the user make a "hard" choice. -->
     <meta name="theme-color" content="#009898" media="(prefers-color-scheme: dark)">
+    <meta name="theme-color" content="#00B0B0" media="(prefers-color-scheme: light)">
 
     <link rel="manifest" href="manifest.json">
 
-    <script src="js/modules/utils/color_scheme.js"></script>
-    <script src="js/modules/utils/loader.js" defer></script>
+    <script src="js/core/color-scheme.js"></script>
+    <script src="js/components/loader.js" defer></script>
     <script type="module" src="js/app.js" defer></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -427,7 +428,7 @@
 
                 <setting-action
                     data-name="reset_all_settings" data-danger
-                    data-module="settings" data-action="reset" data-require-confirmation
+                    data-module="views/settings" data-action="reset" data-require-confirmation
                     data-title="Réinitialiser tous les réglages"
                     data-info="Tous les réglages seront réinitialisés à leur valeur d'origine."
                 ></setting-action>

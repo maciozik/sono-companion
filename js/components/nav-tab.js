@@ -1,4 +1,4 @@
-import * as View from '../view.js';
+import * as View from '../views/view.js';
 
 export const $nav = document.querySelector('nav');
 export const $tabs = $nav.querySelectorAll('.nav-tab');

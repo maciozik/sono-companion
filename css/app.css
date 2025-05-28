@@ -1,40 +1,38 @@
 /**  NORMALIZE  **/
 @import url(./vendor/normalize.css);
 
-/**  APP  **/
-@import url(./modules/root.css);
-@import url(./modules/layout.css);
-@import url(./modules/view.css);
-@import url(./modules/tags.css);
+/**  BASE  **/
+@import url(./base/root.css);
+@import url(./base/layout.css);
+@import url(./base/tags.css);
 
 /**  VIEWS  **/
-@import url(./modules/sonometer.css);
-@import url(./modules/tempo.css);
-@import url(./modules/settings.css);
+@import url(./views/view.css);
+@import url(./views/sonometer.css);
+@import url(./views/tempo.css);
+@import url(./views/settings.css);
 
-/**  VIEWS PARTS  **/
-@import url(./components/gauge.css);
-@import url(./components/metronome.css);
+/**  WIDGETS  **/
+@import url(./widgets/gauge.css);
+@import url(./widgets/metronome.css);
+@import url(./widgets/modal.css);
 
-/**  PARTS COMPONENTS  **/
-@import url(./components/loader.css);
-@import url(./components/modal.css);
-@import url(./components/scrollbar.css);
-@import url(./components/snackbar.css);
-
-/**  CLASSES COMPONENTS  **/
+/**  COMPONENTS  **/
 @import url(./components/btn.css);
 @import url(./components/play-btn.css);
-@import url(./components/tile.css);
 @import url(./components/switch.css);
 @import url(./components/slider.css);
+@import url(./components/tile.css);
 @import url(./components/tappable.css);
+@import url(./components/loader.css);
+@import url(./components/scrollbar.css);
+@import url(./components/snackbar.css);
 
 /**  VENDOR  **/
 @import url(./vendor/g-icons.css);
 
 /**  MEDIA QUERIES  **/
-@import url(./modules/media_queries.css);
+@import url(./base/media-queries.css);
 
 
 

@@ -1,7 +1,7 @@
 import * as View from './view.js';
-import * as Gauge from './gauge.js';
 import * as Settings from './settings.js';
-import * as NavTab from './utils/nav-tab.js';
+import * as Gauge from '../widgets/gauge.js';
+import * as NavTab from '../components/nav-tab.js';
 
 const CALIBRATION = () => Settings.get('audio_calibration');
 const REFRESH_INFOS_INTERVAL = 200;
@@ -288,7 +288,7 @@ async function getVolume()
     const MicSourceNode = audioContext.createMediaStreamSource(stream);
 
     // Load the Volume Audio Worklet.
-    await audioContext.audioWorklet.addModule('js/modules/audio_worklets/VolumeProcessor.js');
+    await audioContext.audioWorklet.addModule('js/audio/worklets/VolumeProcessor.js');
 
     // Create the node from the Audio Worklet and connect the microphone to it.
     const VolumeNode = new AudioWorkletNode(audioContext, 'VolumeProcessor');

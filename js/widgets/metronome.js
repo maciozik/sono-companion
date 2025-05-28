@@ -1,7 +1,7 @@
-import * as View from './view.js';
-import * as Tempo from './tempo.js';
-import * as Settings from './settings.js';
-import * as NavTab from './utils/nav-tab.js';
+import * as View from '../views/view.js';
+import * as Tempo from '../views/tempo.js';
+import * as Settings from '../views/settings.js';
+import * as NavTab from '../components/nav-tab.js';
 
 const METRONOME_ANIMATION_BPM_LIMIT = 240;
 const METRONOME_ENABLED_BPM_LIMIT   = 300;

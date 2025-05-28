@@ -32,7 +32,7 @@ DARK_MEDIA_QUERY.addEventListener('change', event => {
 });
 
 // Check the color scheme if the setting changes.
-import('../settings.js').then(Settings => {
+import('../views/settings.js').then(Settings => {
     Settings.onchange(['color_scheme'], event => {
         setColorScheme(event.detail.value);
     });

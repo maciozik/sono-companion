@@ -1,10 +1,10 @@
 const CACHE_NAME = 'my-app-cache-v1';
 
 const file_to_cache = [
-    '../index.html',
-    '../css/app.css',
-    '../js/app.js',
-    // '/images/icon-192x192.png',
+    '../../index.html',
+    '../../css/app.css',
+    '../app.js',
+    // '../../img/icon-192x192.png',
 ];
 
 // Install the service worker and run the cache.

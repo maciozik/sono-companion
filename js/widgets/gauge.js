@@ -1,4 +1,4 @@
-import * as Settings from './settings.js';
+import * as Settings from '../views/settings.js';
 
 export const MIN    = () => Settings.get('gauge_min');
 export const MAX    = () => Settings.get('gauge_max');
@@ -94,6 +94,7 @@ export function update(db)
     $gaugePointer.style.transform = `rotate(${rotation}deg)`;
 }
 
+// REMOVE Not used for the moment.
 export function setTransitionDuration(duration)
 {
     $gauge.style.setProperty('--gauge-pointer-transition-duration', `${duration}ms`);

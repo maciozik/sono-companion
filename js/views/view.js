@@ -1,8 +1,8 @@
 import Modal from '../classes/Modal.js';
+import * as Storage from '../core/storage.js';
 import * as Settings from './settings.js';
-import * as Storage from './storage.js';
-import * as NavTab from './utils/nav-tab.js';
-import * as AudioPermission from './utils/audio_permission.js';
+import * as NavTab from '../components/nav-tab.js';
+import * as AudioPermission from '../audio/audio-permission.js';
 
 export const STORAGE_LAST_VIEW_LOADED = () => Storage.get('last_view_loaded') || 'sonometer';
 
@@ -186,7 +186,7 @@ export function __init__({ Settings })
             load(view_id);
 
             // If the view loaded needs the audio permission.
-            // REFACTOR Move to a new file.
+            // REFACTOR Move to a new file, and run it at load and not at the trigger on load-view buttons.
             if ('needsAudioPermission' in this.dataset) {
 
                 // Check if the audio permission is granted, and show the modal if not.
