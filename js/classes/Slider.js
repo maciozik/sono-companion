@@ -39,6 +39,8 @@ export default class Slider
         this.min = parseFloat(this.$slider.dataset.min);
         this.max = parseFloat(this.$slider.dataset.max);
         this.step = parseFloat(this.$slider.dataset.step);
+
+        this.init();
     }
 
     /**

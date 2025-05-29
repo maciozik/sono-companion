@@ -52,9 +52,8 @@ export default class SettingRange extends Setting
         this.$slider = this.querySelector('.slider');
         this.$settingValue = this.querySelector('.slider-value');
 
-        // Init and link the Slider instance to the setting.
+        // Create and link the Slider instance to the setting.
         this.Slider = new Slider(this.$slider);
-        this.Slider.init()
 
         // Set the width of the setting value.
         this.setSettingValueWidth();
@@ -185,9 +184,9 @@ export default class SettingRange extends Setting
             // Update the value in the storage.
             Settings.change(_this.name, _this.value, _this.context);
 
-            // Unhighlight the setting value, and run the tappable animation.
+            // Unhighlight the setting value, and trigger the tappable element.
             _this.$settingValue.classList.remove('active');
-            _this.triggerTappable(event.detail.source_event);
+            _this._Tappable.trigger(event.detail.source_event);
 
             // Make the device vibrate.
             app.vibrate();

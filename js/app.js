@@ -20,6 +20,12 @@ import './custom-elements/SettingAction.js';
 import './custom-elements/GIcon.js';
 import './custom-elements/IncludeHTML.js';
 
+/**  COMPONENTS  **/
+import * as NavTab from './components/nav-tab.js';
+import './components/play-btn.js';
+import './components/scrollbar.js';
+import './components/tappable.js';
+
 /**  VIEWS  **/
 import * as View from './views/view.js';
 import * as Sonometer from './views/sonometer.js';
@@ -29,12 +35,6 @@ import * as Settings from './views/settings.js';
 /**  WIDGETS  **/
 import * as Gauge from './widgets/gauge.js';
 import * as Metronome from './widgets/metronome.js';
-
-/**  COMPONENTS  **/
-import * as NavTab from './components/nav-tab.js';
-import './components/play-btn.js';
-import './components/tappable.js';
-import './components/scrollbar.js';
 
 /**  APP  **/
 
