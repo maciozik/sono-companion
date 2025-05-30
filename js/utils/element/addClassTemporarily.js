@@ -16,8 +16,9 @@ Element.prototype.addClassTemporarily = function (class_name, timeout = DEFAULT_
 
     // Remove class after the transition or the animation ends.
     if (timeout === 'transitionend' || timeout === 'animationend') {
-        $this.addEventListener(timeout, function () {
+        $this.addEventListener(timeout, function (event) {
             this.classList.remove(class_name);
+            event.stopPropagation();
         }, { once: true });
     }
     // Remove class after the timeout ends.
