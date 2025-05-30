@@ -76,13 +76,13 @@ window.fetch(`https://api.github.com/repos/${ENV.GITHUB}/tags`)
 /**  MODULES  **/
 
 const modules = {
+    Settings,
     View,
     NavTab,
     Sonometer,
     Gauge,
     Tempo,
-    Metronome,
-    Settings
+    Metronome
 };
 
 // Call the __init__ function of each module by passing them all modules reference.
