@@ -1,3 +1,57 @@
+[data-tappable] {
+    --tappable-width : 0px; /* Overridden in JS. */
+    --tappable-height: 0px; /* Overridden in JS. */
+    --circle-x: 0px;        /* Overridden in JS. */
+    --circle-y: 0px;        /* Overridden in JS. */
+    --circle-opacity: .05;
+    --circle-animation-duration: 350ms;
+    --circle-background: light-dark(black, white);
+
+    position: relative;
+    z-index: 10;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: calc(-1 * ((var(--tappable-width) / 2) - (var(--tappable-height) / 2)));
+        left: 0;
+        width: 100%;
+        aspect-ratio: 1;
+        background-color: var(--circle-background);
+        border-radius: 50%;
+        transform: scale(0);
+        opacity: 0;
+        z-index: -1;
+    }
+
+    &[data-tappable~=follow-tap] {
+        &::before {
+            top: calc((-1 * (var(--tappable-width) / 2)) + (var(--circle-y)));
+            left: calc((-1 * (var(--tappable-width) / 2)) + (var(--circle-x)));
+        }
+    }
+
+    &[data-tappable~=no-circle] {
+        &::before {
+            display: none;
+        }
+    }
+
+    &.ontap {
+        &::before {
+            opacity: var(--circle-opacity);
+            animation: circle-grow var(--circle-animation-duration) ease-out;
+            animation-fill-mode: forwards;
+        }
+    }
+
+    &.disabled {
+        pointer-events: none;
+    }
+}
+
+/**  ANIMATIONS  **/
+
 @keyframes circle-grow {
     from {
         transform: scale(0);
@@ -9,56 +63,5 @@
     to {
         transform: scale(1);
         filter: opacity(0);
-    }
-}
-
-[data-tappable] {
-    --tappable-width : 0px; /* Overridden in JS. */
-    --tappable-height: 0px; /* Overridden in JS. */
-    --circle-x: 0px;        /* Overridden in JS. */
-    --circle-y: 0px;        /* Overridden in JS. */
-    --circle-opacity: .05;
-    --circle-animation-duration: 350ms;
-
-    position: relative;
-    z-index: 10;
-
-    &:before {
-        content: "";
-        position: absolute;
-        top: calc(-1 * ((var(--tappable-width) / 2) - (var(--tappable-height) / 2)));
-        left: 0;
-        width: 100%;
-        aspect-ratio: 1;
-        background-color: light-dark(black, white);
-        border-radius: 50%;
-        transform: scale(0);
-        opacity: 0;
-        z-index: -1;
-    }
-
-    &[data-tappable~=follow-tap] {
-        &:before {
-            top: calc((-1 * (var(--tappable-width) / 2)) + (var(--circle-y)));
-            left: calc((-1 * (var(--tappable-width) / 2)) + (var(--circle-x)));
-        }
-    }
-
-    &[data-tappable~=no-circle] {
-        &:before {
-            display: none;
-        }
-    }
-
-    &.ontap {
-        &:before {
-            opacity: var(--circle-opacity);
-            animation: circle-grow var(--circle-animation-duration) ease-out;
-            animation-fill-mode: forwards;
-        }
-    }
-
-    &.disabled {
-        pointer-events: none;
     }
 }

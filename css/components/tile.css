@@ -76,9 +76,7 @@
     }
 
     &[data-tappable] {
-        &.ontap:before {
-            --circle-animation-duration: 200ms !important;
-        }
+        --circle-animation-duration: 200ms !important;
     }
 
     &.disabled > * {

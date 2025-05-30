@@ -33,7 +33,7 @@ header {
         }
 
         /* Tappable */
-        &:before {
+        &::before {
             background-color: white !important;
         }
     }

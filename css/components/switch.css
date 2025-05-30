@@ -13,7 +13,7 @@
     border-radius: calc(var(--switch-height) / 2);
     transition: background-color 0ms linear 20ms;
 
-    &:before {
+    &::before {
         content: "";
         display: block;
         height: 125%;
@@ -28,7 +28,7 @@
     &[data-value=true] {
         color: var(--cyan);
 
-        &:before {
+        &::before {
             transform: translateX(calc(var(--switch-width) - 100%));
         }
     }

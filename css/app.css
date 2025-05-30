@@ -4,7 +4,7 @@
 /**  BASE  **/
 @import url(./base/root.css);
 @import url(./base/layout.css);
-@import url(./base/tags.css);
+@import url(./base/elements.css);
 
 /**  VIEWS  **/
 @import url(./views/view.css);

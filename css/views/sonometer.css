@@ -1,9 +1,3 @@
-@keyframes timestamp-blink {
-    50%, to {
-        color: var(--cyan);
-    }
-}
-
 #sonometer {
 
     #sonometer-gauge {
@@ -100,10 +94,10 @@
 
         #sonometer-gauge {
             .gauge {
-                .graduation:before {
+                .graduation::before {
                     color: var(--grey) !important;
                 }
-                .gauge-pointer:after {
+                .gauge-pointer::after {
                     border-right-color: var(--grey);
                 }
             }
@@ -114,5 +108,13 @@
                 color: var(--grey);
             }
         }
+    }
+}
+
+/**  ANIMATIONS  **/
+
+@keyframes timestamp-blink {
+    50%, to {
+        color: var(--cyan);
     }
 }

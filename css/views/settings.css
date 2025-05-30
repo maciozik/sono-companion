@@ -1,15 +1,3 @@
-@keyframes setting-blink {
-    from {
-        background-color: currentColor;
-    }
-    5% {
-        background-color: var(--yellow);
-    }
-    to {
-        background-color: currentColor;
-    }
-}
-
 #settings {
     --setting-padding-sides: calc(var(--header-margin-left) + 1px);
     display: block;
@@ -137,7 +125,7 @@
         }
 
         /* Blink effect */
-        &:after {
+        &::after {
             content: "";
             position: absolute;
             inset: 0;
@@ -147,7 +135,7 @@
             z-index: -10;
         }
 
-        &.blink:after {
+        &.blink::after {
             animation: setting-blink 1200ms linear;
         }
 
@@ -163,10 +151,6 @@
                 transition: none;
             }
         }
-
-        &.ontap:before {
-            --circle-opacity: 0.015 !important;
-        }
     }
 
     .app-credits {
@@ -174,5 +158,30 @@
         color: var(--grey-pale);
         font-size: .7rem;
         text-align: center;
+    }
+}
+
+/**  THEME  **/
+
+:root[data-color-scheme=dark] {
+    .setting[data-tappable] {
+        --circle-opacity: 0.015 !important;
+    }
+}
+
+:root[data-color-scheme=light] {
+    .setting[data-tappable] {
+        --circle-opacity: 0.03 !important;
+    }
+}
+
+/**  ANIMATIONS  **/
+
+@keyframes setting-blink {
+    from, 20% {
+        background-color: var(--yellow);
+    }
+    to {
+        background-color: currentColor;
     }
 }

@@ -14,9 +14,9 @@
         overflow: visible;
     }
 
-    &:not(.btn-no-fill).ontap:before {
+    &:not(.btn-no-fill)[data-tappable] {
         --circle-opacity: .2 !important;
-        background-color: black !important;
+        --circle-background: black !important;
     }
 
     g-icon {

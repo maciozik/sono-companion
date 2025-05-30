@@ -48,7 +48,7 @@
 html {
     touch-action: manipulation; /* Disable double-tap. */
 
-    *, *:before, *:after {
+    *, *::before, *::after {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
@@ -68,6 +68,8 @@ body {
         animation: reset-blink 600ms linear;
     }
 }
+
+/**  ANIMATIONS  **/
 
 @keyframes reset-blink {
     from, 50% {

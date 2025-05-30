@@ -1,24 +1,3 @@
-@keyframes bar-grow {
-    from {
-        transform: default;
-        background-color: default;
-    }
-    15% {
-        transform: scaleY(1);
-        background-color: var(--cyan);
-    }
-    50% {
-        background-color: var(--cyan);
-    }
-    80% {
-        transform: default;
-    }
-    to {
-        transform: default;
-        background-color: default;
-    }
-}
-
 #loader {
     display: flex;
     flex-direction: column;
@@ -82,5 +61,28 @@
 
     &.hide {
         display: none;
+    }
+}
+
+/**  ANIMATIONS  **/
+
+@keyframes bar-grow {
+    from {
+        transform: default;
+        background-color: default;
+    }
+    15% {
+        transform: scaleY(1);
+        background-color: var(--cyan);
+    }
+    50% {
+        background-color: var(--cyan);
+    }
+    80% {
+        transform: default;
+    }
+    to {
+        transform: default;
+        background-color: default;
     }
 }

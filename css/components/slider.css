@@ -43,7 +43,7 @@
         }
 
         /* Point 0 */
-        &:before {
+        &::before {
             content: "";
             display: none;
             position: absolute;
@@ -63,7 +63,7 @@
         .slider-thumb {
             box-shadow: 0 0 0 var(--slider-thumb-shadow) light-dark(#0001, #FFF1);
         }
-        .slider-line:before {
+        .slider-line::before {
             display: block;
         }
     }

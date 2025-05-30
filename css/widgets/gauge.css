@@ -51,7 +51,7 @@
                     transform-origin: 100% 50%;
 
                     /* Gauge Values */
-                    &:before {
+                    &::before {
                         content: attr(data-value);
                         position: absolute;
                         width: 30px;
@@ -67,7 +67,7 @@
                     }
 
                     /* Gauge Indicators */
-                    &:after {
+                    &::after {
                         content: attr(data-indicator);
                         position: absolute;
                         margin-top: calc(-1 * (-1/2 * var(--gauge-graduations-thickness) + 8px));
@@ -78,14 +78,14 @@
                     }
 
                     &.active {
-                        &:before {
+                        &::before {
                             opacity: 1;
                             transition: none;
                         }
                     }
 
                     &.indicator-reverse {
-                        &:after {
+                        &::after {
                             transform: rotate(180deg);
                         }
                     }
@@ -105,7 +105,7 @@
                     color: var(--cyan);
 
                     &.active {
-                        &:before {
+                        &::before {
                             color: var(--invert);
                         }
                     }
@@ -127,7 +127,7 @@
                     color: var(--red);
 
                     &.active {
-                        &:before {
+                        &::before {
                             color: var(--red);
                         }
                     }
@@ -149,7 +149,7 @@
         transition: transform var(--gauge-pointer-transition-duration) ease-out;
 
         /* Triangle Pointer */
-        &:after {
+        &::after {
             --gauge-pointer-borders-size: (var(--gauge-pointer-thickness) - var(--gauge-pointer-tip-size)) / 2;
             content: "";
             position: absolute;
