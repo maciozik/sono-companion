@@ -20,7 +20,7 @@
         --invert: #CAD0D0;
         --grey: #707A7A;
         --grey-pale: #404A4A;
-        --bg: #202122;
+        --bg: #1E2021;
         --bg-contrast: #181818;
     }
 
@@ -63,4 +63,17 @@ body {
     font-family: 'Noto Sans', Arial, sans-serif;
     line-height: 1.4;
     letter-spacing: .2px;
+
+    &.blink {
+        animation: reset-blink 600ms linear;
+    }
+}
+
+@keyframes reset-blink {
+    from, 50% {
+        background-color: oklch(from var(--red) l c h / .3);
+    }
+    to {
+        background-color: var(--bg);
+    }
 }

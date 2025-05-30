@@ -31,7 +31,7 @@ export function get(setting_name)
  * Set a setting in the storage.
  * @param {string} setting_name The name of the setting (in snake case).
  * @param {string|number|boolean|null} value The value to set, or null to remove the setting from the storage.
- * @param {string} context The context of the setting (ie. the id of the view, or a keyword).
+ * @param {string} context The context of the setting (i.e. the id of the view, or a keyword).
  * @returns {string|number|boolean} The value after conversion.
  */
 function set(setting_name, value, context)
@@ -57,7 +57,7 @@ function set(setting_name, value, context)
  * Change a setting in the storage.
  * @param {string} setting_name The name of the setting (in snake case).
  * @param {string|number|boolean} value The value to set.
- * @param {string} context The context of the setting (ie. the id of the view, or a keyword).
+ * @param {string} context The context of the setting (i.e. the id of the view, or a keyword).
  * @fires setting:onchange:`setting_name`
  * @fires setting:onsync:`setting_name`
  * @returns {string|number|boolean|null} The value after conversion.
@@ -231,6 +231,7 @@ export function reset()
     }
 
     app.vibrate(30);
+    document.body.addClassTemporarily('blink', 'animationend');
 
     checkVisibility();
 }
