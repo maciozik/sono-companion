@@ -6,7 +6,9 @@ import * as NavTab from '../components/nav-tab.js';
 const METRONOME_ANIMATION_BPM_LIMIT = 240;
 const METRONOME_ENABLED_BPM_LIMIT   = 300;
 
-const METRONOME_CLICK = () => Settings.get('metronome_click');
+const METRONOME_AUDIO_TICK_PATH = '../../audio/metronome_tick.mp3';
+
+const METRONOME_TICK    = () => Settings.get('metronome_tick');
 const METRONOME_VIBRATE = () => Settings.get('metronome_vibrate');
 
 export const $metronome = document.querySelector('#tempo #tempo-metronome .metronome');
@@ -14,6 +16,10 @@ const $metronomeCircle = $metronome.querySelector('.metronome-circle');
 
 export const $playBtn = document.querySelector('#tempo #tempo-controls .play-btn');
 export const $replayBtn = document.querySelector('#tempo #tempo-controls .metronome-replay-btn');
+
+let audioContext = new AudioContext();
+/** @type {Promise<AudioBuffer>} */
+let audioTickBuffer;
 
 let metronomeInterval;
 
@@ -46,7 +52,7 @@ export function run()
     metronomeInterval = setInterval(() => {
         // Toggle the direction before running the animation.
         direction = (direction === 'right') ? 'left' : 'right';
-        animate(direction);
+        animate(direction, true);
     }, bpm_ms);
 
     // Enable the replay button.
@@ -85,14 +91,12 @@ export function replay()
     $metronome.classList.add('instant');
 
     // Reset the animation and the interval that runs it.
-    animate('left', false);
+    animate('left', true);
     clearInterval(metronomeInterval);
 
     setTimeout(() => {
         run();
     }, 1); // Let the time to stop before running again.
-
-    app.vibrate(20);
 }
 
 /**
@@ -106,20 +110,38 @@ function animate(direction, has_feedback = true)
     $metronome.classList.remove('left', 'right');
     $metronome.classList.add(direction);
 
-    // TODO Audio ticks.
-
-    // Blink the bpm value, and make the device vibrate.
+    // Run some feedbacks.
     if (has_feedback) {
         feedback();
     }
 }
 
+/**
+ * Make the bpm value blink, and can run a sound and/or a vibration depending on the user settings.
+ */
 function feedback()
 {
     Tempo.$bpmValue.addClassTemporarily('blink', Tempo.BPM_BLINK_DURATION);
 
+    if (METRONOME_TICK()) {
+        playAudioTick();
+    }
     if (METRONOME_VIBRATE()) {
         app.vibrate(20);
+    }
+}
+
+/**
+ * Play an audio tick.
+ */
+function playAudioTick()
+{
+    if (audioTickBuffer) {
+        const source = audioContext.createBufferSource();
+
+        source.buffer = audioTickBuffer;
+        source.connect(audioContext.destination);
+        source.start(audioContext.currentTime);
     }
 }
 
@@ -130,6 +152,13 @@ function feedback()
  */
 export function __init__({})
 {
+    // Set the buffer for audio ticks.
+    fetch(METRONOME_AUDIO_TICK_PATH)
+        .then(response => response.arrayBuffer())
+        .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
+        .then(audioBuffer => audioTickBuffer = audioBuffer)
+        .catch(() => console.error("Failed to load tick sound."));
+
     // Listen the events emitted by the view.
     document.addEventListener('run:tempo', run);
     document.addEventListener('stop:tempo', stop);
