@@ -1,4 +1,5 @@
 .metronome {
+    --metronome-transition-duration: 667ms; /* Overridden in JS. */
     --metronome-circle-size: 30px;
     display: flex;
     align-items: center;
@@ -25,7 +26,7 @@
             transform: translateX(-50%);
             background-color: var(--cyan);
             border-radius: 50%;
-            transition: margin-left 667ms linear; /* Overridden in JS. */
+            transition: margin-left var(--metronome-transition-duration) linear;
         }
     }
 

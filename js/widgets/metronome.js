@@ -17,10 +17,12 @@ const $metronomeCircle = $metronome.querySelector('.metronome-circle');
 export const $playBtn = document.querySelector('#tempo #tempo-controls .play-btn');
 export const $replayBtn = document.querySelector('#tempo #tempo-controls .metronome-replay-btn');
 
-let audioContext = new AudioContext();
+/** @type {AudioContext} */
+let audioContext;
 /** @type {Promise<AudioBuffer>} */
 let audioTickBuffer;
 
+let direction;
 let metronomeInterval;
 
 /**
@@ -30,33 +32,27 @@ export function run()
 {
     let bpm = Tempo.get('bpm');
     let bpm_ms = Tempo.get('ms');
-    let direction = 'right';
-    let feedback_at_run = false;
 
     // Set the transition duration to match with the bpm.
-    $metronomeCircle.style.transitionDuration = bpm_ms + 'ms';
+    $metronome.style.setProperty('--metronome-transition-duration', `${bpm_ms}ms`);
+
+    // Reset the behavior and enable the replay button.
+    $metronome.classList.remove('instant', 'fixed', 'disabled');
+    $replayBtn.classList.remove('disabled');
 
     // Change the behavior if the bpm exceeds high limits.
-    $metronome.classList.remove('instant', 'fixed', 'disabled');
     if (bpm > METRONOME_ENABLED_BPM_LIMIT) {
         $metronome.classList.add('fixed');
-        feedback_at_run = true;
+        feedback(true, true);
     }
     else if (bpm > METRONOME_ANIMATION_BPM_LIMIT) {
         $metronome.classList.add('instant');
-        feedback_at_run = true;
+        feedback(true, true);
     }
 
-    // Run the animation immediately, then run it in loop depending on the bpm.
-    animate(direction, feedback_at_run);
-    metronomeInterval = setInterval(() => {
-        // Toggle the direction before running the animation.
-        direction = (direction === 'right') ? 'left' : 'right';
-        animate(direction, true);
-    }, bpm_ms);
-
-    // Enable the replay button.
-    $replayBtn.classList.remove('disabled');
+    // Run the animation a first time, then run the animation loop.
+    goto('right');
+    animate(bpm_ms);
 
     // Reset the Tap Tempo.
     Tempo.resetTap();
@@ -70,17 +66,22 @@ export function run()
  */
 export function stop()
 {
-    $metronome.classList.add('instant', 'disabled');
-
-    // Reset the animation and the interval that runs it.
-    animate('left', false);
     clearInterval(metronomeInterval);
 
-    // Disable the replay button.
+    $metronome.classList.add('disabled');
     $replayBtn.classList.add('disabled');
 
-    // Reset the Tap Tempo.
+    reset();
     Tempo.resetTap();
+}
+
+/**
+ * Reset the metronome.
+ */
+function reset()
+{
+    clearInterval(metronomeInterval);
+    goto('left', true);
 }
 
 /**
@@ -88,45 +89,62 @@ export function stop()
  */
 export function replay()
 {
-    $metronome.classList.add('instant');
+    reset();
+    feedback(false, true);
 
-    // Reset the animation and the interval that runs it.
-    animate('left', true);
-    clearInterval(metronomeInterval);
-
-    setTimeout(() => {
+    // Let the time to stop before running again.
+    requestAnimationFrame(() => {
         run();
-    }, 1); // Let the time to stop before running again.
+    });
 }
 
 /**
  * Set the direction of the metronome circle.
- * @param {string} direction `left` or `right`.
- * @param {boolean} [has_feedback] Whether or not the bpm must blink and the device must vibrate. – *Default: `true`*
+ * @param {'left'|'right'|'reverse'} to The direction the circle must go to, or `reverse` to invert the current direction.
+ * @param {boolean} instant Whether the circle must go to the direction instantly.
  */
-function animate(direction, has_feedback = true)
+function goto(to, instant = false)
 {
-    // Set the direction.
+    if (to === 'reverse') {
+        direction = (direction === 'right') ? 'left' : 'right';
+    }
+    else {
+        direction = to;
+    }
+
+    if (instant) {
+        $metronome.classList.add('instant');
+    }
+
     $metronome.classList.remove('left', 'right');
     $metronome.classList.add(direction);
-
-    // Run some feedbacks.
-    if (has_feedback) {
-        feedback();
-    }
 }
 
 /**
- * Make the bpm value blink, and can run a sound and/or a vibration depending on the user settings.
+ * Run the animation in loop depending on the bpm.
+ * @param {number} duration The duration of the animation (in ms).
  */
-function feedback()
+function animate(duration)
+{
+    metronomeInterval = setInterval(() => {
+        goto('reverse');
+        feedback(true, true);
+    }, duration);
+}
+
+/**
+ * Run some feedback.
+ * @param {boolean} tick Whether the audio tick must play.
+ * @param {boolean} vibrate Whether the device must vibrate.
+ */
+function feedback(tick, vibrate)
 {
     Tempo.$bpmValue.addClassTemporarily('blink', Tempo.BPM_BLINK_DURATION);
 
-    if (METRONOME_TICK()) {
+    if (tick && METRONOME_TICK()) {
         playAudioTick();
     }
-    if (METRONOME_VIBRATE()) {
+    if (vibrate && METRONOME_VIBRATE()) {
         app.vibrate(20);
     }
 }
@@ -146,20 +164,35 @@ function playAudioTick()
 }
 
 /**
+ * Create the audio context if it does not exist yet.
+ */
+function createAudioContext() {
+
+    if (!audioContext) {
+
+        // Create the audio context.
+        audioContext = new AudioContext();
+
+        // Set the buffer for audio ticks.
+        fetch(METRONOME_AUDIO_TICK_PATH)
+            .then(response => response.arrayBuffer())
+            .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
+            .then(audioBuffer => audioTickBuffer = audioBuffer)
+            .catch(() => console.error("Failed to load tick sound."));
+    }
+}
+
+/**
  * Init the module and its components.
  * Called only once during application startup.
  * @param {Object} modules All the main modules loaded in app.js, got via destructuring.
  */
 export function __init__({})
 {
-    // Set the buffer for audio ticks.
-    fetch(METRONOME_AUDIO_TICK_PATH)
-        .then(response => response.arrayBuffer())
-        .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
-        .then(audioBuffer => audioTickBuffer = audioBuffer)
-        .catch(() => console.error("Failed to load tick sound."));
-
     // Listen the events emitted by the view.
-    document.addEventListener('run:tempo', run);
+    document.addEventListener('run:tempo', () => {
+        createAudioContext();
+        run();
+    });
     document.addEventListener('stop:tempo', stop);
 }
