@@ -47,7 +47,7 @@ main {
 }
 
 footer {
-    padding: 10px var(--padding-sides);
+    padding: 13px var(--padding-sides) 12px;
     width: 100%;
     height: var(--footer-height);
     z-index: 1000;
@@ -57,9 +57,9 @@ footer {
         justify-content: space-around;
         position: relative;
         height: 100%;
-        padding: 0 8px;
+        padding: 0 15px 1px;
         background-color: var(--bg-contrast);
-        border-radius: 10px;
+        border-radius: 100vw;
 
         .nav-tab {
             display: flex;

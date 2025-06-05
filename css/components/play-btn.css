@@ -18,7 +18,7 @@
     }
 
     &.adaptative {
-        --play-btn-adaptative-margins: 10px;
+        --play-btn-adaptative-margins: 8px;
         margin: var(--play-btn-adaptative-margins);
         top: calc(50% - var(--play-btn-adaptative-margins));
         left: calc(50% - var(--play-btn-adaptative-margins));
@@ -29,7 +29,7 @@
 
     &[data-tappable] {
         --circle-opacity: .15 !important;
-        --circle-animation-duration: 250ms !important;
+        --circle-animation-duration: 300ms !important;
         --circle-background: var(--cyan) !important;
     }
 }

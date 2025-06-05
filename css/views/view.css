@@ -7,6 +7,7 @@
     height: 100%;
     min-height: 480px;
     padding: var(--padding-sides);
+    padding-bottom: 0;
     transform: scale(.95);
     opacity: 0;
     overflow-x: hidden;
@@ -54,7 +55,7 @@
         place-content: center;
         position: absolute;
         top: 18px;
-        right: 15px;
+        right: 16px;
         color: var(--grey-pale);
         font-size: .9rem;
         font-weight: 600;
