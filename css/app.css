@@ -15,6 +15,7 @@
 /**  WIDGETS  **/
 @import url(./widgets/gauge.css);
 @import url(./widgets/metronome.css);
+@import url(./widgets/bpm-manager.css);
 @import url(./widgets/modal.css);
 
 /**  COMPONENTS  **/

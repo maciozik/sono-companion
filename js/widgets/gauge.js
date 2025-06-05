@@ -29,7 +29,9 @@ export function create()
     for (let step = MIN(); step <= MAX(); step += GRADUATIONS_STEP()) {
 
         // Get the template of the graduation and clone it.
-        const $graduationTemplate = document.getElementById('graduation-template').content;
+        /** @type {DocumentFragment} */
+        const $graduationTemplate = document.getElementById('gauge-graduation-template').content;
+        /** @type {HTMLElement} */
         const $graduation = $graduationTemplate.cloneNode(true).querySelector('.graduation');
 
         // Set the values of the graduation.

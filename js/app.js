@@ -3,7 +3,8 @@
 import './env.js';
 
 /**  UTILS  **/
-import './utils/addDynamicEventListener.js';
+import './utils/htmlelement/addDynamicEventListener.js';
+import './utils/window/doubleRequestAnimationFrame.js';
 import './utils/element/addClassTemporarily.js';
 import './utils/math/roundFloat.js';
 import './utils/math/clamp.js';
@@ -35,6 +36,7 @@ import * as Settings from './views/settings.js';
 /**  WIDGETS  **/
 import * as Gauge from './widgets/gauge.js';
 import * as Metronome from './widgets/metronome.js';
+import * as BpmManager from './widgets/bpm-manager.js';
 
 /**  APP  **/
 
@@ -82,7 +84,8 @@ const modules = {
     Sonometer,
     Gauge,
     Tempo,
-    Metronome
+    Metronome,
+    BpmManager
 };
 
 // Call the __init__ function of each module by passing them all modules reference.
@@ -91,6 +94,10 @@ for (const module of Object.values(modules)) {
         module.__init__(modules);
     }
 }
+
+
+
+// TODO Replace .disabled with :disabled.
 
 
 

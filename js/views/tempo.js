@@ -38,10 +38,12 @@ export function get(unit = 'bpm')
 
 /**
  * Set the tempo in bmp.
- * @param {number} bpm
+ * @param {number|undefined} bpm
  */
 export function set(bpm)
 {
+    if (bpm === undefined) return;
+
     // If the minimum or maximum limit is reached.
     if (bpm < BPM_MIN() || bpm > BPM_MAX()) {
         bpm = Math.clamp(bpm, BPM_MIN(), BPM_MAX());
@@ -118,7 +120,7 @@ export function tap()
         // Save the time gap between the new tap and the previous.
         let i_length = tapTempoTimeGaps.push(interval);
 
-        // Remove the oldest time gap if there is too much time gaps.
+        // Remove the oldest time gap if there are too many time gaps.
         if (i_length > TAP_TEMPO_INTERVALS_LIMIT) {
             tapTempoTimeGaps.shift();
         }
@@ -187,6 +189,17 @@ export function __init__({ View, Metronome, Settings })
         View.stop();
         tap();
     });
+
+    // Click on any tappable other than the Tap Tempo button.
+    const $tappables = document.querySelectorAll('[data-tappable]:not(.tap-tempo-btn)');
+    for (const $tappable of $tappables) {
+        $tappable.addEventListener('trigger', function(event) {
+            // If the Tap Tempo is active.
+            if ($tapBtn.classList.contains('active')) {
+                resetTap();
+            }
+        });
+    }
 
     // Update the bpm if the settings change.
     Settings.onchange(['bpm_min', 'bpm_max'], event => {

@@ -43,6 +43,9 @@
             animation: circle-grow var(--circle-animation-duration) ease-out;
             animation-fill-mode: forwards;
         }
+        &[data-tappable~=shrink] {
+            transform: scale(.92);
+        }
     }
 
     &.disabled {

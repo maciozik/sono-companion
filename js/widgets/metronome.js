@@ -54,9 +54,6 @@ export function run()
     goto('right');
     animate(bpm_ms);
 
-    // Reset the Tap Tempo.
-    Tempo.resetTap();
-
     // Update the label of the tab.
     NavTab.updateTab(`${bpm} bpm`);
 }
@@ -72,7 +69,6 @@ export function stop()
     $replayBtn.classList.add('disabled');
 
     reset();
-    Tempo.resetTap();
 }
 
 /**

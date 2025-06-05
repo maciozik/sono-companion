@@ -117,6 +117,13 @@
             }
         }
     }
+
+    #tempo-bpm-manager {
+        display: flex;
+        justify-content: end;
+        align-items: end;
+        padding-bottom: 5px;
+    }
 }
 
 /**  ANIMATIONS  **/
