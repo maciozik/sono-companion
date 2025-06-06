@@ -38,11 +38,11 @@ export function get(unit = 'bpm')
 
 /**
  * Set the tempo in bmp.
- * @param {number|undefined} bpm
+ * @param {number|null} bpm
  */
 export function set(bpm)
 {
-    if (bpm === undefined) return;
+    if (bpm === null) return;
 
     // If the minimum or maximum limit is reached.
     if (bpm < BPM_MIN() || bpm > BPM_MAX()) {

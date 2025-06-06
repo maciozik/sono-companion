@@ -6,9 +6,9 @@ const DEFAULT_TIMEOUT = 10;
  * @param {number|'transitionend'|'animationend'} [timeout]
  *  The duration after which the class is removed (in ms) – *Default: `10`*.
  *  The keywords `transitionend` or `animationend` can also be used to remove the class after a transition or animation.
- * @memberof Element
+ * @memberof HTMLElement
  */
-Element.prototype.addClassTemporarily = function (class_name, timeout = DEFAULT_TIMEOUT)
+HTMLElement.prototype.addClassTemporarily = function (class_name, timeout = DEFAULT_TIMEOUT)
 {
     let $this = this;
 

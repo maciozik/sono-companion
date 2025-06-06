@@ -1,7 +1,7 @@
 /**
  * Get a key or setting from the storage.
  * @param {string} key The name of the key or setting (in snake case).
- * @returns {string|number|boolean|null}
+ * @returns {any|null}
  */
 export function get(key)
 {
@@ -20,7 +20,7 @@ export function get(key)
 /**
  * Set a key or setting in the storage.
  * @param {string} key The name of the key or setting (in snake case).
- * @param {string|number|boolean|null} value The value to set.
+ * @param {any} value The value to set.
  */
 export function set(key, value)
 {

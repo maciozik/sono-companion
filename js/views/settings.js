@@ -144,14 +144,17 @@ export function checkVisibility()
  */
 export function blink(setting_name)
 {
-    let $setting = getSettingFromName(setting_name);
+    if (setting_name !== undefined) {
 
-    $setting.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center'
-    });
+        let $setting = getSettingFromName(setting_name);
 
-    $setting.addClassTemporarily('blink', 'animationend');
+        $setting.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+        });
+
+        $setting.addClassTemporarily('blink', 'animationend');
+    }
 }
 
 /**
@@ -318,21 +321,14 @@ export function __init__({})
         SettingList.selectItem(this, Modal.$modal);
     });
 
-    // When the view is loaded.
-    document.addEventListener('load', event => {
+    // When the view is loaded, make the setting blink if necessary.
+    document.addEventListener('load:settings', event => {
+        let setting_name = event.detail.setting_name;
+        let settings_view_transition_duration = $view.getCssProperty('transition-duration');
 
-        const view_id = event.detail.view_id;
-        const setting_name = event.detail.setting_name;
-
-        // Make the setting blink if necessary.
-        if (view_id === 'settings' && setting_name !== undefined) {
-            let transition = window.getComputedStyle($view).getPropertyValue('transition-duration');
-            let settings_view_transition_duration = transition.endsWith('s') ? parseFloat(transition) * 1000 : parseFloat(transition);
-
-            setTimeout(() => {
-                blink(setting_name);
-            }, settings_view_transition_duration - 100);
-        }
+        setTimeout(() => {
+            blink(setting_name);
+        }, settings_view_transition_duration - 100);
     });
 
     // Change the gauge parameters.

@@ -32,7 +32,7 @@ export default class GIcon extends HTMLElement
         this.classList.add(`material-icons${this.theme}`);
 
         // Get the possible transform property of the existing element.
-        let transform = window.getComputedStyle(this).getPropertyValue('transform');
+        let transform = this.getCssProperty('transform');
         transform = (transform !== 'none') ? transform : '';
 
         // Set the translateX value if needed.

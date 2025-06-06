@@ -1,14 +1,16 @@
 .bpm-manager {
+    --transition-duration: 120ms;
     display: flex;
     flex-direction: row-reverse;
     justify-content: end;
     align-items: center;
+    margin-bottom: 4px;
 
     .bpm-add-btn {
         container-type: size;
         display: grid;
         place-items: center;
-        margin: 0 2px 0 10px;
+        margin-left: 10px;
         width: 58px;
         aspect-ratio: 1;
         color: var(--cyan);
@@ -28,6 +30,10 @@
     .bpm-next-btn, .bpm-remove-btn {
         --btns-border-radius: 6px;
         height: 42px;
+
+        .bpm-save:is(.previous, .current, .next, .add, .remove), &.bpm-remove-btn {
+            transition: all var(--transition-duration) ease-out;
+        }
     }
 
     .bpm-next-btn {
@@ -44,10 +50,6 @@
 
         .bpm-save {
             position: absolute;
-
-            &:is(.previous, .current, .next, .add, .remove) {
-                transition: all 120ms ease-out;
-            }
 
             /* Previous and after next. */
             &:not(:is(.current, .next, .add, .remove)) {
@@ -128,6 +130,10 @@
         .bpm-remove-btn {
             color: var(--red);
         }
+    }
+
+    &.deactivate {
+        pointer-events: none;
     }
 
     &.disabled {

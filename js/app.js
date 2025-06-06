@@ -3,9 +3,10 @@
 import './env.js';
 
 /**  UTILS  **/
-import './utils/htmlelement/addDynamicEventListener.js';
 import './utils/window/doubleRequestAnimationFrame.js';
-import './utils/element/addClassTemporarily.js';
+import './utils/htmlelement/addClassTemporarily.js';
+import './utils/htmlelement/addDynamicEventListener.js';
+import './utils/htmlelement/getCssProperty.js';
 import './utils/math/roundFloat.js';
 import './utils/math/clamp.js';
 import './utils/math/float.js';
@@ -98,6 +99,8 @@ for (const module of Object.values(modules)) {
 
 
 // TODO Replace .disabled with :disabled.
+// TODO Extract nav-tab and calibration.
+// TODO Replace needed with necessary.
 
 
 
