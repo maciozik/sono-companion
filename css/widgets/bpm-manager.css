@@ -17,6 +17,29 @@
         background-color: var(--bg-contrast);
         border-radius: 50%;
 
+        .bpm-count-badge {
+            position: absolute;
+            top: -7px;
+            right: 60%;
+            padding: .5px 6px;
+            font-size: .65rem;
+            font-weight: 500;
+            color: var(--invert);
+            background-color: var(--grey-pale);
+            border-radius: 100vw;
+            transform: translateX(3px);
+            opacity: 0;
+            transition-property: all;
+            transition-duration: 100ms;
+            pointer-events: none;
+
+            &.show {
+                transform: none;
+                opacity: 0.8;
+                transition-duration: 60ms;
+            }
+        }
+
         g-icon {
             font-size: 64cqh;
         }
@@ -65,7 +88,7 @@
             }
 
             &:is(.current, .add, .remove) {
-                color: var(--white);
+                color: var(--invert);
                 font-size: 1.05rem;
                 font-weight: 500;
                 transform: translateY(-6px);
@@ -80,6 +103,7 @@
 
                 &.blink {
                     color: var(--cyan);
+                    transition: none;
                 }
             }
 
@@ -125,14 +149,14 @@
 
     &.active {
         .bpm-save.current {
-            color: var(--white);
+            color: var(--invert);
         }
         .bpm-remove-btn {
             color: var(--red);
         }
     }
 
-    &.deactivate {
+    &.no-interaction {
         pointer-events: none;
     }
 
@@ -149,7 +173,7 @@
         }
 
         .bpm-save.current, .bpm-remove-btn {
-            color: var(--grey);
+            color: var(--grey-pale);
         }
     }
 }

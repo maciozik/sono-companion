@@ -4,13 +4,16 @@ import * as Tempo from '../views/tempo.js';
 export const $bpmManager = document.querySelector('#tempo #tempo-bpm-manager .bpm-manager');
 
 const SAVES_MAX = 50;
+const SHOW_BADGE_COUNT_THRESHOLD = 10;
 
-const ADD_BLINK_DURATION = 150;
+const ADD_BLINK_DURATION = 120;
 const TRIGGER_BTNS_DELAY = $bpmManager.getCssProperty('--transition-duration') + 20;
 
 const $addBtn = $bpmManager.querySelector('.bpm-add-btn');
 const $nextBtn = $bpmManager.querySelector('.bpm-next-btn');
 const $removeBtn = $bpmManager.querySelector('.bpm-remove-btn');
+
+const $countBadge = $addBtn.querySelector('.bpm-count-badge');
 
 /**
  * Recall the next save in the list.
@@ -52,6 +55,7 @@ function add()
     // Set it as the current save.
     nextState([$current, $add], () => {
         setVisibility();
+        setCountBadge();
         handleCountBasedCases('add');
     });
 }
@@ -75,6 +79,7 @@ function remove()
     nextState([$next, $afterNext], () => {
         Tempo.set(parseInt($next?.textContent) || null);
         setVisibility();
+        setCountBadge();
         handleCountBasedCases('remove');
     });
 }
@@ -277,6 +282,18 @@ function setVisibility()
 }
 
 /**
+ * Set the count and the visibility of the badge.
+ */
+function setCountBadge()
+{
+    let count = getCount();
+    let is_show = count >= SHOW_BADGE_COUNT_THRESHOLD;
+
+    $countBadge.classList.toggle('show', is_show);
+    $countBadge.textContent = (is_show) ? getCount() : SHOW_BADGE_COUNT_THRESHOLD;
+}
+
+/**
  * Restore the bpm saves from the storage and add them in the DOM.
  */
 function restoreFromStorage()
@@ -345,6 +362,7 @@ function resetStorage()
 export function __init__({ View })
 {
     restoreFromStorage();
+    setCountBadge();
 
     // Click on the add button.
     $addBtn.addEventListener('trigger', () => {
@@ -368,10 +386,10 @@ export function __init__({ View })
         View.stop();
     });
 
-    // Deactivate the manager temporarily at each trigger of any button.
+    // Block interactions on the manager temporarily at each trigger of any button.
     [$addBtn, $nextBtn, $removeBtn].forEach($btn => {
         $btn.addEventListener('trigger', () => {
-            $bpmManager.addClassTemporarily('deactivate', TRIGGER_BTNS_DELAY);
+            $bpmManager.addClassTemporarily('no-interaction', TRIGGER_BTNS_DELAY);
         });
     });
 
