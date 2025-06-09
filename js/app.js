@@ -98,12 +98,6 @@ for (const module of Object.values(modules)) {
 
 
 
-// TODO Replace .disabled with :disabled.
-// TODO Extract nav-tab and calibration.
-// TODO Replace needed with necessary.
-
-
-
 
 
 

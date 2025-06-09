@@ -1,8 +1,8 @@
 import Modal from '../classes/Modal.js';
+import * as Storage from '../core/storage.js';
 import Setting from '../classes/Setting.js';
 import SettingList from '../custom-elements/SettingList.js';
 import SettingAction from '../custom-elements/SettingAction.js';
-import * as Storage from '../core/storage.js';
 
 export const $view = document.getElementById('settings');
 
@@ -233,9 +233,7 @@ export function reset()
         $setting.reset(false);
     }
 
-    app.vibrate(30);
     document.body.addClassTemporarily('blink', 'animationend');
-
     checkVisibility();
 }
 

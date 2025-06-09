@@ -1,13 +1,13 @@
 import * as Storage from '../core/storage.js';
 import * as Tempo from '../views/tempo.js';
-
-export const $bpmManager = document.querySelector('#tempo #tempo-bpm-manager .bpm-manager');
+import * as Settings from '../views/settings.js';
 
 const SAVES_MAX = 50;
 const SHOW_BADGE_COUNT_THRESHOLD = 10;
 
 const ADD_BLINK_DURATION = 120;
-const TRIGGER_BTNS_DELAY = $bpmManager.getCssProperty('--transition-duration') + 20;
+
+export const $bpmManager = document.querySelector('#tempo #tempo-bpm-manager .bpm-manager');
 
 const $addBtn = $bpmManager.querySelector('.bpm-add-btn');
 const $nextBtn = $bpmManager.querySelector('.bpm-next-btn');
@@ -82,6 +82,17 @@ function remove()
         setCountBadge();
         handleCountBasedCases('remove');
     });
+}
+
+/**
+ * Reset all the saves from the list.
+ */
+export function reset()
+{
+    $nextBtn.innerHTML = "";
+    setVisibility();
+    setCountBadge();
+    resetStorage();
 }
 
 /**
@@ -389,11 +400,19 @@ export function __init__({ View })
     // Block interactions on the manager temporarily at each trigger of any button.
     [$addBtn, $nextBtn, $removeBtn].forEach($btn => {
         $btn.addEventListener('trigger', () => {
-            $bpmManager.addClassTemporarily('no-interaction', TRIGGER_BTNS_DELAY);
+            let trigger_btns_delay = $bpmManager.getCssProperty('--transition-duration') + 20;
+            $bpmManager.addClassTemporarily('no-interaction', trigger_btns_delay);
         });
     });
 
     // Observe modifications from the bpm value to set the visibility of the manager.
     const setVisibilityObserver = new MutationObserver(() => setVisibility());
     setVisibilityObserver.observe(Tempo.$bpmValue, { childList: true });
+
+    // Show or hide the bpm manager and adjust the view grid.
+    Settings.onsync('show_bpm_manager', event => {
+        let value = event.detail.value;
+        $bpmManager.classList.toggle('hide', !value);
+        Tempo.$view.style.setProperty('--view-grid-rows', (value) ? 24 : 22);
+    });
 }

@@ -18,7 +18,7 @@
     - Prendre en compte seulement les derniers ?
     - Seulement s'ils sont très différents ?
   - [ ] Auto détection du tempo ? *(comme [bpmtech.no](https://bpmtech.no))*
-  - [ ] Enregistrement de différents tempos rappelables ?
+  - [x] Enregistrement de différents tempos rappelables ?
   - [ ] Alterner couleur du header pour visualiser le tempo, à la place du blink ?
 
 ### Divers

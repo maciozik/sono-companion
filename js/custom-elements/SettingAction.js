@@ -102,15 +102,17 @@ export default class SettingAction extends Setting
     showConfirmation()
     {
         const _this = this;
+        let text = "Voulez-vous vraiment " + (this.title[0].toLowerCase() + this.title.slice(1)) + " ?"
 
         const ConfirmationModal = (new Modal())
-            .setText(this.title + " ?")
+            .setText(text)
             .setSecondaryBtn("Annuler");
 
         // Define the primary button callback ot execute the action.
         ConfirmationModal.setPrimaryBtn("Valider", () => {
             Modal.close().then(() => {
                 _this.execute();
+                app.vibrate(30);
             });
         });
 
@@ -158,7 +160,7 @@ export default class SettingAction extends Setting
      */
     getInfoHTML()
     {
-        this.info += (this.require_confirmation) ? " <b>Une confirmation sera demandée.</b>" : "";
+        this.info += (this.require_confirmation) ? " <b>Une confirmation vous sera demandée.</b>" : "";
         return super.getInfoHTML();
     }
 

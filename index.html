@@ -395,6 +395,19 @@
                     data-title="Vibrer à chaque battement"
                 ></setting-switch>
 
+                <setting-switch
+                    data-name="show_bpm_manager" data-groups="tempo" data-value=true data-allow-reset
+                    data-title="Afficher le gestionnaire de tempos"
+                    data-info="Permet d'enregistrer plusieurs tempos pour les rappeler à tout moment facilement."
+                ></setting-switch>
+
+                <setting-action
+                    data-name="reset_all_bpm_saves" data-groups="tempo"
+                    data-module="widgets/bpm-manager" data-action="reset" data-require-confirmation
+                    data-title="Réinitialiser les tempos enregistrés"
+                    data-info="Le gestionnaire de tempos sera vidé."
+                ></setting-action>
+
             </section>
 
             <!-- Playlists Settings -->
