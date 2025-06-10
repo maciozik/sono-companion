@@ -19,6 +19,7 @@
 @import url(./widgets/modal.css);
 
 /**  COMPONENTS  **/
+@import url(./components/nav-tab.css);
 @import url(./components/btn.css);
 @import url(./components/play-btn.css);
 @import url(./components/switch.css);
@@ -26,6 +27,7 @@
 @import url(./components/tile.css);
 @import url(./components/tappable.css);
 @import url(./components/loader.css);
+@import url(./components/calibration.css);
 @import url(./components/scrollbar.css);
 @import url(./components/snackbar.css);
 

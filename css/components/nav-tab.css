@@ -1,0 +1,56 @@
+.nav-tab {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+    height: 100%;
+    color: var(--grey);
+    font-size: .75rem;
+    font-weight: 500;
+    overflow: hidden;
+
+    & > g-icon {
+        margin-bottom: 3px;
+        font-size: 1.4rem;
+    }
+
+    .tab-label-run {
+        display: none;
+        margin-left: -4px;
+
+        g-icon {
+            transform: translateY(2px);
+            font-size: .8rem;
+        }
+    }
+
+    &.active {
+        color: var(--cyan);
+        font-weight: 600;
+        letter-spacing: .1px;
+    }
+
+    &.run {
+
+        .tab-title {
+            display: none;
+        }
+
+        .tab-label-run {
+            display: block;
+        }
+
+        &:not(.active) {
+            .tab-label-run {
+                g-icon {
+                    color: var(--cyan);
+                }
+            }
+        }
+    }
+
+    &.hide {
+        display: none;
+    }
+}

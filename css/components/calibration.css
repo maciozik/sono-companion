@@ -1,0 +1,27 @@
+.calibration {
+    display: flex;
+    place-content: center;
+    position: absolute;
+    top: 18px;
+    right: 16px;
+    color: var(--grey-pale);
+    font-size: .9rem;
+    font-weight: 600;
+    text-align: right;
+    letter-spacing: -0.3px;
+    visibility: hidden;
+
+    &, g-icon {
+        line-height: 1em;
+    }
+
+    g-icon {
+        margin-left: 5px;
+        color: var(--grey);
+        opacity: .65;
+    }
+
+    &.show {
+        visibility: visible;
+    }
+}
