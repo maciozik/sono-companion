@@ -1,7 +1,8 @@
 :root {
     --padding-sides: 10px;
-    --header-margin-left: 16px;
+    --inner-padding-sides: 8px;
     --header-height: 56px;
+    --header-padding-sides: calc(var(--padding-sides) + var(--inner-padding-sides) - 2px);
     --footer-height: 94px;
 
     --btn-padding-top-bottom: 12px;

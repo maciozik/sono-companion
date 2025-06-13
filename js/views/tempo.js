@@ -168,14 +168,10 @@ export function __init__({ View, Metronome, Settings })
             let modifier = this.dataset.modifier;
             let bpm = get('bpm');
 
-            switch (modifier) {
-                case 'x2': bpm *= 2; break;
-                case '/2': bpm /= 2; break;
-                default  : bpm += parseInt(modifier); break;
-            }
+            bpm = eval(bpm + modifier);
 
-            View.stop();
             set(bpm);
+            View.stop();
         });
     }
 

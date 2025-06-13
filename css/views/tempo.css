@@ -8,33 +8,85 @@
 
     #tempo-bpm-selector {
         display: flex;
-        justify-content: center;
         gap: 12px;
-        padding: 0 8px;
+        padding: 0 calc(var(--inner-padding-sides) - 1px);
 
-        .bpm-half, .bpm-dec, .bpm-inc, .bpm-double {
+        .bpm-divide, .bpm-decrease, .bpm-increase, .bpm-multiply {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 15px;
             flex-grow: 1;
+
+            &.bpm-decrease, &.bpm-increase {
+                gap: 16px;
+
+                .bpm-modifier-btn {
+                    width: 100%;
+                    max-width: 44px;
+                    font-size: 1.1rem;
+                }
+            }
+
+            &.bpm-divide, &.bpm-multiply {
+                gap: 10px;
+
+                .bpm-modifier-btn {
+                    width: 95%;
+                    max-width: 42px;
+                    font-size: 1rem;
+                }
+            }
 
             .bpm-modifier-btn {
                 display: grid;
                 place-items: center;
-                padding-right: 1px;
-                width: 100%;
                 aspect-ratio: 1;
+                min-width: 36px;
                 background-color: var(--bg-contrast);
-                border-radius: 3px;
+                border-radius: 6px;
                 font-family: 'Roboto';
-                font-size: .95rem;
                 font-weight: 500;
+                line-height: 0;
+
+                /* Modifier Sign */
+                &::after {
+                    --sign-stroke: var(--bg);
+                    content: attr(data-sign);
+                    position: absolute;
+                    top: 50%;
+                    color: var(--cyan);
+                    font-size: 1.3em;
+                    font-weight: 400;
+                    line-height: 0;
+                    text-shadow: 3px 0px 0 var(--sign-stroke), 2.8px 1px 0 var(--sign-stroke), 2.4px 1.9px 0 var(--sign-stroke), 1.6px 2.5px 0 var(--sign-stroke), 0.7px 2.9px 0 var(--sign-stroke), -0.3px 3px 0 var(--sign-stroke), -1.2px 2.7px 0 var(--sign-stroke), -2px 2.2px 0 var(--sign-stroke), -2.7px 1.4px 0 var(--sign-stroke), -3px 0.4px 0 var(--sign-stroke), -2.9px -0.6px 0 var(--sign-stroke), -2.6px -1.5px 0 var(--sign-stroke), -2px -2.3px 0 var(--sign-stroke), -1.1px -2.8px 0 var(--sign-stroke), -0.1px -3px 0 var(--sign-stroke), 0.9px -2.9px 0 var(--sign-stroke), 1.7px -2.4px 0 var(--sign-stroke), 2.4px -1.7px 0 var(--sign-stroke), 2.9px -0.8px 0 var(--sign-stroke);
+                }
 
                 &[data-tappable] {
-                    --circle-opacity: .1 !important;
-                    --circle-animation-duration: 200ms !important;
+                    --circle-opacity: .08 !important;
+                    --circle-animation-duration: 250ms !important;
+                }
+            }
+
+            &:is(.bpm-divide, .bpm-decrease) .bpm-modifier-btn {
+                align-self: start;
+                padding-right: 1px;
+
+                &::after {
+                    right: 0;
+                    margin-right: 2px;
+                    transform: translateX(50%);
+                }
+            }
+
+            &:is(.bpm-increase, .bpm-multiply) .bpm-modifier-btn {
+                align-self: end;
+                padding-left: 1px;
+
+                &::after {
+                    left: 0;
+                    margin-left: 2px;
+                    transform: translateX(-50%);
                 }
             }
         }
@@ -43,20 +95,19 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 40%;
+            width: 38%;
 
             .bpm-wheel-center {
                 position: relative;
                 text-align: center;
 
                 .bpm-value {
-                    font-size: 4rem;
+                    font-size: 3.6rem;
                     font-weight: 300;
                     transition: transform 100ms linear;
 
                     &.blink {
                         color: var(--cyan);
-                        // transition: color 50ms linear;
                     }
 
                     &.tap-tempo-listen {

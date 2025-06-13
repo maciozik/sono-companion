@@ -1,5 +1,5 @@
 #settings {
-    --setting-padding-sides: calc(var(--header-margin-left) + 1px);
+    --setting-padding-sides: calc(var(--padding-sides) + var(--inner-padding-sides));
     display: block;
     padding-left: 0;
     padding-right: 0;

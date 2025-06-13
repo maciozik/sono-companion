@@ -3,7 +3,7 @@
     place-content: center;
     position: absolute;
     top: 18px;
-    right: 16px;
+    right: var(--header-padding-sides);
     color: var(--grey-pale);
     font-size: .9rem;
     font-weight: 600;

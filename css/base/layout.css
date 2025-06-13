@@ -1,7 +1,7 @@
 header {
     display: flex;
     align-items: center;
-    padding-left: var(--header-margin-left);
+    padding-left: var(--header-padding-sides);
     height: var(--header-height);
     color: light-dark(var(--bg), var(--invert));
     background-color: var(--cyan);
