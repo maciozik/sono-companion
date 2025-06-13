@@ -10,7 +10,7 @@
         container-type: size;
         display: grid;
         place-items: center;
-        margin-left: 10px;
+        margin-left: 9px;
         width: 58px;
         aspect-ratio: 1;
         color: var(--cyan);
@@ -51,8 +51,9 @@
     }
 
     .bpm-next-btn, .bpm-remove-btn {
-        --btns-border-radius: 6px;
+        --btns-border-radius: 100vw;
         height: 42px;
+        overflow: hidden;
 
         .bpm-save:is(.previous, .current, .next, .add, .remove), &.bpm-remove-btn {
             transition: all var(--transition-duration) ease-out;
@@ -65,11 +66,11 @@
         justify-content: center;
         align-items: center;
         position: relative;
-        width: 64px;
+        padding-right: 3px;
+        width: 65px;
         background-color: var(--bg-contrast);
         border-top-right-radius: var(--btns-border-radius);
         border-bottom-right-radius: var(--btns-border-radius);
-        overflow: hidden;
 
         .bpm-save {
             position: absolute;
@@ -124,14 +125,19 @@
                 transform: translateY(10px);
             }
         }
+
+        &[data-tappable]::before {
+            left: -1px;
+        }
     }
 
     .bpm-remove-btn {
         container-type: size;
         display: grid;
         place-items: center;
-        aspect-ratio: 1.02/1;
         margin-right: 3px;
+        padding-left: 3px;
+        aspect-ratio: 1.05/1;
         color: var(--grey);
         background-color: var(--bg-contrast);
         border-top-left-radius: var(--btns-border-radius);
@@ -144,6 +150,10 @@
         &[data-tappable] {
             --circle-opacity: .18;
             --circle-background: var(--red);
+
+            &::before {
+                left: 2px;
+            }
         }
     }
 
@@ -163,7 +173,7 @@
     &.disabled {
 
         .bpm-next-btn, .bpm-remove-btn {
-            opacity: .5;
+            opacity: .6;
             pointer-events: none;
 
             &[data-tappable] {
