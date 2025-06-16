@@ -186,7 +186,7 @@ export default class Modal
                 Modal.$modal.removeEventListener('transitionend', whenOpened);
                 resolve();
             }
-            Modal.$modal.addEventListener('transitionend', whenOpened);
+            Modal.$modal.addEventListener('transitionend', whenOpened, { once: true });
         });
     }
 
@@ -215,7 +215,7 @@ export default class Modal
                 Modal.$modal.removeEventListener('transitionend', whenClosed);
                 resolve();
             }
-            Modal.$modal.addEventListener('transitionend', whenClosed);
+            Modal.$modal.addEventListener('transitionend', whenClosed, { once: true });
         });
     }
 }

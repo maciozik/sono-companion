@@ -3,18 +3,26 @@ import Setting from '../classes/Setting.js';
 
 export default class SettingAction extends Setting
 {
-    /** The module to load (from the js\ folder, without the .js extension).
+    /**
+     * The module to load (from the js\ folder, without the .js extension).
      * @type {string|null}
      */
     module = new String();
 
-    /** The method to execute from the module if it exists, or an arbitrary code.
+    /**
+     * The method to execute from the module if it exists, or an arbitrary code.
      * @type {Function}
      */
     action = new Function();
 
     has_action = new Boolean();
     require_confirmation = new Boolean();
+
+    /**
+     * Whether the vibration occurs when the user validates or after the confirmation modal closes.
+     * @type {'validation'|'modal-close'|null}
+     */
+    vibrate_on = new String();
 
     constructor ()
     {
@@ -24,10 +32,12 @@ export default class SettingAction extends Setting
 
         this.has_action = (this.dataset.action !== undefined) ? true : false;
         this.require_confirmation = (this.dataset.requireConfirmation === undefined || this.dataset.requireConfirmation === 'false') ? false : true;
+        this.vibrate_on = this.dataset.vibrateOn ?? null;
 
         // Remove the useless attributes.
         this.removeAttribute('data-module');
         this.removeAttribute('data-require-confirmation');
+        this.removeAttribute('data-vibrate-on');
     }
 
     /**
@@ -108,12 +118,15 @@ export default class SettingAction extends Setting
             .setText(text)
             .setSecondaryBtn("Annuler");
 
-        // Define the primary button callback ot execute the action.
+        // Define the primary button callback to execute the action.
         ConfirmationModal.setPrimaryBtn("Valider", () => {
+
             Modal.close().then(() => {
                 _this.execute();
-                app.vibrate(30);
+                if (this.vibrate_on === 'modal-close') { app.vibrate(30); }
             });
+
+            if (this.vibrate_on === 'validation') { app.vibrate(30); }
         });
 
         // Open the modal.

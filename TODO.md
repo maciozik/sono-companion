@@ -34,8 +34,7 @@
 ### Global
   - [ ] Changer pour des paramètres indépendants pour chaque vue ?
   - [ ] **Pour toutes les vues :** choix de l'info à afficher dans le **nav tab** ?
-  - [ ] Permettre de définir le timing de changement de valeur et de vibration sur les `SettingList`.
-    -  Ajouter un attribut `data-change-after` aux `<setting-list>`, avec comme valeurs possibles `select` et `modal-close`.
+  - [x] Permettre de définir le timing de changement de valeur et de vibration sur les `SettingList`.
 
 ### Sonomètre
   - [ ] Écart entre les graduations de 5, 10 ou 20 dB ?

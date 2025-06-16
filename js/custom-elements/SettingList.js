@@ -7,7 +7,17 @@ export default class SettingList extends Setting
     value = new String();
     default_value = new String();
 
+    /**
+     * The `select-list` element that must be copied in the modal.
+     * @type {HTMLElement}
+     */
     $list;
+
+    /**
+     * Whether the vibration occurs when the user validates or after the confirmation modal closes.
+     * @type {'validation'|'modal-close'|null}
+     */
+    vibrate_on = new String();
 
     constructor ()
     {
@@ -15,6 +25,10 @@ export default class SettingList extends Setting
 
         this.value = this.querySelector('[data-selected]').dataset.value;
         this.default_value = this.value;
+        this.vibrate_on = this.dataset.vibrateOn ?? null;
+
+        // Remove the useless attributes.
+        this.removeAttribute('data-vibrate-on');
     }
 
     /**
@@ -103,14 +117,15 @@ export default class SettingList extends Setting
         // Get the value of the current selected item.
         let selected_item_value = Modal.$modal.querySelector('[data-selected]').dataset.value;
 
-        // Close the modal, then set the selected item as selected in the settings view, and store it in the storage.
+        // Close the modal, then set the selected item as selected in the settings view.
         Modal.close().then(() => {
             _this.set(selected_item_value);
             Settings.change(_this.name, selected_item_value, _this.context);
+
+            if (this.vibrate_on === 'modal-close') { app.vibrate(); }
         });
 
-        // Make the device vibrate.
-        app.vibrate();
+        if (this.vibrate_on === 'validation') { app.vibrate(); }
     }
 
     /**
