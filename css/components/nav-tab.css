@@ -15,7 +15,7 @@
         font-size: 1.4rem;
     }
 
-    .tab-label-run {
+    .tab-label {
         display: none;
         margin-left: -4px;
 
@@ -37,15 +37,13 @@
             display: none;
         }
 
-        .tab-label-run {
+        .tab-label {
             display: block;
         }
 
         &:not(.active) {
-            .tab-label-run {
-                g-icon {
-                    color: var(--cyan);
-                }
+            .tab-label g-icon {
+                color: var(--cyan);
             }
         }
     }

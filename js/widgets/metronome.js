@@ -55,7 +55,7 @@ export function run()
     animate(bpm_ms);
 
     // Update the label of the tab.
-    NavTab.updateTab(`${bpm} bpm`);
+    NavTab.updateLabel(`${bpm} bpm`);
 }
 
 /**

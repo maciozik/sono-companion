@@ -18,9 +18,8 @@ export function getTabFromViewId(view_id)
  * @param {string} label
  * @param {string} [view_id] *Default: current view.*
  */
-export function updateTab(label, view_id = View.getCurrent().id)
+export function updateLabel(label, view_id = View.getCurrent().id)
 {
-    // REFACTOR Automate the update of the tab label (maybe with a data-* attr on the element that must be copy and a onchange() event).
     const $tab = getTabFromViewId(view_id);
     $tab.querySelector('.tab-info').textContent = label;
 }

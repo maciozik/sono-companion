@@ -219,7 +219,7 @@ function refreshInfo(as_current_volume = 'max_local')
             else setVolumeIcon('loud');
 
             // Update the label of the tab with current volume.
-            NavTab.updateTab(`${Math.trunc(info.value)} dB`, 'sonometer');
+            NavTab.updateLabel(`${Math.trunc(info.value)} dB`, 'sonometer');
         }
     }
 
