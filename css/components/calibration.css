@@ -1,25 +1,15 @@
 .calibration {
-    display: flex;
-    place-content: center;
     position: absolute;
-    top: 18px;
+    top: 20px;
     right: var(--header-padding-sides);
-    color: var(--grey-pale);
-    font-size: .9rem;
+    padding: 1.5px 9px 1px 7.5px;
+    color: var(--bg);
+    background-color: var(--grey);
+    border-radius: 100vw;
+    font-size: .8rem;
     font-weight: 600;
-    text-align: right;
-    letter-spacing: -0.3px;
+    letter-spacing: -0.4px;
     visibility: hidden;
-
-    &, g-icon {
-        line-height: 1em;
-    }
-
-    g-icon {
-        margin-left: 5px;
-        color: var(--grey);
-        opacity: .65;
-    }
 
     &.show {
         visibility: visible;

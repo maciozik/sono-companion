@@ -21,7 +21,7 @@ export function getTabFromViewId(view_id)
 export function updateLabel(label, view_id = View.getCurrent().id)
 {
     const $tab = getTabFromViewId(view_id);
-    $tab.querySelector('.tab-info').textContent = label;
+    $tab.querySelector('.tab-label').textContent = label;
 }
 
 /**

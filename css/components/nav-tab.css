@@ -8,6 +8,7 @@
     color: var(--grey);
     font-size: .75rem;
     font-weight: 500;
+    letter-spacing: -0.1px;
     overflow: hidden;
 
     & > g-icon {
@@ -17,34 +18,34 @@
 
     .tab-label {
         display: none;
-        margin-left: -4px;
-
-        g-icon {
-            transform: translateY(2px);
-            font-size: .8rem;
-        }
+        position: absolute;
+        margin-top: 27px;
+        padding: .2px 6.5px 0 6.5px;
+        color: var(--bg-contrast);
+        background-color: var(--cyan);
+        border-radius: 100vw;
+        font-size: .7rem;
+        font-weight: 600;
+        letter-spacing: -0.3px;
     }
 
     &.active {
         color: var(--cyan);
         font-weight: 600;
-        letter-spacing: .1px;
+        letter-spacing: -0.3px;
     }
 
     &.run {
-
         .tab-title {
-            display: none;
+            visibility: hidden;
         }
 
         .tab-label {
             display: block;
         }
 
-        &:not(.active) {
-            .tab-label g-icon {
-                color: var(--cyan);
-            }
+        &:not(.active) .tab-label {
+            background-color: var(--grey);
         }
     }
 

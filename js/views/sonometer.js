@@ -254,12 +254,10 @@ function refreshTimestamp()
 function setCalibrationInfo(value)
 {
     const $calibration = $view.querySelector('.calibration');
-    const $calibrationValue = $calibration.querySelector('.calibration-value');
 
-    let value_html = value.addZeros(1, 'trailing');
-    value_html = (value < 0) ? value_html.replace('-', '−') : '+' + value_html;
+    let value_html = (value < 0) ? value.toString().replace('-', '−') : '+' + value;
 
-    $calibrationValue.innerHTML = value_html + " dB";
+    $calibration.innerHTML = value_html + " dB";
     $calibration.classList.toggle('show', value !== 0);
 }
 
