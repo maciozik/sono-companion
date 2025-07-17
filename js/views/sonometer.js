@@ -248,17 +248,17 @@ function refreshTimestamp()
 }
 
 /**
- * Set and show the audio calibration information.
+ * Set and show the audio calibration badge.
  * @param {number} value
  */
-function setCalibrationInfo(value)
+function setCalibrationBadge(value)
 {
-    const $calibration = $view.querySelector('.calibration');
+    const $calibrationBadge = $view.querySelector('.calibration-badge');
 
     let value_html = (value < 0) ? value.toString().replace('-', '−') : '+' + value;
 
-    $calibration.innerHTML = value_html + " dB";
-    $calibration.classList.toggle('show', value !== 0);
+    $calibrationBadge.innerHTML = value_html + " dB";
+    $calibrationBadge.classList.toggle('show', value !== 0);
 }
 
 /**
@@ -312,9 +312,9 @@ export function __init__({ View, Settings })
         View.stop();
     });
 
-    // Show the audio calibration information.
+    // Set the audio calibration badge.
     Settings.onsync('audio_calibration', event => {
-        setCalibrationInfo(event.detail.value);
+        setCalibrationBadge(event.detail.value);
     });
 
     // Show or hide the timestamp.
