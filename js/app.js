@@ -24,7 +24,7 @@ import './custom-elements/IncludeHTML.js';
 
 /**  COMPONENTS  **/
 import * as NavTab from './components/nav-tab.js';
-import './components/play-btn.js';
+import * as PlayBtn from './components/play-btn.js';
 import './components/scrollbar.js';
 import './components/tappable.js';
 
@@ -81,6 +81,7 @@ window.fetch(`https://api.github.com/repos/${ENV.GITHUB}/tags`)
 const modules = {
     Settings,
     View,
+    PlayBtn,
     NavTab,
     Sonometer,
     Gauge,

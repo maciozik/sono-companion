@@ -1,6 +1,7 @@
+import * as Storage from '../core/storage.js';
 import * as View from '../views/view.js';
 
-const $playBtns = document.getElementsByClassName('play-btn');
+export const $playBtns = document.querySelectorAll('.play-btn');
 
 // Click on a play button of a view, if it exists.
 for (const $playBtn of $playBtns) {
@@ -19,5 +20,23 @@ for (const $playBtn of $playBtns) {
         } else {
             View.stop($view.id);
         }
+
+        if (Storage.get('has_been_run') === null) {
+            Storage.set('has_been_run', true);
+            $playBtns.forEach($playBtn => $playBtn.classList.remove('pulse'));
+        }
     });
+}
+
+/**
+ * Init the module and its components.
+ * Called only once during application startup.
+ * @param {Object} modules All the main modules loaded in app.js, got via destructuring.
+ */
+export function __init__({}) {
+
+    // Make play buttons pulse if no view has been run yet (first launch tip).
+    if (Storage.get('has_been_run') === null) {
+        $playBtns.forEach($playBtn => $playBtn.classList.add('pulse'));
+    }
 }

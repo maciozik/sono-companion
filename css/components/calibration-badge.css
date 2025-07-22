@@ -3,12 +3,13 @@
     top: 20px;
     right: var(--header-padding-sides);
     padding: 1.5px 9px 1px 7.5px;
-    color: var(--bg);
-    background-color: var(--grey);
+    color: var(--invert);
+    background-color: var(--grey-pale);
     border-radius: 100vw;
     font-size: .8rem;
     font-weight: 600;
     letter-spacing: -0.4px;
+    opacity: .85;
     visibility: hidden;
 
     &.show {
