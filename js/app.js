@@ -2,6 +2,9 @@
 
 import './env.js';
 
+/**  CORE  **/
+import * as WakeLock from './core/wake-lock.js';
+
 /**  UTILS  **/
 import './utils/window/doubleRequestAnimationFrame.js';
 import './utils/htmlelement/addClassTemporarily.js';
@@ -43,7 +46,7 @@ import * as BpmManager from './widgets/bpm-manager.js';
 
 // Run the service worker.
 if ('serviceWorker' in navigator && !ENV.DEV_MODE) {
-    navigator.serviceWorker.register('js/core/serviceworker.js')
+    navigator.serviceWorker.register('js/core/service-worker.js')
         .then(registration => console.debug("Service Worker registered:", registration))
         .catch(error => console.error("Service Worker not registered:", error));
 }
@@ -80,6 +83,7 @@ window.fetch(`https://api.github.com/repos/${ENV.GITHUB}/tags`)
 
 const modules = {
     Settings,
+    WakeLock,
     View,
     PlayBtn,
     NavTab,

@@ -1,6 +1,6 @@
-import Modal from '../classes/Modal.js';
 import * as Storage from '../core/storage.js';
-import * as Settings from './settings.js';
+import * as WakeLock from '../core/wake-lock.js';
+import Modal from '../classes/Modal.js';
 import * as NavTab from '../components/nav-tab.js';
 import * as AudioPermission from '../audio/audio-permission.js';
 
@@ -10,8 +10,6 @@ const $h1 = document.querySelector('header h1');
 export const $views = document.getElementsByClassName('view');
 
 export const $loadViewBtns = document.querySelectorAll('[data-load]');
-
-let wakeLock = null;
 
 /**
  * Load a view.
@@ -53,11 +51,10 @@ export function load(view)
 export function run(view_id = getCurrent().id)
 {
     const $view = document.getElementById(view_id);
-
     $view.classList.add('run');
     $view.classList.remove('pause');
 
-    handleWakeLock();
+    WakeLock.handle();
 
     // Emit 'run' events.
     document.dispatchEvent(new CustomEvent('run', { detail: { view_id: view_id } }));
@@ -73,10 +70,9 @@ export function run(view_id = getCurrent().id)
 export function pause(view_id = getCurrent().id)
 {
     const $view = document.getElementById(view_id);
-
     $view.classList.add('pause');
 
-    handleWakeLock();
+    WakeLock.handle();
 
     // Emit 'pause' events.
     document.dispatchEvent(new CustomEvent('pause', { detail: { view_id: view_id } }));
@@ -92,10 +88,9 @@ export function pause(view_id = getCurrent().id)
 export function stop(view_id = getCurrent().id)
 {
     const $view = document.getElementById(view_id);
-
     $view.classList.remove('run', 'pause');
 
-    handleWakeLock();
+    WakeLock.handle();
 
     // Emit 'stop' events.
     document.dispatchEvent(new CustomEvent('stop', { detail: { view_id: view_id } }));
@@ -136,53 +131,6 @@ export function isRun(view_id = getCurrent().id) {
  */
 export function isPause(view_id = getCurrent().id) {
     return document.getElementById(view_id).classList.contains('pause');
-}
-
-/**
- * Handle the request or the release of the Wake Lock.
- */
-function handleWakeLock()
-{
-    requestAnimationFrame(() => {
-
-        if (Settings.get('always_keep_screen_awake') === true) {
-            requestWakeLock();
-            return;
-        }
-
-        if (isRun() && !isPause() && Settings.get('keep_screen_awake_on_run') === true) {
-            requestWakeLock();
-        } else {
-            releaseWakeLock();
-        }
-    });
-}
-
-/**
- * **(async)** Keep the screen awake.
- */
-// TODO Make this work on iPhones (background running video technique?).
-async function requestWakeLock()
-{
-    if (wakeLock === null || wakeLock.released) {
-        try {
-            wakeLock = await navigator.wakeLock.request('screen');
-            console.debug("Wake Lock activated.");
-        } catch (error) {
-            console.warn(error.message);
-        }
-    }
-}
-
-/**
- * **(async)** Allow the screen to fall asleep again.
- */
-async function releaseWakeLock()
-{
-    wakeLock?.release().then(() => {
-        wakeLock = null;
-        console.debug("Wake Lock deactivated.");
-    });
 }
 
 /**
@@ -240,19 +188,6 @@ export function __init__({ Settings })
         });
     }
 
-    // Request the Wake Lock if necessary when the app gets the focus.
-    // TODO Pause or stop the view if the state is not visible (emit an event?).
-    document.addEventListener('visibilitychange', async () => {
-        if (document.visibilityState === 'visible') {
-            handleWakeLock();
-        }
-    });
-
-    // Request or release the Wake Lock depending on the user settings.
-    Settings.onchange('always_keep_screen_awake', event => {
-        handleWakeLock();
-    });
-
     // When a view is loaded.
     document.addEventListener('load', event => {
 
@@ -264,7 +199,7 @@ export function __init__({ Settings })
             $loadViewBtn.classList.toggle('active', is_active);
         }
 
-        handleWakeLock();
+        WakeLock.handle();
     });
 
     // Load the correct view at launch.
