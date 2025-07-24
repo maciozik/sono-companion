@@ -433,13 +433,13 @@
                 ></setting-switch>
 
                 <setting-switch
-                    data-name="keep_screen_awake_at_run" data-value=true
+                    data-name="keep_screen_awake_on_run" data-groups="wake_lock" data-value=true
                     data-title="Garder l'écran allumé si actif"
                     data-info="Empêche l'extinction de l'écran si l'onglet affiché est actif."
                 ></setting-switch>
 
                 <setting-switch
-                    data-name="always_keep_screen_awake" data-value=false
+                    data-name="always_keep_screen_awake" data-disable-group-on-true="wake_lock" data-value=false
                     data-title="Toujours garder l'écran allumé"
                     data-info="Empêche l'extinction de l'écran tant que l'application est ouverte. <b>Consomme davantage la batterie.</b>"
                 ></setting-switch>

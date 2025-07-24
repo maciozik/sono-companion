@@ -57,7 +57,7 @@ export function run(view_id = getCurrent().id)
     $view.classList.add('run');
     $view.classList.remove('pause');
 
-    requestWakeLock();
+    handleWakeLock();
 
     // Emit 'run' events.
     document.dispatchEvent(new CustomEvent('run', { detail: { view_id: view_id } }));
@@ -76,7 +76,7 @@ export function pause(view_id = getCurrent().id)
 
     $view.classList.add('pause');
 
-    releaseWakeLock();
+    handleWakeLock();
 
     // Emit 'pause' events.
     document.dispatchEvent(new CustomEvent('pause', { detail: { view_id: view_id } }));
@@ -95,7 +95,7 @@ export function stop(view_id = getCurrent().id)
 
     $view.classList.remove('run', 'pause');
 
-    releaseWakeLock();
+    handleWakeLock();
 
     // Emit 'stop' events.
     document.dispatchEvent(new CustomEvent('stop', { detail: { view_id: view_id } }));
@@ -136,6 +136,26 @@ export function isRun(view_id = getCurrent().id) {
  */
 export function isPause(view_id = getCurrent().id) {
     return document.getElementById(view_id).classList.contains('pause');
+}
+
+/**
+ * Handle the request or the release of the Wake Lock.
+ */
+function handleWakeLock()
+{
+    requestAnimationFrame(() => {
+
+        if (Settings.get('always_keep_screen_awake') === true) {
+            requestWakeLock();
+            return;
+        }
+
+        if (isRun() && !isPause() && Settings.get('keep_screen_awake_on_run') === true) {
+            requestWakeLock();
+        } else {
+            releaseWakeLock();
+        }
+    });
 }
 
 /**
@@ -223,9 +243,14 @@ export function __init__({ Settings })
     // Request the Wake Lock if necessary when the app gets the focus.
     // TODO Pause or stop the view if the state is not visible (emit an event?).
     document.addEventListener('visibilitychange', async () => {
-        if (isRun() && !isPause() && document.visibilityState === 'visible') {
-            requestWakeLock();
+        if (document.visibilityState === 'visible') {
+            handleWakeLock();
         }
+    });
+
+    // Request or release the Wake Lock depending on the user settings.
+    Settings.onchange('always_keep_screen_awake', event => {
+        handleWakeLock();
     });
 
     // When a view is loaded.
@@ -239,12 +264,7 @@ export function __init__({ Settings })
             $loadViewBtn.classList.toggle('active', is_active);
         }
 
-        // Request the Wake Lock if the loaded view is running, or release it.
-        if (isRun(view_id) && !isPause(view_id)) {
-            requestWakeLock();
-        } else {
-            releaseWakeLock();
-        }
+        handleWakeLock();
     });
 
     // Load the correct view at launch.
