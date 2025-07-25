@@ -140,6 +140,8 @@ export function isPause(view_id = getCurrent().id) {
  */
 export function __init__({ Settings })
 {
+    let ignorePopstate = false;
+
     // Click on elements that load a view.
     for (const $loadViewBtn of $loadViewBtns) {
 
@@ -199,7 +201,32 @@ export function __init__({ Settings })
             $loadViewBtn.classList.toggle('active', is_active);
         }
 
+        // Lock or unlock the screen wake.
         WakeLock.handle();
+
+        // Create a state in the history if the Settings view is loaded.
+        if (view_id === 'settings') {
+            if (history.state?.view !== 'settings') {
+                history.pushState({ view: 'settings' }, '', '?settings');
+            }
+        }
+        // Remove the state if it exists when any other view is loaded.
+        else if (history.state?.view === 'settings') {
+            ignorePopstate = true;
+            history.back();
+        }
+    });
+
+    // When the back button or gesture of the device is triggered.
+    window.addEventListener('popstate', event => {
+
+        // Ignore if the popstate event got triggered by a `history.back()`.
+        if (ignorePopstate) {
+            ignorePopstate = false;
+            return;
+        }
+
+        load(Storage.get('last_view_loaded'));
     });
 
     // Load the correct view at launch.
