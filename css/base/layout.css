@@ -1,6 +1,7 @@
 header {
     display: flex;
     align-items: center;
+    position: relative;
     padding-left: var(--header-padding-sides);
     height: var(--header-height);
     color: light-dark(var(--bg), var(--invert));
@@ -47,6 +48,7 @@ main {
 }
 
 footer {
+    position: relative;
     padding: 13px var(--padding-sides) 12px;
     width: 100%;
     height: var(--footer-height);
