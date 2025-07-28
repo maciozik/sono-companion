@@ -156,36 +156,11 @@ export function __init__({ Settings })
             load(view_id);
 
             // If the view loaded needs the audio permission.
-            // REFACTOR Move to a new file, and run it at load and not at the trigger on load-view buttons.
+            // REFACTOR Run it at load and not at the trigger on load-view buttons.
             if ('needsAudioPermission' in this.dataset) {
-
-                // Check if the audio permission is granted, and show the modal if not.
-                // TODO Open the modal at the load of the app if necessary.
-                AudioPermission.isGranted(
-                    () => {
-                        // startAudio();
-                    },
-                    () => {
-                        (new Modal("Accès au microphone"))
-                            .setText(ENV.APP.NAME + " a besoin de l'accès à votre microphone pour analyser le son ambiant.")
-                            .setPrimaryBtn(`Donner l'accès <g-icon data-name="mic" class="right"></g-icon>`, () => {
-                                AudioPermission.grant(
-                                    () => {
-                                        Modal.close();
-                                        // startAudio();
-                                    },
-                                    null,
-                                    () => {
-                                        // TODO Display another modal to explain how reset permission.
-                                    }
-                                );
-                            })
-                            .setSecondaryBtn(null)
-                            .setContext('view')
-                            .disallowClickOutside()
-                            .open();
-                    }
-                );
+                AudioPermission.isGranted(null, () => {
+                    AudioPermission.openModal();
+                });
             }
         });
     }

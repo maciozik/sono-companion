@@ -1,3 +1,5 @@
+import Modal from '../classes/Modal.js';
+
 /**
  * Ask audio permission to the user.
  * @param {Function|null} [onGranted]
@@ -42,4 +44,32 @@ export function isGranted(isGranted = null, isNotGranted = null)
                 if (isNotGranted !== null) isNotGranted();
             }
         });
+}
+
+/**
+ * Open the modal that asks the audio permission to the user.
+ */
+export function openModal()
+{
+    let text = `<b>${ENV.APP.NAME}</b> a besoin de l'accès à votre microphone pour analyser le son ambiant.<br><br>
+                Sans votre autorisation, certains outils comme le sonomètre ou l'analyseur de fréquences ne pourront pas fonctionner.`;
+
+    (new Modal("Accès au microphone"))
+        .setText(text)
+        .setPrimaryBtn(`Accorder l'accès <g-icon data-name="mic" class="right"></g-icon>`, () => {
+            grant(
+                () => {
+                    Modal.close();
+                    // startAudio();
+                },
+                null,
+                () => {
+                    // TODO Display another modal to explain how reset permission.
+                }
+            );
+        })
+        .setSecondaryBtn(null)
+        .setContext('view')
+        .disallowClickOutside()
+        .open();
 }
