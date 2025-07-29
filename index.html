@@ -42,7 +42,7 @@
 
         <!-- VIEW: Sonometer -->
 
-        <section class="view" id="sonometer" data-name="Sonomètre">
+        <section class="view" id="sonometer" data-name="Sonomètre" data-needs-audio-permission>
 
             <!-- Calibration badge -->
             <div class="calibration-badge" data-load="settings:audio_calibration" data-tappable="no-circle"></div>
@@ -124,7 +124,7 @@
 
         <!-- VIEW: Frequency Spectrum -->
 
-        <section class="view" id="spectrum" data-name="Spectre audio">
+        <section class="view" id="spectrum" data-name="Spectre audio" data-needs-audio-permission>
 
             <div class="container" id="visualizer"></div>
 
@@ -485,13 +485,13 @@
     <footer>
         <nav>
 
-            <section class="nav-tab hide" data-load="sonometer" data-tappable data-needs-audio-permission>
+            <section class="nav-tab hide" data-load="sonometer" data-tappable>
                 <g-icon data-name="speed" data-y=1></g-icon>
                 <p class="tab-title">Sonomètre</p>
                 <p class="tab-label"></p>
             </section>
 
-            <section class="nav-tab hide" data-load="spectrum" data-tappable data-needs-audio-permission>
+            <section class="nav-tab hide" data-load="spectrum" data-tappable>
                 <g-icon data-name="graphic_eq"></g-icon>
                 <p class="tab-title">Spectre</p>
                 <p class="tab-label"></p>

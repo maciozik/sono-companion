@@ -2,7 +2,6 @@ import * as Storage from '../core/storage.js';
 import * as WakeLock from '../core/wake-lock.js';
 import Modal from '../classes/Modal.js';
 import * as NavTab from '../components/nav-tab.js';
-import * as AudioPermission from '../audio/audio-permission.js';
 
 export const STORAGE_LAST_VIEW_LOADED = () => Storage.get('last_view_loaded') || 'sonometer';
 
@@ -55,6 +54,7 @@ export function run(view_id = getCurrent().id)
     $view.classList.remove('pause');
 
     WakeLock.handle();
+    Storage.setOnce('has_been_run', true);
 
     // Emit 'run' events.
     document.dispatchEvent(new CustomEvent('run', { detail: { view_id: view_id } }));
@@ -154,14 +154,6 @@ export function __init__({ Settings })
 
             // Load the view.
             load(view_id);
-
-            // If the view loaded needs the audio permission.
-            // REFACTOR Run it at load and not at the trigger on load-view buttons.
-            if ('needsAudioPermission' in this.dataset) {
-                AudioPermission.isGranted(null, () => {
-                    AudioPermission.openModal();
-                });
-            }
         });
     }
 
@@ -180,6 +172,7 @@ export function __init__({ Settings })
         WakeLock.handle();
 
         // Create a state in the history if the Settings view is loaded.
+        // TODO Handle back button when a modal box is open?
         if (view_id === 'settings') {
             if (history.state?.view !== 'settings') {
                 history.pushState({ view: 'settings' }, '', '?settings');

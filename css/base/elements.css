@@ -1,3 +1,7 @@
+p + p {
+    margin-top: 14px;
+}
+
 b, strong {
     font-weight: 600;
 
@@ -10,4 +14,12 @@ b, strong {
     &[data-w='800'] {
         font-weight: 800;
     }
+}
+
+.cyan {
+    color: var(--cyan);
+}
+
+.red {
+    color: var(--red);
 }

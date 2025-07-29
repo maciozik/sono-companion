@@ -21,7 +21,7 @@
         transition: transform 100ms linear;
 
         .modal-title {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             font-size: 1.05rem;
 
             &.hide {

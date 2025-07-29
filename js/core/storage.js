@@ -28,6 +28,23 @@ export function set(key, value)
 }
 
 /**
+ * Set a key or setting in the storage only if it does not exist yet.
+ * @param {string} key The name of the key or setting (in snake case).
+ * @param {any} value The value to set.
+ * @returns {boolean} Whether the key has been set.
+ */
+export function setOnce(key, value)
+{
+    if (get(key) === null) {
+        set(key, value);
+        return true;
+    }
+    else {
+        return false;
+    }
+}
+
+/**
  * Remove a key or setting from the storage.
  * @param {string} key The name of the key or setting (in snake case).
  */
