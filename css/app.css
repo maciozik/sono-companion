@@ -29,7 +29,7 @@
 @import url(./components/loader.css);
 @import url(./components/calibration-badge.css);
 @import url(./components/scrollbar.css);
-@import url(./components/snackbar.css);
+@import url(./components/toast.css);
 
 /**  VENDOR  **/
 @import url(./vendor/g-icons.css);

@@ -23,7 +23,7 @@
         }
     }
 
-    #snackbar {
+    #toast {
         max-width: calc(var(--maximum-view-width) - (var(--padding-sides) * 2));
     }
 }

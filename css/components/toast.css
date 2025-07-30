@@ -1,4 +1,4 @@
-#snackbar {
+#toast {
     display: grid;
     place-items: center;
     position: absolute;
