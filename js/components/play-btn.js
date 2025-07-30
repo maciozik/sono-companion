@@ -4,28 +4,6 @@ import * as AudioPermission from '../audio/audio-permission.js';
 
 export const $playBtns = document.querySelectorAll('.play-btn');
 
-// Click on a play button of a view, if it exists.
-for (const $playBtn of $playBtns) {
-
-    const $view = $playBtn.closest('.view');
-
-    $playBtn.addEventListener('trigger', () => {
-
-        // Define the mode that should be set.
-        let non_run_mode = ($playBtn.querySelector('.pause') !== null) ? 'pause' : 'stop';
-
-        if (!View.isRun() || View.isPause()) {
-            checkAudioPermission($view);
-        } else if (non_run_mode === 'pause') {
-            View.pause($view.id);
-        } else {
-            View.stop($view.id);
-        }
-
-        pulse(false);
-    });
-}
-
 /**
  * Check audio permission if needed before running the view.
  * @param {HTMLElement} $view
@@ -57,7 +35,29 @@ export function pulse(isPulse)
  * Called only once during application startup.
  * @param {Object} modules All the main modules loaded in app.js, got via destructuring.
  */
-export function __init__({}) {
+export function __init__({ View }) {
+
+    // Click on a play button of a view.
+    for (const $playBtn of $playBtns) {
+
+        const $view = $playBtn.closest('.view');
+
+        $playBtn.addEventListener('trigger', () => {
+
+            // Define the mode that should be set ('stop' or 'pause' if a pause button exists).
+            let non_run_mode = ($playBtn.querySelector('.pause') !== null) ? 'pause' : 'stop';
+
+            if (!View.isRun() || View.isPause()) {
+                checkAudioPermission($view);
+            } else if (non_run_mode === 'pause') {
+                View.pause($view.id);
+            } else {
+                View.stop($view.id);
+            }
+
+            pulse(false);
+        });
+    }
 
     // Make play buttons pulse if no view has been run yet (first launch tip).
     if (Storage.get('has_been_run') === null) {
