@@ -15,7 +15,7 @@
 
 ### Tempo
 
-- [ ] Molette pour sélectionner le bpm ?
+- [ ] Molette pour sélectionner le bpm (en glassmorphism ?).
   - Clic / maintien sur le bpm pour faire apparaître la molette ?
 - [ ] Tempo tap à améliorer ?
   - Enlever les extrêmes ?
