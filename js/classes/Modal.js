@@ -15,7 +15,7 @@ export default class Modal
     title = new String();
     text = new String();
     context = 'app';
-    disallow_click_outside = false;
+    disallow_tap_outside = false;
 
     /** @type {string} */
     primary_btn = Modal.PRIMARY_BTN_DEFAULT;
@@ -63,8 +63,8 @@ export default class Modal
 
     /**
      * Set the context of the modal.
-     * @param {string} context 'app' : the modal will be shown above the whole app.
-     *                         'view': the modal will be shown above the current view only.
+     * @param {string} context `app` : the modal will be shown above the whole app *(default)*.
+     *                         `view`: the modal will be shown above the current view only.
      * @returns {Modal}
      */
     setContext(context)
@@ -116,13 +116,13 @@ export default class Modal
     }
 
     /**
-     * Do not close the modal when clicking outside of it.
-     * @param {boolean} [disallow_click_outside] *Default: `true`*
+     * Do not close the modal when tapping outside of it.
+     * @param {boolean} [disallow_tap_outside] *Default: `true`*
      * @returns {Modal}
      */
-    disallowClickOutside(disallow_click_outside = true)
+    disallowClickOutside(disallow_tap_outside = true)
     {
-        this.disallow_click_outside = disallow_click_outside;
+        this.disallow_tap_outside = disallow_tap_outside;
         return this;
     }
 
@@ -163,8 +163,8 @@ export default class Modal
             Modal.$modalBtnSecondary.classList.add('hide');
         }
 
-        // Allow a click outside the modal to close it.
-        if (!this.disallow_click_outside) {
+        // Allow a tap outside the modal to close it.
+        if (!this.disallow_tap_outside) {
             setTimeout(() => {
                 Modal.$overlay.addEventListener('pointerup', (event) => {
                     if (event.target === Modal.$overlay) {
@@ -193,12 +193,12 @@ export default class Modal
     /**
      * Hide the modal.
      * @param {number} [delay] The delay after which the modal is hidding (in ms). – *Default: `Modal.CLOSE_DELAY`*
-     * @param {boolean} [instant] Whether or not the modal must close without transitions. – *Default: `false`*
+     * @param {boolean} [instant] Whether the modal must close without transitions. – *Default: `false`*
      * @returns {Promise.void} A promise returned when the closing animation is over.
      */
     static close(delay = Modal.CLOSE_DELAY, instant = false)
     {
-        // Unbind the callbacks from the buttons and the click outside event.
+        // Unbind the callbacks from the buttons and the "tap outside" event.
         Modal.#listenersAbort.abort("Modal closed");
 
         // Deactivate the transitions if needed.

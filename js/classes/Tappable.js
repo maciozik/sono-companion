@@ -6,7 +6,7 @@
  * It is defined by the presence of the 'data-tappable' attribute.
  *
  * Several options can be defined in this attribute, separated by white spaces:
- *  - `click`           : Trigger the element on click event (default).
+ *  - `click`           : Trigger the element on click event *(default)*.
  *  - `pointerdown`     : Trigger the element on pointerdown event.
  *  - `pointerup`       : Trigger the element on pointerup event.
  *  - `trigger-manually`: The element will not be triggered by an event and must be triggered manually.

@@ -78,14 +78,14 @@ function convert(tempo, from_unit, to_unit)
             case 'bpm': bpm = tempo; break;
             case 'ms' : bpm = 60000 / tempo; break;
             case 'm'  : bpm = 60 / (tempo / 340); break;
-            default   : throw new TypeError("The value for the argument 'from_unit' is unknown.");
+            default   : throw new TypeError("The value for the argument `from_unit` is unknown.");
         }
         // Then convert to the target unit.
         switch (to_unit) {
             case 'bpm': converted_tempo = bpm; break;
             case 'ms' : converted_tempo = Math.round(60000 / bpm); break;
             case 'm'  : converted_tempo = Math.round(340 * (60 / bpm)); break;
-            default   : throw new TypeError("The value for the argument 'to_unit' is unknown.");
+            default   : throw new TypeError("The value for the argument `to_unit` is unknown.");
         }
     } catch (error) {
         console.error(error);
@@ -100,7 +100,7 @@ function convert(tempo, from_unit, to_unit)
  */
 export function tap()
 {
-    let timestamp  = Date.now();
+    let timestamp = Date.now();
 
     // Save the timestamp of the new tap.
     let ts_length = tapTempoTimestamps.push(timestamp);

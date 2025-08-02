@@ -148,7 +148,7 @@
         }
 
         &[data-tappable] {
-            --circle-opacity: .18;
+            --circle-opacity: .2;
             --circle-background: var(--red);
 
             &::before {

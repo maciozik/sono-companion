@@ -228,9 +228,9 @@ function refreshInfo(as_current_volume = 'max_local')
 
     // TODO Threshold, and limit on the last 15 minutes.
     if (volume.average.value > getThreshold()) {
-        console.warn('Attention : règlementation plus stricte.');
+        console.warn("Attention : règlementation plus stricte.");
     } else if (volume.average.value > LIMIT.value) {
-        console.error('Danger : seuil maximal autorisé dépassé !')
+        console.error("Danger : seuil maximal autorisé dépassé !")
     }
 }
 
@@ -258,7 +258,7 @@ function setCalibrationBadge(value)
     let value_html = (value < 0) ? value.toString().replace('-', '−') : '+' + value;
 
     $calibrationBadge.innerHTML = value_html + " dB";
-    $calibrationBadge.classList.toggle('show', value !== 0);
+    $calibrationBadge.classList.toggle('show', (value !== 0));
 }
 
 /**

@@ -51,7 +51,7 @@ export default class Setting extends HTMLElement
      */
     trigger()
     {
-        console.error('The method trigger() is not implemented.');
+        console.error("The method trigger() is not implemented.");
         return false;
     }
 
@@ -62,7 +62,7 @@ export default class Setting extends HTMLElement
      */
     set()
     {
-        console.error('The method set() is not implemented.');
+        console.error("The method set() is not implemented.");
         return false;
     }
 
@@ -72,7 +72,7 @@ export default class Setting extends HTMLElement
      */
     render()
     {
-        console.error('The method render() is not implemented.');
+        console.error("The method render() is not implemented.");
         return false;
     }
 

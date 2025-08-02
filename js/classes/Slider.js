@@ -196,7 +196,7 @@ export default class Slider
         if (Math.float(nb_values) !== '0') {
             console.warn(`The step value (${this.step}) is not a divider of the range of the slider (${this.range}).`);
         }
-        // If there is too much values.
+        // If there are too many values.
         else if (nb_values > this.$sliderLine.width) {
             console.warn(`The number of values (${nb_values}) exceeds the width of the slider (${this.$sliderLine.width}).`);
         }
