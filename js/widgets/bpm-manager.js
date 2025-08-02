@@ -1,3 +1,4 @@
+import Toast from '../classes/Toast.js';
 import * as Storage from '../core/storage.js';
 import * as Tempo from '../views/tempo.js';
 import * as Settings from '../views/settings.js';
@@ -90,9 +91,12 @@ function remove()
 export function reset()
 {
     $nextBtn.innerHTML = "";
+
     setVisibility();
     setCountBadge();
     resetStorage();
+
+    (new Toast("Gestionnaire de tempos effacé.")).show();
 }
 
 /**

@@ -1,4 +1,5 @@
 import Modal from '../classes/Modal.js';
+import Toast from '../classes/Toast.js';
 import * as Storage from '../core/storage.js';
 import Setting from '../classes/Setting.js';
 import SettingList from '../custom-elements/SettingList.js';
@@ -234,6 +235,8 @@ export function reset()
     }
 
     document.body.addClassTemporarily('blink', 'animationend');
+    (new Toast("Réglages par défaut restaurés.")).show();
+
     checkVisibility();
 }
 

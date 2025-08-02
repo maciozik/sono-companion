@@ -1,4 +1,5 @@
 import Modal from '../classes/Modal.js';
+import Toast from '../classes/Toast.js';
 import * as View from '../views/view.js';
 
 /**
@@ -74,6 +75,7 @@ export function openPromptModal()
                 () => {
                     Modal.close();
                     View.run();
+                    (new Toast("Accès au microphone accordé.")).show();
                 },
                 null,
                 () => {
