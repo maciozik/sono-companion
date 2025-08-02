@@ -3,6 +3,7 @@
 ### Sonomètre
 
 - [ ] Exposimètre / Alerte au dépassement du maximum sur une période ?
+- [ ] Le volume devrait s'afficher (et être pris en compte) même si la jauge est au maximum.
 - [ ] Affichage db(A), dB\(C), ...
 - [ ] Histogramme de volume sur les dernières secondes ?
 

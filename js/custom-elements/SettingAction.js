@@ -150,7 +150,7 @@ export default class SettingAction extends Setting
         this.classList.add('setting');
 
         if (this.has_action) {
-            this.dataset.tappable =  'click follow-tap';
+            this.dataset.tappable = 'click follow-tap';
         }
 
         // Set the content.

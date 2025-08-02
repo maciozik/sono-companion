@@ -16,6 +16,7 @@
         width: 85%;
         transform: translateY(-10px);
         background-color: light-dark(var(--bg), var(--bg-contrast));
+        border: 1px solid light-dark(transparent, #DDD1);
         border-radius: 8px;
         overflow: hidden;
         transition: transform 100ms linear;
