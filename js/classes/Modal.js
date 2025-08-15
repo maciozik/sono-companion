@@ -15,7 +15,6 @@ export default class Modal
     title = new String();
     text = new String();
     context = 'app';
-    disallow_tap_outside = false;
 
     /** @type {string} */
     primary_btn = Modal.PRIMARY_BTN_DEFAULT;
@@ -116,17 +115,6 @@ export default class Modal
     }
 
     /**
-     * Do not close the modal when tapping outside of it.
-     * @param {boolean} [disallow_tap_outside] *Default: `true`*
-     * @returns {Modal}
-     */
-    disallowClickOutside(disallow_tap_outside = true)
-    {
-        this.disallow_tap_outside = disallow_tap_outside;
-        return this;
-    }
-
-    /**
      * Open the modal.
      * @returns {Promise.void} A promise returned when the opening animation is over.
      */
@@ -164,7 +152,6 @@ export default class Modal
         }
 
         // Allow a tap outside the modal to close it.
-        if (!this.disallow_tap_outside) {
             setTimeout(() => {
                 Modal.$overlay.addEventListener('pointerup', (event) => {
                     if (event.target === Modal.$overlay) {
@@ -172,7 +159,6 @@ export default class Modal
                     }
                 }, { signal: Modal.#listenersAbort.signal });
             }, 200); // Prevent accidental tap.
-        }
 
         // Reactivate the transitions.
         Modal.$overlay.classList.remove('instant');
