@@ -3,6 +3,7 @@
 import './env.js';
 
 /**  CORE  **/
+import * as History from './core/history.js';
 import * as WakeLock from './core/wake-lock.js';
 
 /**  UTILS  **/
@@ -83,6 +84,7 @@ window.fetch(`https://api.github.com/repos/${ENV.GITHUB}/tags`)
 
 const modules = {
     Settings,
+    History,
     WakeLock,
     View,
     PlayBtn,

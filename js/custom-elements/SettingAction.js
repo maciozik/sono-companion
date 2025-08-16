@@ -114,9 +114,7 @@ export default class SettingAction extends Setting
         const _this = this;
         let text = "Voulez-vous vraiment " + (this.title[0].toLowerCase() + this.title.slice(1)) + " ?"
 
-        const ConfirmationModal = (new Modal())
-            .setText(text)
-            .setSecondaryBtn("Annuler");
+        const ConfirmationModal = new Modal(null, text);
 
         // Define the primary button callback to execute the action.
         ConfirmationModal.setPrimaryBtn("Valider", () => {

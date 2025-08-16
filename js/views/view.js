@@ -1,4 +1,5 @@
 import * as Storage from '../core/storage.js';
+import * as History from '../core/history.js';
 import * as WakeLock from '../core/wake-lock.js';
 import Modal from '../classes/Modal.js';
 import * as NavTab from '../components/nav-tab.js';
@@ -140,8 +141,6 @@ export function isPause(view_id = getCurrent().id) {
  */
 export function __init__({ Settings })
 {
-    let ignorePopstate = false;
-
     // Click on elements that load a view.
     for (const $loadViewBtn of $loadViewBtns) {
 
@@ -172,29 +171,15 @@ export function __init__({ Settings })
         WakeLock.handle();
 
         // Create a state in the history if the Settings view is loaded.
-        // TODO Handle back button when a modal box is open?
         if (view_id === 'settings') {
-            if (history.state?.view !== 'settings') {
-                history.pushState({ view: 'settings' }, '', '?settings');
-            }
+            History.push('settings', () => {
+                load(Storage.get('last_view_loaded'));
+            });
         }
-        // Remove the state if it exists when any other view is loaded.
-        else if (history.state?.view === 'settings') {
-            ignorePopstate = true;
-            history.back();
+        // Remove the state from the history when any other view is loaded.
+        else {
+            History.cancel('settings');
         }
-    });
-
-    // When the back button or gesture of the device is triggered.
-    window.addEventListener('popstate', event => {
-
-        // Ignore if the popstate event got triggered by a `history.back()`.
-        if (ignorePopstate) {
-            ignorePopstate = false;
-            return;
-        }
-
-        load(Storage.get('last_view_loaded'));
     });
 
     // Load the correct view at launch.

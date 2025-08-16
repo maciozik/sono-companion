@@ -1,13 +1,15 @@
+import * as History from '../core/history.js';
+
 /**
  * Represents a modal.
  */
 export default class Modal
 {
     /** @type {string} @readonly */
-    static PRIMARY_BTN_DEFAULT = "Accepter";
+    static PRIMARY_BTN_DEFAULT = "Valider";
 
     /** @type {string} @readonly */
-    static SECONDARY_BTN_DEFAULT = "Refuser";
+    static SECONDARY_BTN_DEFAULT = "Annuler";
 
     /** @type {number} @readonly */
     static CLOSE_DELAY = 100;
@@ -37,11 +39,11 @@ export default class Modal
 
     /**
      * @constructor
-     * @param {string} [title] The title of the modal.
+     * @param {string|null} [title] The title of the modal (no title if null).
      * @param {string} [text] The text of the modal.
      * @returns {Modal}
      */
-    constructor (title = "", text = "")
+    constructor (title = null, text = "")
     {
         this.title = title;
         this.text = text;
@@ -118,6 +120,7 @@ export default class Modal
      * Open the modal.
      * @returns {Promise.void} A promise returned when the opening animation is over.
      */
+    // TODO Refactor the function to reduce the code.
     open()
     {
         // Fill the modal.
@@ -126,11 +129,7 @@ export default class Modal
         Modal.$modalBtnPrimary.innerHTML = this.primary_btn;
 
         // Show or remove the title as needed.
-        if (this.title === "") {
-            Modal.$modalTitle.classList.add('hide');
-        } else {
-            Modal.$modalTitle.classList.remove('hide');
-        }
+        Modal.$modalTitle.classList.toggle('hide', (this.title === null));
 
         // Set the context.
         Modal.$overlay.dataset.context = this.context;
@@ -152,19 +151,24 @@ export default class Modal
         }
 
         // Allow a tap outside the modal to close it.
-            setTimeout(() => {
-                Modal.$overlay.addEventListener('pointerup', (event) => {
-                    if (event.target === Modal.$overlay) {
-                        Modal.close(50);
-                    }
-                }, { signal: Modal.#listenersAbort.signal });
-            }, 200); // Prevent accidental tap.
+        setTimeout(() => {
+            Modal.$overlay.addEventListener('pointerup', (event) => {
+                if (event.target === Modal.$overlay) {
+                    Modal.close(50);
+                }
+            }, { signal: Modal.#listenersAbort.signal });
+        }, 200); // Prevent accidental tap.
 
         // Reactivate the transitions.
         Modal.$overlay.classList.remove('instant');
 
         // Show the modal.
         Modal.$overlay.classList.add('active');
+
+        // Create a state in the history.
+        History.push('modal', () => {
+            Modal.close();
+        });
 
         // Return a promise when the opening animation is over.
         return new Promise((resolve) => {
@@ -194,6 +198,9 @@ export default class Modal
         setTimeout(() => {
             Modal.$overlay.classList.remove('active');
         }, delay);
+
+        // Remove the state from the history.
+        History.cancel('modal');
 
         // Return a promise when the closing animation is over.
         return new Promise((resolve) => {

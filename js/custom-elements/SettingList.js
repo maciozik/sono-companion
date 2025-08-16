@@ -81,9 +81,7 @@ export default class SettingList extends Setting
     showList()
     {
         // Define the modal with the items in it.
-        const ItemsModal = (new Modal())
-            .setText(this.$list.innerHTML)
-            .setSecondaryBtn("Annuler");
+        const ItemsModal = new Modal(null, this.$list.innerHTML);
 
         // Define the primary button callback to validate the item selected.
         ItemsModal.setPrimaryBtn("Valider", () => {
