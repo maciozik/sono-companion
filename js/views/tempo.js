@@ -1,6 +1,6 @@
 import * as Settings from './settings.js';
 
-export const DEFAULT_BPM = 90;
+export const BPM_DEFAULT = 90;
 
 const BPM_MIN = () => Settings.get('bpm_min');
 const BPM_MAX = () => Settings.get('bpm_max');
@@ -159,7 +159,7 @@ export function resetTap(delay = 0)
 export function __init__({ View, Metronome, Settings })
 {
     // Set the default tempo.
-    set(DEFAULT_BPM);
+    set(BPM_DEFAULT);
 
     // Click on a bpm modifier button.
     for (const $bpmModifierBtn of $bpmModifierBtns) {

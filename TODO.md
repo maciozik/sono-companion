@@ -23,15 +23,11 @@
   - Prendre en compte seulement les derniers ?
   - Seulement s'ils sont très différents ?
 - [ ] Auto détection du tempo ? *(comme [bpmtech.no](https://bpmtech.no))*
-- [x] Enregistrement de différents tempos rappelables ?
 - [ ] Alterner couleur du header pour visualiser le tempo, à la place du blink ?
 
 ### Divers
 
-- [ ] Empêcher l'extinction de l'écran au play d'une vue.
 - [ ] Héberger les fonts Google en local.
-- [x] Remplacer le layout de chaque setting par un grid ?
-- [x] Remplacer le layout des composants du body par un grid ?
 
 ---
 
@@ -41,7 +37,6 @@
 
 - [ ] Changer pour des paramètres indépendants pour chaque vue ?
 - [ ] **Pour toutes les vues :** choix de l'info à afficher dans le **nav tab** ?
-- [x] Permettre de définir le timing de changement de valeur et de vibration sur les `SettingList`.
 
 ### Sonomètre
 

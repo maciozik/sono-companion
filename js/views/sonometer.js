@@ -188,9 +188,9 @@ function getThreshold()
 
 /**
  * Write the volume data in the view.
- * @param {boolean} [as_current_volume] The type of current volume to display. – *Default: `max_local`*
- *                                      - `max_local`: Choose the local maximum volume as current volume.
- *                                      - `real_time`: Choose the real-time volume as current volume.
+ * @param {`max_local`|`real_time`} [as_current_volume] The type of current volume to display. – *Default: `max_local`*
+ *  - `max_local`: Choose the local maximum volume as current volume.
+ *  - `real_time`: Choose the real-time volume as current volume.
  */
 function refreshInfo(as_current_volume = 'max_local')
 {

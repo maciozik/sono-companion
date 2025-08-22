@@ -1,15 +1,15 @@
-const DEFAULT_TIMEOUT = 10;
+const TIMEOUT_DEFAULT = 10;
 
 /**
  * Add a class to an HTML element temporarily.
  * @param {string} class_name The class to add.
  * @param {number|'transitionend'|'animationend'} [timeout]
- *  The duration after which the class is removed (in ms) – *Default: `10`*.
+ *  The duration after which the class is removed (in ms) – *Default: {@link TIMEOUT_DEFAULT}*.
  *  The keywords `transitionend` or `animationend` can also be used to remove the class after a transition or animation.
  * @returns {{ cancel: Function }} An object with a `cancel` method to abort the removal of the class.
  * @memberof HTMLElement
  */
-HTMLElement.prototype.addClassTemporarily = function (class_name, timeout = DEFAULT_TIMEOUT)
+HTMLElement.prototype.addClassTemporarily = function (class_name, timeout = TIMEOUT_DEFAULT)
 {
     let $this = this;
 
