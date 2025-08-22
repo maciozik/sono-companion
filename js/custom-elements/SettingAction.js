@@ -117,7 +117,7 @@ export default class SettingAction extends Setting
         const ConfirmationModal = new Modal(null, text);
 
         // Define the primary button callback to execute the action.
-        ConfirmationModal.setPrimaryBtn("Valider", () => {
+        ConfirmationModal.setPrimaryBtn(undefined, () => {
 
             Modal.close().then(() => {
                 _this.execute();

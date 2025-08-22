@@ -84,7 +84,7 @@ export default class SettingList extends Setting
         const ItemsModal = new Modal(null, this.$list.innerHTML);
 
         // Define the primary button callback to validate the item selected.
-        ItemsModal.setPrimaryBtn("Valider", () => {
+        ItemsModal.setPrimaryBtn(undefined, () => {
             this.validate();
         });
 

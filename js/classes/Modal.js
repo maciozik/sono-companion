@@ -11,6 +11,9 @@ export default class Modal
     /** @type {string} @readonly */
     static SECONDARY_BTN_DEFAULT = "Annuler";
 
+    /** @type {Function} @readonly */
+    static CALLBACK_DEFAULT = () => Modal.close();
+
     /** @type {number} @readonly */
     static CLOSE_DELAY = 100;
 
@@ -19,9 +22,9 @@ export default class Modal
     context = 'app';
 
     /** @type {string} */
-    primary_btn = Modal.PRIMARY_BTN_DEFAULT;
+    primary_btn = new String();
     /** @type {string|null} */
-    secondary_btn = Modal.SECONDARY_BTN_DEFAULT;
+    secondary_btn = new String();
 
     /** @type {Function|null} */
     #primaryCallback = null;
@@ -76,16 +79,14 @@ export default class Modal
 
     /**
      * Set the text and the callback of the primary button.
-     * @param {string|''} text The text of the primary button. – *If empty: `Modal.PRIMARY_BTN_DEFAULT`.*
-     * @param {Function} [callback] A callback if the primary button is selected. – *Default: close the modal.*
+     * @param {string|undefined} [text] The text of the primary button. – *Default: {@link PRIMARY_BTN_DEFAULT}*
+     * @param {Function} [callback] A callback if the primary button is selected. – *Default: {@link CALLBACK_DEFAULT}*
      * @returns {Modal}
      */
-    setPrimaryBtn(text, callback = undefined)
+    setPrimaryBtn(text = Modal.PRIMARY_BTN_DEFAULT, callback = undefined)
     {
-        const default_callback = () => Modal.close();
-
-        this.primary_btn = (text !== '') ? text : this.primary_btn;
-        this.#primaryCallback = (callback !== undefined) ? callback : default_callback;
+        this.primary_btn = text ?? Modal.PRIMARY_BTN_DEFAULT;
+        this.#primaryCallback = (callback !== undefined) ? callback : Modal.CALLBACK_DEFAULT;
 
         // Bind the callback to the button.
         Modal.$modalBtnPrimary.addEventListener('trigger', this.#primaryCallback.bind(this), {
@@ -97,21 +98,23 @@ export default class Modal
 
     /**
      * Set the text and the callback of the secondary button.
-     * @param {string|''|null} text The text of the secondary button, or null to hide it. – *If empty: `Modal.SECONDARY_BTN_DEFAULT`.*
-     * @param {Function} [callback] A callback to call when the secondary button is selected. – *Default: close the modal.*
+     * @param {string|undefined|null} [text] The text of the secondary button, or `null` to hide it. – *Default: {@link SECONDARY_BTN_DEFAULT}*
+     * @param {Function} [callback] A callback to call when the secondary button is selected. – *Default: {@link CALLBACK_DEFAULT}*
      * @returns {Modal}
      */
-    setSecondaryBtn(text, callback = undefined)
+    setSecondaryBtn(text = Modal.SECONDARY_BTN_DEFAULT, callback = undefined)
     {
-        const default_callback = () => Modal.close();
+        this.secondary_btn = text;
 
-        this.secondary_btn = (text !== '') ? text : this.secondary_btn;
-        this.#secondaryCallback = (callback !== undefined) ? callback : default_callback;
+        if (text !== null) {
 
-        // Bind the callback to the button.
-        Modal.$modalBtnSecondary.addEventListener('trigger', this.#secondaryCallback.bind(this), {
-            signal: Modal.#listenersAbort.signal
-        });
+            this.#secondaryCallback = (callback !== undefined) ? callback : Modal.CALLBACK_DEFAULT;
+
+            // Bind the callback to the button.
+            Modal.$modalBtnSecondary.addEventListener('trigger', this.#secondaryCallback.bind(this), {
+                signal: Modal.#listenersAbort.signal
+            });
+        }
 
         return this;
     }
@@ -120,35 +123,26 @@ export default class Modal
      * Open the modal.
      * @returns {Promise.void} A promise returned when the opening animation is over.
      */
-    // TODO Refactor the function to reduce the code.
     open()
     {
-        // Fill the modal.
+        // Set the buttons if needed and not already defined.
+        if (this.#primaryCallback === null) {
+            this.setPrimaryBtn();
+        }
+        if (this.#secondaryCallback === null && this.secondary_btn !== null) {
+            this.setSecondaryBtn();
+        }
+
+        // Fill the modal and set the context.
         Modal.$modalTitle.innerHTML = this.title;
         Modal.$modalText.innerHTML = this.text;
         Modal.$modalBtnPrimary.innerHTML = this.primary_btn;
-
-        // Show or remove the title as needed.
-        Modal.$modalTitle.classList.toggle('hide', (this.title === null));
-
-        // Set the context.
+        Modal.$modalBtnSecondary.innerHTML = this.secondary_btn;
         Modal.$overlay.dataset.context = this.context;
 
-        // Set the buttons if not already defined.
-        if (this.#primaryCallback === null) {
-            this.setPrimaryBtn(Modal.PRIMARY_BTN_DEFAULT);
-        }
-        if (this.#secondaryCallback === null) {
-            this.setSecondaryBtn(Modal.SECONDARY_BTN_DEFAULT);
-        }
-
-        // Remove the secondary button if null.
-        if (this.secondary_btn !== null) {
-            Modal.$modalBtnSecondary.innerHTML = this.secondary_btn;
-            Modal.$modalBtnSecondary.classList.remove('hide');
-        } else {
-            Modal.$modalBtnSecondary.classList.add('hide');
-        }
+        // Remove the title and secondary button if null.
+        Modal.$modalTitle.classList.toggle('hide', (this.title === null));
+        Modal.$modalBtnSecondary.classList.toggle('hide', (this.secondary_btn === null));
 
         // Allow a tap outside the modal to close it.
         setTimeout(() => {
@@ -159,10 +153,8 @@ export default class Modal
             }, { signal: Modal.#listenersAbort.signal });
         }, 200); // Prevent accidental tap.
 
-        // Reactivate the transitions.
+        // Reactivate the transitions and show the modal.
         Modal.$overlay.classList.remove('instant');
-
-        // Show the modal.
         Modal.$overlay.classList.add('active');
 
         // Create a state in the history.
@@ -182,7 +174,7 @@ export default class Modal
 
     /**
      * Hide the modal.
-     * @param {number} [delay] The delay after which the modal is hidding (in ms). – *Default: `Modal.CLOSE_DELAY`*
+     * @param {number} [delay] The delay after which the modal is hidding (in ms). – *Default: {@link CLOSE_DELAY}*
      * @param {boolean} [instant] Whether the modal must close without transitions. – *Default: `false`*
      * @returns {Promise.void} A promise returned when the closing animation is over.
      */
