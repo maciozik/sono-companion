@@ -26,10 +26,6 @@ import './custom-elements/SettingAction.js';
 import './custom-elements/GIcon.js';
 import './custom-elements/IncludeHTML.js';
 
-/**  CLASSES  **/
-import Modal from './classes/Modal.js';
-import Toast from './classes/Toast.js';
-
 /**  COMPONENTS  **/
 import * as NavTab from './components/nav-tab.js';
 import * as PlayBtn from './components/play-btn.js';
@@ -90,8 +86,6 @@ const modules = {
     Settings,
     History,
     WakeLock,
-    Modal,
-    Toast,
     View,
     PlayBtn,
     NavTab,
@@ -102,9 +96,9 @@ const modules = {
     BpmManager
 };
 
-// Call the __init__ function of each module by passing them all modules reference.
+// Call the __init__ function of each module.
 for (const module of Object.values(modules)) {
     if (typeof module.__init__ === 'function') {
-        module.__init__(modules);
+        module.__init__();
     }
 }

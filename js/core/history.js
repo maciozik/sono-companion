@@ -77,9 +77,8 @@ export function isState(name)
 /**
  * Init the module and its components.
  * Called only once during application startup.
- * @param {Object} modules All the main modules loaded in app.js, got via destructuring.
  */
-export function __init__({})
+export function __init__()
 {
     // When the back button or gesture of the device is triggered.
     window.addEventListener('popstate', event => {

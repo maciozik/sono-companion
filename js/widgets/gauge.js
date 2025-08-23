@@ -115,9 +115,8 @@ function convertToDegree(value)
 /**
  * Init the module and its components.
  * Called only once during application startup.
- * @param {Object} modules All the main modules loaded in app.js, got via destructuring.
  */
-export function __init__({ Settings })
+export function __init__()
 {
     // Create the gauge once the settings are initialized.
     Settings.oninit(null, create);

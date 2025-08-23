@@ -49,9 +49,8 @@ function setTabVisibility(view_id, is_visible)
 /**
  * Init the module and its components.
  * Called only once during application startup.
- * @param {Object} modules All the main modules loaded in app.js, got via destructuring.
  */
-export function __init__({ Settings }) {
+export function __init__() {
 
     // Listen the settings to toggle the visibility of the tabs if necessary.
     for (const $tab of $tabs) {

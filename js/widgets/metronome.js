@@ -181,9 +181,8 @@ function createAudioContext() {
 /**
  * Init the module and its components.
  * Called only once during application startup.
- * @param {Object} modules All the main modules loaded in app.js, got via destructuring.
  */
-export function __init__({})
+export function __init__()
 {
     // Listen the events emitted by the view.
     document.addEventListener('run:tempo', () => {

@@ -161,9 +161,8 @@ export function canBePaused(view_id = getCurrent().id) {
 /**
  * Init the module and its components.
  * Called only once during application startup.
- * @param {Object} modules All the main modules loaded in app.js, got via destructuring.
  */
-export function __init__({ Settings, History, WakeLock, Modal, Toast })
+export function __init__()
 {
     // Click on elements that load a view.
     for (const $loadViewBtn of $loadViewBtns) {

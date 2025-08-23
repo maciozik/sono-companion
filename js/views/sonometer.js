@@ -302,9 +302,8 @@ async function getVolume()
 /**
  * Init the module and its components.
  * Called only once during application startup.
- * @param {Object} modules All the main modules loaded in app.js, got via destructuring.
  */
-export function __init__({ View, Settings })
+export function __init__()
 {
     // Click on the reset button.
     // TODO Keep pressing for 0.5s to reset?
