@@ -1,7 +1,5 @@
 import * as Storage from '../core/storage.js';
-import * as History from '../core/history.js';
 import * as WakeLock from '../core/wake-lock.js';
-import Modal from '../classes/Modal.js';
 import * as NavTab from '../components/nav-tab.js';
 
 export const STORAGE_LAST_VIEW_LOADED = () => Storage.get('last_view_loaded') || 'sonometer';
@@ -99,6 +97,21 @@ export function stop(view_id = getCurrent().id)
 }
 
 /**
+ * Pause the view if it can be paused, else stop it.
+ * @param {string} [view_id] *Default: current view.*
+ * @return {'paused'|'stopped'} The new mode of the view.
+ */
+export function suspend(view_id = getCurrent().id) {
+    if (canBePaused(view_id)) {
+        pause(view_id);
+        return 'paused';
+    } else {
+        stop(view_id);
+        return 'stopped';
+    }
+}
+
+/**
  * Get the current view element.
  * @returns {HTMLElement}
  */
@@ -121,6 +134,7 @@ export function getFirstVisible()
 /**
  * Is the "run" mode active on a view.
  * @param {string} [view_id] *Default: current view.*
+ * @returns {boolean}
  */
 export function isRun(view_id = getCurrent().id) {
     return document.getElementById(view_id).classList.contains('run');
@@ -129,9 +143,19 @@ export function isRun(view_id = getCurrent().id) {
 /**
  * Is the "pause" mode active on a view.
  * @param {string} [view_id] *Default: current view.*
+ * @returns {boolean}
  */
 export function isPause(view_id = getCurrent().id) {
     return document.getElementById(view_id).classList.contains('pause');
+}
+
+/**
+ * Can the view be paused.
+ * @param {string} [view_id] *Default: current view.*
+ * @returns {boolean}
+ */
+export function canBePaused(view_id = getCurrent().id) {
+    return document.getElementById(view_id).querySelector('.play-btn .pause') !== null;
 }
 
 /**
@@ -139,7 +163,7 @@ export function isPause(view_id = getCurrent().id) {
  * Called only once during application startup.
  * @param {Object} modules All the main modules loaded in app.js, got via destructuring.
  */
-export function __init__({ Settings })
+export function __init__({ Settings, History, WakeLock, Modal, Toast })
 {
     // Click on elements that load a view.
     for (const $loadViewBtn of $loadViewBtns) {
@@ -192,6 +216,25 @@ export function __init__({ Settings })
         // Else, load the first visible tab, or the settings if no tab is visible.
         else {
             load(getFirstVisible() || 'settings');
+        }
+    });
+
+    /** @type {boolean} */
+    let suspendedOnVisibilityChange = false;
+
+    // Pause or stop the view when the app loses the focus.
+    document.addEventListener('visibilitychange', () => {
+
+        if (document.visibilityState === 'hidden' && isRun() && !isPause()) {
+            suspend();
+            suspendedOnVisibilityChange = true;
+        }
+        else if (document.visibilityState === 'visible' && suspendedOnVisibilityChange) {
+            (new Toast("L'application a été mise en pause car elle ne peut pas fonctionner en arrière-plan."))
+                .setDuration(4000)
+                .setDelay(350)
+                .show();
+            suspendedOnVisibilityChange = false;
         }
     });
 }

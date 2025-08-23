@@ -58,7 +58,6 @@ export async function unlock()
 export function __init__({ Settings })
 {
     // Lock the screen wake if necessary when the app gets the focus.
-    // TODO Pause or stop the view if the state is not visible? (emit an event?)
     document.addEventListener('visibilitychange', async () => {
         if (document.visibilityState === 'visible') {
             handle();

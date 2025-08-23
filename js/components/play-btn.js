@@ -44,15 +44,10 @@ export function __init__({ View }) {
 
         $playBtn.addEventListener('trigger', () => {
 
-            // Define the mode that should be set ('stop' or 'pause' if a pause button exists).
-            let non_run_mode = ($playBtn.querySelector('.pause') !== null) ? 'pause' : 'stop';
-
             if (!View.isRun() || View.isPause()) {
                 checkAudioPermission($view);
-            } else if (non_run_mode === 'pause') {
-                View.pause($view.id);
             } else {
-                View.stop($view.id);
+                View.suspend($view.id);
             }
 
             pulse(false);

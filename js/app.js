@@ -26,6 +26,10 @@ import './custom-elements/SettingAction.js';
 import './custom-elements/GIcon.js';
 import './custom-elements/IncludeHTML.js';
 
+/**  CLASSES  **/
+import Modal from './classes/Modal.js';
+import Toast from './classes/Toast.js';
+
 /**  COMPONENTS  **/
 import * as NavTab from './components/nav-tab.js';
 import * as PlayBtn from './components/play-btn.js';
@@ -86,6 +90,8 @@ const modules = {
     Settings,
     History,
     WakeLock,
+    Modal,
+    Toast,
     View,
     PlayBtn,
     NavTab,

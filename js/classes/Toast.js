@@ -8,6 +8,7 @@ export default class Toast
 
     text = new String();
     duration = new Number();
+    delay = new Number();
 
     /** @type {number} */
     static toastTimeout;
@@ -40,7 +41,7 @@ export default class Toast
 
     /**
      * Set the duration of the toast.
-     * @param {number} duration
+     * @param {number} duration The duration (in ms).
      * @returns {Toast}
      */
     setDuration(duration)
@@ -50,18 +51,33 @@ export default class Toast
     }
 
     /**
+     * Set the delay used before showing the toast.
+     * @param {number} delay The duration of the delay (in ms).
+     * @returns {Toast}
+     */
+    setDelay(delay)
+    {
+        this.delay = delay;
+        return this;
+    }
+
+    /**
      * Show the toast.
      */
     show()
     {
-        Toast.$toast.innerHTML = this.text;
+        setTimeout(() => {
 
-        // Cancel the timeout.
-        Toast.toastTimeout?.cancel();
+            Toast.$toast.innerHTML = this.text;
 
-        // Reactivate the transition and show the toast.
-        Toast.$toast.classList.remove('instant');
-        Toast.toastTimeout = Toast.$toast.addClassTemporarily('show', this.duration);
+            // Cancel the timeout.
+            Toast.toastTimeout?.cancel();
+
+            // Reactivate the transition and show the toast.
+            Toast.$toast.classList.remove('instant');
+            Toast.toastTimeout = Toast.$toast.addClassTemporarily('show', this.duration);
+
+        }, this.delay);
     }
 
     /**
