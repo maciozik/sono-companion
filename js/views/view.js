@@ -45,7 +45,7 @@ export function load(view)
 }
 
 /**
- * Set the "run" mode on a view.
+ * Set the `run` state on a view.
  * @param {string} [view_id] *Default: current view.*
  * @fires run
  * @fires run:`view_id`
@@ -65,7 +65,7 @@ export function run(view_id = getCurrent().id)
 }
 
 /**
- * Set the "pause" mode on a view.
+ * Set the `pause` state on a view.
  * @param {string} [view_id] *Default: current view.*
  * @fires pause
  * @fires pause:`view_id`
@@ -83,7 +83,7 @@ export function pause(view_id = getCurrent().id)
 }
 
 /**
- * Unset the "run" or "pause" mode from a view.
+ * Unset the `run` or `pause` state from a view.
  * @param {string} [view_id] *Default: current view.*
  * @fires stop
  * @fires stop:`view_id`
@@ -103,7 +103,7 @@ export function stop(view_id = getCurrent().id)
 /**
  * Pause the view if it can be paused, else stop it.
  * @param {string} [view_id] *Default: current view.*
- * @return {'paused'|'stopped'} The new mode of the view.
+ * @return {'paused'|'stopped'} The new state of the view.
  */
 export function suspend(view_id = getCurrent().id) {
     if (canBePaused(view_id)) {
@@ -113,6 +113,25 @@ export function suspend(view_id = getCurrent().id) {
         stop(view_id);
         return 'stopped';
     }
+}
+
+/**
+ * Pause or stop all the views that are currently running.
+ * @return {number} The number of views that was suspended.
+ */
+export function suspendAll() {
+
+    let count = 0;
+
+    for (const $view of $views) {
+
+        if (isRun($view.id) && !isPause($view.id)) {
+            suspend($view.id);
+            count++;
+        }
+    }
+
+    return count;
 }
 
 /**
@@ -136,7 +155,7 @@ export function getFirstVisible()
 }
 
 /**
- * Is the "run" mode active on a view.
+ * Is the `run` state active on a view.
  * @param {string} [view_id] *Default: current view.*
  * @returns {boolean}
  */
@@ -145,7 +164,7 @@ export function isRun(view_id = getCurrent().id) {
 }
 
 /**
- * Is the "pause" mode active on a view.
+ * Is the `pause` state active on a view.
  * @param {string} [view_id] *Default: current view.*
  * @returns {boolean}
  */
@@ -173,12 +192,10 @@ export function __init__()
 
         $loadViewBtn.addEventListener('trigger', function () {
 
-            let view_id = this.dataset.load;
-
             // Hide all existing modals instantly.
             Modal.close(0, true);
 
-            // Load the view.
+            let view_id = this.dataset.load;
             load(view_id);
         });
     }
@@ -222,22 +239,21 @@ export function __init__()
         }
     });
 
-    /** @type {boolean} */
-    let suspendedOnVisibilityChange = false;
+    /** @type {number} The number of views suspended when the app loses focus. */
+    let suspended_views_count = 0;
 
-    // Pause or stop the view when the app loses the focus.
+    // Pause or stop the view when the app loses focus.
     document.addEventListener('visibilitychange', () => {
 
-        if (document.visibilityState === 'hidden' && isRun() && !isPause()) {
-            suspend();
-            suspendedOnVisibilityChange = true;
+        if (document.visibilityState === 'hidden') {
+            suspended_views_count = suspendAll();
         }
-        else if (document.visibilityState === 'visible' && suspendedOnVisibilityChange) {
+        else if (document.visibilityState === 'visible' && suspended_views_count > 0) {
             (new Toast("L'application a été mise en pause car elle ne peut pas fonctionner en arrière-plan."))
                 .setDuration(4000)
                 .setDelay(350)
                 .show();
-            suspendedOnVisibilityChange = false;
+            suspended_views_count = 0;
         }
     });
 }

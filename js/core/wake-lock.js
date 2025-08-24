@@ -56,7 +56,7 @@ export async function unlock()
  */
 export function __init__()
 {
-    // Lock the screen wake if necessary when the app gets the focus.
+    // Lock the screen wake if necessary when the app gets focus.
     document.addEventListener('visibilitychange', async () => {
         if (document.visibilityState === 'visible') {
             handle();
