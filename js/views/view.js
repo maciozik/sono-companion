@@ -1,6 +1,10 @@
-import * as Storage from '../core/storage.js';
-import * as WakeLock from '../core/wake-lock.js';
-import * as NavTab from '../components/nav-tab.js';
+import * as History from '/js/core/history.js';
+import * as Storage from '/js/core/storage.js';
+import * as WakeLock from '/js/core/wake-lock.js';
+import Modal from '/js/classes/Modal.js';
+import Toast from '/js/classes/Toast.js';
+import * as Settings from '/js/views/settings.js';
+import * as NavTab from '/js/components/nav-tab.js';
 
 export const STORAGE_LAST_VIEW_LOADED = () => Storage.get('last_view_loaded') || 'sonometer';
 

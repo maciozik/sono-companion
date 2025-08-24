@@ -1,4 +1,4 @@
-import * as Settings from '../views/settings.js';
+import * as Settings from '/js/views/settings.js';
 
 export default class Setting extends HTMLElement
 {

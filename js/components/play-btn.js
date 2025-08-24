@@ -1,6 +1,6 @@
-import * as Storage from '../core/storage.js';
-import * as View from '../views/view.js';
-import * as AudioPermission from '../audio/audio-permission.js';
+import * as Storage from '/js/core/storage.js';
+import * as AudioPermission from '/js/audio/audio-permission.js';
+import * as View from '/js/views/view.js';
 
 export const $playBtns = document.querySelectorAll('.play-btn');
 

@@ -1,4 +1,4 @@
-import Tappable from '../classes/Tappable.js';
+import Tappable from '/js/classes/Tappable.js';
 
 /**
  * @see {@link Tappable} for usage and available options of the `data-tappable` attribute.

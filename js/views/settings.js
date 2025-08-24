@@ -1,9 +1,9 @@
-import Modal from '../classes/Modal.js';
-import Toast from '../classes/Toast.js';
-import * as Storage from '../core/storage.js';
-import Setting from '../classes/Setting.js';
-import SettingList from '../custom-elements/SettingList.js';
-import SettingAction from '../custom-elements/SettingAction.js';
+import * as Storage from '/js/core/storage.js';
+import Setting from '/js/classes/Setting.js';
+import Modal from '/js/classes/Modal.js';
+import Toast from '/js/classes/Toast.js';
+import SettingList from '/js/custom-elements/SettingList.js';
+import SettingAction from '/js/custom-elements/SettingAction.js';
 
 export const $view = document.getElementById('settings');
 

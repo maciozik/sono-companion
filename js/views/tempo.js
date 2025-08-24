@@ -1,4 +1,6 @@
-import * as Settings from './settings.js';
+import * as View from '/js/views/view.js';
+import * as Settings from '/js/views/settings.js';
+import * as Metronome from '/js/widgets/metronome.js';
 
 export const BPM_DEFAULT = 90;
 

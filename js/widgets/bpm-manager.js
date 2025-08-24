@@ -1,7 +1,8 @@
-import Toast from '../classes/Toast.js';
-import * as Storage from '../core/storage.js';
-import * as Tempo from '../views/tempo.js';
-import * as Settings from '../views/settings.js';
+import * as Storage from '/js/core/storage.js';
+import Toast from '/js/classes/Toast.js';
+import * as View from '/js/views/view.js';
+import * as Settings from '/js/views/settings.js';
+import * as Tempo from '/js/views/tempo.js';
 
 const SAVES_MAX = 50;
 const SHOW_BADGE_COUNT_THRESHOLD = 10;

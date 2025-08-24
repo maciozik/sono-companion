@@ -1,6 +1,6 @@
-import Modal from '../classes/Modal.js';
-import Toast from '../classes/Toast.js';
-import * as View from '../views/view.js';
+import Modal from '/js/classes/Modal.js';
+import Toast from '/js/classes/Toast.js';
+import * as View from '/js/views/view.js';
 
 /**
  * Ask the user for audio permission.

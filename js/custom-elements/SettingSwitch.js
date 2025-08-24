@@ -1,5 +1,5 @@
-import Setting from '../classes/Setting.js';
-import * as Settings from '../views/settings.js';
+import Setting from '/js/classes/Setting.js';
+import * as Settings from '/js/views/settings.js';
 
 export default class SettingSwitch extends Setting
 {

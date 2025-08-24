@@ -1,7 +1,6 @@
-import * as View from '../views/view.js';
-import * as Tempo from '../views/tempo.js';
-import * as Settings from '../views/settings.js';
-import * as NavTab from '../components/nav-tab.js';
+import * as Settings from '/js/views/settings.js';
+import * as Tempo from '/js/views/tempo.js';
+import * as NavTab from '/js/components/nav-tab.js';
 
 const METRONOME_ANIMATION_BPM_LIMIT = 240;
 const METRONOME_ENABLED_BPM_LIMIT   = 300;
@@ -83,6 +82,7 @@ function reset()
 /**
  * Replay the metronome.
  */
+// FIXME When metronome is running fast without transitions (bpm > 240), the replay button put the circle at the right instead of left.
 export function replay()
 {
     reset();

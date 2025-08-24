@@ -1,4 +1,4 @@
-import * as Settings from '../views/settings.js';
+import * as Settings from '/js/views/settings.js';
 
 export const MIN    = () => Settings.get('gauge_min');
 export const MAX    = () => Settings.get('gauge_max');

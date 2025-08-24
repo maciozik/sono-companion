@@ -1,47 +1,47 @@
 'use strict';
 
-import './env.js';
-
-/**  CORE  **/
-import * as History from './core/history.js';
-import * as WakeLock from './core/wake-lock.js';
+import '/js/env.js';
 
 /**  UTILS  **/
-import './utils/window/doubleRequestAnimationFrame.js';
-import './utils/htmlelement/addClassTemporarily.js';
-import './utils/htmlelement/addDynamicEventListener.js';
-import './utils/htmlelement/getCssProperty.js';
-import './utils/math/roundFloat.js';
-import './utils/math/clamp.js';
-import './utils/math/float.js';
-import './utils/number/addZeros.js';
-import './utils/app.vibrate.js';
-import './utils/console/debugType.js';
+import '/js/utils/app.vibrate.js';
+import '/js/utils/window/doubleRequestAnimationFrame.js';
+import '/js/utils/htmlelement/addClassTemporarily.js';
+import '/js/utils/htmlelement/addDynamicEventListener.js';
+import '/js/utils/htmlelement/getCssProperty.js';
+import '/js/utils/number/addZeros.js';
+import '/js/utils/math/roundFloat.js';
+import '/js/utils/math/clamp.js';
+import '/js/utils/math/float.js';
+import '/js/utils/console/debugType.js';
+
+/**  CORE  **/
+import * as History from '/js/core/history.js';
+import * as WakeLock from '/js/core/wake-lock.js';
 
 /**  CUSTOM ELEMENTS  **/
-import './custom-elements/SettingSwitch.js';
-import './custom-elements/SettingList.js';
-import './custom-elements/SettingRange.js';
-import './custom-elements/SettingAction.js';
-import './custom-elements/GIcon.js';
-import './custom-elements/IncludeHTML.js';
-
-/**  COMPONENTS  **/
-import * as NavTab from './components/nav-tab.js';
-import * as PlayBtn from './components/play-btn.js';
-import './components/scrollbar.js';
-import './components/tappable.js';
+import '/js/custom-elements/SettingSwitch.js';
+import '/js/custom-elements/SettingList.js';
+import '/js/custom-elements/SettingRange.js';
+import '/js/custom-elements/SettingAction.js';
+import '/js/custom-elements/GIcon.js';
+import '/js/custom-elements/IncludeHTML.js';
 
 /**  VIEWS  **/
-import * as View from './views/view.js';
-import * as Sonometer from './views/sonometer.js';
-import * as Tempo from './views/tempo.js';
-import * as Settings from './views/settings.js';
+import * as View from '/js/views/view.js';
+import * as Settings from '/js/views/settings.js';
+import * as Sonometer from '/js/views/sonometer.js';
+import * as Tempo from '/js/views/tempo.js';
 
 /**  WIDGETS  **/
-import * as Gauge from './widgets/gauge.js';
-import * as Metronome from './widgets/metronome.js';
-import * as BpmManager from './widgets/bpm-manager.js';
+import * as Gauge from '/js/widgets/gauge.js';
+import * as Metronome from '/js/widgets/metronome.js';
+import * as BpmManager from '/js/widgets/bpm-manager.js';
+
+/**  COMPONENTS  **/
+import * as NavTab from '/js/components/nav-tab.js';
+import * as PlayBtn from '/js/components/play-btn.js';
+import '/js/components/scrollbar.js';
+import '/js/components/tappable.js';
 
 /**  APP  **/
 
@@ -87,13 +87,13 @@ const modules = {
     History,
     WakeLock,
     View,
-    PlayBtn,
-    NavTab,
     Sonometer,
-    Gauge,
     Tempo,
+    Gauge,
     Metronome,
-    BpmManager
+    BpmManager,
+    NavTab,
+    PlayBtn
 };
 
 // Call the __init__ function of each module.

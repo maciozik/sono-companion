@@ -1,5 +1,5 @@
-import Modal from '../classes/Modal.js';
-import Setting from '../classes/Setting.js';
+import Setting from '/js/classes/Setting.js';
+import Modal from '/js/classes/Modal.js';
 
 export default class SettingAction extends Setting
 {

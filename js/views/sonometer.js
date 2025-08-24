@@ -1,7 +1,7 @@
-import * as View from './view.js';
-import * as Settings from './settings.js';
-import * as Gauge from '../widgets/gauge.js';
-import * as NavTab from '../components/nav-tab.js';
+import * as View from '/js/views/view.js';
+import * as Settings from '/js/views/settings.js';
+import * as Gauge from '/js/widgets/gauge.js';
+import * as NavTab from '/js/components/nav-tab.js';
 
 const CALIBRATION = () => Settings.get('audio_calibration');
 const REFRESH_INFOS_INTERVAL = 200;

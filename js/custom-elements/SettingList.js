@@ -1,6 +1,6 @@
-import Modal from '../classes/Modal.js';
-import Setting from '../classes/Setting.js';
-import * as Settings from '../views/settings.js';
+import Setting from '/js/classes/Setting.js';
+import Modal from '/js/classes/Modal.js';
+import * as Settings from '/js/views/settings.js';
 
 export default class SettingList extends Setting
 {

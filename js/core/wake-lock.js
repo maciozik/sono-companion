@@ -1,5 +1,5 @@
-import * as Settings from '../views/settings.js';
-import * as View from '../views/view.js';
+import * as View from '/js/views/view.js';
+import * as Settings from '/js/views/settings.js';
 
 let wakeLock = null;
 

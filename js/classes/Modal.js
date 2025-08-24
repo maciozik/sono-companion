@@ -1,4 +1,4 @@
-import * as History from '../core/history.js';
+import * as History from '/js/core/history.js';
 
 /**
  * Represents a modal.
