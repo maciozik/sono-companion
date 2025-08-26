@@ -24,7 +24,7 @@ export function push(name, callback)
     let url = '?' + name;
     history.pushState({ name }, '', url);
 
-    console.info(`State '${name}' pushed in history.`);
+    console.debugType('history:push', name);
 }
 
 /**
@@ -41,6 +41,7 @@ function leave()
  * Remove a state from the history if it is the current one, without calling any callback.
  * @param {string} name
  */
+// BUG The sequence "grant audio permission modal" > open settings > cancel by clicking a tab, close the app.
 export function cancel(name)
 {
     if (!isState(name)) return;
@@ -48,7 +49,7 @@ export function cancel(name)
     // Remove the current state.
     const current_state = states.pop();
 
-    console.info(`State '${current_state?.name}' cancelled manually.`);
+    console.debugType('history:cancel', current_state?.name);
 
     // Go back in the history manually without triggering the popstate event.
     skipNextPopstate = true;
@@ -89,7 +90,7 @@ export function __init__()
             return;
         }
 
-        console.info(`Back button triggered from state '${getCurrentState()?.name}'.`);
+        console.debugType('history:popstate', getCurrentState()?.name);
 
         leave();
     });

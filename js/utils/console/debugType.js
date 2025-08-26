@@ -1,43 +1,73 @@
 /**
  * Log a formatted debug message in the console.
- * @param {string} type 'emit_event' or 'create_key'.
+ * @param {'emit_event'|'vibrate'|'create_key'|
+ *         'history:push'|'history:popstate'|'history:cancel'|
+ *         'wakelock'
+ *        } type
  * @param {string} label
  * @param {any} value
  * @memberof console
  */
 console.debugType = function (type, label, value)
 {
-    if (ENV.DEV_MODE) {
+    if (!ENV.DEV_MODE) return;
 
-        let _blue_ = 'color: skyblue';
-        let _purple_ = 'color: #87F';
-        let _grey_ = 'color: lightslategrey';
-        let __ = 'color: inherit';
+    let _blue_ = 'color: skyblue';
+    let _purple_ = 'color: #87F';
+    let _grey_ = 'color: lightslategrey';
+    let __ = 'color: inherit';
 
-        switch (type) {
+    switch (type) {
 
-            case 'emit_event':
-                console.debug(
-                    `%c(•)%c  The event %c${label}%c was emitted with the value:`,
-                    _grey_, __, _blue_, __,
-                    value
-                );
-                break;
+        case 'emit_event':
+            console.debug(
+                `🔔 The event %c${label}%c was emitted with the value:`,
+                _blue_, __,
+                value
+            );
+            break;
 
-            case 'create_key':
-                console.debug(
-                    `%c[↓]%c  The key %c${label}%c was created in the storage with the value:`,
-                    _grey_, __, _blue_, __,
-                    value
-                );
-                break;
+        case 'vibrate':
+            console.debug(
+                `📳 Vibrations were triggered with the pattern: %c${value}`,
+                _purple_
+            );
+            break;
 
-            case 'vibrate':
-                console.debug(
-                    `%c⁞□⁞%c  Vibrations were triggered with the pattern: %c${value}`,
-                    _grey_, __, _purple_
-                );
-                break;
-        }
+        case 'create_key':
+            console.debug(
+                `⚙️ The key %c${label}%c was created in the storage with the value:`,
+                _blue_, __,
+                value
+            );
+            break;
+
+        case 'history:push':
+            console.debug(
+                `⏩ State %c${label}%c pushed in history.`,
+                _blue_, __
+            );
+            break;
+
+        case 'history:popstate':
+            console.debug(
+                `⏪ Back button triggered from state %c${label}%c.`,
+                _blue_, __
+            );
+            break;
+
+        case 'history:cancel':
+            console.debug(
+                `⏹️ State %c${label}%c cancelled manually.`,
+                _blue_, __
+            );
+            break;
+
+        case 'wakelock':
+            console.debug(
+                `☀️ Wake Lock %c${label}%c.`,
+                _blue_, __
+            );
+            break;
     }
 };

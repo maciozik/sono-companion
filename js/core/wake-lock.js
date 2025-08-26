@@ -32,7 +32,7 @@ export async function lock()
     if (wakeLock === null || wakeLock.released) {
         try {
             wakeLock = await navigator.wakeLock.request('screen');
-            console.debug("Wake Lock activated.");
+            console.debugType('wakelock', 'activated');
         } catch (error) {
             console.warn(error.message);
         }
@@ -46,7 +46,7 @@ export async function unlock()
 {
     wakeLock?.release().then(() => {
         wakeLock = null;
-        console.debug("Wake Lock deactivated.");
+        console.debugType('wakelock', 'deactivated');
     });
 }
 

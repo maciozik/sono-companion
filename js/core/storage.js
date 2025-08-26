@@ -37,6 +37,7 @@ export function setOnce(key, value)
 {
     if (get(key) === null) {
         set(key, value);
+        console.debugType('create_key', key, value);
         return true;
     }
     else {

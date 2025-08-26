@@ -15,7 +15,7 @@ export function grant(onGranted = null, onPrompt = null, onDenied = null)
         .then((stream) => {
             // window.audioStream = stream;
             onGranted?.call();
-            console.info("Audio permission granted.");
+            console.info("🎤 Audio permission granted.");
         })
         .catch((error) => {
             // TODO Handle the other possible errors.
@@ -24,12 +24,12 @@ export function grant(onGranted = null, onPrompt = null, onDenied = null)
                     // On prompt.
                     if (permissionStatus.state === 'prompt') {
                         onPrompt?.call();
-                        console.warn("Audio permission unknown.");
+                        console.warn("🔇 Audio permission unknown.");
                     }
                     // On denied.
                     else if (permissionStatus.state === 'denied') {
                         onDenied?.call();
-                        console.error("Audio permission denied.");
+                        console.error("🔇 Audio permission denied.");
                     }
                 });
         });
