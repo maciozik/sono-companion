@@ -30,28 +30,18 @@ let metronomeInterval;
 export function run()
 {
     let bpm = Tempo.get('bpm');
-    let bpm_ms = Tempo.get('ms');
+    let duration = Tempo.get('ms');
 
     // Set the transition duration to match with the bpm.
-    $metronome.style.setProperty('--metronome-transition-duration', `${bpm_ms}ms`);
+    $metronome.style.setProperty('--metronome-transition-duration', `${duration}ms`);
 
-    // Reset the behavior and enable the replay button.
-    $metronome.classList.remove('instant', 'fixed', 'disabled');
+    // Set the mode of the metronome.
+    initMode();
+    $metronome.classList.remove('disabled');
     $replayBtn.classList.remove('disabled');
 
-    // Change the behavior if the bpm exceeds high limits.
-    if (bpm > METRONOME_ENABLED_BPM_LIMIT) {
-        $metronome.classList.add('fixed');
-        feedback(true, true);
-    }
-    else if (bpm > METRONOME_ANIMATION_BPM_LIMIT) {
-        $metronome.classList.add('instant');
-        feedback(true, true);
-    }
-
-    // Run the animation a first time, then run the animation loop.
-    goto('right');
-    animate(bpm_ms);
+    // Run the loop.
+    animate();
 
     // Update the label of the tab.
     NavTab.updateLabel(`${bpm} bpm`);
@@ -82,21 +72,21 @@ function reset()
 /**
  * Replay the metronome.
  */
-// FIXME When metronome is running fast without transitions (bpm > 240), the replay button put the circle at the right instead of left.
 export function replay()
 {
     reset();
     feedback(false, true);
 
-    // Let the time to stop before running again.
+    // Let the time to reset before looping again.
     requestAnimationFrame(() => {
-        run();
+        let immediate = (isMode('normal'));
+        animate(immediate);
     });
 }
 
 /**
  * Set the direction of the metronome circle.
- * @param {'left'|'right'|'reverse'} to The direction the circle must go to, or `reverse` to invert the current direction.
+ * @param {'left'|'right'|'reverse'} to The direction the circle must go, or `reverse` to invert the current direction.
  * @param {boolean} instant Whether the circle must go to the direction instantly.
  */
 function goto(to, instant = false)
@@ -108,24 +98,64 @@ function goto(to, instant = false)
         direction = to;
     }
 
-    if (instant) {
-        $metronome.classList.add('instant');
-    }
+    $metronome.classList.toggle('instant', instant);
 
     $metronome.classList.remove('left', 'right');
     $metronome.classList.add(direction);
 }
 
 /**
- * Run the animation in loop depending on the bpm.
- * @param {number} duration The duration of the animation (in ms).
+ * Run the animation in loop following the bpm.
+ * @param {boolean} [immediate] Whether to run the animation immediately – *Default: `true`*
  */
-function animate(duration)
+function animate(immediate = true)
 {
-    metronomeInterval = setInterval(() => {
+    let duration = Tempo.get('ms');
+
+    const animation = () => {
         goto('reverse');
         feedback(true, true);
-    }, duration);
+    };
+
+    // First run the animation once if necessary, then run the loop.
+    if (immediate) animation();
+    metronomeInterval = setInterval(animation, duration);
+}
+
+/**
+ * Initialize how the metronome must behave depending on the bpm.
+ */
+function initMode()
+{
+    $metronome.classList.remove('jump', 'fix');
+
+    // Change the mode if the bpm exceeds the predefined limits.
+    if (!isMode('normal')) {
+        let mode = getMode();
+        $metronome.classList.add(mode);
+    }
+}
+
+/**
+ * Get how the metronome must behave depending on the bpm.
+ * @returns {'normal'|'jump'|'fix'} The current mode.
+ */
+function getMode()
+{
+    let bpm = Tempo.get('bpm');
+
+    return (bpm > METRONOME_ENABLED_BPM_LIMIT)   ? 'fix'
+         : (bpm > METRONOME_ANIMATION_BPM_LIMIT) ? 'jump'
+         : 'normal';
+}
+
+/**
+ * Check if the metronome is in a specific mode.
+ * @param {'normal'|'jump'|'fix'} mode
+ * @returns {boolean}
+ */
+export function isMode(mode) {
+    return getMode() === mode;
 }
 
 /**

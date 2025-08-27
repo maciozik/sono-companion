@@ -40,17 +40,19 @@
             margin-left: 100%;
         }
     }
-    &.instant {
+
+    &.jump, &.instant {
         .metronome-circle {
             transition: none !important;
         }
     }
-    &.fixed {
+    &.fix {
         .metronome-circle {
             margin-left: 0 !important;
             background-color: var(--invert);
         }
     }
+
     &.disabled {
         .metronome-circle {
             margin-left: 0 !important;
