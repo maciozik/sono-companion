@@ -33,15 +33,12 @@
         }
 
         .play-btn {
-            g-icon.pause {
-                font-size: 3.5rem;
-            }
 
             .timestamp {
                 position: absolute;
-                margin-top: 35px;
+                margin-top: 32cqh;
                 color: var(--cyan);
-                font-size: .95rem;
+                font-size: clamp(14px, 14cqh, 17px);
                 font-weight: 500;
                 text-align: center;
                 opacity: 0;

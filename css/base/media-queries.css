@@ -26,4 +26,8 @@
     #toast {
         max-width: calc(var(--maximum-view-width) - (var(--padding-sides) * 2));
     }
+
+    #overlay .modal {
+        max-width: var(--maximum-view-width);
+    }
 }
