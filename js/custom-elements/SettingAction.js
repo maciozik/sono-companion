@@ -17,6 +17,7 @@ export default class SettingAction extends Setting
 
     has_action = new Boolean();
     require_confirmation = new Boolean();
+    open_in_new_window = new Boolean();
 
     /**
      * Whether the vibration occurs when the user validates or after the confirmation modal closes.
@@ -31,6 +32,7 @@ export default class SettingAction extends Setting
         this.module = this.dataset.module || null;
 
         this.has_action = (this.dataset.action !== undefined) ? true : false;
+        this.open_in_new_window = (this.dataset.newWindow !== undefined) ? true : false;
         this.require_confirmation = (this.dataset.requireConfirmation === undefined || this.dataset.requireConfirmation === 'false') ? false : true;
         this.vibrate_on = this.dataset.vibrateOn ?? null;
 
@@ -181,9 +183,14 @@ export default class SettingAction extends Setting
      */
     getRightIconHTML()
     {
-        return (this.has_action) ? `
-            <g-icon data-name="chevron_right"></g-icon>
-        ` : '';
+        if (this.has_action) {
+            if (this.open_in_new_window) {
+                return `<g-icon data-name="open_in_new"></g-icon>`;
+            } else {
+                return `<g-icon data-name="chevron_right"></g-icon>`;
+            }
+        }
+        return '';
     }
 
     /**

@@ -458,8 +458,14 @@
 
                 <setting-action
                     data-name="open_github"
-                    data-action="window.open(`https://github.com/${ENV.GITHUB}`)"
+                    data-action="window.open(`https://github.com/${ENV.GITHUB}`, '_blank');" data-new-window
                     data-title="GitHub du projet"
+                ></setting-action>
+
+                <setting-action
+                    data-name="open_in_browser"
+                    data-action="window.open(ENV.URL, '_blank');" data-new-window
+                    data-title="Ouvrir dans le navigateur"
                 ></setting-action>
 
                 <setting-action

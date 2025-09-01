@@ -23,3 +23,7 @@ b, strong {
 .red {
     color: var(--red);
 }
+
+.hide {
+    display: none !important;
+}

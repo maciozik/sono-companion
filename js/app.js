@@ -80,6 +80,19 @@ window.fetch(`https://api.github.com/repos/${ENV.GITHUB}/tags`)
     })
     .catch(error => console.error(error));
 
+/**
+ * Check if the app is running as a PWA.
+ * @returns {boolean}
+ */
+function isPWA()
+{
+    return window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+}
+
+// Show or hide the "Open in browser" setting action depending on the PWA mode.
+const $openInBrowser = document.querySelector('setting-action[data-name=open_in_browser]');
+$openInBrowser.classList.toggle('hide', !isPWA());
+
 /**  MODULES  **/
 
 const modules = {
