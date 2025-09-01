@@ -42,6 +42,7 @@ function leave()
  * @param {string} name
  */
 // BUG The sequence "grant audio permission modal" > open settings > cancel by clicking a tab, close the app.
+//     Cause: history.back() is kind of asynchronous, so it cancels the 'settings' state even if it is called before.
 export function cancel(name)
 {
     if (!isState(name)) return;

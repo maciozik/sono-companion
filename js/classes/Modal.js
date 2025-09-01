@@ -167,7 +167,7 @@ export default class Modal
             const whenOpened = () => {
                 Modal.$modal.removeEventListener('transitionend', whenOpened);
                 resolve();
-            }
+            };
             Modal.$modal.addEventListener('transitionend', whenOpened, { once: true });
         });
     }
@@ -199,7 +199,7 @@ export default class Modal
             const whenClosed = () => {
                 Modal.$modal.removeEventListener('transitionend', whenClosed);
                 resolve();
-            }
+            };
             Modal.$modal.addEventListener('transitionend', whenClosed, { once: true });
         });
     }
