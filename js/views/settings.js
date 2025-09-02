@@ -331,12 +331,16 @@ export function __init__()
         }, settings_view_transition_duration - 100);
     });
 
+    // Hide the "Open in browser" setting action if the app is already running in browser.
+    const $openInBrowser = $view.querySelector('[data-name=open_in_browser]');
+    $openInBrowser.classList.toggle('hide', !ENV.APP.PWA_MODE);
+
     // Change the gauge parameters.
     // TODO Finish.
     onsync('gauge_step', event => {
-        document.querySelector('.setting[data-name=gauge_min]').setStep(event.detail.value);
-        document.querySelector('.setting[data-name=gauge_max]').setStep(event.detail.value);
-        document.querySelector('.setting[data-name=danger_zone]').setStep(event.detail.value);
+        $view.querySelector('[data-name=gauge_min]').setStep(event.detail.value);
+        $view.querySelector('[data-name=gauge_max]').setStep(event.detail.value);
+        $view.querySelector('[data-name=danger_zone]').setStep(event.detail.value);
     });
 
     // Init the settings.
