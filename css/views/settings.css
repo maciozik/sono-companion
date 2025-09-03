@@ -51,10 +51,6 @@
                         display: none;
                     }
                 }
-
-                &.danger {
-                    color: var(--red);
-                }
             }
 
             .setting-info {
@@ -114,6 +110,12 @@
                 margin-left: 2px;
                 margin-right: -7px;
                 font-size: 1.5rem;
+            }
+        }
+
+        &[data-danger] {
+            .setting-title {
+                color: var(--red);
             }
         }
 

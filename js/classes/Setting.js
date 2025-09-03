@@ -1,3 +1,4 @@
+import '/js/utils/htmlelement/hasBooleanAttribute.js';
 import * as Settings from '/js/views/settings.js';
 
 export default class Setting extends HTMLElement
@@ -27,14 +28,18 @@ export default class Setting extends HTMLElement
         this.title = this.dataset.title;
         this.info = this.dataset.info || "";
 
-        this.allow_reset = (this.dataset.allowReset === undefined || this.dataset.allowReset === 'false') ? false : true;
-        this.danger = (this.dataset.danger === undefined || this.dataset.danger === 'false') ? false : true;
+        this.allow_reset = this.hasBooleanAttribute('data-allow-reset');
+        this.danger = this.hasBooleanAttribute('data-danger');
         this.groups = this.dataset.groups?.split(' ') || [];
 
         // Remove the useless attributes.
         this.removeAttribute('data-title');
         this.removeAttribute('data-info');
         this.removeAttribute('data-allow-reset');
+        this.removeAttribute('data-danger');
+
+        // Add the attributes again without values for CSS purpose.
+        this.toggleAttribute('data-danger', this.danger);
     }
 
     /**

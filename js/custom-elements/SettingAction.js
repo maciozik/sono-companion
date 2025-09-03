@@ -32,14 +32,18 @@ export default class SettingAction extends Setting
         this.module = this.dataset.module || null;
 
         this.has_action = (this.dataset.action !== undefined) ? true : false;
-        this.open_in_new_window = (this.dataset.newWindow !== undefined) ? true : false;
-        this.require_confirmation = (this.dataset.requireConfirmation === undefined || this.dataset.requireConfirmation === 'false') ? false : true;
+        this.require_confirmation = this.hasBooleanAttribute('data-require-confirmation');
+        this.open_in_new_window = this.hasBooleanAttribute('data-new-window');
         this.vibrate_on = this.dataset.vibrateOn ?? null;
 
         // Remove the useless attributes.
         this.removeAttribute('data-module');
         this.removeAttribute('data-require-confirmation');
+        this.removeAttribute('data-new-window');
         this.removeAttribute('data-vibrate-on');
+
+        // Add the attributes again without values for CSS purpose.
+        this.toggleAttribute('data-new-window', this.open_in_new_window);
     }
 
     /**
@@ -156,7 +160,7 @@ export default class SettingAction extends Setting
         // Set the content.
         this.innerHTML = `
             <div class="setting-text">
-                <p class="setting-title ${ this.danger ? 'danger' : ''}">
+                <p class="setting-title">
                     ${this.title}
                 </p>
                 ${this.getInfoHTML()}

@@ -9,6 +9,7 @@ import '/js/utils/window/doubleRequestAnimationFrame.js';
 import '/js/utils/htmlelement/addClassTemporarily.js';
 import '/js/utils/htmlelement/addDynamicEventListener.js';
 import '/js/utils/htmlelement/getCssProperty.js';
+import '/js/utils/htmlelement/hasBooleanAttribute.js';
 import '/js/utils/number/addZeros.js';
 import '/js/utils/math/roundFloat.js';
 import '/js/utils/math/clamp.js';
