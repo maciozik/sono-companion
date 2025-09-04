@@ -2,6 +2,18 @@ import Setting from '/js/classes/Setting.js';
 import Slider from '/js/classes/Slider.js';
 import * as Settings from '/js/views/settings.js';
 
+/**
+ * Represents a setting to select a numeric value in a range.
+ *
+ * The following attributes **must** be declared:
+ *  - `data-value` : The default numeric value of the setting.
+ *  - `data-min`   : The minimum numeric value of the range.
+ *  - `data-max`   : The maximum numeric value of the range.
+ *  - `data-step`  : The gap between each value of the range.
+ *
+ * The following attributes may also be declared optionally:
+ *  - `data-suffix` : The suffix to add to the current numeric value when displayed on the setting.
+ */
 export default class SettingRange extends Setting
 {
     value = new Number();
@@ -135,7 +147,7 @@ export default class SettingRange extends Setting
         this.dataset.tappable = 'trigger-manually follow-tap';
 
         // Set the content.
-        this.innerHTML = `
+        this.innerHTML = /*html*/`
             <div class="setting-text">
                 <p class="setting-title ${ this.danger ? 'danger' : ''}">
                     ${this.title} ${super.getResetButtonHTML()}

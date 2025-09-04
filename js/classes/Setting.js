@@ -1,6 +1,25 @@
 import '/js/utils/htmlelement/hasBooleanAttribute.js';
 import * as Settings from '/js/views/settings.js';
 
+/**
+ * @typedef {import('../custom-elements/SettingSwitch.js')} SettingSwitchImport
+ */
+
+/**
+ * Represents a general setting.
+ * @abstract This class must only be extended and should **not** be instantiated directly.
+ *
+ * The following global attributes **must** be declared on all settings:
+ *  - `data-name`  : The id of the setting that will be used as key in the storage (in snake case).
+ *  - `data-title` : The main title of the setting.
+ *
+ * The following global attributes may also be declared optionally on any setting:
+ *  - `data-info`        : The description that gives more informations about the setting.
+ *  - `data-allow-reset` : Whether the setting can be set to its default value with a reset button.
+ *  - `data-danger`      : Whether the setting must be considered as a "sensitive" setting.
+ *  - `data-groups`      : One or several groups (in snake case and separated by spaces) that can be enabled or
+ *                         disabled when the value of a {@link SettingSwitchImport.default SettingSwitch} changes.
+ */
 export default class Setting extends HTMLElement
 {
     name = new String();
@@ -132,7 +151,7 @@ export default class Setting extends HTMLElement
      */
     getInfoHTML()
     {
-        return (this.info !== "") ? `
+        return (this.info !== "") ? /*html*/`
             <p class="setting-info">${this.info}</p>
         ` : '';
     }
@@ -143,7 +162,7 @@ export default class Setting extends HTMLElement
      */
     getResetButtonHTML()
     {
-        return (this.allow_reset) ? `
+        return (this.allow_reset) ? /*html*/`
             <g-icon class="reset-btn" data-name="restore" data-tappable="click no-circle"></g-icon>
         ` : '';
     }

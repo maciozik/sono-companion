@@ -1,26 +1,50 @@
 import Setting from '/js/classes/Setting.js';
 import Modal from '/js/classes/Modal.js';
 
+/**
+ * Represents a setting that can execute an action.
+ *
+ * A `data-action` attribute indicates the action to do when triggered. It can either be:
+ *  - The name of the method to call from a JS module.
+ *  - A standalone code to evaluate directly.
+ *
+ * In the first case, the JS module **must** be declared using the `data-module` attribute.
+ * The value of this attribute must be the link to the module, relative to the js/ folder without the extension.
+ *
+ * **If `data-action` is not declared**, nothing will happen when triggered. It can be useful to display informations.
+ *
+ * **If `data-action` is declared**, the following attributes may be declared optionally:
+ *  - `data-require-confirmation` : Whether a confirmation modal must be displayed before executing the action.
+ *  - `data-new-window` : Whether the action will open a new window (this will change the icon at the right of the setting).
+ *  - `data-vibrate-on` : If set to `validation`, a vibration will occur when the validation button of the confirmation modal is triggered.
+ *                        If set to `modal-close`, a vibration will occur only after the confirmation modal closes completely.
+ *
+ * @example // For a `reset` method to call from a module js/views/settings.js.
+ *  <setting-action
+ *      data-name="reset_settings"
+ *      data-module="views/settings" data-action="reset" data-require-confirmation
+ *      data-title="Reset all the settings"
+ *  ></setting-action>
+ */
 export default class SettingAction extends Setting
 {
     /**
-     * The module to load (from the js\ folder, without the .js extension).
+     * The module to load if needed.
      * @type {string|null}
      */
     module = new String();
 
     /**
-     * The method to execute from the module if it exists, or an arbitrary code.
+     * The method to call from the module, or a standalone code.
      * @type {Function}
      */
     action = new Function();
 
     has_action = new Boolean();
     require_confirmation = new Boolean();
-    open_in_new_window = new Boolean();
+    open_new_window = new Boolean();
 
     /**
-     * Whether the vibration occurs when the user validates or after the confirmation modal closes.
      * @type {'validation'|'modal-close'|null}
      */
     vibrate_on = new String();
@@ -33,7 +57,7 @@ export default class SettingAction extends Setting
 
         this.has_action = (this.dataset.action !== undefined) ? true : false;
         this.require_confirmation = this.hasBooleanAttribute('data-require-confirmation');
-        this.open_in_new_window = this.hasBooleanAttribute('data-new-window');
+        this.open_new_window = this.hasBooleanAttribute('data-new-window');
         this.vibrate_on = this.dataset.vibrateOn ?? null;
 
         // Remove the useless attributes.
@@ -43,7 +67,7 @@ export default class SettingAction extends Setting
         this.removeAttribute('data-vibrate-on');
 
         // Add the attributes again without values for CSS purpose.
-        this.toggleAttribute('data-new-window', this.open_in_new_window);
+        this.toggleAttribute('data-new-window', this.open_new_window);
     }
 
     /**
@@ -70,7 +94,7 @@ export default class SettingAction extends Setting
     }
 
     /**
-     * Set the action to execute if needed.
+     * **(async)** Set the action to execute if needed.
      */
     async setAction()
     {
@@ -85,7 +109,7 @@ export default class SettingAction extends Setting
                 const module = await import(module_path);
                 this.action = module[action];
             }
-            // Else, set the arbitrary code as the action.
+            // Else, set the standalone code as the action.
             else {
                 this.action = () => eval(action);
             }
@@ -158,7 +182,7 @@ export default class SettingAction extends Setting
         }
 
         // Set the content.
-        this.innerHTML = `
+        this.innerHTML = /*html*/`
             <div class="setting-text">
                 <p class="setting-title">
                     ${this.title}
@@ -188,7 +212,7 @@ export default class SettingAction extends Setting
     getRightIconHTML()
     {
         if (this.has_action) {
-            if (this.open_in_new_window) {
+            if (this.open_new_window) {
                 return `<g-icon data-name="open_in_new"></g-icon>`;
             } else {
                 return `<g-icon data-name="chevron_right"></g-icon>`;

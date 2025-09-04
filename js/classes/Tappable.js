@@ -5,15 +5,15 @@
  * A tappable is an interactive element that can trigger a growing circle animation when pressed.
  * It is defined by the presence of the 'data-tappable' attribute.
  *
- * Several options can be defined in this attribute, separated by white spaces:
- *  - `click`           : Trigger the element on click event *(default)*.
- *  - `pointerdown`     : Trigger the element on pointerdown event.
- *  - `pointerup`       : Trigger the element on pointerup event.
- *  - `trigger-manually`: The element will not be triggered by an event and must be triggered manually.
- *  - `follow-tap`      : The circle animation is triggered at the position of the tap.
- *  - `no-circle`       : The circle animation will not be shown.
- *  - {Any raw number}  : The opacity of the circle (e.g. 0.2).
- *  - {Any duration}    : The animation duration of the circle (e.g. 200ms, 1s).
+ * Several options may be defined in this attribute, separated by white spaces:
+ *  - `click`            : Trigger the element on click event *(default)*.
+ *  - `pointerdown`      : Trigger the element on pointerdown event.
+ *  - `pointerup`        : Trigger the element on pointerup event.
+ *  - `trigger-manually` : The element will not be triggered by an event and must be triggered manually.
+ *  - `follow-tap`       : The circle animation is triggered at the position of the tap.
+ *  - `no-circle`        : The circle animation will not be shown.
+ *  - **Any raw number** : The opacity of the circle (e.g. `0.2`).
+ *  - **Any duration**   : The animation duration of the circle (e.g. `200ms`, `1s`).
  *
  * Moreover, the following classes can change the behavior of the element:
  *  - `disabled`        : The animation will not be triggered at all.

@@ -1,6 +1,18 @@
 import Setting from '/js/classes/Setting.js';
 import * as Settings from '/js/views/settings.js';
 
+/**
+ * Represents a switch setting that can either be true or false.
+ *
+ * The following attributes **must** be declared:
+ *  - `data-value` : The default boolean value of the setting.
+ *
+ * The following attributes may also be declared optionally:
+ *  - `data-disable-group-on-true`  : The group to disable when the value turns `true`.
+ *  - `data-disable-group-on-false` : The group to disable when the value turns `false`.
+ *
+ * @see {@link Setting} for more informations on how to set groups.
+ */
 export default class SettingSwitch extends Setting
 {
     value = new Boolean();
@@ -86,7 +98,7 @@ export default class SettingSwitch extends Setting
         this.dataset.tappable = 'click follow-tap';
 
         // Set the content.
-        this.innerHTML = `
+        this.innerHTML = /*html*/`
             <div class="setting-text">
                 <p class="setting-title ${ this.danger ? 'danger' : ''}">
                     ${this.title} ${super.getResetButtonHTML()}

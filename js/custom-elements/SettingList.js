@@ -2,6 +2,23 @@ import Setting from '/js/classes/Setting.js';
 import Modal from '/js/classes/Modal.js';
 import * as Settings from '/js/views/settings.js';
 
+/**
+ * Represents a setting to select a choice from a list. The list is displayed in a modal.
+ *
+ * The following attributes may be declared optionally:
+ *  - `data-vibrate-on` : If set to `validation`, a vibration will occur when the validation button of the modal is triggered.
+ *                        If set to `modal-close`, a vibration will occur only after the modal closes completely.
+ *
+ * The text of each choice **must** be declared in a `<select-item>` child tag, with the following attributes:
+ *  - `data-value`    : The id of the choice (in snake case).
+ *  - `data-selected` : To declare only once on the default choice.
+ *
+ * @example
+ *  <setting-list data-name="theme" data-title="Theme">
+ *      <select-item data-value="dark" data-selected>Dark</select-item>
+ *      <select-item data-value="light">Light</select-item>
+ *  </setting-list>
+ */
 export default class SettingList extends Setting
 {
     value = new String();
@@ -14,7 +31,6 @@ export default class SettingList extends Setting
     $list;
 
     /**
-     * Whether the vibration occurs when the user validates or after the confirmation modal closes.
      * @type {'validation'|'modal-close'|null}
      */
     vibrate_on = new String();
@@ -101,8 +117,8 @@ export default class SettingList extends Setting
     {
         const $items = $container.querySelectorAll('.select-item');
 
-        $items.forEach($item => $item.toggleAttribute('data-selected', false));
-        $selectedItem.toggleAttribute('data-selected', true);
+        $items.forEach($item => $item.removeAttribute('data-selected'));
+        $selectedItem.setAttribute('data-selected', '');
     }
 
     /**
@@ -136,7 +152,7 @@ export default class SettingList extends Setting
         this.dataset.tappable = 'click follow-tap';
 
         // Set the content.
-        this.innerHTML = `
+        this.innerHTML = /*html*/`
             <div class="setting-text">
                 <p class="setting-title ${ this.danger ? 'danger' : ''}">
                     ${this.title} ${super.getResetButtonHTML()}
@@ -165,7 +181,7 @@ export default class SettingList extends Setting
             let label = $item.innerHTML;
             let selected = ($item.hasAttribute('data-selected')) ? 'data-selected' : '';
 
-            select_items_html += `
+            select_items_html += /*html*/`
                 <div class="select-item" data-value="${value}" ${selected}>
                     <span class="radio-btn"></span>
                     <span>${label}</span>
