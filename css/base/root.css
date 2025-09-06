@@ -22,7 +22,7 @@
         --grey: #707A7A;
         --grey-pale: #404A4A;
         --bg: #1E2021;
-        --bg-contrast: #181818;
+        --bg-contrast: #171717;
     }
 
     &[data-color-scheme=light] {
@@ -37,7 +37,7 @@
         --grey: #909598;
         --grey-pale: #C0CACA;
         --bg: #F5F8F8;
-        --bg-contrast: #FDFFFF;
+        --bg-contrast: #FFFFFF;
     }
 
     font-size: 16px;
@@ -74,7 +74,7 @@ body {
 
 @keyframes reset-blink {
     from, 50% {
-        background-color: oklch(from var(--red) l c h / .3);
+        background-color: rgb(from var(--red) r g b / .35);
     }
     to {
         background-color: var(--bg);

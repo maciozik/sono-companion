@@ -1,5 +1,5 @@
 /* Force a portrait display. */
-@media (min-aspect-ratio: 9/16) {
+@media (aspect-ratio >= 9/16) {
 
     :root {
         --maximum-view-width: calc(100dvh * 9/16);

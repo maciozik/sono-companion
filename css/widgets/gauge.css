@@ -79,8 +79,8 @@
 
                     &.active {
                         &::before {
-                            // TODO Light effect on active values?
-                            // text-shadow: 0 0 5px currentColor;
+                            /* TODO Light effect on active values? */
+                            /* text-shadow: 0 0 5px currentColor; */
                             opacity: 1;
                             transition: none;
                         }
