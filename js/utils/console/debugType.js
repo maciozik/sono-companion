@@ -10,8 +10,6 @@
  */
 console.debugType = function (type, label, value)
 {
-    if (!ENV.DEV_MODE) return;
-
     let _blue_ = 'color: skyblue';
     let _purple_ = 'color: #87F';
     let _grey_ = 'color: lightslategrey';

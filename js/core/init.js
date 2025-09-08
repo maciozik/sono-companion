@@ -1,5 +1,5 @@
 // Run the service worker.
-if ('serviceWorker' in navigator && !ENV.DEV_MODE) {
+if ('serviceWorker' in navigator && ENV.PROD) {
     navigator.serviceWorker.register('js/core/service-worker.js')
         .then(registration => console.debug("Service Worker registered:", registration))
         .catch(error => console.error("Service Worker not registered:", error));
@@ -12,8 +12,22 @@ if (screen.orientation) {
 }
 
 // Disable the context menu.
-if (!ENV.DEV_MODE) {
+if (ENV.PROD) {
     document.addEventListener("contextmenu", event => event.preventDefault());
+}
+
+// Disable the console messages.
+if (ENV.APP.DEBUG !== 'all') {
+
+    const allowed_fns = (ENV.APP.DEBUG === 'warn') ? ['error', 'warn']
+                      : (ENV.APP.DEBUG === 'error') ? ['error']
+                      : [];
+
+    for (const key in console) {
+        if (typeof console[key] === 'function' && !allowed_fns.includes(key)) {
+            console[key] = () => {};
+        }
+    }
 }
 
 // Get the current version from GitHub tags and display it.
