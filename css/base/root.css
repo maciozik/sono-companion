@@ -43,7 +43,6 @@
     font-size: 16px;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
-    color-scheme: light;
 }
 
 html {
@@ -58,7 +57,7 @@ html {
 
 body {
     width: 100dvw;
-    height: 100dvh;
+    height: 100svh; /* `dvh` worked historically, but a bug appeared without code changes. */
     color: var(--invert);
     background-color: var(--bg);
     font-family: 'Noto Sans', Arial, sans-serif;
