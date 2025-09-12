@@ -14,6 +14,10 @@ export default class Slider
     range = new Number();
     step = new Number();
 
+    /**
+     * @type {Object<string, { position: number, threshold_left: number, threshold_right: number }>}
+     * Indexes are the possible values of the slider.
+     */
     values = new Object();
     gap = new Number();
 
@@ -46,18 +50,33 @@ export default class Slider
     /**
      * Set the current value of the slider.
      * @param {number} value
-     * @returns {boolean} False if the value is not in the values of the slider.
+     * @returns {number} The new value of the slider, after rounding it if necessary.
      */
     setValue(value)
     {
-        if (this.values[value] !== undefined) {
+        if (this.isValueValid(value)) {
             this.value = value;
-            this.$slider.dataset.value = this.value;
         } else {
-            return false;
+            this.value = this.roundValue(value);
         }
 
-        return true;
+        this.$slider.dataset.value = this.value;
+        return this.value;
+    }
+
+    /**
+     * Find the closest valid value.
+     * @param {number} value
+     * @returns {number}
+     */
+    roundValue(value = this.value)
+    {
+        let values = Object.keys(this.values);
+        let closest_value = values.reduce((prev, curr) =>
+            Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev
+        );
+
+        return parseFloat(closest_value);
     }
 
     /**
@@ -85,6 +104,16 @@ export default class Slider
     {
         let position = this.values[value]?.position;
         return (position !== undefined) ? position : null;
+    }
+
+    /**
+     * Check if the value exists in the possible values of the slider.
+     * @param {number} value
+     * @returns {boolean}
+     */
+    isValueValid(value)
+    {
+        return (this.values[value] !== undefined);
     }
 
     /**
@@ -126,7 +155,6 @@ export default class Slider
 
                 // Emit the 'change' event on the slider.
                 this.emitEvent('change');
-
                 break;
             }
         }
@@ -243,11 +271,11 @@ export default class Slider
 
             // Only if the 'movable' state is activated.
             if (_this.is_movable) {
+
                 // Move the slider thumb depending on the user pointer.
                 _this.move(event.clientX);
 
                 // Emit the 'move' event on the slider.
-                // REMOVE Useless?
                 _this.emitEvent('move', event);
             }
         }, {

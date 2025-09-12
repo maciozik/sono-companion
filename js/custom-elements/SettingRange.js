@@ -84,24 +84,19 @@ export default class SettingRange extends Setting
     /**
      * Set the value and the slider thumb position.
      * @param {number} value
-     * @returns {boolean} False if the value is not valid.
+     * @returns {number} The new value, after rounding it if necessary.
      */
     set(value)
     {
         // Update the value of the slider.
-        let is_updated = this.Slider.setValue(value);
+        value = this.Slider.setValue(value);
 
-        // If the value is correct, update the position of the slider thumb, and the setting value.
-        if (is_updated) {
+        // Update the position of the slider thumb and the setting value.
             this.value = value;
             this.Slider.setPosition();
             this.setSettingValue();
-        } else {
-            // FIXME Fixed? The value in the storage is reset before the slider values are initialized.
-            return false;
-        }
 
-        return true;
+        return this.value;
     }
 
     /**

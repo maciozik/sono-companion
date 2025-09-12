@@ -82,12 +82,13 @@ export default class Setting extends HTMLElement
     /**
      * Set the value of the setting.
      * @abstract This method **must** be implemented in the child classes.
-     * @returns {boolean} False if the value cannot be set.
+     * @returns {string|number|boolean|undefined} The new value (can be different if the value is not valid and changes),
+     *                                            or `undefined` if it cannot be set.
      */
     set()
     {
         console.error("The method set() is not implemented.");
-        return false;
+        return undefined;
     }
 
     /**
@@ -97,7 +98,7 @@ export default class Setting extends HTMLElement
     render()
     {
         console.error("The method render() is not implemented.");
-        return false;
+        return undefined;
     }
 
     /**
@@ -135,11 +136,21 @@ export default class Setting extends HTMLElement
     }
 
     /**
-     * Reset the setting to its default value.
+     * Set the setting to its default value.
+     * @return {string|number|boolean} The default value.
+     */
+    setToDefault()
+    {
+        this.set(this.default_value);
+        return this.default_value;
+    }
+
+    /**
+     * Set the setting to its default value and update it in the storage.
      */
     reset(vibrate = true)
     {
-        this.set(this.default_value);
+        this.setToDefault();
         Settings.change(this.name, this.default_value, this.context);
 
         if (vibrate) app.vibrate();

@@ -1,7 +1,7 @@
 /**
  * Get a key or setting from the storage.
  * @param {string} key The name of the key or setting (in snake case).
- * @returns {any|null}
+ * @returns {any|null} `null` if the setting does not exist or is not a valid JSON.
  */
 export function get(key)
 {

@@ -73,7 +73,7 @@ export default class SettingList extends Setting
     /**
      * Set the item value as selected in the select list.
      * @param {string} value The value of the selected item.
-     * @returns {boolean} False if the selected value is not in the list.
+     * @returns {string} The new value, or the default value if it is not in the list.
      */
     set(value)
     {
@@ -85,10 +85,10 @@ export default class SettingList extends Setting
             SettingList.selectItem($selectedItem, this.$list);
         }
         else {
-            return false;
+            return this.setToDefault();
         }
 
-        return true;
+        return this.value;
     }
 
     /**

@@ -230,7 +230,7 @@ export default class SettingAction extends Setting
     }
 
     // These methods are not implemented in this class.
-    set() { return false; }
+    set() { return undefined; }
     reset() {}
     getResetButtonHTML() {}
 }

@@ -57,14 +57,18 @@ export default class SettingSwitch extends Setting
     /**
      * Set the value of the switch.
      * @param {boolean} value
-     * @returns {true}
+     * @returns {boolean} The new value, or the default value if it is not a boolean.
      */
     set(value)
     {
-        this.value = value;
-        this.$switch.dataset.value = this.value;
+        if (typeof value === 'boolean') {
+            this.value = value;
+            this.$switch.dataset.value = this.value;
+        } else {
+            return this.setToDefault();
+        }
 
-        return true;
+        return this.value;
     }
 
     /**

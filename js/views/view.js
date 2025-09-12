@@ -144,7 +144,7 @@ export function getCurrent()
 }
 
 /**
- * Get the id of the first visible view, or null if none visible.
+ * Get the id of the first visible view, or `null` if none visible.
  * @returns {string|null}
  */
 export function getFirstVisible()

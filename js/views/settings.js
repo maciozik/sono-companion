@@ -13,7 +13,7 @@ export const $settings = $view.getElementsByClassName('setting');
 /**
  * Get a setting from the storage.
  * @param {string} setting_name The name of the setting (in snake case).
- * @returns {string|number|boolean|null}
+ * @returns {string|number|boolean|null} `null` if the setting does not exist in the storage or is not a valid JSON.
  */
 export function get(setting_name)
 {
@@ -31,7 +31,7 @@ export function get(setting_name)
 /**
  * Set a setting in the storage.
  * @param {string} setting_name The name of the setting (in snake case).
- * @param {string|number|boolean|null} value The value to set, or null to remove the setting from the storage.
+ * @param {string|number|boolean|null} value The value to set, or `null` to remove the setting from the storage.
  * @param {string} context The context of the setting (i.e. the id of the view, or a keyword).
  * @returns {string|number|boolean} The value after conversion.
  */
@@ -98,18 +98,15 @@ function getFromView(setting_name)
 /**
  * Set the value of a setting in the view.
  * @param {string} setting_name The name of the setting (in snake case).
- * @param {string|number|boolean|null} value The value to set, or null to remove the setting from the storage.
- * @returns {boolean} False if the value cannot be set.
+ * @param {string|number|boolean|null} value The value to set, or `null` to remove the setting from the storage.
+ * @returns {string|number|boolean} The new value (can be different if the value is not valid and changes).
  */
 function setInView(setting_name, value)
 {
     let $setting = getSettingFromName(setting_name);
-    let is_updated = true;
 
-    // Set the setting if it is possible.
-    is_updated = $setting.set(value);
-
-    return is_updated;
+    // Set the setting.
+    return $setting.set(value);
 }
 
 /**
@@ -161,7 +158,7 @@ export function blink(setting_name)
 /**
  * Get the setting element with the name given.
  * @param {string} setting_name
- * @returns {HTMLElement}
+ * @returns {HTMLElement & Setting}
  */
 function getSettingFromName(setting_name)
 {
@@ -176,6 +173,7 @@ function getSettingFromName(setting_name)
  */
 export function init()
 {
+    /** @type {Array<{ name: string, value: string|number|boolean }>} */
     let settings = new Array();
 
     for (const $setting of $settings) {
@@ -184,27 +182,19 @@ export function init()
 
         // Get the value from the storage.
         let value = get($setting.name);
-        let is_updated = true;
 
-        // If the setting is already in the storage.
+        // If the setting is already in the storage, set it in the view and get the value back (can be different).
         if (value !== null) {
-            is_updated = setInView($setting.name, value);
+            value = setInView($setting.name, value);
         }
-
-        // If the setting is not in the storage yet or is not a valid JSON,
-        // or if its value is not valid.
-        if (value === null || !is_updated) {
-
-            // Get the default value from the view.
+        // If the setting is not in the storage yet or is not a valid JSON, get the default value.
+        else {
             value = getFromView($setting.name);
-
-            // Store the setting in the storage, after removing if it exists.
-            remove($setting.name, $setting.context);
-            set($setting.name, value, $setting.context);
-
             console.debugType('create_key', `setting.${$setting.context}.${$setting.name}`, value);
         }
 
+        // Create or update the setting in the storage.
+        set($setting.name, value, $setting.context);
         settings.push({ name: $setting.name, value: value });
     }
 
@@ -276,7 +266,7 @@ function bindEvent(setting_names, callback, type)
 /**
  * Listen when the setting(s) are initialized.
  * @param {string|Array<string>|null} setting_names The name of the setting(s) to listen,
- *                                                  or null to listen to the global `settings:oninit` event.
+ *                                                  or `null` to listen to the global `settings:oninit` event.
  * @param {Function} callback The callback to call.
  */
 export function oninit(setting_names, callback)
@@ -338,9 +328,9 @@ export function __init__()
     // Change the gauge parameters.
     // TODO Finish.
     onsync('gauge_step', event => {
-        $view.querySelector('[data-name=gauge_min]').setStep(event.detail.value);
-        $view.querySelector('[data-name=gauge_max]').setStep(event.detail.value);
-        $view.querySelector('[data-name=danger_zone]').setStep(event.detail.value);
+        // $view.querySelector('[data-name=gauge_min]').setStep(event.detail.value);
+        // $view.querySelector('[data-name=gauge_max]').setStep(event.detail.value);
+        // $view.querySelector('[data-name=danger_zone]').setStep(event.detail.value);
     });
 
     // Init the settings.
