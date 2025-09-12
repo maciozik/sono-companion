@@ -92,9 +92,9 @@ export default class SettingRange extends Setting
         value = this.Slider.setValue(value);
 
         // Update the position of the slider thumb and the setting value.
-            this.value = value;
-            this.Slider.setPosition();
-            this.setSettingValue();
+        this.value = value;
+        this.Slider.setPosition();
+        this.setSettingValue();
 
         return this.value;
     }
@@ -118,7 +118,7 @@ export default class SettingRange extends Setting
 
         // Fill with all possible values successively, and save the greatest width.
         for (let value in this.Slider.values) {
-            this.$settingValue.textContent = this.Slider.getValueWithSuffix(parseInt(value));
+            this.$settingValue.textContent = this.Slider.getValueWithSuffix(parseFloat(value));
             let current_width = this.$settingValue.offsetWidth;
             width = (width < current_width) ? current_width : width;
         }

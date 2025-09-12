@@ -72,8 +72,8 @@ export default class Slider
     roundValue(value = this.value)
     {
         let values = Object.keys(this.values);
-        let closest_value = values.reduce((prev, curr) =>
-            Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev
+        let closest_value = values.reduce((a, b) =>
+            Math.abs(a - value) < Math.abs(b - value) ? a : b
         );
 
         return parseFloat(closest_value);
