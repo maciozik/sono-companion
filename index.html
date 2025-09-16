@@ -318,21 +318,21 @@
 
                 <setting-range
                     data-name="gauge_min" data-groups="sonometer" data-allow-reset
-                    data-value=0 data-suffix=" dB" data-min=0 data-max=60 data-step=10
-                    data-title="Minimum de la gauge"
+                    data-value=0 data-suffix=" dB" data-min=0 data-max=50 data-step={gauge_step}
+                    data-title="Minimum de la jauge"
                 ></setting-range>
 
                 <setting-range
                     data-name="gauge_max" data-groups="sonometer" data-allow-reset
-                    data-value=130 data-suffix=" dB" data-min=120 data-max=150 data-step=10
-                    data-title="Maximum de la gauge"
+                    data-value=130 data-suffix=" dB" data-min=120 data-max=150 data-step={gauge_step}
+                    data-title="Maximum de la jauge"
                 ></setting-range>
 
                 <setting-range
                     data-name="danger_zone" data-groups="sonometer" data-allow-reset
-                    data-value=100 data-suffix=" dB" data-min=80 data-max=110 data-step=10
+                    data-value=100 data-suffix=" dB" data-min=70 data-max=110 data-step={gauge_step}
                     data-title="Zone de danger"
-                    data-info="Niveau au-delà duquel la gauge devient rouge."
+                    data-info="Niveau au-delà duquel la jauge devient rouge."
                 ></setting-range>
 
                 <setting-list
@@ -340,7 +340,6 @@
                     data-title="Écart entre les graduations">
                         <select-item data-value="5">5</select-item>
                         <select-item data-value="10" data-selected>10</select-item>
-                        <select-item data-value="20">20</select-item>
                 </setting-list>
 
                 <setting-switch

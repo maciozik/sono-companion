@@ -9,10 +9,20 @@ import * as Settings from '/js/views/settings.js';
  *  - `data-value` : The default numeric value of the setting.
  *  - `data-min`   : The minimum numeric value of the range.
  *  - `data-max`   : The maximum numeric value of the range.
- *  - `data-step`  : The gap between each value of the range.
+ *  - `data-step`  : The numeric gap between each value of the range.
+ *
+ * The `data-min`, `data-max` and `data-step` attributes are called parameters.
+ * A parameter can either be a raw numeric value, or a reference to another setting on which its numeric value depends.
+ * In that second case, the name of the setting must be enclosed in curly braces (e.g. `{setting_name}`).
  *
  * The following attributes may also be declared optionally:
  *  - `data-suffix` : The suffix to add to the current numeric value when displayed on the setting.
+ *
+ * @example
+ *  <setting-range
+ *      data-name="gauge_max" data-title="Gauge maximum" data-suffix=" dB"
+ *      data-value="130" data-min="100" data-max="150" data-step="{gauge_step}"
+ *  ></setting-range>
  */
 export default class SettingRange extends Setting
 {
@@ -38,9 +48,10 @@ export default class SettingRange extends Setting
         this.default_value = this.value;
         this.suffix = this.dataset.suffix || "";
 
-        this.min = parseFloat(this.dataset.min);
-        this.max = parseFloat(this.dataset.max);
-        this.step = parseFloat(this.dataset.step);
+        // Get the parameter values.
+        this.min  = this.getParameterValue('data-min');
+        this.max  = this.getParameterValue('data-max');
+        this.step = this.getParameterValue('data-step');
 
         // Remove the useless attributes.
         this.removeAttribute('data-value');
@@ -130,6 +141,25 @@ export default class SettingRange extends Setting
     {
         this.step = step;
         this.Slider.setStep(step);
+    }
+
+    /**
+     * Get either the raw value of a parameter, or the value of the setting on which it depends.
+     * @param {'data-min'|'data-max'|'data-step'} attr
+     * @returns {number}
+     */
+    getParameterValue(attr)
+    {
+        // Get the name of the setting on which the parameter depends, if it exists.
+        let attr_value = this.getAttribute(attr);
+        let setting_name = attr_value.match(/^\{(.+)\}$/);
+
+        if (setting_name) {
+            return parseFloat(Settings.get(setting_name[1]));
+        }
+        else {
+            return parseFloat(attr_value);
+        }
     }
 
     /**
