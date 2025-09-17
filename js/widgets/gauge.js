@@ -18,15 +18,25 @@ const $gaugePointer = $gauge.querySelector('.gauge-pointer');
  */
 export function create()
 {
+    let min = MIN(),
+        max = MAX(),
+        danger = DANGER(),
+        half = (max + min) / 2,
+        step = GRADUATIONS_STEP(),
+        nb_values = ((max - min) / step) + 1;
+
     // Rotate the gauge arcs
-    let gauge_rotation = convertToDegree(DANGER() - MIN());
+    let gauge_rotation = convertToDegree(danger - min);
     $gaugeArcs.style.setProperty('--gauge-arcs-rotation', `${gauge_rotation}deg`);
 
     // Rotate the safe gauge a bit more to create the gap between the two gauges.
-    let arc_safe_rotation = convertToDegree((-1 * GRADUATIONS_STEP()));
+    let arc_safe_rotation = convertToDegree((-1 * step));
     $gaugeArcSafe.style.transform = `rotate(${arc_safe_rotation}deg) translate3D(0, 0, 0)`;
 
-    for (let step = MIN(); step <= MAX(); step += GRADUATIONS_STEP()) {
+    // Reduce the number of displayed values if there are too many.
+    $gaugeArcs.classList.toggle('reduce-values', (nb_values >= 20));
+
+    for (let value = min; value <= max; value += step) {
 
         // Get the template of the graduation and clone it.
         /** @type {DocumentFragment} */
@@ -35,25 +45,26 @@ export function create()
         const $graduation = $graduationTemplate.cloneNode(true).querySelector('.graduation');
 
         // Set the values of the graduation.
-        $graduation.dataset.value = step;
+        $graduation.dataset.value = value;
 
         // Set the right orientation of the indicator.
-        if ((step - MIN()) > ((MAX() - MIN()) / 2)) {
+        if (value > half) {
             $graduation.classList.add('indicator-reverse');
         }
 
         // Show the danger indicator at the right graduation.
-        if (step === DANGER()) {
+        if (value === danger) {
             $graduation.dataset.indicator = DANGER_INDICATOR;
         }
 
         // Rotate and add the graduation to the right gauge.
-        if (step < DANGER()) {
-            let rotation = convertToDegree(step - DANGER() + GRADUATIONS_STEP());
+        if (value < danger) {
+            let rotation = convertToDegree(value - danger + step);
             $graduation.style.transform = `rotate(${rotation}deg)`;
             $gaugeArcSafe.querySelector('.gauge-graduations').appendChild($graduation);
-        } else {
-            let rotation = convertToDegree(step - DANGER());
+        }
+        else {
+            let rotation = convertToDegree(value - danger);
             $graduation.style.transform = `rotate(${rotation}deg)`;
             $gaugeArcDanger.querySelector('.gauge-graduations').appendChild($graduation);
         }
@@ -65,11 +76,13 @@ export function create()
  */
 export function recreate()
 {
-    $gaugeArcs.style.setProperty('--gauge-arcs-rotation', `0deg`);
-    $gaugeArcSafe.style.transform = '';
-    $gaugeArcs.querySelectorAll('.graduation').forEach(graduation => graduation.remove());
+    requestAnimationFrame(() => {
+        $gaugeArcs.style.setProperty('--gauge-arcs-rotation', `0deg`);
+        $gaugeArcSafe.style.transform = '';
+        $gaugeArcs.querySelectorAll('.graduation').forEach(graduation => graduation.remove());
 
-    create();
+        create();
+    });
 }
 
 /**

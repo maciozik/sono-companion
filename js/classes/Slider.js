@@ -44,7 +44,7 @@ export default class Slider
         this.max = parseFloat(this.$slider.dataset.max);
         this.step = parseFloat(this.$slider.dataset.step);
 
-        this.init();
+        this.initValues();
     }
 
     /**
@@ -88,11 +88,15 @@ export default class Slider
         this.$slider.style.setProperty('--slider-thumb-left', `${position}px`);
     }
 
+    /**
+     * Set the step of the slider.
+     * @param {number} step
+     */
     setStep(step)
     {
         this.step = step;
         this.$slider.dataset.step = this.step;
-        this.init();
+        this.initValues();
     }
 
     /**
@@ -188,9 +192,9 @@ export default class Slider
     }
 
     /**
-     * Initialize the slider.
+     * Initialize the values of the slider.
      */
-    init()
+    initValues()
     {
         this.range = this.max - this.min;
         this.$sliderLine.width = this.$sliderLine.offsetWidth;

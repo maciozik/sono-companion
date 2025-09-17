@@ -55,7 +55,7 @@ function set(setting_name, value, context)
 }
 
 /**
- * Change a setting in the storage.
+ * Change a setting in the storage if different.
  * @param {string} setting_name The name of the setting (in snake case).
  * @param {string|number|boolean} value The value to set.
  * @param {string} context The context of the setting (i.e. the id of the view, or a keyword).
@@ -65,13 +65,15 @@ function set(setting_name, value, context)
  */
 export function change(setting_name, value, context)
 {
-    let converted_value = set(setting_name, value, context);
+    if (value === get(setting_name)) return;
+
+    let value_converted = set(setting_name, value, context);
 
     // Emit the 'onchange' and 'onsync' events.
-    emitEvent(setting_name, converted_value, 'onchange');
-    emitEvent(setting_name, converted_value, 'onsync');
+    emitEvent(setting_name, value_converted, 'onchange');
+    emitEvent(setting_name, value_converted, 'onsync');
 
-    return converted_value;
+    return value_converted;
 }
 
 /**
@@ -326,11 +328,11 @@ export function __init__()
     $openInBrowser.classList.toggle('hide', !ENV.APP.PWA_MODE);
 
     // Change the gauge parameters.
-    // TODO Finish.
     onsync('gauge_step', event => {
-        // $view.querySelector('[data-name=gauge_min]').setStep(event.detail.value);
-        // $view.querySelector('[data-name=gauge_max]').setStep(event.detail.value);
-        // $view.querySelector('[data-name=danger_zone]').setStep(event.detail.value);
+        let value = parseFloat(event.detail.value);
+        $view.querySelector('[data-name=gauge_min]').setStep(value);
+        $view.querySelector('[data-name=gauge_max]').setStep(value);
+        $view.querySelector('[data-name=danger_zone]').setStep(value);
     });
 
     // Init the settings.

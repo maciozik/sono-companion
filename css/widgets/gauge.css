@@ -136,6 +136,31 @@
                 }
             }
         }
+
+        &.reduce-values {
+            --gauge-graduations-size: 10px;
+            --gauge-graduations-thickness: 3.5px;
+
+            .gauge-arc-safe {
+                /* Hide even graduations + the last one. */
+                .graduation:nth-child(even),
+                .graduation:last-child {
+                    &::before {
+                        display: none;
+                    }
+                }
+            }
+
+            .gauge-arc-danger {
+                /* Hide even graduations (except the last one) + the second-to-last one. */
+                .graduation:nth-child(even):not(:last-child),
+                .graduation:nth-last-child(2) {
+                    &::before {
+                        display: none;
+                    }
+                }
+            }
+        }
     }
 
     .gauge-pointer {

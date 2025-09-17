@@ -137,10 +137,20 @@ export default class SettingRange extends Setting
         this.$settingValue.style.setProperty('--slider-value-width', `${width + 1}px`);
     }
 
+    /**
+     * Set the step of the slider.
+     * @param {number} step
+     */
     setStep(step)
     {
         this.step = step;
+
+        // Reinitialize the slider with the new step.
         this.Slider.setStep(step);
+
+        // Round the value if it does not fit the step anymore, and store it.
+        let value = this.set(this.value);
+        Settings.change(this.name, value, this.context);
     }
 
     /**
