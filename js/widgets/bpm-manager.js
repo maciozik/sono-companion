@@ -28,8 +28,9 @@ function next()
 
     // Rotate the saves and update the tempo.
     if (getCount() > 1) {
+        console.log(tempo);
         nextState([$current, $next, $afterNext], () => {
-            Tempo.set(parseInt($next.textContent) || null);
+            setTempo($next.textContent);
         });
     }
 }
@@ -79,7 +80,7 @@ function remove()
 
     // Rotate the next saves and update the tempo.
     nextState([$next, $afterNext], () => {
-        Tempo.set(parseInt($next?.textContent) || null);
+        setTempo($next?.textContent);
         setVisibility();
         setCountBadge();
         handleCountBasedCases('remove');
@@ -281,6 +282,15 @@ function setAs(state, $save)
 }
 
 /**
+ * Set the tempo.
+ * @param {number} bpm
+ */
+function setTempo(bpm)
+{
+    Tempo.set((parseInt(bpm) || null), false);
+}
+
+/**
  * Set the visibility of the manager (active and/or disabled or not) and the add button (disabled or not).
  */
 function setVisibility()
@@ -314,7 +324,9 @@ function setCountBadge()
  */
 function restoreFromStorage()
 {
+    /** @type {Array<number>} */
     let bpm_saves = Storage.get('tempo.bpm_saves');
+    /** @type {number} */
     let current_save_id = Storage.get('tempo.current_save_id') || 0;
 
     if (bpm_saves === null) return;
@@ -325,7 +337,7 @@ function restoreFromStorage()
 
         // Set the save as current.
         if (parseInt(id) === current_save_id) {
-            Tempo.set(parseInt(bpm) || null);
+            setTempo(bpm);
             $save.classList.add('current');
         }
 
@@ -345,6 +357,8 @@ function restoreFromStorage()
 function saveInStorage()
 {
     const $bpmSaves = $nextBtn.querySelectorAll('.bpm-save:not(.remove)');
+
+    /** @type {Array<number>} */
     let bpm_saves = new Array();
 
     for (let id in Object.keys($bpmSaves)) {
@@ -386,11 +400,12 @@ export function __init__()
 
     // Click on the next button.
     $nextBtn.addEventListener('trigger', () => {
+
         // Recall the next save if the manager is active, or recall the current one.
         if ($bpmManager.classList.contains('active')) {
             next();
         } else {
-            Tempo.set(parseInt(getCurrent().textContent) || null);
+            setTempo(getCurrent().textContent);
         }
         View.stop();
     });

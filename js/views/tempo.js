@@ -39,15 +39,16 @@ export function get(unit = 'bpm')
 }
 
 /**
- * Set the tempo in bmp.
- * @param {number|null} bpm
+ * Set the tempo (in bmp).
+ * @param {number|null} bpm If `null`, do nothing.
+ * @param {boolean} [clamp] Whether to keep the bpm within the limits. – *Default: `true`*
  */
-export function set(bpm)
+export function set(bpm, clamp = true)
 {
     if (bpm === null) return;
 
     // If the minimum or maximum limit is reached.
-    if (bpm < BPM_MIN() || bpm > BPM_MAX()) {
+    if (clamp && (bpm < BPM_MIN() || bpm > BPM_MAX())) {
         bpm = Math.clamp(bpm, BPM_MIN(), BPM_MAX());
         $bpmValue.addClassTemporarily('limit', 150);
     }
