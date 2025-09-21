@@ -1,6 +1,5 @@
 import * as Settings from '/js/views/settings.js';
 
-const ALLOW_VIBRATIONS = () => Settings.get('allow_vibrations');
 const DURATION_DEFAULT = 10;
 
 if ('app' in window === false) {
@@ -14,7 +13,7 @@ if ('app' in window === false) {
  */
 app.vibrate = function (...pattern)
 {
-    if ('vibrate' in navigator && ALLOW_VIBRATIONS()) {
+    if ('vibrate' in navigator && STG.allow_vibrations) {
 
         pattern = (pattern.length === 0) ? [DURATION_DEFAULT] : pattern;
         navigator.vibrate(pattern);

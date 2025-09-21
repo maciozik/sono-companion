@@ -10,6 +10,18 @@ export const $view = document.getElementById('settings');
 /** @type {Array<Setting>} */
 export const $settings = $view.getElementsByClassName('setting');
 
+// Global object for fast access to settings.
+const _STG = new Object();
+window.STG = new Proxy(_STG, {
+    get(target, property) {
+        if (!(property in target)) throw new Error(`The setting ${property} does not exist.`);
+        return target[property];
+    },
+    set() {
+        throw new Error(`Settings cannot be modified that way.`);
+    }
+});
+
 /**
  * Get a setting from the storage.
  * @param {string} setting_name The name of the setting (in snake case).
@@ -48,8 +60,9 @@ function set(setting_name, value, context)
         value = parseInt(value);
     }
 
-    // Store the setting in the storage.
+    // Store the setting in the storage and global settings object.
     Storage.set(`setting.${context}.${setting_name}`, value);
+    _STG[setting_name] = value;
 
     return value;
 }

@@ -3,7 +3,6 @@ import * as Settings from '/js/views/settings.js';
 import * as Gauge from '/js/widgets/gauge.js';
 import * as NavTab from '/js/components/nav-tab.js';
 
-const CALIBRATION = () => Settings.get('audio_calibration');
 const REFRESH_INFOS_INTERVAL = 200;
 
 // The basic threshold of 80 dB(A) not to be exceeded for 8 hours.
@@ -29,14 +28,14 @@ let stream;
 /** @type {{ current: { real_time: number, max_local: number }, average: { value: number, nb: number }, max: number }} */
 let volume = {
     current: {
-        real_time: Gauge.MIN(),
-        max_local: Gauge.MIN()
+        real_time: 0,
+        max_local: 0
     },
     average: {
         value: 0,
         nb: 0
     },
-    max: Gauge.MIN()
+    max: 0
 }
 
 let timestamp = 0;
@@ -97,11 +96,11 @@ export function pause()
 export function reset()
 {
     // Reset the volume data.
-    volume.current.real_time = Gauge.MIN();
-    volume.current.max_local = Gauge.MIN();
-    volume.average.value = 0;
-    volume.average.nb = 0;
-    volume.max = Gauge.MIN();
+    volume.current.real_time = 0;
+    volume.current.max_local = 0;
+    volume.average.value     = 0;
+    volume.average.nb        = 0;
+    volume.max               = 0;
 
     // Pause the sonometer before reset.
     pause();
@@ -130,7 +129,7 @@ function update(db)
     if (!stopped) {
 
         // Calibrate the volume with user settings.
-        db = db + CALIBRATION();
+        db = db + STG.audio_calibration;
 
         // Update the gauge.
         Gauge.update(db);
@@ -201,10 +200,15 @@ function refreshInfo(as_current_volume = 'max_local')
         { value: volume.max, $element: $max }
     ];
 
+    const gauge_min = STG.gauge_min;
+    const gauge_max = STG.gauge_max;
+    const gauge_half = (gauge_min + gauge_max) / 2;
+
     for (let info of infos) {
 
         // Clamp between the minimum and the maximum limits.
-        info.value = Math.clamp(info.value, Gauge.MIN(), Gauge.MAX());
+        // TODO Do this only for the current volume, and not on reset.
+        info.value = Math.clamp(info.value, gauge_min, gauge_max);
 
         // Refresh the info.
         info.$element.querySelector('.integral').textContent = Math.trunc(info.value).addZeros(2);
@@ -214,8 +218,8 @@ function refreshInfo(as_current_volume = 'max_local')
         if (info.main === true) {
 
             // Update the icon above the current volume.
-            if (info.value === Gauge.MIN()) setVolumeIcon('low');
-            else if (info.value < ((Gauge.MAX() + Gauge.MIN()) / 2)) setVolumeIcon('normal');
+            if (info.value === gauge_min) setVolumeIcon('low');
+            else if (info.value < gauge_half) setVolumeIcon('normal');
             else setVolumeIcon('loud');
 
             // Update the label of the tab with current volume.
@@ -224,7 +228,7 @@ function refreshInfo(as_current_volume = 'max_local')
     }
 
     // Reset the local maximum.
-    volume.current.max_local = Gauge.MIN();
+    volume.current.max_local = 0;
 
     // TODO Threshold, and limit on the last 15 minutes.
     if (volume.average.value > getThreshold()) {

@@ -7,9 +7,6 @@ const METRONOME_ENABLED_BPM_LIMIT   = 300;
 
 const METRONOME_AUDIO_TICK_PATH = '../../audio/metronome_tick.mp3';
 
-const METRONOME_TICK    = () => Settings.get('metronome_tick');
-const METRONOME_VIBRATE = () => Settings.get('metronome_vibrate');
-
 export const $metronome = document.querySelector('#tempo #tempo-metronome .metronome');
 const $metronomeCircle = $metronome.querySelector('.metronome-circle');
 
@@ -106,7 +103,7 @@ function goto(to, instant = false)
 
 /**
  * Run the animation in loop following the bpm.
- * @param {boolean} [immediate] Whether to run the animation immediately – *Default: `true`*
+ * @param {boolean} [immediate] Whether to run the animation immediately. – *Default: `true`*
  */
 function animate(immediate = true)
 {
@@ -167,10 +164,10 @@ function feedback(tick, vibrate)
 {
     Tempo.$bpmValue.addClassTemporarily('blink', Tempo.BPM_BLINK_DURATION);
 
-    if (tick && METRONOME_TICK()) {
+    if (tick && STG.metronome_tick) {
         playAudioTick();
     }
-    if (vibrate && METRONOME_VIBRATE()) {
+    if (vibrate && STG.metronome_vibrate) {
         app.vibrate(20);
     }
 }

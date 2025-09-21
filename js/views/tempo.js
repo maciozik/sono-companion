@@ -4,8 +4,6 @@ import * as Metronome from '/js/widgets/metronome.js';
 
 export const BPM_DEFAULT = 90;
 
-const BPM_MIN = () => Settings.get('bpm_min');
-const BPM_MAX = () => Settings.get('bpm_max');
 export const BPM_BLINK_DURATION = 100;
 
 const TAP_TEMPO_RESET_DELAY = 2000;
@@ -47,9 +45,12 @@ export function set(bpm, clamp = true)
 {
     if (bpm === null) return;
 
+    const bpm_min = STG.bpm_min;
+    const bpm_max = STG.bpm_max;
+
     // If the minimum or maximum limit is reached.
-    if (clamp && (bpm < BPM_MIN() || bpm > BPM_MAX())) {
-        bpm = Math.clamp(bpm, BPM_MIN(), BPM_MAX());
+    if (clamp && (bpm < bpm_min || bpm > bpm_max)) {
+        bpm = Math.clamp(bpm, bpm_min, bpm_max);
         $bpmValue.addClassTemporarily('limit', 150);
     }
 
@@ -195,7 +196,6 @@ export function __init__()
     // Update the bpm if the settings change.
     Settings.onchange(['bpm_min', 'bpm_max'], event => {
         let bpm = get();
-        bpm = Math.clamp(bpm, BPM_MIN(), BPM_MAX());
         set(bpm);
 
         View.stop('tempo');

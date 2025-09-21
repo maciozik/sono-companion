@@ -1,10 +1,5 @@
 import * as Settings from '/js/views/settings.js';
 
-export const MIN    = () => Settings.get('gauge_min');
-export const MAX    = () => Settings.get('gauge_max');
-export const DANGER = () => Settings.get('danger_zone');
-export const GRADUATIONS_STEP = () => Settings.get('gauge_step');
-
 const DANGER_INDICATOR = "Danger";
 
 export const $gauge = document.querySelector('#sonometer #sonometer-gauge .gauge');
@@ -18,11 +13,11 @@ const $gaugePointer = $gauge.querySelector('.gauge-pointer');
  */
 export function create()
 {
-    let min = MIN(),
-        max = MAX(),
-        danger = DANGER(),
+    let min = STG.gauge_min,
+        max = STG.gauge_max,
+        danger = STG.danger_zone,
         half = (max + min) / 2,
-        step = GRADUATIONS_STEP(),
+        step = STG.gauge_step,
         nb_values = ((max - min) / step) + 1;
 
     // Rotate the gauge arcs
@@ -92,20 +87,22 @@ export function recreate()
 export function update(db)
 {
     const $graduations = $gauge.getElementsByClassName('graduation');
+    const min = STG.gauge_min;
+    const max = STG.gauge_max;
 
     // Clamp between the minimum and the maximum limits.
-    db = Math.clamp(db, MIN(), MAX());
+    db = Math.clamp(db, min, max);
 
     // Shine the graduations values.
     for (const $graduation of $graduations) {
         $graduation.classList.remove('active');
-        if ($graduation.dataset.value <= db && db > MIN()) {
+        if ($graduation.dataset.value <= db && db > min) {
             $graduation.classList.add('active');
         }
     }
 
     // Rotate the pointer.
-    let rotation = convertToDegree(db - MIN());
+    let rotation = convertToDegree(db - min);
     $gaugePointer.style.transform = `rotate(${rotation}deg)`;
 }
 
@@ -122,7 +119,7 @@ export function setTransitionDuration(duration)
  */
 function convertToDegree(value)
 {
-    return value * 180 / (MAX() - MIN());
+    return value * 180 / (STG.gauge_max - STG.gauge_min);
 }
 
 /**

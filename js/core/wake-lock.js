@@ -10,12 +10,12 @@ export function handle()
 {
     requestAnimationFrame(() => {
 
-        if (Settings.get('always_keep_screen_awake') === true) {
+        if (STG.always_keep_screen_awake) {
             lock();
             return;
         }
 
-        if (View.isRun() && !View.isPause() && Settings.get('keep_screen_awake_on_run') === true) {
+        if (View.isRun() && !View.isPause() && STG.keep_screen_awake_on_run) {
             lock();
         } else {
             unlock();

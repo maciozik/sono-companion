@@ -230,7 +230,7 @@ export function __init__()
     Settings.oninit(null, function () {
 
         // Load the last view loaded if the user setting is true, and if the tab is visible.
-        if (Settings.get('show_last_tab_opened') && Settings.get(`enable_${STORAGE_LAST_VIEW_LOADED()}`)) {
+        if (STG.show_last_tab_opened && STG[`enable_${STORAGE_LAST_VIEW_LOADED()}`]) {
             load(STORAGE_LAST_VIEW_LOADED());
         }
         // Else, load the first visible tab, or the settings if no tab is visible.
