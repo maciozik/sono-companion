@@ -1,10 +1,4 @@
-import * as Settings from '/js/views/settings.js';
-
 const DURATION_DEFAULT = 10;
-
-if ('app' in window === false) {
-    window.app = new Object;
-}
 
 /**
  * Make the device vibrate depending on the user settings.

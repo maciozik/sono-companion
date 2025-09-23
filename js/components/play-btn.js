@@ -54,7 +54,7 @@ export function __init__() {
     }
 
     // Make play buttons pulse if no view has been run yet (first launch tip).
-    if (Storage.get('has_been_run') === null) {
+    if (STO.has_been_run === null) {
         pulse(true);
     }
 }

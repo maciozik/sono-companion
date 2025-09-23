@@ -11,14 +11,15 @@ export const $view = document.getElementById('settings');
 export const $settings = $view.getElementsByClassName('setting');
 
 // Global object for fast access to settings.
-const _STG = new Object();
-window.STG = new Proxy(_STG, {
-    get(target, property) {
-        if (!(property in target)) throw new Error(`The setting ${property} does not exist.`);
-        return target[property];
+window.STG = new Proxy({}, {
+    get(_, property) {
+        let value = get(property);
+        if (value === null) console.error(`STG Proxy: The setting '${property}' does not exist or is not a valid JSON.`);
+        return value;
     },
+    // TODO Allow settings modification through the proxy?
     set() {
-        throw new Error(`Settings cannot be modified that way.`);
+        throw new Error(`STG Proxy: Settings cannot be modified that way.`);
     }
 });
 
@@ -43,7 +44,7 @@ export function get(setting_name)
 /**
  * Set a setting in the storage.
  * @param {string} setting_name The name of the setting (in snake case).
- * @param {string|number|boolean|null} value The value to set, or `null` to remove the setting from the storage.
+ * @param {string|number|boolean} value The value to set.
  * @param {string} context The context of the setting (i.e. the id of the view, or a keyword).
  * @returns {string|number|boolean} The value after conversion.
  */
@@ -60,9 +61,8 @@ function set(setting_name, value, context)
         value = parseInt(value);
     }
 
-    // Store the setting in the storage and global settings object.
+    // Store the setting in the storage.
     Storage.set(`setting.${context}.${setting_name}`, value);
-    _STG[setting_name] = value;
 
     return value;
 }
@@ -74,7 +74,7 @@ function set(setting_name, value, context)
  * @param {string} context The context of the setting (i.e. the id of the view, or a keyword).
  * @fires setting:onchange:`setting_name`
  * @fires setting:onsync:`setting_name`
- * @returns {string|number|boolean|null} The value after conversion.
+ * @returns {string|number|boolean|undefined} The value after conversion.
  */
 export function change(setting_name, value, context)
 {
@@ -186,7 +186,7 @@ function getSettingFromName(setting_name)
  * @fires setting:oninit:`setting_name`
  * @fires setting:onsync:`setting_name`
  */
-export function init()
+function init()
 {
     /** @type {Array<{ name: string, value: string|number|boolean }>} */
     let settings = new Array();

@@ -1,3 +1,15 @@
+// Global object for fast access to storage.
+window.STO = new Proxy({}, {
+    get(_, property) {
+        let value = get(property);
+        if (value === null) console.info(`STO Proxy: The key '${property}' does not exist in the storage or is not a valid JSON.`);
+        return value;
+    },
+    set() {
+        throw new Error(`STO Proxy: Storage data cannot be modified that way.`);
+    }
+});
+
 /**
  * Get a key or setting from the storage.
  * @param {string} key The name of the key or setting (in snake case).
@@ -11,7 +23,7 @@ export function get(key)
         value = JSON.parse(localStorage.getItem(key));
     } catch (error) {
         value = null;
-        console.warn(`The key '${key}' was not a valid JSON.`);
+        console.warn(`The key '${key}' is not a valid JSON.`);
     }
 
     return value;

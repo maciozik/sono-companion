@@ -332,6 +332,7 @@ function restoreFromStorage()
     if (bpm_saves === null) return;
 
     for (let id in Object.keys(bpm_saves)) {
+
         let bpm = bpm_saves[id];
         const $save = createSave(bpm);
 

@@ -6,7 +6,7 @@ import Toast from '/js/classes/Toast.js';
 import * as Settings from '/js/views/settings.js';
 import * as NavTab from '/js/components/nav-tab.js';
 
-export const STORAGE_LAST_VIEW_LOADED = () => Storage.get('last_view_loaded') || 'sonometer';
+export const VIEW_DEFAULT = 'sonometer';
 
 const $h1 = document.querySelector('header h1');
 export const $views = document.getElementsByClassName('view');
@@ -144,6 +144,15 @@ export function getCurrent()
 }
 
 /**
+ * Get the id of the last loaded view, or the default view if none loaded yet.
+ * @returns {string}
+ */
+export function getLastLoaded()
+{
+    return STO.last_view_loaded || VIEW_DEFAULT;
+}
+
+/**
  * Get the id of the first visible view, or `null` if none visible.
  * @returns {string|null}
  */
@@ -217,7 +226,7 @@ export function __init__()
         // Create a state in the history if the Settings view is loaded.
         if (view_id === 'settings') {
             History.push('settings', () => {
-                load(Storage.get('last_view_loaded'));
+                load(getLastLoaded());
             });
         }
         // Remove the state from the history when any other view is loaded.
@@ -229,9 +238,11 @@ export function __init__()
     // Load the correct view at launch.
     Settings.oninit(null, function () {
 
+        let last_view_loaded = getLastLoaded();
+
         // Load the last view loaded if the user setting is true, and if the tab is visible.
-        if (STG.show_last_tab_opened && STG[`enable_${STORAGE_LAST_VIEW_LOADED()}`]) {
-            load(STORAGE_LAST_VIEW_LOADED());
+        if (STG.show_last_tab_opened && STG[`enable_${last_view_loaded}`]) {
+            load(last_view_loaded);
         }
         // Else, load the first visible tab, or the settings if no tab is visible.
         else {

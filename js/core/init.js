@@ -1,3 +1,6 @@
+/** @type {Object<string, Function>} Global utility functions. */
+window.app = new Object;
+
 // Run the service worker.
 if ('serviceWorker' in navigator && ENV.PROD) {
     navigator.serviceWorker.register('js/core/service-worker.js')

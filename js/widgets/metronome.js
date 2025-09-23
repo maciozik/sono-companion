@@ -1,4 +1,3 @@
-import * as Settings from '/js/views/settings.js';
 import * as Tempo from '/js/views/tempo.js';
 import * as NavTab from '/js/components/nav-tab.js';
 
