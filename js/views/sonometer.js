@@ -55,9 +55,9 @@ export function run()
     getVolume();
 
     // Refresh the informations of the view regularly.
-    refreshInfo();
+    refreshAllInfos();
     refreshInfosInterval = setInterval(() => {
-        refreshInfo();
+        refreshAllInfos();
     }, REFRESH_INFOS_INTERVAL);
 
     // Run the timestamp.
@@ -82,9 +82,9 @@ export function pause()
     if (audioContext.state !== 'closed') audioContext.close();
     stream.getTracks().forEach((track) => track.stop());
 
-    // Stop the refresh of the informations, and refresh one last time.
-    clearTimeout(refreshInfosInterval);
-    refreshInfo('real_time');
+    // Stop the refresh of the informations, and refresh one last time with real time data.
+    clearInterval(refreshInfosInterval);
+    refreshAllInfos('real_time');
 
     // Pause the timestamp.
     clearInterval(timestampInterval);
@@ -129,7 +129,7 @@ function update(db)
     if (!stopped) {
 
         // Calibrate the volume with user settings.
-        db = db + STG.audio_calibration;
+    db = Math.max(0, (db + STG.audio_calibration));
 
         // Update the gauge.
         Gauge.update(db);
@@ -186,51 +186,20 @@ function getThreshold()
 }
 
 /**
- * Write the volume data in the view.
- * @param {`max_local`|`real_time`} [as_current_volume] The type of current volume to display. – *Default: `max_local`*
- *  - `max_local`: Choose the local maximum volume as current volume.
+ * Overwrite the volume data in the view.
+ * @param {`max_local`|`real_time`} [as_current_volume] The type of current volume to display.
+ *  - `max_local`: Choose the local maximum volume as current volume *(default)*.
  *  - `real_time`: Choose the real-time volume as current volume.
  */
-function refreshInfo(as_current_volume = 'max_local')
+function refreshAllInfos(as_current_volume = 'max_local')
 {
-    let current = (as_current_volume === 'real_time') ? volume.current.real_time : volume.current.max_local;
-    let infos = [
-        { value: current, $element: $current, main: true },
-        { value: volume.average.value, $element: $average },
-        { value: volume.max, $element: $max }
-    ];
+    let current = volume.current[as_current_volume];
 
-    const gauge_min = STG.gauge_min;
-    const gauge_max = STG.gauge_max;
-    const gauge_half = (gauge_min + gauge_max) / 2;
+    refreshCurrent(current);
+    refreshAverage(volume.average.value);
+    refreshMax(volume.max);
 
-    for (let info of infos) {
-
-        // Clamp between the minimum and the maximum limits.
-        // TODO Do this only for the current volume, and not on reset.
-        info.value = Math.clamp(info.value, gauge_min, gauge_max);
-
-        // Refresh the info.
-        info.$element.querySelector('.integral').textContent = Math.trunc(info.value).addZeros(2);
-        info.$element.querySelector('.decimal').textContent  = '.' + Math.float(info.value, 1);
-
-        // For the current volume information only.
-        if (info.main === true) {
-
-            // Update the icon above the current volume.
-            if (info.value === gauge_min) setVolumeIcon('low');
-            else if (info.value < gauge_half) setVolumeIcon('normal');
-            else setVolumeIcon('loud');
-
-            // Update the label of the tab with current volume.
-            NavTab.updateLabel(`${Math.trunc(info.value)} dB`, 'sonometer');
-        }
-    }
-
-    // Reset the local maximum.
-    volume.current.max_local = 0;
-
-    // TODO Threshold, and limit on the last 15 minutes.
+    // TODO Threshold, and limit on the last 15 minutes?
     if (volume.average.value > getThreshold()) {
         console.warn("Attention : règlementation plus stricte.");
     } else if (volume.average.value > LIMIT.value) {
@@ -239,14 +208,59 @@ function refreshInfo(as_current_volume = 'max_local')
 }
 
 /**
+ * Overwrite the current volume in the view.
+ * @param {number} current
+ */
+function refreshCurrent(current)
+{
+    $current.querySelector('.integral').textContent = Math.trunc(current).addZeros(2);
+    $current.querySelector('.decimal').textContent = '.' + Math.float(current, 1);
+
+    const gauge_min = STG.gauge_min;
+    const gauge_half = (STG.gauge_min + STG.gauge_max) / 2;
+
+    // Update the icon above the current volume.
+    let classname = (current === gauge_min) ? 'low'
+                  : (current < gauge_half) ? 'normal'
+                  : 'loud';
+    setVolumeIcon(classname);
+
+    // Update the label of the tab with current volume.
+    NavTab.updateLabel(`${Math.trunc(current)} dB`, 'sonometer');
+
+    // Reset the local maximum.
+    volume.current.max_local = 0;
+}
+
+/**
+ * Overwrite the average volume in the view.
+ * @param {number} average
+ */
+function refreshAverage(average)
+{
+    $average.querySelector('.integral').textContent = Math.trunc(average).addZeros(2);
+    $average.querySelector('.decimal').textContent = '.' + Math.float(average, 1);
+}
+
+/**
+ * Overwrite the max volume in the view.
+ * @param {number} max
+ */
+function refreshMax(max)
+{
+    $max.querySelector('.integral').textContent = Math.trunc(max).addZeros(2);
+    $max.querySelector('.decimal').textContent = '.' + Math.float(max, 1);
+}
+
+/**
  * Refresh the timestamp in the view.
  */
 function refreshTimestamp()
 {
-    let timestampS = Math.trunc(timestamp);
-    let h = Math.floor(timestampS / 3600);
-    let m = Math.floor((timestampS % 3600) / 60);
-    let s = timestampS % 60;
+    let timestamp_s = Math.trunc(timestamp);
+    let h = Math.floor(timestamp_s / 3600);
+    let m = Math.floor((timestamp_s % 3600) / 60);
+    let s = timestamp_s % 60;
 
     $timestamp.textContent = `${h.addZeros(1)}:${m.addZeros(2)}:${s.addZeros(2)}`;
 }
@@ -266,8 +280,8 @@ function setCalibrationBadge(value)
 }
 
 /**
- * Set the right icon above the current volume information.
- * @param {string} classname
+ * Set the correct icon above the current volume information.
+ * @param {'off'|'low'|'normal'|'loud'} classname
  */
 function setVolumeIcon(classname)
 {
@@ -299,7 +313,7 @@ async function getVolume()
     // Get the volume after processed by the Volume Audio Worklet.
     VolumeNode.port.onmessage = (event) => {
         let db = Math.roundFloat(event.data, 1);
-        update(db);
+        update(Math.max(0, db));
     };
 }
 

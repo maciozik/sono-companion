@@ -3,7 +3,7 @@
 ### Sonomètre
 
 - [ ] Exposimètre / Alerte au dépassement du maximum sur une période ?
-- [ ] Le volume devrait s'afficher (et être pris en compte) même si la jauge est au maximum.
+- [x] Le volume devrait s'afficher (et être pris en compte) même si la jauge est au maximum.
 - [ ] Affichage db(A), dB\(C), ...
 - [ ] Histogramme de volume sur les dernières secondes ?
 
@@ -40,7 +40,6 @@
 
 ### Sonomètre
 
-- [ ] Écart entre les graduations de 5, 10 ou 20 dB ?
 - [ ] Temps de refresh des infos.
   - Peut-être passer en real-time pour la valeur courante si le temps de refresh devient long.
 

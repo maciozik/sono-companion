@@ -17,7 +17,6 @@ window.STG = new Proxy({}, {
         if (value === null) console.error(`STG Proxy: The setting '${property}' does not exist or is not a valid JSON.`);
         return value;
     },
-    // TODO Allow settings modification through the proxy?
     set() {
         throw new Error(`STG Proxy: Settings cannot be modified that way.`);
     }
