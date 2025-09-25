@@ -40,8 +40,7 @@
 
 ### Sonomètre
 
-- [ ] Temps de refresh des infos.
-  - Peut-être passer en real-time pour la valeur courante si le temps de refresh devient long.
+- [x] Temps de refresh des infos.
 
 ### Tempo
 

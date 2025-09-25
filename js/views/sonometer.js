@@ -3,8 +3,6 @@ import * as Settings from '/js/views/settings.js';
 import * as Gauge from '/js/widgets/gauge.js';
 import * as NavTab from '/js/components/nav-tab.js';
 
-const REFRESH_INFOS_INTERVAL = 200;
-
 // The basic threshold of 80 dB(A) not to be exceeded for 8 hours.
 const THRESHOLD = { value: 80, period: 8 * 3600}
 // The extrem limit in dB(A) that absolutely must not be exceeded for the last 15 minutes.
@@ -40,7 +38,6 @@ let volume = {
 
 let timestamp = 0;
 
-let stopped = true;
 let refreshInfosInterval;
 let timestampInterval;
 
@@ -49,16 +46,17 @@ let timestampInterval;
  */
 export function run()
 {
-    stopped = false;
-
     // Run the volume processor.
     getVolume();
+
+    clearInterval(refreshInfosInterval);
+    clearInterval(timestampInterval);
 
     // Refresh the informations of the view regularly.
     refreshAllInfos();
     refreshInfosInterval = setInterval(() => {
         refreshAllInfos();
-    }, REFRESH_INFOS_INTERVAL);
+    }, STG.refresh_infos_interval);
 
     // Run the timestamp.
     timestampInterval = setInterval(() => {
@@ -75,9 +73,6 @@ export function run()
  */
 export function pause()
 {
-    // Prevent accidental calls to update().
-    stopped = true;
-
     // Stop the stream of the volume processor.
     if (audioContext.state !== 'closed') audioContext.close();
     stream.getTracks().forEach((track) => track.stop());
@@ -126,21 +121,21 @@ export function reset()
  */
 function update(db)
 {
-    if (!stopped) {
+    // Prevent latent updates when the view is paused or stopped.
+    if (!View.isRun($view.id) || View.isPause($view.id)) return;
 
-        // Calibrate the volume with user settings.
+    // Calibrate the volume with user settings.
     db = Math.max(0, (db + STG.audio_calibration));
 
-        // Update the gauge.
-        Gauge.update(db);
+    // Update the gauge.
+    Gauge.update(db);
 
-        // Update the volume data.
-        if (isFinite(db)) {
-            volume.current.real_time = db;
-            setMaxLocal(db);
-            setAverage(db);
-            setMax(db);
-        }
+    // Update the volume data.
+    if (isFinite(db)) {
+        volume.current.real_time = db;
+        setMaxLocal(db);
+        setAverage(db);
+        setMax(db);
     }
 }
 
@@ -332,6 +327,17 @@ export function __init__()
     // Set the audio calibration badge.
     Settings.onsync('audio_calibration', event => {
         setCalibrationBadge(event.detail.value);
+    });
+
+    // Update the refresh interval of the informations while running.
+    Settings.onchange('refresh_infos_interval', event => {
+
+        if (!View.isRun($view.id) || View.isPause($view.id)) return;
+
+        clearInterval(refreshInfosInterval);
+        refreshInfosInterval = setInterval(() => {
+            refreshAllInfos();
+        }, event.detail.value);
     });
 
     // Show or hide the timestamp.
