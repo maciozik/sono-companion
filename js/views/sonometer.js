@@ -23,7 +23,6 @@ let audioContext;
 /** @type {Promise<MediaStream>} */
 let stream;
 
-/** @type {{ current: { real_time: number, max_local: number }, average: { value: number, nb: number }, max: number }} */
 let volume = {
     current: {
         real_time: 0,
@@ -308,7 +307,7 @@ async function getVolume()
     // Get the volume after processed by the Volume Audio Worklet.
     VolumeNode.port.onmessage = (event) => {
         let db = Math.roundFloat(event.data, 1);
-        update(Math.max(0, db));
+        update(db);
     };
 }
 

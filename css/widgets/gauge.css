@@ -5,7 +5,7 @@
     --gauge-pointer-size: 38%;
     --gauge-pointer-thickness: 5px;
     --gauge-pointer-tip-size: 2px;
-    --gauge-pointer-transition-duration: 50ms; /* TODO To override in JS. */
+    --gauge-pointer-transition-duration: 0ms; /* Overridden in JS. */
 
     --gauge-padding-sides: 10%;
     --gauge-clip-path-margins: 20px;

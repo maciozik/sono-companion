@@ -106,7 +106,10 @@ export function update(db)
     $gaugePointer.style.transform = `rotate(${rotation}deg)`;
 }
 
-// REMOVE Not used for the moment.
+/**
+ * Set the transition duration of the pointer.
+ * @param {number} duration The duration of the transition (in ms).
+ */
 export function setTransitionDuration(duration)
 {
     $gauge.style.setProperty('--gauge-pointer-transition-duration', `${duration}ms`);
@@ -133,4 +136,9 @@ export function __init__()
 
     // Recreate the gauge if the settings change.
     Settings.onchange(['gauge_min', 'gauge_max', 'danger_zone', 'gauge_step'], recreate);
+
+    // Set the sensitivity of the pointer.
+    Settings.onsync('gauge_sensitivity', event => {
+        setTransitionDuration(parseInt(event.detail.value));
+    });
 }

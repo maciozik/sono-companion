@@ -205,7 +205,7 @@ export default class Setting extends HTMLElement
 
         // Show or hide the reset button when the setting changes.
         Settings.onsync(this.name, (event) => {
-            let is_default = event.detail.value === this.default_value;
+            let is_default = event.detail.value == this.default_value;
             this.getResetButton()?.classList.toggle('hide', is_default);
         });
 

@@ -3,9 +3,10 @@
 ### Sonomètre
 
 - [ ] Exposimètre / Alerte au dépassement du maximum sur une période ?
-- [x] Le volume devrait s'afficher (et être pris en compte) même si la jauge est au maximum.
 - [ ] Affichage db(A), dB\(C), ...
 - [ ] Histogramme de volume sur les dernières secondes ?
+- [ ] Déplacer l'aiguille de la jauge en fonction du max local et pas en continu ?
+  - Ou ne pas déplacer en cas de faibles changements ?
 
 ### Spectre
 
@@ -38,10 +39,6 @@
 - [ ] Changer pour des paramètres indépendants pour chaque vue ?
 - [ ] **Pour toutes les vues :** choix de l'info à afficher dans le **nav tab** ?
 
-### Sonomètre
-
-- [x] Temps de refresh des infos.
-
 ### Tempo
 
 - [ ] Choix des infos affichées ?
@@ -66,3 +63,4 @@
 - [ ] Problème avec le multitap *(ex. tap en même temps sur les boutons* `play` *et* `replay` *de la vue **Tempo**)*.
 - [ ] Le bouton `reset` du setting **Calibrage audio** fait remonter d'un pixel les boutons `reset` suivants **!?**
 - [ ] Bouger le curseur à +30db sur le paramètre **Calibrage audio** change la taille du bloc `data-info` ?
+- [ ] En relançant après une pause du sonomètre, le volume courant reviens à 0dB temporairement, le temps de recevoir les données audio.
