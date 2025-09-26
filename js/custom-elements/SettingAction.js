@@ -11,7 +11,7 @@ import Modal from '/js/classes/Modal.js';
  * In the first case, the JS module **must** be declared using the `data-module` attribute.
  * The value of this attribute must be the link to the module, relative to the js/ folder without the extension.
  *
- * **If `data-action` is not declared**, nothing will happen when triggered. It can be useful to display informations.
+ * **If `data-action` is not declared**, nothing will happen when triggered. It can be useful to display information.
  *
  * **If `data-action` is declared**, the following attributes may be declared optionally:
  *  - `data-require-confirmation` : Whether a confirmation modal must be displayed before executing the action.

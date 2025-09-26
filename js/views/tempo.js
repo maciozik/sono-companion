@@ -14,8 +14,8 @@ export const $view = document.getElementById('tempo');
 export const $bpmModifierBtns = $view.querySelectorAll('#tempo-bpm-selector .bpm-modifier-btn');
 export const $bpmValue = $view.querySelector('#tempo-bpm-selector .bpm-value');
 
-const $tempoMs = $view.querySelector('#tempo-infos .tempo-ms .info');
-const $tempoM = $view.querySelector('#tempo-infos .tempo-m .info');
+const $tempoMs = $view.querySelector('#tempo-info .tempo-ms .info');
+const $tempoM = $view.querySelector('#tempo-info .tempo-m .info');
 
 export const $tapBtn = $view.querySelector('#tempo-controls .tap-tempo-btn');
 

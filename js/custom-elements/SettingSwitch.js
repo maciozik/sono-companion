@@ -11,7 +11,7 @@ import * as Settings from '/js/views/settings.js';
  *  - `data-disable-group-on-true`  : The group to disable when the value turns `true`.
  *  - `data-disable-group-on-false` : The group to disable when the value turns `false`.
  *
- * @see {@link Setting} for more informations on how to set groups.
+ * @see {@link Setting} for more information on how to set groups.
  */
 export default class SettingSwitch extends Setting
 {

@@ -7,4 +7,4 @@
 HTMLElement.prototype.hasBooleanAttribute = function (attr_name) {
     const value = this.getAttribute(attr_name);
     return (value !== null && value !== 'false');
-}
+};

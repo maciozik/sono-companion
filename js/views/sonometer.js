@@ -10,9 +10,9 @@ const LIMIT = { value: 102, period: 15 * 60 };
 
 export const $view = document.getElementById('sonometer');
 
-const $average = $view.querySelector('#sonometer-infos .db-average');
-const $current = $view.querySelector('#sonometer-infos .db-current');
-const $max = $view.querySelector('#sonometer-infos .db-max .info');
+const $average = $view.querySelector('#sonometer-info .db-average');
+const $current = $view.querySelector('#sonometer-info .db-current');
+const $max = $view.querySelector('#sonometer-info .db-max .info');
 const $timestamp = $view.querySelector('#sonometer-controls .timestamp');
 
 export const $playBtn = $view.querySelector('#sonometer-controls .play-btn');
@@ -37,7 +37,7 @@ let volume = {
 
 let timestamp = 0;
 
-let refreshInfosInterval;
+let refreshInfoInterval;
 let timestampInterval;
 
 /**
@@ -48,14 +48,14 @@ export function run()
     // Run the volume processor.
     getVolume();
 
-    clearInterval(refreshInfosInterval);
+    clearInterval(refreshInfoInterval);
     clearInterval(timestampInterval);
 
-    // Refresh the informations of the view regularly.
-    refreshAllInfos();
-    refreshInfosInterval = setInterval(() => {
-        refreshAllInfos();
-    }, STG.refresh_infos_interval);
+    // Refresh all the information of the view regularly.
+    refreshAllInfo();
+    refreshInfoInterval = setInterval(() => {
+        refreshAllInfo();
+    }, STG.refresh_info_interval);
 
     // Run the timestamp.
     timestampInterval = setInterval(() => {
@@ -76,9 +76,9 @@ export function pause()
     if (audioContext.state !== 'closed') audioContext.close();
     stream.getTracks().forEach((track) => track.stop());
 
-    // Stop the refresh of the informations, and refresh one last time with real time data.
-    clearInterval(refreshInfosInterval);
-    refreshAllInfos('real_time');
+    // Stop the refresh of the information, and refresh one last time with real time data.
+    clearInterval(refreshInfoInterval);
+    refreshAllInfo('real_time');
 
     // Pause the timestamp.
     clearInterval(timestampInterval);
@@ -139,7 +139,7 @@ function update(db)
 }
 
 /**
- * Calculate the local maximum volume between two informations refresh.
+ * Calculate the local maximum volume between two information refresh.
  * @param {number} db The current value to compare to the previous maximum.
  */
 function setMaxLocal(db)
@@ -185,7 +185,7 @@ function getThreshold()
  *  - `max_local`: Choose the local maximum volume as current volume *(default)*.
  *  - `real_time`: Choose the real-time volume as current volume.
  */
-function refreshAllInfos(as_current_volume = 'max_local')
+function refreshAllInfo(as_current_volume = 'max_local')
 {
     let current = volume.current[as_current_volume];
 
@@ -328,14 +328,14 @@ export function __init__()
         setCalibrationBadge(event.detail.value);
     });
 
-    // Update the refresh interval of the informations while running.
-    Settings.onchange('refresh_infos_interval', event => {
+    // Update the refresh interval of the information while running.
+    Settings.onchange('refresh_info_interval', event => {
 
         if (!View.isRun($view.id) || View.isPause($view.id)) return;
 
-        clearInterval(refreshInfosInterval);
-        refreshInfosInterval = setInterval(() => {
-            refreshAllInfos();
+        clearInterval(refreshInfoInterval);
+        refreshInfoInterval = setInterval(() => {
+            refreshAllInfo();
         }, event.detail.value);
     });
 

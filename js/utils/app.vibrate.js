@@ -14,4 +14,4 @@ app.vibrate = function (...pattern)
 
         console.debugType('vibrate', '', pattern.map(v => v + 'ms').join(' '));
     }
-}
+};

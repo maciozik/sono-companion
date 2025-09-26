@@ -8,4 +8,4 @@ window.doubleRequestAnimationFrame = function (callback)
     requestAnimationFrame(() => {
         requestAnimationFrame(callback);
     });
-}
+};

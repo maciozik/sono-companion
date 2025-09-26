@@ -5,7 +5,7 @@
         align-items: center;
     }
 
-    #sonometer-infos {
+    #sonometer-info {
         display: flex;
 
         & > div {
@@ -100,7 +100,7 @@
             }
         }
 
-        #sonometer-infos {
+        #sonometer-info {
             .db-current g-icon {
                 color: var(--grey);
             }

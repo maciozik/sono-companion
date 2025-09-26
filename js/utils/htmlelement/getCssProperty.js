@@ -17,4 +17,4 @@ HTMLElement.prototype.getCssProperty = function (property)
 
     // Convert the value into number if it is possible.
     return parseFloat(value) || value;
-}
+};

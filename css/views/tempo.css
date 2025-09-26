@@ -140,7 +140,7 @@
         }
     }
 
-    #tempo-infos {
+    #tempo-info {
         display: flex;
 
         & > div {

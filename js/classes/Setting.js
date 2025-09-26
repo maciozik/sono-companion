@@ -14,7 +14,7 @@ import * as Settings from '/js/views/settings.js';
  *  - `data-title` : The main title of the setting.
  *
  * The following global attributes may also be declared optionally on any setting:
- *  - `data-info`        : The description that gives more informations about the setting.
+ *  - `data-info`        : The description that gives more information about the setting.
  *  - `data-allow-reset` : Whether the setting can be set to its default value with a reset button.
  *  - `data-danger`      : Whether the setting must be considered as a "sensitive" setting.
  *  - `data-groups`      : One or several groups (in snake case and separated by spaces) that can be enabled or
