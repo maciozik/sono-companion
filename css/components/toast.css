@@ -5,7 +5,7 @@
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 100dvh;
+    bottom: var(--app-height);
     padding: 7px 24px 8px;
     width: 100%; /* Fallback if max-content is not available. */
     width: max-content;

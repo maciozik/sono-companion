@@ -43,7 +43,7 @@ header {
 main {
     position: relative;
     width: 100vw;
-    height: calc(100% - var(--footer-height) - var(--header-height));
+    height: var(--view-height);
     overflow: hidden;
 }
 

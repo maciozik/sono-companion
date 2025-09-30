@@ -2,7 +2,7 @@
 @media (aspect-ratio >= 9/16) {
 
     :root {
-        --maximum-view-width: calc(100dvh * 9/16);
+        --maximum-view-width: calc(var(--app-height) * 9/16);
     }
 
     main {

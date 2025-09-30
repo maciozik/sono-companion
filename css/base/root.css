@@ -1,9 +1,12 @@
 :root {
+    --header-height: 56px;
+    --footer-height: 94px;
     --padding-sides: 10px;
     --inner-padding-sides: 8px;
-    --header-height: 56px;
+
+    --app-height: 100svh;
+    --view-height: calc(var(--app-height) - var(--header-height) - var(--footer-height));
     --header-padding-sides: calc(var(--padding-sides) + var(--inner-padding-sides) - 2px);
-    --footer-height: 94px;
 
     --btn-padding-top-bottom: 12px;
     --btn-padding-left-right: 18px;
@@ -57,7 +60,7 @@ html {
 
 body {
     width: 100dvw;
-    height: 100svh; /* `dvh` worked historically, but a bug appeared without code changes. */
+    height: var(--app-height); /* `dvh` worked historically, but a bug appeared without code changes. */
     color: var(--invert);
     background-color: var(--bg);
     font-family: 'Noto Sans', Arial, sans-serif;

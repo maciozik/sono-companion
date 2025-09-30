@@ -8,7 +8,7 @@
     right: 3px;
     margin-top: var(--scrollbar-margin-top);
     width: var(--scrollbar-width);
-    height: calc((100% - var(--footer-height) - var(--header-height)) - var(--scrollbar-margin-top));
+    height: calc(var(--view-height) - var(--scrollbar-margin-top));
 
     .scrollbar-thumb {
         width: 100%;
