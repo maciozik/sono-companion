@@ -15,6 +15,7 @@ import Modal from '/js/classes/Modal.js';
  *
  * **If `data-action` is declared**, the following attributes may be declared optionally:
  *  - `data-require-confirmation` : Whether a confirmation modal must be displayed before executing the action.
+ *                                  The text of the modal will use the value of this attribute, or a default generic message if none.
  *  - `data-new-window` : Whether the action will open a new window (this will change the icon at the right of the setting).
  *  - `data-vibrate-on` : If set to `validation`, a vibration will occur when the validation button of the confirmation modal is triggered.
  *                        If set to `modal-close`, a vibration will occur only after the confirmation modal closes completely.
@@ -62,7 +63,6 @@ export default class SettingAction extends Setting
 
         // Remove the useless attributes.
         this.removeAttribute('data-module');
-        this.removeAttribute('data-require-confirmation');
         this.removeAttribute('data-new-window');
         this.removeAttribute('data-vibrate-on');
 
@@ -142,7 +142,17 @@ export default class SettingAction extends Setting
     showConfirmation()
     {
         const _this = this;
-        let text = "Voulez-vous vraiment " + (this.title[0].toLowerCase() + this.title.slice(1)) + " ?"
+        let text;
+
+        // Either use the value of the attribute, or the title of the setting in a generic message.
+        if (this.dataset.requireConfirmation !== 'true' && this.dataset.requireConfirmation !== '') {
+            text = this.dataset.requireConfirmation;
+        }
+        else {
+            text = /*html*/`
+                Voulez-vous vraiment <b>${(this.title[0].toLowerCase() + this.title.slice(1))}&nbsp;?</b>
+            `;
+        }
 
         const ConfirmationModal = new Modal(null, text);
 
@@ -157,7 +167,6 @@ export default class SettingAction extends Setting
             if (this.vibrate_on === 'validation') { app.vibrate(30); }
         });
 
-        // Open the modal.
         ConfirmationModal.open();
     }
 
