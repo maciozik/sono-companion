@@ -1,5 +1,6 @@
 import Setting from '/js/classes/Setting.js';
 import Modal from '/js/classes/Modal.js';
+import Toast from '/js/classes/Toast.js';
 
 /**
  * Represents a setting that can execute an action.
@@ -94,25 +95,25 @@ export default class SettingAction extends Setting
     }
 
     /**
-     * **(async)** Set the action to execute if needed.
+     * Set the action to execute if needed.
      */
-    async setAction()
+    setAction()
     {
-        if (this.has_action) {
+        if (!this.has_action) return;
 
-            // Get the action to execute.
-            const action = this.dataset.action.trim();
+        // Get the action to execute.
+        const action = this.dataset.action.trim();
 
-            // If the module exists, set the method from the module as the action.
-            if (this.module !== null) {
-                const module_path = `../${this.module}.js`;
-                const module = await import(module_path);
-                this.action = module[action];
-            }
-            // Else, set the standalone code as the action.
-            else {
-                this.action = () => eval(action);
-            }
+        // If the module exists, set the action to call the method dynamically.
+        if (this.module !== null) {
+            const module_path = `../${this.module}.js`;
+            this.action = () => import(module_path)
+                .then(module => module[action].call())
+                .catch(() => (new Toast("Un problème est survenu, veuillez réessayer.")).show());
+        }
+        // Else, set the standalone code as the action.
+        else {
+            this.action = () => eval(action);
         }
 
         // Remove the useless attributes.
@@ -175,7 +176,7 @@ export default class SettingAction extends Setting
      */
     execute()
     {
-        this.action();
+        this.action.call();
     }
 
     /**
