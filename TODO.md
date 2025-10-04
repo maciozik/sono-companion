@@ -53,6 +53,7 @@
   - Pouvoir renseigner la température pour une meilleur précision de la vitesse du son ?
     - $c = 20,05 \sqrt{T(K)}$ avec $T(K)$ la température en kelvin tel que $T(K) = T(°C) + 273.15$.
 - [ ] Connexion à Spotify et autres plateformes musicales ?
+- [ ] Notification Push lorsque l'application est mise en arrière-plan pour prévenir de la mise en pause, en plus du Toast ? (Service Worker nécessaire ?)
 
 ---
 
@@ -64,3 +65,5 @@
 - [ ] Le bouton `reset` du setting **Calibrage audio** fait remonter d'un pixel les boutons `reset` suivants **!?**
 - [ ] Bouger le curseur à +30db sur le paramètre **Calibrage audio** change la taille du bloc `data-info` ?
 - [ ] En relançant après une pause du sonomètre, le volume courant reviens à 0dB temporairement, le temps de recevoir les données audio.
+  - Cause : re-création d'un nouvel AudioContext à chaque reprise ?
+  - Créer un seul AudioContext au lancement de l'application ?

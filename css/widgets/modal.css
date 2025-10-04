@@ -11,14 +11,13 @@
     transition: top 0ms linear 100ms, opacity 100ms linear;
 
     .modal {
-        margin-top: calc(-1 * (var(--footer-height) - var(--header-height)));
         padding: 25px 25px 12px;
         width: 85%;
-        transform: translateY(-10px);
         background-color: light-dark(var(--bg), var(--bg-contrast));
         border: 1px solid light-dark(transparent, #DDD1);
         border-radius: 8px;
-        overflow: hidden;
+        overflow: scroll;
+        transform: translateY(-10px);
         transition: transform 100ms linear;
 
         .modal-title {
@@ -36,6 +35,7 @@
             font-size: .85rem;
         }
 
+        /* FIXME Buttons may be hidden under the scroll if the content is too long. */
         .modal-btns {
             display: flex;
             justify-content: end;
@@ -102,10 +102,19 @@
 
     &[data-context=view] {
         z-index: 100;
+
+        .modal {
+            margin-top: calc(-1 * (var(--footer-height) - var(--header-height)));
+            max-height: calc(var(--view-height) - 80px);
+        }
     }
 
     &[data-context=app] {
         z-index: 10000;
+
+        .modal {
+            max-height: calc(100% - 150px);
+        }
     }
 
     &.active {
