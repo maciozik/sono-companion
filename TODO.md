@@ -26,6 +26,15 @@
 - [ ] Auto détection du tempo ? *(comme [bpmtech.no](https://bpmtech.no))*
 - [ ] Alterner couleur du header pour visualiser le tempo, à la place du blink ?
 
+### Outils annexes
+
+- [ ] Convertisseur bpm ↔ ms.
+- [ ] Convertisseur distance ↔ delay.
+  - Pouvoir renseigner la température pour une meilleur précision de la vitesse du son ?
+    - $c = 20,05 \sqrt{T(K)}$ avec $T(K)$ la température en kelvin tel que $T(K) = T(°C) + 273.15$.
+- [ ] Générateur de bruit blanc, bruit rose, sinus, etc...
+- [ ] Bloc-note.
+
 ### Divers
 
 - [ ] Héberger les fonts Google en local.
@@ -48,11 +57,6 @@
 ## 💡 Autres idées
 
 - [ ] **Style :** Changer l'icone play, pause et stop à l'intérieur des boutons en les slidant vers le haut ou le bas ?
-- [ ] Convetisseur mètres → delay en ms / ms → bpm.
-  - Rendre cliquable les différentes unités pour converstion ? **Besoin d'enlever les limites dans ce cas.**
-  - Pouvoir renseigner la température pour une meilleur précision de la vitesse du son ?
-    - $c = 20,05 \sqrt{T(K)}$ avec $T(K)$ la température en kelvin tel que $T(K) = T(°C) + 273.15$.
-- [ ] Connexion à Spotify et autres plateformes musicales ?
 - [ ] Notification Push lorsque l'application est mise en arrière-plan pour prévenir de la mise en pause, en plus du Toast ? (Service Worker nécessaire ?)
 
 ---
