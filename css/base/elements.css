@@ -1,5 +1,5 @@
 h2 {
-    padding: 24px var(--inner-padding-sides) 20px;
+    margin: 24px var(--view-padding-sides) 20px;
     color: var(--cyan);
     font-size: .75rem;
     font-weight: 500;

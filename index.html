@@ -251,26 +251,59 @@
 
         <section class="view" id="toolbox" data-name="Boîte à outils">
 
-            <!-- Bpm/ms converter -->
+            <!-- bpm/ms converter -->
             <section id="tempo-converter">
 
                 <h2>Convertisseur de tempo</h2>
 
                 <div class="inputs">
 
+                    <!-- bpm unit -->
                     <div class="input">
-                        <input type="number" id="tempo-bpm" class="transparent" value="90"
-                               min=10 maxlength=4 data-unit="bpm" data-target-id="tempo-ms">
+                        <input type="text" inputmode="decimal" id="tempo-bpm" class="transparent" enterkeyhint="done"
+                               value=90 data-unit="bpm" min=10 max=6000 data-maxlength=4 data-target-id="tempo-ms">
                         <p class="unit">bpm</p>
                     </div>
 
+                    <!-- Arrow -->
                     <div class="arrow swap" data-target-id-left="tempo-bpm" data-target-id-right="tempo-ms" data-tappable>
                         <g-icon data-name="swap_horiz"></g-icon>
                     </div>
 
+                    <!-- ms unit -->
                     <div class="input">
-                        <input type="number" id="tempo-ms" class="transparent" value="667"
-                               min=10 maxlength=4 data-unit="ms" data-target-id="tempo-bpm">
+                        <input type="text" inputmode="decimal" id="tempo-ms" class="transparent" enterkeyhint="done"
+                               value=667 data-unit="ms" min=10 max=6000 data-maxlength=4 data-target-id="tempo-bpm">
+                        <p class="unit">ms</p>
+                    </div>
+
+                </div>
+
+            </section>
+
+            <!-- m/ms converter -->
+            <section id="delay-converter">
+
+                <h2>Convertisseur de délai sonore</h2>
+
+                <div class="inputs">
+
+                    <!-- m unit -->
+                    <div class="input">
+                        <input type="text" inputmode="decimal" id="delay-m" class="transparent" enterkeyhint="done"
+                               value=10 data-unit="m" min=1 max=680 data-maxlength=3 data-target-id="delay-ms">
+                        <p class="unit">mètres</p>
+                    </div>
+
+                    <!-- Arrow -->
+                    <div class="arrow">
+                        <g-icon data-name="swap_horiz"></g-icon>
+                    </div>
+
+                    <!-- ms unit -->
+                    <div class="input">
+                        <input type="text" inputmode="decimal" id="delay-ms" class="transparent" enterkeyhint="done"
+                               value=29 data-unit="ms" min=3 max=2000 data-maxlength=4 data-target-id="delay-m">
                         <p class="unit">ms</p>
                     </div>
 

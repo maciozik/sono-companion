@@ -2,11 +2,11 @@
     --header-height: 56px;
     --footer-height: 94px;
     --app-padding-sides: 10px;
-    --inner-padding-sides: 8px;
+    --view-padding-sides: 8px;
 
     --app-height: 100svh;
     --view-height: calc(var(--app-height) - var(--header-height) - var(--footer-height));
-    --header-padding-sides: calc(var(--app-padding-sides) + var(--inner-padding-sides) - 2px);
+    --header-padding-sides: calc(var(--app-padding-sides) + var(--view-padding-sides) - 2px);
 
     --btn-padding-top-bottom: 12px;
     --btn-padding-left-right: 18px;

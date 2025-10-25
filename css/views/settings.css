@@ -1,12 +1,12 @@
 #settings {
-    --setting-padding-sides: calc(var(--app-padding-sides) + var(--inner-padding-sides));
+    --setting-padding-sides: calc(var(--app-padding-sides) + var(--view-padding-sides));
     display: block;
     padding-left: 0;
     padding-right: 0;
 
     h2 {
-        padding-left: var(--setting-padding-sides);
-        padding-bottom: 8px;
+        margin-left: var(--setting-padding-sides);
+        margin-bottom: 8px;
     }
 
     .setting {

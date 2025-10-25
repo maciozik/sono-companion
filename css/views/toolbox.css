@@ -1,15 +1,22 @@
 #toolbox {
 
-    #tempo-converter {
+    & > section {
+        &:not(:first-child) h2 {
+            margin-top: 32px;
+        }
+    }
+
+    #tempo-converter, #delay-converter {
 
         .inputs {
             display: flex;
             align-items: center;
-            padding: 0 calc(var(--inner-padding-sides) - 1px);
+            padding: 0 calc(var(--view-padding-sides) - 1px);
 
             .input {
                 display: flex;
                 align-items: center;
+                position: relative;
                 padding: 10px 15px 10px 10px;
                 width: 100%;
                 border-width: 2px;
@@ -24,22 +31,40 @@
                     display: inline-block;
                     margin-left: 5px;
                     color: var(--grey);
+                    letter-spacing: -0.1px;
                 }
 
                 &:has(input:focus) {
                     border-color: var(--invert);
 
-                    &.error {
+                    &.above-maxlength, &.out-of-range {
                         border-color: var(--red) !important;
                     }
+
+                    &.out-of-range::after {
+                        display: block;
+                    }
+                }
+
+                /* Validation Range Tip */
+                &::after {
+                    content: attr(data-validation-range); /* Added in JS. */
+                    display: none;
+                    position: absolute;
+                    bottom: -12px;
+                    right: 20px;
+                    color: var(--red);
+                    font-size: .75rem;
+                    font-weight: 500;
+                    line-height: 0;
                 }
             }
 
             .arrow {
                 display: grid;
                 align-items: center;
-                margin: 0 15px;
-                padding: 0 5px;
+                margin: 0 12px;
+                padding: 0 8px;
                 color: var(--grey-pale);
 
                 g-icon {

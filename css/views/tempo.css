@@ -9,7 +9,7 @@
     #tempo-bpm-selector {
         display: flex;
         gap: 12px;
-        padding: 0 calc(var(--inner-padding-sides) - 1px);
+        padding: 0 var(--view-padding-sides);
 
         .bpm-divide, .bpm-decrease, .bpm-increase, .bpm-multiply {
             display: flex;
