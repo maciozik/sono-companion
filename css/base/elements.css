@@ -1,3 +1,11 @@
+h2 {
+    padding: 24px var(--inner-padding-sides) 20px;
+    color: var(--cyan);
+    font-size: .75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
 p + p {
     margin-top: 14px;
 }
@@ -14,6 +22,48 @@ b, strong {
     &[data-w='800'] {
         font-weight: 800;
     }
+}
+
+input, .input,
+textarea, .textarea {
+    padding: 8px 10px;
+    color: var(--invert);
+    background-color: var(--bg-contrast);
+    border: 1px solid var(--grey-pale);
+    border-radius: 100vw;
+    font-family: inherit;
+
+    &:focus {
+        outline: 2px solid var(--cyan);
+    }
+
+    &::placeholder {
+        color: var(--grey-pale);
+        opacity: 1;
+    }
+
+    &::selection {
+        color: var(--bg-contrast);
+        background-color: var(--cyan);
+    }
+}
+
+input.transparent,
+textarea.transparent {
+    padding: 0;
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    outline: none !important;
+}
+
+input {
+    border-radius: 100vw;
+}
+
+textarea {
+    border-radius: 8px;
+    resize: none;
 }
 
 .cyan {

@@ -66,24 +66,26 @@ export function set(bpm, clamp = true)
 /**
  * Convert a tempo from a unit to another.
  * @param {number} tempo
- * @param {'bpm'|'ms'|'m'} from_unit The unit of the original tempo.
- * @param {'bpm'|'ms'|'m'} to_unit The unit to convert to.
- * @throws {TypeError}
+ * @param {'bpm'|'ms'|'m'} unit_from The unit of the initial tempo.
+ * @param {'bpm'|'ms'|'m'} unit_to The unit to convert to.
  * @returns {number|null}
  */
-function convert(tempo, from_unit, to_unit)
+// TODO Move to toolbox.js.
+export function convert(tempo, unit_from, unit_to)
 {
+    if (tempo === 0) return null;
+
     let bpm = new Number();
     let converted_tempo = new Number();
 
     // First convert to bpm.
-    switch (from_unit) {
+    switch (unit_from) {
         case 'bpm': bpm = tempo; break;
         case 'ms' : bpm = 60000 / tempo; break;
         case 'm'  : bpm = 60 / (tempo / 340); break;
     }
     // Then convert to the target unit.
-    switch (to_unit) {
+    switch (unit_to) {
         case 'bpm': converted_tempo = bpm; break;
         case 'ms' : converted_tempo = Math.round(60000 / bpm); break;
         case 'm'  : converted_tempo = Math.round(340 * (60 / bpm)); break;

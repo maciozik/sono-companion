@@ -49,7 +49,7 @@ main {
 
 footer {
     position: relative;
-    padding: 13px var(--padding-sides) 12px;
+    padding: 13px var(--app-padding-sides) 12px;
     width: 100%;
     height: var(--footer-height);
     z-index: 1000;

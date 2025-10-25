@@ -32,6 +32,7 @@ import '/js/custom-elements/IncludeHTML.js';
 import * as View from '/js/views/view.js';
 import * as Sonometer from '/js/views/sonometer.js';
 import * as Tempo from '/js/views/tempo.js';
+import * as Toolbox from '/js/views/toolbox.js';
 import * as Settings from '/js/views/settings.js';
 
 /**  WIDGETS  **/
@@ -53,6 +54,7 @@ const modules = {
     View,
     Sonometer,
     Tempo,
+    Toolbox,
     Gauge,
     Metronome,
     BpmManager,

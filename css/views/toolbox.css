@@ -1,0 +1,60 @@
+#toolbox {
+
+    #tempo-converter {
+
+        .inputs {
+            display: flex;
+            align-items: center;
+            padding: 0 calc(var(--inner-padding-sides) - 1px);
+
+            .input {
+                display: flex;
+                align-items: center;
+                padding: 10px 15px 10px 10px;
+                width: 100%;
+                border-width: 2px;
+
+                input {
+                    width: 100%;
+                    font-size: 1.4rem;
+                    text-align: center;
+                }
+
+                .unit {
+                    display: inline-block;
+                    margin-left: 5px;
+                    color: var(--grey);
+                }
+
+                &:has(input:focus) {
+                    border-color: var(--invert);
+
+                    &.error {
+                        border-color: var(--red) !important;
+                    }
+                }
+            }
+
+            .arrow {
+                display: grid;
+                align-items: center;
+                margin: 0 15px;
+                padding: 0 5px;
+                color: var(--grey-pale);
+
+                g-icon {
+                    font-size: 2rem;
+                }
+
+                &.swap {
+                    color: var(--grey);
+
+                    &[data-tappable] {
+                        --circle-opacity: .08 !important;
+                        --circle-animation-duration: 200ms !important;
+                    }
+                }
+            }
+        }
+    }
+}

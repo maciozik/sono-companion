@@ -251,6 +251,33 @@
 
         <section class="view" id="toolbox" data-name="Boîte à outils">
 
+            <!-- Bpm/ms converter -->
+            <section id="tempo-converter">
+
+                <h2>Convertisseur de tempo</h2>
+
+                <div class="inputs">
+
+                    <div class="input">
+                        <input type="number" id="tempo-bpm" class="transparent" value="90"
+                               min=10 maxlength=4 data-unit="bpm" data-target-id="tempo-ms">
+                        <p class="unit">bpm</p>
+                    </div>
+
+                    <div class="arrow swap" data-target-id-left="tempo-bpm" data-target-id-right="tempo-ms" data-tappable>
+                        <g-icon data-name="swap_horiz"></g-icon>
+                    </div>
+
+                    <div class="input">
+                        <input type="number" id="tempo-ms" class="transparent" value="667"
+                               min=10 maxlength=4 data-unit="ms" data-target-id="tempo-bpm">
+                        <p class="unit">ms</p>
+                    </div>
+
+                </div>
+
+            </section>
+
         </section>
 
         <!-- VIEW: Settings -->

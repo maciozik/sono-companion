@@ -1,21 +1,12 @@
 #settings {
-    --setting-padding-sides: calc(var(--padding-sides) + var(--inner-padding-sides));
+    --setting-padding-sides: calc(var(--app-padding-sides) + var(--inner-padding-sides));
     display: block;
     padding-left: 0;
     padding-right: 0;
 
     h2 {
-        padding: 24px var(--setting-padding-sides) 8px;
-        color: var(--cyan);
-        font-size: .75rem;
-        font-weight: 500;
-        text-transform: uppercase;
-
-        g-icon {
-            margin-right: 4px;
-            font-size: .9rem;
-            transform: translateY(1px);
-        }
+        padding-left: var(--setting-padding-sides);
+        padding-bottom: 8px;
     }
 
     .setting {
