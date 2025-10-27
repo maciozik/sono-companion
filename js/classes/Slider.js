@@ -8,6 +8,7 @@ export default class Slider
 
     value = new Number();
     suffix = new String();
+    plus_sign = new Boolean();
 
     min = new Number();
     max = new Number();
@@ -39,6 +40,7 @@ export default class Slider
 
         this.value = parseFloat(this.$slider.dataset.value);
         this.suffix = this.$slider.dataset.suffix;
+        this.plus_sign = this.$slider.hasBooleanAttribute('data-plus-sign');
 
         this.min = parseFloat(this.$slider.dataset.min);
         this.max = parseFloat(this.$slider.dataset.max);
@@ -172,10 +174,11 @@ export default class Slider
     getValueWithSuffix(value = this.value)
     {
         let formatted_value = value.addZeros(this.getNbDecimals(), 'trailing');
+        formatted_value = formatted_value.replace("-", "−");
 
         // Add the signs if necessary.
-        if (this.min < 0) {
-            formatted_value = (value < 0) ? formatted_value.replace('-', '−') : '+' + formatted_value;
+        if (this.min < 0 && value >= 0 && this.plus_sign) {
+            formatted_value = "+" + formatted_value;
         }
 
         return formatted_value + this.suffix;
@@ -219,7 +222,7 @@ export default class Slider
             };
 
             // Set the position of the point zero if necessary.
-            if (i === 0 && this.min < 0 && this.max > 0) {
+            if (i === 0 && this.min < 0 && this.max > 0 && this.plus_sign) {
                 this.$slider.style.setProperty('--point-zero-left', `${position}px`);
             }
         }

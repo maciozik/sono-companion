@@ -1,8 +1,6 @@
-.calibration-badge {
-    position: absolute;
-    top: 20px;
-    right: var(--header-padding-sides);
-    padding: 1.5px 9px 1px 7.5px;
+.badge {
+    display: inline-block;
+    padding: 1.5px 9px 1px;
     color: var(--invert);
     background-color: rgb(from var(--grey-pale) r g b / .6);
     border-radius: 100vw;
@@ -10,6 +8,12 @@
     font-weight: 600;
     letter-spacing: -0.4px;
     visibility: hidden;
+
+    &.top-right {
+        position: absolute;
+        top: 20px;
+        right: var(--header-padding-sides);
+    }
 
     &.show {
         visibility: visible;

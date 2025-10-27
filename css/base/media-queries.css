@@ -31,3 +31,21 @@
         max-width: var(--maximum-view-width);
     }
 }
+
+/* Small screens. */
+@media (width < 360px) {
+
+    #toolbox {
+        #tempo-converter, #delay-converter {
+            .inputs {
+                .input {
+                    font-size: .85rem;
+                }
+                .arrow {
+                    margin-left: 5px;
+                    margin-right: 5px;
+                }
+            }
+        }
+    }
+}

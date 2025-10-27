@@ -260,20 +260,6 @@ function refreshTimestamp()
 }
 
 /**
- * Set and show the audio calibration badge.
- * @param {number} value
- */
-function setCalibrationBadge(value)
-{
-    const $calibrationBadge = $view.querySelector('.calibration-badge');
-
-    let value_html = (value < 0) ? value.toString().replace('-', '−') : '+' + value;
-
-    $calibrationBadge.innerHTML = value_html + " dB";
-    $calibrationBadge.classList.toggle('show', (value !== 0));
-}
-
-/**
  * Set the correct icon above the current volume information.
  * @param {'off'|'low'|'normal'|'loud'} classname
  */
@@ -325,7 +311,11 @@ export function __init__()
 
     // Set the audio calibration badge.
     Settings.onsync('audio_calibration', event => {
-        setCalibrationBadge(event.detail.value);
+        const $calibrationBadge = $view.querySelector('.calibration-badge');
+        let value = Settings.$view.querySelector('[data-name="audio_calibration"] .slider-value').textContent;
+
+        $calibrationBadge.textContent = value;
+        $calibrationBadge.classList.toggle('show', (event.detail.value !== 0));
     });
 
     // Update the refresh interval of the information while running.

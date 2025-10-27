@@ -45,7 +45,7 @@
         <section class="view active" id="sonometer" data-name="Sonomètre" data-needs-audio-permission>
 
             <!-- Calibration badge -->
-            <div class="calibration-badge" data-load="settings:audio_calibration" data-tappable="no-circle"></div>
+            <div class="badge calibration-badge top-right" data-load="settings:audio_calibration" data-tappable="no-circle"></div>
 
             <!-- Gauge -->
             <section id="sonometer-gauge" data-rows=10>
@@ -186,6 +186,7 @@
                     </p>
                 </div>
 
+                <!-- REMOVE Remove or replace? -->
                 <div class="tempo-m tile">
                     <g-icon data-name="straighten"></g-icon>
                     <p class="info">
@@ -284,14 +285,17 @@
             <!-- m/ms converter -->
             <section id="delay-converter">
 
-                <h2>Convertisseur de délai sonore</h2>
+                <h2>
+                    Convertisseur de délai sonore
+                    <div class="badge temperature-badge show" data-load="settings:temperature" data-tappable="no-circle"></div>
+                </h2>
 
                 <div class="inputs">
 
                     <!-- m unit -->
                     <div class="input">
                         <input type="text" inputmode="decimal" id="delay-m" class="transparent" enterkeyhint="done"
-                               value=10 data-unit="m" min=1 max=680 data-maxlength=3 data-target-id="delay-ms">
+                               value=10 data-unit="m" min=1 max=999 data-maxlength=3 data-target-id="delay-ms">
                         <p class="unit">mètres</p>
                     </div>
 
@@ -303,7 +307,7 @@
                     <!-- ms unit -->
                     <div class="input">
                         <input type="text" inputmode="decimal" id="delay-ms" class="transparent" enterkeyhint="done"
-                               value=29 data-unit="ms" min=3 max=2000 data-maxlength=4 data-target-id="delay-m">
+                               value=29 data-unit="ms" min=3 max=2910 data-maxlength=4 data-target-id="delay-m">
                         <p class="unit">ms</p>
                     </div>
 
@@ -344,7 +348,7 @@
 
                 <setting-range
                     data-name="audio_calibration" data-allow-reset
-                    data-value=0 data-suffix=" dB" data-min=-30 data-max=30 data-step=0.5
+                    data-value=0 data-suffix=" dB" data-min=-30 data-max=30 data-step=0.5 data-plus-sign
                     data-title="Calibrage audio"
                     data-info="Ajuste le volume audio global affiché par l'application. À étalonner avec un sonomètre."
                 ></setting-range>
@@ -495,6 +499,13 @@
                     data-name="enable_toolbox" data-disable-group-on-false="toolbox" data-value=true
                     data-title="Afficher l'onglet Toolbox"
                 ></setting-switch>
+
+                <setting-range
+                    data-name="temperature" data-groups="toolbox" data-allow-reset
+                    data-value=20 data-suffix=" °C" data-min=-20 data-max=50 data-step=1
+                    data-title="Température ambiante"
+                    data-info="Permet une meilleure précision dans le calcul de la vitesse du son."
+                ></setting-range>
 
             </section>
 

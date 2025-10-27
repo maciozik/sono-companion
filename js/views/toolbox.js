@@ -1,5 +1,9 @@
+import * as Settings from '/js/views/settings.js';
+
 export const $view = document.getElementById('toolbox');
 const $inputs = $view.querySelectorAll('input');
+
+const SPEED_OF_SOUND_DEFAULT = 340; // In m/s.
 
 /**
  * Set the value of an input.
@@ -21,26 +25,30 @@ function setInput($input, value)
  * @param {number} value
  * @param {'bpm'|'ms'|'m'} unit_from The unit of the initial value.
  * @param {'bpm'|'ms'|'m'} unit_to The unit to convert to.
+ * @param {boolean} [useTemperature] Whether to use the temperature setting to define the speed of sound.
  * @returns {number|null}
  */
-export function convert(value, unit_from, unit_to)
+export function convert(value, unit_from, unit_to, useTemperature = true)
 {
     if (value === 0) return null;
 
     let bpm = new Number();
     let converted_value = new Number();
 
+    let speed_of_sound = 20.05 * Math.sqrt(273.15 + STG.temperature);
+    speed_of_sound = (useTemperature ? speed_of_sound : SPEED_OF_SOUND_DEFAULT);
+
     // First convert to bpm.
     switch (unit_from) {
         case 'bpm': bpm = value; break;
         case 'ms' : bpm = 60000 / value; break;
-        case 'm'  : bpm = 60 / (value / 340); break;
+        case 'm'  : bpm = 60 / (value / speed_of_sound); break;
     }
     // Then convert to the target unit.
     switch (unit_to) {
         case 'bpm': converted_value = bpm; break;
         case 'ms' : converted_value = Math.round(60000 / bpm); break;
-        case 'm'  : converted_value = Math.round(340 * (60 / bpm)); break;
+        case 'm'  : converted_value = Math.round(speed_of_sound * (60 / bpm)); break;
     }
 
     return converted_value;
@@ -75,6 +83,7 @@ function validateInput($input)
 
     // Invalidate the value if out of range, with feedback.
     if ($input.value < min || $input.value > max) {
+        $input.closest('.input').dataset.validationRange = `${$input.min} – ${$input.max}`;
         $input.closest('.input').classList.add('out-of-range');
         return false;
     } else {
@@ -127,9 +136,6 @@ export function __init__()
             }
         });
 
-        // Set the validation range tip.
-        $input.closest('.input').dataset.validationRange = `${$input.min} – ${$input.max}`;
-
         // Disable the context menu.
         $input.addEventListener('contextmenu', event => event.preventDefault());
     }
@@ -148,4 +154,22 @@ export function __init__()
             $input_right.value = value_left;
         });
     }
+
+    // When the temperature setting changes.
+    Settings.onsync('temperature', event => {
+
+        // Set the temperature badge.
+        const $temperatureBadge = $view.querySelector('.temperature-badge');
+        let value = Settings.$view.querySelector('[data-name="temperature"] .slider-value').textContent;
+        $temperatureBadge.textContent = value;
+
+        // Update the conversion.
+        let $input_from = $view.querySelector('#delay-converter #delay-m');
+        $view.querySelector('#delay-converter #delay-ms').value = convert($input_from.value, 'm', 'ms');
+
+        // Update the max attribute of the `delay-ms` input.
+        let delayM_max = $view.querySelector('#delay-converter #delay-m').max;
+        let delayMs_max = convert(delayM_max, 'm', 'ms');
+        $view.querySelector('#delay-converter #delay-ms').max = delayMs_max;
+    });
 }

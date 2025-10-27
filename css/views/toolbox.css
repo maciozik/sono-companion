@@ -8,6 +8,16 @@
 
     #tempo-converter, #delay-converter {
 
+        h2 {
+            position: relative;
+
+            .temperature-badge {
+                position: absolute;
+                right: 0;
+                margin-top: -2px;
+            }
+        }
+
         .inputs {
             display: flex;
             align-items: center;
@@ -20,10 +30,11 @@
                 padding: 10px 15px 10px 10px;
                 width: 100%;
                 border-width: 2px;
+                font-size: 1rem;
 
                 input {
                     width: 100%;
-                    font-size: 1.4rem;
+                    font-size: 1.4em;
                     text-align: center;
                 }
 
@@ -31,6 +42,7 @@
                     display: inline-block;
                     margin-left: 5px;
                     color: var(--grey);
+                    font-size: 1em;
                     letter-spacing: -0.1px;
                 }
 

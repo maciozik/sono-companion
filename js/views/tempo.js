@@ -32,7 +32,7 @@ let tapTempoTimeout;
 export function get(unit = 'bpm')
 {
     let tempo = parseInt($bpmValue.dataset.bpm);
-    tempo = Toolbox.convert(tempo, 'bpm', unit);
+    tempo = Toolbox.convert(tempo, 'bpm', unit, false);
 
     return tempo;
 }

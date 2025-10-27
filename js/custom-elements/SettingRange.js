@@ -16,7 +16,8 @@ import * as Settings from '/js/views/settings.js';
  * In that second case, the name of the setting must be enclosed in curly braces (e.g. `{setting_name}`).
  *
  * The following attributes may also be declared optionally:
- *  - `data-suffix` : The suffix to add to the current numeric value when displayed on the setting.
+ *  - `data-suffix`    : The suffix to add to the current numeric value when displayed on the setting.
+ *  - `data-plus-sign` : Whether to add a plus sign for positive values and the point zero.
  *
  * @example
  *  <setting-range
@@ -29,6 +30,7 @@ export default class SettingRange extends Setting
     value = new Number();
     default_value = new Number();
     suffix = new String();
+    plus_sign = new Boolean();
 
     min = new Number();
     max = new Number();
@@ -47,6 +49,7 @@ export default class SettingRange extends Setting
         this.value = parseFloat(this.dataset.value);
         this.default_value = this.value;
         this.suffix = this.dataset.suffix || "";
+        this.plus_sign = this.hasBooleanAttribute('data-plus-sign');
 
         // Get the parameter values.
         this.min  = this.getParameterValue('data-min');
@@ -56,6 +59,7 @@ export default class SettingRange extends Setting
         // Remove the useless attributes.
         this.removeAttribute('data-value');
         this.removeAttribute('data-suffix');
+        this.removeAttribute('data-plus-sign');
         this.removeAttribute('data-min');
         this.removeAttribute('data-max');
         this.removeAttribute('data-step');
@@ -192,7 +196,7 @@ export default class SettingRange extends Setting
             <div class="setting-choice">
                 <div class="slider-value"></div>
             </div>
-            <div class="slider" data-value="${this.value}" data-suffix="${this.suffix}" data-min="${this.min}" data-max="${this.max}" data-step="${this.step}">
+            <div class="slider" data-value="${this.value}" data-suffix="${this.suffix}" data-min="${this.min}" data-max="${this.max}" data-step="${this.step}" data-plus-sign="${this.plus_sign}">
                 <div class="slider-line">
                     <div class="slider-fill"></div>
                     <div class="slider-thumb"></div>
