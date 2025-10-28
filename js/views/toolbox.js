@@ -1,7 +1,9 @@
 import * as Settings from '/js/views/settings.js';
 
 export const $view = document.getElementById('toolbox');
+
 const $inputs = $view.querySelectorAll('input');
+const $temperatureBadge = $view.querySelector('.temperature-badge');
 
 const SPEED_OF_SOUND_DEFAULT = 340; // In m/s.
 
@@ -30,13 +32,12 @@ function setInput($input, value)
  */
 export function convert(value, unit_from, unit_to, useTemperature = true)
 {
-    if (value === 0) return null;
+    if (value === 0 || isNaN(value)) return null;
 
     let bpm = new Number();
     let converted_value = new Number();
 
-    let speed_of_sound = 20.05 * Math.sqrt(273.15 + STG.temperature);
-    speed_of_sound = (useTemperature ? speed_of_sound : SPEED_OF_SOUND_DEFAULT);
+    let speed_of_sound = (useTemperature ? getSpeedOfSound() : SPEED_OF_SOUND_DEFAULT);
 
     // First convert to bpm.
     switch (unit_from) {
@@ -94,9 +95,19 @@ function validateInput($input)
 }
 
 /**
+ * Get the speed of sound depending on the temperature setting.
+ * @returns {number}
+ */
+function getSpeedOfSound()
+{
+    return 20.05 * Math.sqrt(273.15 + STG.temperature);
+}
+
+/**
  * Init the module and its components.
  * Called only once during application startup.
  */
+// TODO Extract some code to an input component.
 export function __init__()
 {
     for (const $input of $inputs) {
@@ -158,18 +169,19 @@ export function __init__()
     // When the temperature setting changes.
     Settings.onsync('temperature', event => {
 
+        const $input_from = $view.querySelector('#delay-converter #delay-m');
+        const $input_to = $view.querySelector('#delay-converter #delay-ms');
+        const $speed_of_sound = $view.querySelector('#delay-converter .speed_of_sound');
+
         // Set the temperature badge.
-        const $temperatureBadge = $view.querySelector('.temperature-badge');
-        let value = Settings.$view.querySelector('[data-name="temperature"] .slider-value').textContent;
-        $temperatureBadge.textContent = value;
+        const $temperature_setting_value = Settings.$view.querySelector('[data-name="temperature"] .slider-value');
+        $temperatureBadge.textContent = $temperature_setting_value.textContent;
 
-        // Update the conversion.
-        let $input_from = $view.querySelector('#delay-converter #delay-m');
-        $view.querySelector('#delay-converter #delay-ms').value = convert($input_from.value, 'm', 'ms');
+        // Update the conversion and the max attribute of the `delay-ms` input
+        $input_to.value = convert(parseInt($input_from.value), 'm', 'ms') ?? "";
+        $input_to.max = convert(parseInt($input_from.max), 'm', 'ms');
 
-        // Update the max attribute of the `delay-ms` input.
-        let delayM_max = $view.querySelector('#delay-converter #delay-m').max;
-        let delayMs_max = convert(delayM_max, 'm', 'ms');
-        $view.querySelector('#delay-converter #delay-ms').max = delayMs_max;
+        // Show the speed of sound.
+        $speed_of_sound.textContent = Math.round(getSpeedOfSound()) + " m/s";
     });
 }

@@ -17,6 +17,7 @@ const $timestamp = $view.querySelector('#sonometer-controls .timestamp');
 
 export const $playBtn = $view.querySelector('#sonometer-controls .play-btn');
 export const $resetBtn = $view.querySelector('#sonometer-controls .sonometer-reset-btn');
+const $calibrationBadge = $view.querySelector('.calibration-badge');
 
 /** @type {AudioContext} */
 let audioContext;
@@ -309,12 +310,10 @@ export function __init__()
         View.stop();
     });
 
-    // Set the audio calibration badge.
+    // Set the calibration badge.
     Settings.onsync('audio_calibration', event => {
-        const $calibrationBadge = $view.querySelector('.calibration-badge');
-        let value = Settings.$view.querySelector('[data-name="audio_calibration"] .slider-value').textContent;
-
-        $calibrationBadge.textContent = value;
+        const $calibration_setting_value = Settings.$view.querySelector('[data-name="audio_calibration"] .slider-value');
+        $calibrationBadge.textContent = $calibration_setting_value.textContent;
         $calibrationBadge.classList.toggle('show', (event.detail.value !== 0));
     });
 

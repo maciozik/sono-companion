@@ -73,7 +73,8 @@
             }
 
             .arrow {
-                display: grid;
+                display: flex;
+                justify-content: center;
                 align-items: center;
                 margin: 0 12px;
                 padding: 0 8px;
@@ -91,6 +92,24 @@
                         --circle-animation-duration: 200ms !important;
                     }
                 }
+            }
+        }
+    }
+
+    #delay-converter {
+
+        .arrow {
+
+            g-icon {
+                margin-top: -4px;
+            }
+
+            .speed_of_sound {
+                position: absolute;
+                margin-top: 44px;
+                font-size: .8rem;
+                font-weight: 600;
+                text-align: center;
             }
         }
     }

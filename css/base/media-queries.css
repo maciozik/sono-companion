@@ -35,15 +35,21 @@
 /* Small screens. */
 @media (width < 360px) {
 
-    #toolbox {
-        #tempo-converter, #delay-converter {
-            .inputs {
-                .input {
-                    font-size: .85rem;
-                }
-                .arrow {
-                    margin-left: 5px;
-                    margin-right: 5px;
+    #toolbox :is(#tempo-converter, #delay-converter) {
+
+        .inputs {
+
+            .input {
+                font-size: .85rem;
+            }
+
+            .arrow {
+                margin-left: 5px;
+                margin-right: 5px;
+
+                .speed_of_sound {
+                    margin-top: 42px;
+                    font-size: .75rem;
                 }
             }
         }
