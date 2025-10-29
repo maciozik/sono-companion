@@ -24,8 +24,7 @@ b, strong {
     }
 }
 
-input, .input,
-textarea, .textarea {
+input, textarea {
     padding: 8px 10px;
     color: var(--invert);
     background-color: var(--bg-contrast);
@@ -46,15 +45,6 @@ textarea, .textarea {
         color: var(--bg-contrast);
         background-color: var(--cyan);
     }
-}
-
-input.transparent,
-textarea.transparent {
-    padding: 0;
-    background-color: transparent;
-    border: none;
-    border-radius: 0;
-    outline: none !important;
 }
 
 input {

@@ -43,6 +43,7 @@ import * as BpmManager from '/js/widgets/bpm-manager.js';
 /**  COMPONENTS  **/
 import * as NavTab from '/js/components/nav-tab.js';
 import * as PlayBtn from '/js/components/play-btn.js';
+import '/js/components/input-box.js';
 import '/js/components/scrollbar.js';
 import '/js/components/tappable.js';
 

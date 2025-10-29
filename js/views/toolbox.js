@@ -62,6 +62,7 @@ export function convert(value, unit_from, unit_to, useTemperature = true)
  */
 function validateInput($input)
 {
+    const $inputBox = $input.closest('.input-box');
     let min = parseInt($input.min);
     let max = parseInt($input.max);
     let max_length = parseInt($input.dataset.maxlength);
@@ -79,16 +80,16 @@ function validateInput($input)
     // Limit the length, with feedback.
     if ($input.value.length > max_length) {
         $input.value = $input.value.slice(0, max_length);
-        $input.closest('.input').addClassTemporarily('above-maxlength', 150);
+        $inputBox.addClassTemporarily('above-maxlength', 150);
     }
 
     // Invalidate the value if out of range, with feedback.
     if ($input.value < min || $input.value > max) {
-        $input.closest('.input').dataset.validationRange = `${$input.min} – ${$input.max}`;
-        $input.closest('.input').classList.add('out-of-range');
+        $inputBox.dataset.validationRange = `${$input.min} – ${$input.max}`;
+        $inputBox.classList.add('out-of-range');
         return false;
     } else {
-        $input.closest('.input').classList.remove('out-of-range');
+        $inputBox.classList.remove('out-of-range');
     }
 
     return true;
@@ -107,15 +108,9 @@ function getSpeedOfSound()
  * Init the module and its components.
  * Called only once during application startup.
  */
-// TODO Extract some code to an input component.
 export function __init__()
 {
     for (const $input of $inputs) {
-
-        // Click on an input container.
-        $input.closest('.input').addEventListener('click', function () {
-            this.querySelector('input').focus();
-        });
 
         // When the user type.
         $input.addEventListener('input', function () {
@@ -129,26 +124,11 @@ export function __init__()
             setInput($target, (valid ? converted_value : null));
         });
 
-        // Select all input on focus.
-        $input.addEventListener('focus', function () {
-            this.select();
-        });
-
         // Remove input value if invalid when it loses focus.
         $input.addEventListener('blur', function () {
             if (!validateInput(this)) { this.value = ""; }
-            this.closest('.input').classList.remove('above-maxlength', 'out-of-range');
+            this.closest('.input-box').classList.remove('above-maxlength', 'out-of-range');
         });
-
-        // Input loses focus on validate key.
-        $input.addEventListener('keydown', function (event) {
-            if (event.key === 'Enter') {
-                this.blur();
-            }
-        });
-
-        // Disable the context menu.
-        $input.addEventListener('contextmenu', event => event.preventDefault());
     }
 
     // Click on an arrow that allows swap.
@@ -157,31 +137,31 @@ export function __init__()
 
         $arrow.addEventListener('trigger', function () {
 
-            const $input_left = document.getElementById(this.dataset.targetIdLeft);
-            const $input_right = document.getElementById(this.dataset.targetIdRight);
+            const $inputLeft = document.getElementById(this.dataset.targetIdLeft);
+            const $inputRight = document.getElementById(this.dataset.targetIdRight);
 
-            let value_left = $input_left.value;
-            $input_left.value = $input_right.value;
-            $input_right.value = value_left;
+            let value_left = $inputLeft.value;
+            $inputLeft.value = $inputRight.value;
+            $inputRight.value = value_left;
         });
     }
 
     // When the temperature setting changes.
     Settings.onsync('temperature', event => {
 
-        const $input_from = $view.querySelector('#delay-converter #delay-m');
-        const $input_to = $view.querySelector('#delay-converter #delay-ms');
-        const $speed_of_sound = $view.querySelector('#delay-converter .speed_of_sound');
+        const $inputFrom = $view.querySelector('#delay-converter #delay-m');
+        const $inputTo = $view.querySelector('#delay-converter #delay-ms');
+        const $speedOfSound = $view.querySelector('#delay-converter .speed_of_sound');
 
         // Set the temperature badge.
-        const $temperature_setting_value = Settings.$view.querySelector('[data-name="temperature"] .slider-value');
-        $temperatureBadge.textContent = $temperature_setting_value.textContent;
+        const $temperatureSettingValue = Settings.$view.querySelector('[data-name="temperature"] .slider-value');
+        $temperatureBadge.textContent = $temperatureSettingValue.textContent;
 
         // Update the conversion and the max attribute of the `delay-ms` input
-        $input_to.value = convert(parseInt($input_from.value), 'm', 'ms') ?? "";
-        $input_to.max = convert(parseInt($input_from.max), 'm', 'ms');
+        $inputTo.value = convert(parseInt($inputFrom.value), 'm', 'ms') ?? "";
+        $inputTo.max = convert(parseInt($inputFrom.max), 'm', 'ms');
 
         // Show the speed of sound.
-        $speed_of_sound.textContent = Math.round(getSpeedOfSound()) + " m/s";
+        $speedOfSound.textContent = Math.round(getSpeedOfSound()) + " m/s";
     });
 }
