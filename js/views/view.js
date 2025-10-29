@@ -164,6 +164,31 @@ export function getFirstVisible()
 }
 
 /**
+ * Get the id of the last loaded view if enabled, else the first visible view (`settings` included).
+ * @returns {string}
+ */
+export function getLastLoadedOrFirstVisible()
+{
+    let last_view_loaded = getLastLoaded();
+
+    if (isVisible(last_view_loaded)) {
+        return last_view_loaded;
+    } else {
+        return getFirstVisible() || 'settings';
+    }
+}
+
+/**
+ * Is the view enabled and reachable via a visible navigation tab.
+ * @param {string} [view_id] *Default: current view.*
+ * @returns {boolean}
+ */
+export function isVisible(view_id = getCurrent().id) {
+    let $tab = NavTab.getTabFromViewId(view_id);
+    return !$tab.classList.contains('hide');
+}
+
+/**
  * Is the `run` state active on a view.
  * @param {string} [view_id] *Default: current view.*
  * @returns {boolean}
@@ -226,7 +251,7 @@ export function __init__()
         // Create a state in the history if the Settings view is loaded.
         if (view_id === 'settings') {
             History.push('settings', () => {
-                load(getLastLoaded());
+                load(getLastLoadedOrFirstVisible());
             });
         }
         // Remove the state from the history when any other view is loaded.
@@ -238,13 +263,11 @@ export function __init__()
     // Load the correct view at launch.
     Settings.oninit(null, function () {
 
-        let last_view_loaded = getLastLoaded();
-
-        // Load the last view loaded if the user setting is true, and if the tab is visible.
-        if (STG.show_last_tab_opened && STG[`enable_${last_view_loaded}`]) {
-            load(last_view_loaded);
+        // If the user allowed it, load the last view loaded if visible, or the first visible view.
+        if (STG.show_last_tab_opened) {
+            load(getLastLoadedOrFirstVisible());
         }
-        // Else, load the first visible tab, or the settings if no tab is visible.
+        // Else, load the first visible view.
         else {
             load(getFirstVisible() || 'settings');
         }
