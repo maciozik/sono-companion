@@ -134,12 +134,12 @@ export function checkVisibility()
         // For each parent setting that can disable this setting.
         for (const parent_setting of $setting.parent_settings) {
 
-            let $parent_setting = parent_setting[0];
+            let $parentSetting = parent_setting[0];
             let on = parent_setting[1];
 
             // If that parent setting that disable on true is true / that disable on false is false,
             // disable this child setting, then continue to the next setting.
-            if ($parent_setting.value === on) {
+            if ($parentSetting.value === on) {
                 $setting.setVisibility(false);
                 continue settings_loop;
             }

@@ -6,7 +6,7 @@
     border-radius: 100vw;
     font-size: .8rem;
     font-weight: 600;
-    letter-spacing: -0.4px;
+    letter-spacing: -0.5px;
     visibility: hidden;
 
     &.top-right {

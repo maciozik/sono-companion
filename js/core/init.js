@@ -10,13 +10,13 @@ if ('serviceWorker' in navigator && ENV.PROD) {
 
 // Lock the portrait orientation on PWA or fullscreen mode.
 if (screen.orientation) {
-    screen.orientation.lock("portrait")
+    screen.orientation.lock('portrait')
         .catch(error => console.warn(error.message));
 }
 
 // Disable the context menu.
 if (ENV.PROD) {
-    document.addEventListener("contextmenu", event => event.preventDefault());
+    document.addEventListener('contextmenu', event => event.preventDefault());
 }
 
 // Disable the console messages.

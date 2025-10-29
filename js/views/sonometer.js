@@ -312,8 +312,8 @@ export function __init__()
 
     // Set the calibration badge.
     Settings.onsync('audio_calibration', event => {
-        const $calibration_setting_value = Settings.$view.querySelector('[data-name="audio_calibration"] .slider-value');
-        $calibrationBadge.textContent = $calibration_setting_value.textContent;
+        const $calibrationSettingValue = Settings.$view.querySelector('[data-name="audio_calibration"] .slider-value');
+        $calibrationBadge.textContent = $calibrationSettingValue.textContent;
         $calibrationBadge.classList.toggle('show', (event.detail.value !== 0));
     });
 

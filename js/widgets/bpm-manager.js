@@ -1,8 +1,8 @@
 import * as Storage from '/js/core/storage.js';
 import Toast from '/js/classes/Toast.js';
 import * as View from '/js/views/view.js';
-import * as Settings from '/js/views/settings.js';
 import * as Tempo from '/js/views/tempo.js';
+import * as Settings from '/js/views/settings.js';
 
 const SAVES_MAX = 50;
 const SHOW_BADGE_COUNT_THRESHOLD = 10;
@@ -74,7 +74,7 @@ function remove()
 
     // Run the remove animation, then remove the save from the DOM.
     setAs('remove', $current);
-    $current.addEventListener('transitionend', function() {
+    $current.addEventListener('transitionend', function () {
         this.remove();
     }, { once: true });
 
@@ -130,7 +130,7 @@ function nextState($saves, callback = undefined)
                 // Turn add into current and make it blink.
                 case 'add':
                     setAs('current', $save);
-                    $save.addEventListener('transitionend', function() {
+                    $save.addEventListener('transitionend', function () {
                         this.addClassTemporarily('blink', ADD_BLINK_DURATION);
                     }, { once: true });
                     break;
@@ -173,7 +173,7 @@ function handleCountBasedCases(action)
 
     // If there are 2 saves, set the other one as next after the previous animation.
     if (action === 'add' && getCount() === 2) {
-        $next.addEventListener('transitionend', function() {
+        $next.addEventListener('transitionend', function () {
             doubleRequestAnimationFrame(() => {
                 setAs('next', this);
             });
@@ -197,7 +197,7 @@ function handleCountBasedCases(action)
  */
 function getPrevious()
 {
-    return $nextBtn.querySelector('.bpm-save.previous') || null;
+    return $nextBtn.querySelector('.bpm-save.previous') ?? null;
 }
 
 /**
@@ -207,8 +207,8 @@ function getPrevious()
 function getCurrent()
 {
     return $nextBtn.querySelector('.bpm-save.current')
-        || $nextBtn.querySelector('.bpm-save.add')
-        || null;
+        ?? $nextBtn.querySelector('.bpm-save.add')
+        ?? null;
 }
 
 /**
@@ -218,9 +218,9 @@ function getCurrent()
 function getNext()
 {
     return $nextBtn.querySelector('.bpm-save.next')
-        || getCurrent()?.nextElementSibling
-        || $nextBtn.querySelectorAll('.bpm-save:not(.current)')[0]
-        || null;
+        ?? getCurrent()?.nextElementSibling
+        ?? $nextBtn.querySelectorAll('.bpm-save:not(.current)')[0]
+        ?? null;
 }
 
 /**
@@ -230,8 +230,8 @@ function getNext()
 function getAfterNext()
 {
     return getNext()?.nextElementSibling
-        || $nextBtn.querySelectorAll('.bpm-save')[0]
-        || null;
+        ?? $nextBtn.querySelectorAll('.bpm-save')[0]
+        ?? null;
 }
 
 /**
@@ -327,7 +327,7 @@ function restoreFromStorage()
     /** @type {Array<number>} */
     let bpm_saves = Storage.get('tempo.bpm_saves');
     /** @type {number} */
-    let current_save_id = Storage.get('tempo.current_save_id') || 0;
+    let current_save_id = Storage.get('tempo.current_save_id') ?? 0;
 
     if (bpm_saves === null) return;
 

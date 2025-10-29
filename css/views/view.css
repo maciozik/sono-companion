@@ -7,8 +7,7 @@
     min-width: 320px;
     height: 100%;
     min-height: 480px;
-    padding: var(--app-padding-sides);
-    padding-bottom: 0;
+    padding: 10px var(--app-padding-sides) 0;
     transform: scale(.95);
     opacity: 0;
     overflow-x: hidden;

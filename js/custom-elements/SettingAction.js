@@ -55,7 +55,7 @@ export default class SettingAction extends Setting
     {
         super();
 
-        this.module = this.dataset.module || null;
+        this.module = this.dataset.module ?? null;
 
         this.has_action = (this.dataset.action !== undefined) ? true : false;
         this.require_confirmation = this.hasBooleanAttribute('data-require-confirmation');

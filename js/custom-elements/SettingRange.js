@@ -48,7 +48,7 @@ export default class SettingRange extends Setting
 
         this.value = parseFloat(this.dataset.value);
         this.default_value = this.value;
-        this.suffix = this.dataset.suffix || "";
+        this.suffix = this.dataset.suffix ?? "";
         this.plus_sign = this.hasBooleanAttribute('data-plus-sign');
 
         // Get the parameter values.

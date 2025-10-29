@@ -6,7 +6,8 @@ import Toast from '/js/classes/Toast.js';
 import * as Settings from '/js/views/settings.js';
 import * as NavTab from '/js/components/nav-tab.js';
 
-export const VIEW_DEFAULT = 'sonometer';
+export const DEFAULT_VIEW = 'sonometer';
+export const SETTINGS_VIEW = 'settings';
 
 const $h1 = document.querySelector('header h1');
 export const $views = document.getElementsByClassName('view');
@@ -34,7 +35,7 @@ export function load(view)
     $view.classList.add('active');
 
     // Store the view as the last loaded view in the storage (except the Settings view).
-    if (view_id !== 'settings') {
+    if (view_id !== SETTINGS_VIEW) {
         Storage.set('last_view_loaded', view_id);
     }
 
@@ -149,7 +150,7 @@ export function getCurrent()
  */
 export function getLastLoaded()
 {
-    return STO.last_view_loaded || VIEW_DEFAULT;
+    return STO.last_view_loaded ?? DEFAULT_VIEW;
 }
 
 /**
@@ -159,7 +160,7 @@ export function getLastLoaded()
 export function getFirstVisible()
 {
     let first_tab_visible = NavTab.$nav.querySelector('.nav-tab:not(.hide)');
-    let view = first_tab_visible?.dataset.load || null;
+    let view = first_tab_visible?.dataset.load ?? null;
     return view;
 }
 
@@ -174,7 +175,7 @@ export function getLastLoadedOrFirstVisible()
     if (isVisible(last_view_loaded)) {
         return last_view_loaded;
     } else {
-        return getFirstVisible() || 'settings';
+        return getFirstVisible() ?? SETTINGS_VIEW;
     }
 }
 
@@ -249,7 +250,7 @@ export function __init__()
         WakeLock.handle();
 
         // Create a state in the history if the Settings view is loaded.
-        if (view_id === 'settings') {
+        if (view_id === SETTINGS_VIEW) {
             History.push('settings', () => {
                 load(getLastLoadedOrFirstVisible());
             });
@@ -269,7 +270,7 @@ export function __init__()
         }
         // Else, load the first visible view.
         else {
-            load(getFirstVisible() || 'settings');
+            load(getFirstVisible() ?? SETTINGS_VIEW);
         }
     });
 

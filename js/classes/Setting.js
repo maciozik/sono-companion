@@ -45,11 +45,11 @@ export default class Setting extends HTMLElement
 
         this.name = this.dataset.name;
         this.title = this.dataset.title;
-        this.info = this.dataset.info || "";
+        this.info = this.dataset.info ?? "";
 
         this.allow_reset = this.hasBooleanAttribute('data-allow-reset');
         this.danger = this.hasBooleanAttribute('data-danger');
-        this.groups = this.dataset.groups?.split(' ') || [];
+        this.groups = this.dataset.groups?.split(' ') ?? [];
 
         // Remove the useless attributes.
         this.removeAttribute('data-title');
