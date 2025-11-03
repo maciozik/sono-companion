@@ -12,6 +12,7 @@
     padding: calc((var(--slider-thumb-size) / 2) + var(--slider-thumb-shadow)) 0;
     color: var(--cyan);
     touch-action: pan-y;
+    cursor: e-resize;
 
     .slider-line {
         display: flex;

@@ -173,9 +173,9 @@ export default class Setting extends HTMLElement
      */
     getResetButtonHTML()
     {
-        return (this.allow_reset) ? /*html*/`
-            <g-icon class="reset-btn" data-name="restore" data-tappable="click no-circle"></g-icon>
-        ` : '';
+        return (this.allow_reset)
+            ? /*html*/`<g-icon class="reset-btn" data-name="restore" data-tappable="click no-circle"></g-icon>`
+            : '';
     }
 
     /**
@@ -204,7 +204,7 @@ export default class Setting extends HTMLElement
         });
 
         // Show or hide the reset button when the setting changes.
-        Settings.onsync(this.name, (event) => {
+        Settings.onsync(this.name, event => {
             let is_default = event.detail.value == this.default_value;
             this.getResetButton()?.classList.toggle('hide', is_default);
         });

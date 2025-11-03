@@ -24,6 +24,11 @@
         z-index: -1;
     }
 
+
+    &:not([data-tappable~=trigger-manually]) {
+        cursor: pointer;
+    }
+
     &[data-tappable~=follow-tap] {
         &::before {
             top: calc((-1 * (var(--tappable-width) / 2)) + (var(--circle-y)));

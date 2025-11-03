@@ -82,15 +82,16 @@ export default class SettingRange extends Setting
         // Create and link the Slider instance to the setting.
         this.Slider = new Slider(this.$slider);
 
-        // Set the width of the setting value.
+        // Wait for the zoom setting to correctly set the width of the setting value, then set the real setting value.
+        // FIXME The width does not change dynamically when the zoom setting changes.
+        Settings.oninit(null, () => {
         this.setSettingValueWidth();
+            this.setSettingValue();
+        });
 
         // Bind the pointer events to the slider, and init it.
         this.Slider.bindEvents();
         this.Slider.setPosition();
-
-        // Set the value on the setting.
-        this.setSettingValue();
 
         // Bind the events to the setting.
         this.bindEvents();
@@ -189,7 +190,7 @@ export default class SettingRange extends Setting
         this.innerHTML = /*html*/`
             <div class="setting-text">
                 <p class="setting-title ${ this.danger ? 'danger' : ''}">
-                    ${this.title} ${super.getResetButtonHTML()}
+                    ${this.title}&nbsp;${super.getResetButtonHTML()}
                 </p>
                 ${super.getInfoHTML()}
             </div>

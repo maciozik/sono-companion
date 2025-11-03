@@ -9,8 +9,10 @@ import * as NavTab from '/js/components/nav-tab.js';
 export const DEFAULT_VIEW = 'sonometer';
 export const SETTINGS_VIEW = 'settings';
 
-const $h1 = document.querySelector('header h1');
-export const $views = document.getElementsByClassName('view');
+export const $header = document.querySelector('header');
+export const $h1     = $header.querySelector('h1');
+export const $views  = document.querySelectorAll('.view');
+export const $footer = document.querySelector('footer');
 
 export const $loadViewBtns = document.querySelectorAll('[data-load]');
 
@@ -262,7 +264,7 @@ export function __init__()
     });
 
     // Load the correct view at launch.
-    Settings.oninit(null, function () {
+    Settings.oninit(null, () => {
 
         // If the user allowed it, load the last view loaded if visible, or the first visible view.
         if (STG.show_last_tab_opened) {
@@ -290,5 +292,11 @@ export function __init__()
                 .show();
             suspended_views_count = 0;
         }
+    });
+
+    // Set the zoom level.
+    Settings.onsync('zoom_level', event => {
+        let font_size_multiplier = event.detail.value / 100;
+        document.documentElement.style.setProperty('--app-font-size-multiplier', font_size_multiplier);
     });
 }

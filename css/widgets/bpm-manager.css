@@ -144,7 +144,7 @@
         border-bottom-left-radius: var(--btns-border-radius);
 
         g-icon {
-            font-size: 56cqh;
+            font-size: calc(56cqh * var(--app-font-size-multiplier));
         }
 
         &[data-tappable] {

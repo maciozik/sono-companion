@@ -11,6 +11,9 @@
     --btn-padding-top-bottom: 12px;
     --btn-padding-left-right: 18px;
 
+    --app-font-size: 16px;
+    --app-font-size-multiplier: 1; /* Overridden in JS. */
+
     --ease-out: cubic-bezier(0, 0, 0, 1);
 
     &[data-color-scheme=dark] {
@@ -43,7 +46,7 @@
         --bg-contrast: #FFFFFF;
     }
 
-    font-size: 16px;
+    font-size: calc(var(--app-font-size) * var(--app-font-size-multiplier));
     user-select: none;
     -webkit-tap-highlight-color: transparent;
 }

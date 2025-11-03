@@ -510,10 +510,16 @@
 
             </section>
 
-            <!-- Miscellaneous Settings -->
-            <h2>Divers</h2>
+            <!-- Accessibility Settings -->
+            <h2>Accessibilité</h2>
 
-            <section data-context="misc">
+            <section data-context="accessibility">
+
+                <setting-range
+                    data-name="zoom_level" data-allow-reset
+                    data-value=100 data-suffix=" %" data-min=80 data-max=120 data-step=5
+                    data-title="Niveau de zoom de l'interface"
+                ></setting-range>
 
                 <setting-switch
                     data-name="show_last_tab_opened" data-value=true

@@ -53,6 +53,12 @@
 
 - [ ] Choix des infos affichées ?
 
+### Accessibilité ? (englobe Divers ?)
+
+- [ ] Thème contrasté.
+- [x] Contrôle de la taille de police.
+- [ ] Durée d'affichage des Toast plus longue.
+
 ---
 
 ## 💡 Autres idées
