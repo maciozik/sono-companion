@@ -1,0 +1,49 @@
+#fullscreen-textarea {
+    position: fixed;
+    top: -100%;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--bg-contrast);
+    opacity: 0;
+    z-index: 10000;
+
+    /* TODO Add scrollbar. */
+    textarea {
+        margin: 0;
+        padding: 35px 30px 30px;
+        width: 100%;
+        height: 100%;
+        border: none;
+        border-radius: 0;
+        outline: none;
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 5px 6px;
+        color: var(--grey-pale);
+        font-size: 1.6rem;
+    }
+
+    &.active {
+        top: 0;
+        opacity: 1;
+    }
+}
+
+body:has(#fullscreen-textarea.active) {
+
+    header, footer {
+        display: none !important;
+    }
+
+    main {
+        position: absolute !important;
+        height: 0 !important;
+    }
+}

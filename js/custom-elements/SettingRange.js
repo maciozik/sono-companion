@@ -85,7 +85,7 @@ export default class SettingRange extends Setting
         // Wait for the zoom setting to correctly set the width of the setting value, then set the real setting value.
         // FIXME The width does not change dynamically when the zoom setting changes.
         Settings.oninit(null, () => {
-        this.setSettingValueWidth();
+            this.setSettingValueWidth();
             this.setSettingValue();
         });
 
@@ -215,17 +215,13 @@ export default class SettingRange extends Setting
         super.bindEvents();
         const _this = this;
 
-        // When the slider moves.
+        // When the slider moves, highlight the setting value.
         this.$slider.addEventListener('move', function () {
-
-            // Highlight the setting value.
-            _this.$settingValue.classList.add('active');
+            _this.$settingValue.classList.add('highlight');
         });
 
-        // When the value of the slider changes.
+        // When the value of the slider changes, update the value in the setting.
         this.$slider.addEventListener('change', function (event) {
-
-            // Update the value in the setting.
             _this.value = event.detail.value;
             _this.setSettingValue();
         });
@@ -237,7 +233,7 @@ export default class SettingRange extends Setting
             Settings.change(_this.name, _this.value, _this.context);
 
             // Unhighlight the setting value, and trigger the tappable element.
-            _this.$settingValue.classList.remove('active');
+            _this.$settingValue.classList.remove('highlight');
             _this._Tappable.trigger(event.detail.source_event);
 
             // Make the device vibrate.

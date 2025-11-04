@@ -33,8 +33,9 @@
   - Pouvoir renseigner la température pour une meilleur précision de la vitesse du son.
     - $c = 20,05 \sqrt{T(K)}$ avec $T(K)$ la température en kelvin tel que $T(K) = T(°C) + 273.15$.
     - [ ] Utiliser la localisation de l'appareil pour trouver automatiquement la température extérieure ?
-- [ ] Générateur de bruit blanc, bruit rose, sinus, etc...
-- [ ] Bloc-note.
+- [ ] Générateur de bruit blanc, bruit rose, sinus, etc... ?
+- [ ] Référenceur de manuels ?
+- [x] Bloc-note.
 
 ### Divers
 

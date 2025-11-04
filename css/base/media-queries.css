@@ -23,19 +23,28 @@
         }
     }
 
-    #toast {
-        max-width: calc(var(--maximum-view-width) - (var(--app-padding-sides) * 2));
+    #fullscreen-textarea {
+        display: flex;
+        justify-content: center;
+
+        textarea {
+            max-width: var(--maximum-view-width) !important;
+        }
     }
 
     #overlay .modal {
         max-width: var(--maximum-view-width);
+    }
+
+    #toast {
+        max-width: calc(var(--maximum-view-width) - (var(--app-padding-sides) * 2));
     }
 }
 
 /* Small screens. */
 @media (width < 360px) {
 
-    #toolbox :is(#tempo-converter, #delay-converter) {
+    #toolbox :is(#toolbox-tempo-converter, #toolbox-delay-converter) {
 
         .inputs {
 

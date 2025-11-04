@@ -1,9 +1,12 @@
+import * as Storage from '/js/core/storage.js';
 import * as Settings from '/js/views/settings.js';
+import * as FullscreenTextarea from '/js/components/fullscreen-textarea.js';
 
 export const $view = document.getElementById('toolbox');
 
 const $inputs = $view.querySelectorAll('input');
 const $temperatureBadge = $view.querySelector('.temperature-badge');
+const $notepad = $view.querySelector('textarea#notepad');
 
 const SPEED_OF_SOUND_DEFAULT = 340; // In m/s.
 
@@ -105,14 +108,38 @@ function getSpeedOfSound()
 }
 
 /**
+ * Restore the notepad content from the storage.
+ */
+function notepadRestoreFromStorage(content)
+{
+    $notepad.value = Storage.get('toolbox.notepad') ?? "";
+}
+
+/**
+ * Save the notepad content in the storage.
+ */
+function notepadSaveInStorage()
+{
+    let notepad_content = $notepad.value;
+
+    if (notepad_content !== "") {
+        Storage.set('toolbox.notepad', notepad_content);
+    } else {
+        Storage.remove('toolbox.notepad');
+    }
+}
+
+/**
  * Init the module and its components.
  * Called only once during application startup.
  */
 export function __init__()
 {
+    notepadRestoreFromStorage();
+
     for (const $input of $inputs) {
 
-        // When the user type.
+        // When the user types.
         $input.addEventListener('input', function () {
             const $target = document.getElementById(this.dataset.targetId);
             let unit_from = this.dataset.unit;
@@ -149,9 +176,9 @@ export function __init__()
     // When the temperature setting changes.
     Settings.onsync('temperature', event => {
 
-        const $inputFrom = $view.querySelector('#delay-converter #delay-m');
-        const $inputTo = $view.querySelector('#delay-converter #delay-ms');
-        const $speedOfSound = $view.querySelector('#delay-converter .speed_of_sound');
+        const $inputFrom = $view.querySelector('#toolbox-delay-converter input#delay-m');
+        const $inputTo = $view.querySelector('#toolbox-delay-converter input#delay-ms');
+        const $speedOfSound = $view.querySelector('#toolbox-delay-converter .speed_of_sound');
 
         // Set the temperature badge.
         const $temperatureSettingValue = Settings.$view.querySelector('[data-name="temperature"] .slider-value');
@@ -164,4 +191,31 @@ export function __init__()
         // Show the speed of sound.
         $speedOfSound.textContent = Math.round(getSpeedOfSound()) + " m/s";
     });
+
+    // Open the fullscreen textarea when the notepad is focused.
+    $notepad.addEventListener('focus', function () {
+        FullscreenTextarea.open($notepad, {
+            paddingInline : this.getCssProperty('--fullscreen-textarea-padding-sides', false),
+            fontSize      : this.getCssProperty('font-size', false),
+            lineHeight    : this.getCssProperty('line-height', false)
+        });
+    });
+
+    // Save the notepad content in storage while the user is typing.
+    $notepad.addEventListener('input', function () {
+        notepadSaveInStorage();
+    });
+
+    // When the edition in the fullscreen textarea is done.
+    $notepad.addEventListener('edit-done', function () {
+        this.value = this.value.trimEnd();
+        notepadSaveInStorage();
+        this.addClassTemporarily('edit-done');
+    });
+
+    // Highlight the notepad content on scroll.
+    if ('onscrollend' in window) {
+        $notepad.addEventListener('scroll',    () => { $notepad.classList.add('highlight'); });
+        $notepad.addEventListener('scrollend', () => { $notepad.classList.remove('highlight'); });
+    }
 }

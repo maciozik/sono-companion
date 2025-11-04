@@ -253,7 +253,7 @@
         <section class="view" id="toolbox" data-name="Boîte à outils">
 
             <!-- bpm/ms converter -->
-            <section id="tempo-converter">
+            <section id="toolbox-tempo-converter">
 
                 <h2>Convertisseur de tempo</h2>
 
@@ -283,7 +283,7 @@
             </section>
 
             <!-- m/ms converter -->
-            <section id="delay-converter">
+            <section id="toolbox-delay-converter">
 
                 <h2>
                     Convertisseur de délai sonore
@@ -313,6 +313,16 @@
                     </div>
 
                 </div>
+
+            </section>
+
+            <section id="toolbox-notepad">
+
+                <h2>Bloc-notes</h2>
+
+                <textarea id="notepad" placeholder="✎ Rédigez vos notes et mémos." maxlength=50000 readonly
+                          wrap="soft" enterkeyhint="enter" spellcheck=false>
+                </textarea>
 
             </section>
 
@@ -624,6 +634,13 @@
         </nav>
 
     </footer>
+
+    <!-- TEXTAREA FULLSCREEN -->
+
+    <div id="fullscreen-textarea">
+        <textarea></textarea>
+        <div class="close-btn"><g-icon data-name="exit_to_app"></g-icon></div>
+    </div>
 
     <!-- OVERLAY -->
 

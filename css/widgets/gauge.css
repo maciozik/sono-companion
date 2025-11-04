@@ -164,9 +164,9 @@
     }
 
     .gauge-pointer {
+        container-type: size;
         position: relative;
         justify-self: center;
-        container-type: size;
         margin-top: calc(-1 * var(--gauge-pointer-thickness));
         margin-left: calc(-1 * var(--gauge-pointer-size));
         width: var(--gauge-pointer-size);

@@ -92,7 +92,7 @@
                 --slider-value-width: auto; /* Overridden in JS. */
                 width: var(--slider-value-width);
 
-                &.active {
+                &.highlight {
                     color: var(--invert);
                 }
             }

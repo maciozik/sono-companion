@@ -1,4 +1,7 @@
 #toolbox {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 16px;
 
     & > section {
         &:not(:first-child) h2 {
@@ -6,7 +9,7 @@
         }
     }
 
-    #tempo-converter, #delay-converter {
+    #toolbox-tempo-converter, #toolbox-delay-converter {
 
         h2 {
             position: relative;
@@ -47,7 +50,7 @@
         }
     }
 
-    #delay-converter {
+    #toolbox-delay-converter {
 
         .arrow {
 
@@ -61,6 +64,39 @@
                 font-size: .8rem;
                 font-weight: 600;
                 text-align: center;
+            }
+        }
+    }
+
+    #toolbox-notepad {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+
+        textarea#notepad {
+            --textarea-padding-sides: 16px;
+            --textarea-border-width: 2px;
+            --fullscreen-textarea-padding-sides: calc(var(--app-padding-sides) + var(--view-padding-sides) + var(--textarea-border-width) + var(--textarea-padding-sides));
+
+            margin: 0 var(--view-padding-sides);
+            padding: 12px var(--textarea-padding-sides);
+            width: calc(100% - var(--view-padding-sides) * 2);
+            height: 100%;
+            border-width: var(--textarea-border-width);
+            color: var(--grey);
+            font-size: .9rem;
+            line-height: 1.5em;
+            transition: color 150ms linear,
+                        border-color 300ms linear;
+
+            &.highlight {
+                color: var(--invert);
+                transition: color 50ms linear;
+            }
+
+            &.edit-done {
+                border-color: var(--invert);
+                transition: none;
             }
         }
     }
