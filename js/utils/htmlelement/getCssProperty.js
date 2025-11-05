@@ -18,7 +18,7 @@ HTMLElement.prototype.getCssProperty = function (property, as_number = true)
         }
 
         // Convert the value into number if possible.
-        return parseFloat(value) || value;
+        return (!isNaN(parseFloat(value))) ? parseFloat(value) : value;
     }
 
     return value;
