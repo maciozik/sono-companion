@@ -12,8 +12,8 @@ HTMLElement.prototype.getCssProperty = function (property, as_number = true)
 
     if (as_number) {
 
-        // If the value is in second.
-        if (/^\d+(s)$/.test(value)) {
+        // If the value is in seconds.
+        if (/\d(s)$/.test(value)) {
             return parseFloat(value) * 1000;
         }
 
