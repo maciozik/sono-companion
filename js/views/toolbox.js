@@ -1,6 +1,7 @@
 import * as Storage from '/js/core/storage.js';
 import * as Settings from '/js/views/settings.js';
 import * as FullscreenTextarea from '/js/components/fullscreen-textarea.js';
+import * as Scrollbar from '/js/components/scrollbar.js';
 
 export const $view = document.getElementById('toolbox');
 
@@ -210,6 +211,7 @@ export function __init__()
     $notepad.addEventListener('edit-done', function () {
         this.value = this.value.trimEnd();
         notepadSaveInStorage();
+        Scrollbar.update($notepad);
         this.addClassTemporarily('edit-done');
     });
 
@@ -218,4 +220,9 @@ export function __init__()
         $notepad.addEventListener('scroll',    () => { $notepad.classList.add('highlight'); });
         $notepad.addEventListener('scrollend', () => { $notepad.classList.remove('highlight'); });
     }
+
+    // When everything is loaded, update the scrollbar.
+    window.addEventListener('load', () => {
+        Scrollbar.update($notepad);
+    });
 }

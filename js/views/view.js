@@ -42,7 +42,7 @@ export function load(view)
     }
 
     // Emit 'load' events.
-    const event_detail = { view_id: view_id, setting_name: setting_name };
+    const event_detail = { $view, setting_name };
     document.dispatchEvent(new CustomEvent('load', { detail: event_detail }));
     document.dispatchEvent(new CustomEvent(`load:${view_id}`, { detail: event_detail }));
 }
@@ -240,7 +240,7 @@ export function __init__()
     // When a view is loaded.
     document.addEventListener('load', event => {
 
-        const view_id = event.detail.view_id;
+        const view_id = event.detail.$view.id;
 
         // Add .active on the button that loads the selected view.
         for (const $loadViewBtn of $loadViewBtns) {

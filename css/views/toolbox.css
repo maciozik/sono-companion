@@ -75,7 +75,7 @@
 
         textarea#notepad {
             --textarea-padding-sides: 16px;
-            --textarea-border-width: 2px;
+            --textarea-border-width: 1.5px;
             --fullscreen-textarea-padding-sides: calc(var(--app-padding-sides) + var(--view-padding-sides) + var(--textarea-border-width) + var(--textarea-padding-sides));
 
             margin: 0 var(--view-padding-sides);
@@ -84,7 +84,7 @@
             height: 100%;
             border-width: var(--textarea-border-width);
             color: var(--grey);
-            font-size: .9rem;
+            font-size: .88rem;
             line-height: 1.5em;
             transition: color 150ms linear,
                         border-color 300ms linear;

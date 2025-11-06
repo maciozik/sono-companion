@@ -6,7 +6,7 @@
     width: 100%;
     color: var(--invert);
     background-color: var(--bg-contrast);
-    border: 2px solid var(--grey-pale);
+    border: 1.5px solid var(--grey-pale);
     border-radius: 100vw;
     font-size: 1rem;
 

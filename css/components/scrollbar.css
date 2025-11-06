@@ -1,34 +1,35 @@
-#scrollbar {
-    --scrollbar-margin-top: 5px;
-    --scrollbar-width: 4px;
-    --scrollbar-thumb-height: 50px;
-
-    position: fixed;
-    top: var(--header-height);
-    right: 3px;
-    margin-top: var(--scrollbar-margin-top);
-    width: var(--scrollbar-width);
-    height: calc(var(--view-height) - var(--scrollbar-margin-top));
+.scrollbar {
+    display: none;
+    position: absolute;
+    top: 0;       /* Overridden in JS. */
+    right: 0;     /* Overridden in JS. */
+    margin-right: 5px;
+    width: 4px;
+    height: 100%; /* Overridden in JS. */
+    overflow: hidden;
+    z-index: 6000;
 
     .scrollbar-thumb {
         width: 100%;
-        height: var(--scrollbar-thumb-height);
-        background: light-dark(var(--grey-pale), #0C0C0C);
+        height: 50px; /* Overridden in JS. */
+        min-height: 12px;
+        max-height: 100%;
+        background-color: rgb(from var(--grey-pale) r g b / .5);
         border-radius: 100vw;
     }
 
-    &.hide {
-        display: none;
+    &.show {
+        display: block;
     }
 }
 
 /* Hide the scrollbar. */
 
-::-webkit-scrollbar {
-    display: none;
-}
-
-html, body, .view {
+* {
     scrollbar-width: none;
     -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }

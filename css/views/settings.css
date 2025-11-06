@@ -160,6 +160,15 @@
         font-size: .7rem;
         text-align: center;
     }
+
+    & ~ .scrollbar {
+        right: 0 !important;
+        margin-right: 3px;
+
+        .scrollbar-thumb {
+            background: light-dark(var(--grey-pale), #0C0C0C);
+        }
+    }
 }
 
 /**  THEME  **/

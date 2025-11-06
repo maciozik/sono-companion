@@ -1,9 +1,22 @@
 import * as History from '/js/core/history.js';
+import * as Scrollbar from '/js/components/scrollbar.js';
 
 export const $fullscreen = document.querySelector('#fullscreen-textarea');
 export const $textarea = $fullscreen.querySelector('textarea');
 
 const $closeBtn = $fullscreen.querySelector('.close-btn');
+
+const ATTRIBUTES_TO_COPY = [
+    'maxlength',
+    'placeholder',
+    'inputmode',
+    'wrap',
+    'autocomplete',
+    'autocorrect',
+    'autocapitalize',
+    'spellcheck',
+    'enterkeyhint'
+];
 
 /** @type {HTMLTextAreaElement} The textarea linked to the fullscreen textarea. */
 let $textareaSource;
@@ -35,8 +48,13 @@ export function close()
     $fullscreen.classList.remove('active');
     $textarea.blur();
 
-    // Remove the behavior attributes.
-    [...$textarea.attributes].forEach(attribute => $textarea.removeAttribute(attribute.name));
+    // Copy the scroll to the source textarea.
+    let scroll_top_ratio = $textarea.scrollTop / ($textarea.scrollHeight - $textarea.clientHeight);
+    $textareaSource.scrollTop = scroll_top_ratio * ($textareaSource.scrollHeight - $textareaSource.clientHeight);
+
+    // Remove the behavior attributes, the custom styles, and the content.
+    ATTRIBUTES_TO_COPY.forEach(attr => $textarea.removeAttribute(attr));
+    $textarea.style = $textarea.value = '';
 
     // Remove the state from the history.
     History.cancel('fullscreen-textarea');
@@ -46,21 +64,34 @@ export function close()
 }
 
 /**
+ * Replace all spaces before "double punctuation" by non-breaking spaces.
+ */
+function replacePunctuationSpaces()
+{
+    let { selectionStart, selectionEnd, value } = $textarea;
+    let value_replaced = value.replace(/ ([!?:;])/g, "\u00A0$1");
+
+    if (value_replaced !== value) {
+        $textarea.value = value_replaced;
+        $textarea.setSelectionRange(selectionStart, selectionEnd);
+    }
+}
+
+/**
  * Initialize the fullscreen textarea.
- * @param {Object<string, any>} styles
+ * @param {Object<string, any>} styles An object mapping CSS properties in camel case to their values, to apply to the fullscreen textarea.
  */
 function init(styles)
 {
     const $source = $textareaSource;
     const $target = $textarea;
 
-    // Clone the behavior attributes.
-    let ignore = ['id', 'class', 'style', 'readonly'];
-    for (let attribute of $source.attributes) {
-        if (!ignore.includes(attribute.name)) {
-            $target.setAttribute(attribute.name, attribute.value);
+    // Copy the behavior attributes.
+    ATTRIBUTES_TO_COPY.forEach(attr => {
+        if ($source.hasAttribute(attr)) {
+            $target.setAttribute(attr, $source.getAttribute(attr));
         }
-    }
+    });
 
     // Set the style.
     Object.entries(styles).forEach(([property, value]) => {
@@ -70,13 +101,11 @@ function init(styles)
     // Clone the content, the cursor position or selection, and put the focus.
     $target.value = $source.value;
     requestAnimationFrame(() => {
-        $target.selectionStart     = $source.selectionStart;
-        $target.selectionEnd       = $source.selectionEnd;
-        $target.selectionDirection = $source.selectionDirection;
+        $target.setSelectionRange($source.selectionStart, $source.selectionEnd, $source.selectionDirection);
         $target.focus();
     });
 
-    return this;
+    Scrollbar.update($target);
 }
 
 /**
@@ -85,8 +114,9 @@ function init(styles)
  */
 export function __init__()
 {
-    // Clone the content to the source textarea.
+    // Copy the content to the source textarea.
     $textarea.addEventListener('input', function () {
+        replacePunctuationSpaces();
         $textareaSource.value = this.value;
         $textareaSource.dispatchEvent(new Event('input'));
     });

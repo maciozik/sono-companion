@@ -46,9 +46,9 @@ import * as BpmManager from '/js/widgets/bpm-manager.js';
 import * as NavTab from '/js/components/nav-tab.js';
 import * as PlayBtn from '/js/components/play-btn.js';
 import * as FullscreenTextarea from '/js/components/fullscreen-textarea.js';
+import * as Scrollbar from '/js/components/scrollbar.js';
 import '/js/components/input-box.js';
 import '/js/components/tappable.js';
-import '/js/components/scrollbar.js';
 
 /**  MODULES  **/
 const modules = {
@@ -64,7 +64,8 @@ const modules = {
     BpmManager,
     NavTab,
     PlayBtn,
-    FullscreenTextarea
+    FullscreenTextarea,
+    Scrollbar
 };
 
 // Call the `__init__` function of each module.

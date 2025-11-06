@@ -320,8 +320,8 @@
 
                 <h2>Bloc-notes</h2>
 
-                <textarea id="notepad" placeholder="✎ Rédigez vos notes et mémos." maxlength=50000 readonly
-                          wrap="soft" enterkeyhint="enter" spellcheck=false>
+                <textarea id="notepad" placeholder="✎ Rédigez vos notes et mémos." maxlength=50000 data-scrollable
+                          wrap="soft" enterkeyhint="enter" spellcheck=false readonly>
                 </textarea>
 
             </section>
@@ -330,7 +330,7 @@
 
         <!-- VIEW: Settings -->
 
-        <section class="view right" id="settings" data-name="Réglages">
+        <section class="view right" id="settings" data-name="Réglages" data-scrollable>
 
             <!-- Application Settings -->
             <h2>Application</h2>
@@ -638,7 +638,7 @@
     <!-- TEXTAREA FULLSCREEN -->
 
     <div id="fullscreen-textarea">
-        <textarea></textarea>
+        <textarea data-scrollable></textarea>
         <div class="close-btn"><g-icon data-name="exit_to_app"></g-icon></div>
     </div>
 
@@ -659,11 +659,13 @@
 
     <div id="toast"></div>
 
-    <!-- SCROLLBAR -->
+    <!-- SCROLLBAR TEMPLATE -->
 
-    <div id="scrollbar" class="hide">
-        <div class="scrollbar-thumb"></div>
-    </div>
+    <template id="scrollbar-template">
+        <div class="scrollbar" class="hide">
+            <div class="scrollbar-thumb"></div>
+        </div>
+    </template>
 
     <!-- LOADER -->
 

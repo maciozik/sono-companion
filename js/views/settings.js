@@ -4,6 +4,7 @@ import Modal from '/js/classes/Modal.js';
 import Toast from '/js/classes/Toast.js';
 import SettingList from '/js/custom-elements/SettingList.js';
 import SettingAction from '/js/custom-elements/SettingAction.js';
+import * as Scrollbar from '/js/components/scrollbar.js';
 
 export const $view = document.getElementById('settings');
 
@@ -151,22 +152,25 @@ export function checkVisibility()
 }
 
 /**
- * Make the setting blink after scrolling to it.
+ * Scroll to the setting and make it blink.
  * @param {string} setting_name
+ * @param {number} [delay_before_blink] The delay before making the setting blink.
  */
-export function blink(setting_name)
+export function highlight(setting_name, delay_before_blink = 0)
 {
-    if (setting_name !== undefined) {
+    if (setting_name === undefined) return;
 
-        let $setting = getSettingFromName(setting_name);
+    const $setting = getSettingFromName(setting_name);
 
-        $setting.scrollIntoView({
-            behavior: 'smooth',
-            block: 'center'
-        });
+    let {offsetTop, offsetHeight} = $setting;
+    let view_height = $view.clientHeight;
+    let scroll = offsetTop - (view_height / 2) + (offsetHeight / 2);
 
+    $view.scrollTop = scroll;
+
+    setTimeout(() => {
         $setting.addClassTemporarily('blink', 'animationend');
-    }
+    }, delay_before_blink);
 }
 
 /**
@@ -215,13 +219,13 @@ function init()
     // When everything is loaded.
     window.addEventListener('load', () => {
 
-        // Emit the 'oninit' and 'onsync' events on all settings.
+        // Emit the `oninit` and `onsync` events on all settings.
         for (let setting of settings) {
             emitEvent(setting.name, setting.value, 'oninit');
             emitEvent(setting.name, setting.value, 'onsync');
         }
 
-        // Emit the global 'settings:oninit' event.
+        // Emit the global `settings:oninit` event.
         document.dispatchEvent(new CustomEvent('settings:oninit'));
 
         // Check if the visibility of some settings must change.
@@ -325,14 +329,25 @@ export function __init__()
         SettingList.selectItem(this, Modal.$modal);
     });
 
-    // When the view is loaded, make the setting blink if necessary.
-    document.addEventListener('load:settings', event => {
-        let setting_name = event.detail.setting_name;
-        let settings_view_transition_duration = $view.getCssProperty('transition-duration');
+    // When a view is loaded.
+    document.addEventListener('load', event => {
 
-        setTimeout(() => {
-            blink(setting_name);
-        }, settings_view_transition_duration - 100);
+        // If the view loaded is the settings view.
+        if (event.detail.$view.id === $view.id) {
+            let setting_name = event.detail.setting_name;
+            let transition_duration = $view.getCssProperty('transition-duration') - 100;
+
+            // Scroll instantly to the setting, then make it blink.
+            highlight(setting_name, transition_duration);
+
+            // Display the scrollbar and make the setting blink if necessary.
+            setTimeout(() => {
+                Scrollbar.update($view);
+            }, transition_duration);
+        }
+        else {
+            Scrollbar.setVisibility($view, false);
+        }
     });
 
     // Hide the "Open in browser" setting action if the app is already running in browser.
