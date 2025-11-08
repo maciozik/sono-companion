@@ -1,5 +1,5 @@
+import Scrollbar from '/js/classes/Scrollbar.js';
 import * as History from '/js/core/history.js';
-import * as Scrollbar from '/js/components/scrollbar.js';
 
 export const $fullscreen = document.querySelector('#fullscreen-textarea');
 export const $textarea = $fullscreen.querySelector('textarea');
@@ -105,7 +105,8 @@ function init(styles)
         $target.focus();
     });
 
-    Scrollbar.update($target);
+    // Update the scrollbar.
+    $target._Scrollbar.update();
 }
 
 /**

@@ -18,37 +18,37 @@ import '/js/utils/console/debugType.js';
 
 // TODO Init settings here before anything else?
 
-/**  CORE  **/
-import * as History from '/js/core/history.js';
-import * as WakeLock from '/js/core/wake-lock.js';
-
 /**  CUSTOM ELEMENTS  **/
 import '/js/custom-elements/SettingSwitch.js';
 import '/js/custom-elements/SettingList.js';
 import '/js/custom-elements/SettingRange.js';
 import '/js/custom-elements/SettingAction.js';
 import '/js/custom-elements/GIcon.js';
-import '/js/custom-elements/IncludeHTML.js';
+// import '/js/custom-elements/IncludeHTML.js';
+
+/**  CORE  **/
+import * as History from  '/js/core/history.js';
+import * as WakeLock from '/js/core/wake-lock.js';
 
 /**  VIEWS  **/
-import * as View from '/js/views/view.js';
+import * as View      from '/js/views/view.js';
 import * as Sonometer from '/js/views/sonometer.js';
-import * as Tempo from '/js/views/tempo.js';
-import * as Toolbox from '/js/views/toolbox.js';
-import * as Settings from '/js/views/settings.js';
+import * as Tempo     from '/js/views/tempo.js';
+import * as Toolbox   from '/js/views/toolbox.js';
+import * as Settings  from '/js/views/settings.js';
 
 /**  WIDGETS  **/
-import * as Gauge from '/js/widgets/gauge.js';
-import * as Metronome from '/js/widgets/metronome.js';
+import * as Gauge      from '/js/widgets/gauge.js';
+import * as Metronome  from '/js/widgets/metronome.js';
 import * as BpmManager from '/js/widgets/bpm-manager.js';
 
 /**  COMPONENTS  **/
-import * as NavTab from '/js/components/nav-tab.js';
-import * as PlayBtn from '/js/components/play-btn.js';
+import * as NavTab             from '/js/components/nav-tab.js';
+import * as PlayBtn            from '/js/components/play-btn.js';
+import * as InputBox           from '/js/components/input-box.js';
+import * as Tappable           from '/js/components/tappable.js';
 import * as FullscreenTextarea from '/js/components/fullscreen-textarea.js';
-import * as Scrollbar from '/js/components/scrollbar.js';
-import '/js/components/input-box.js';
-import '/js/components/tappable.js';
+import * as Scrollbar          from '/js/components/scrollbar.js';
 
 /**  MODULES  **/
 const modules = {
@@ -64,8 +64,10 @@ const modules = {
     BpmManager,
     NavTab,
     PlayBtn,
+    InputBox,
+    Tappable,
     FullscreenTextarea,
-    Scrollbar
+    Scrollbar,
 };
 
 // Call the `__init__` function of each module.

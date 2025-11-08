@@ -5,6 +5,13 @@ import Tappable from '/js/classes/Tappable.js';
  */
 const $tappables = document.querySelectorAll('[data-tappable]');
 
-for (const $tappable of $tappables) {
-    new Tappable($tappable);
+/**
+ * Init the module and its components.
+ * Called only once during application startup.
+ */
+export function __init__() {
+
+    for (const $tappable of $tappables) {
+        new Tappable($tappable);
+    }
 }

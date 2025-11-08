@@ -1,27 +1,34 @@
 /** @type {NodeListOf<HTMLElement>} */
 const $inputBoxes = document.querySelectorAll('.input-box');
 
-for (const $inputBox of $inputBoxes) {
+/**
+ * Init the module and its components.
+ * Called only once during application startup.
+ */
+export function __init__() {
 
-    const $input = $inputBox.querySelector('input');
+    for (const $inputBox of $inputBoxes) {
 
-    // Click on an input box.
-    $inputBox.addEventListener('click', function () {
-        this.querySelector('input').focus();
-    });
+        const $input = $inputBox.querySelector('input');
 
-    // Select all the input content on focus.
-    $input.addEventListener('focus', function () {
-        this.select();
-    });
+        // Click on an input box.
+        $inputBox.addEventListener('click', function () {
+            this.querySelector('input').focus();
+        });
 
-    // Input loses focus on validate key.
-    $input.addEventListener('keydown', function (event) {
-        if (event.key === 'Enter') {
-            this.blur();
-        }
-    });
+        // Select all the input content on focus.
+        $input.addEventListener('focus', function () {
+            this.select();
+        });
 
-    // Disable the context menu.
-    $input.addEventListener('contextmenu', event => event.preventDefault());
+        // Input loses focus on validate key.
+        $input.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                this.blur();
+            }
+        });
+
+        // Disable the context menu.
+        $input.addEventListener('contextmenu', event => event.preventDefault());
+    }
 }

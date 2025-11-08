@@ -1,10 +1,10 @@
-import * as Storage from '/js/core/storage.js';
 import Setting from '/js/classes/Setting.js';
 import Modal from '/js/classes/Modal.js';
 import Toast from '/js/classes/Toast.js';
+import Scrollbar from '/js/classes/Scrollbar.js';
 import SettingList from '/js/custom-elements/SettingList.js';
 import SettingAction from '/js/custom-elements/SettingAction.js';
-import * as Scrollbar from '/js/components/scrollbar.js';
+import * as Storage from '/js/core/storage.js';
 
 export const $view = document.getElementById('settings');
 
@@ -335,18 +335,18 @@ export function __init__()
         // If the view loaded is the settings view.
         if (event.detail.$view.id === $view.id) {
             let setting_name = event.detail.setting_name;
-            let transition_duration = $view.getCssProperty('transition-duration') - 100;
+            let transition_duration = $view.getCssProperty('transition-duration') - 50;
 
             // Scroll instantly to the setting, then make it blink.
             highlight(setting_name, transition_duration);
 
             // Display the scrollbar and make the setting blink if necessary.
             setTimeout(() => {
-                Scrollbar.update($view);
+                $view._Scrollbar.setVisibility(true);
             }, transition_duration);
         }
         else {
-            Scrollbar.setVisibility($view, false);
+            $view._Scrollbar.setVisibility(false);
         }
     });
 
