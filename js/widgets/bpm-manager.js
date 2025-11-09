@@ -1,5 +1,5 @@
-import * as Storage from '/js/core/storage.js';
 import Toast from '/js/classes/Toast.js';
+import * as Storage from '/js/core/storage.js';
 import * as View from '/js/views/view.js';
 import * as Tempo from '/js/views/tempo.js';
 import * as Settings from '/js/views/settings.js';
@@ -28,7 +28,6 @@ function next()
 
     // Rotate the saves and update the tempo.
     if (getCount() > 1) {
-        console.log(tempo);
         nextState([$current, $next, $afterNext], () => {
             setTempo($next.textContent);
         });

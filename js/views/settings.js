@@ -1,7 +1,7 @@
 import Setting from '/js/classes/Setting.js';
 import Modal from '/js/classes/Modal.js';
-import Toast from '/js/classes/Toast.js';
 import Scrollbar from '/js/classes/Scrollbar.js';
+import Toast from '/js/classes/Toast.js';
 import SettingList from '/js/custom-elements/SettingList.js';
 import SettingAction from '/js/custom-elements/SettingAction.js';
 import * as Storage from '/js/core/storage.js';
@@ -360,6 +360,13 @@ export function __init__()
         $view.querySelector('[data-name=gauge_min]').setStep(value);
         $view.querySelector('[data-name=gauge_max]').setStep(value);
         $view.querySelector('[data-name=danger_zone]').setStep(value);
+    });
+
+    // Display a toast after a change of the toast duration.
+    onchange('toast_duration', event => {
+        let text = (event.detail.value === 1) ? "La durée des messages éphémères a été remise par défaut."
+                                              : "La durée des messages éphémères est maintenant doublée.";
+        (new Toast(text)).setDuration(4000).show();
     });
 
     // Init the settings.

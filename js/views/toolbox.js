@@ -1,4 +1,5 @@
 import Scrollbar from '/js/classes/Scrollbar.js';
+import Toast from '/js/classes/Toast.js';
 import * as Storage from '/js/core/storage.js';
 import * as Settings from '/js/views/settings.js';
 import * as FullscreenTextarea from '/js/components/fullscreen-textarea.js';
@@ -119,6 +120,7 @@ function notepadRestoreFromStorage(content)
 /**
  * Save the notepad content in the storage.
  */
+// TODO Persist the data better? (IndexedDB/.txt)
 function notepadSaveInStorage()
 {
     let notepad_content = $notepad.value;
@@ -128,6 +130,17 @@ function notepadSaveInStorage()
     } else {
         Storage.remove('toolbox.notepad');
     }
+}
+
+/**
+ * Reset all the saves from the list.
+ */
+export function notepadReset()
+{
+    $notepad.value = "";
+    Storage.remove('toolbox.notepad');
+
+    (new Toast("Bloc-notes effacé.")).show();
 }
 
 /**

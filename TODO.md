@@ -4,6 +4,7 @@
 
 - [ ] Exposimètre / Alerte au dépassement du maximum sur une période ?
 - [ ] Affichage db(A), dB\(C), ...
+- [ ] Affichage de marqueurs moyenne et maximum sur la jauge ?
 - [ ] Histogramme de volume sur les dernières secondes ?
 - [ ] Déplacer l'aiguille de la jauge en fonction du max local et pas en continu ?
   - Ou ne pas déplacer en cas de faibles changements ?
@@ -51,11 +52,9 @@
 
 - [ ] Choix des infos affichées ?
 
-### Accessibilité ? (englobe Divers ?)
+### Accessibilité
 
 - [ ] Thème contrasté.
-- [x] Contrôle de la taille de police.
-- [ ] Durée d'affichage des Toast plus longue.
 
 ---
 

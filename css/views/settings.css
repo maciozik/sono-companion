@@ -104,7 +104,7 @@
             }
         }
 
-        &[data-danger] {
+        &[data-danger]:not(.disabled) {
             .setting-title {
                 color: var(--red);
             }

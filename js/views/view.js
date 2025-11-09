@@ -1,8 +1,8 @@
+import Modal from '/js/classes/Modal.js';
+import Toast from '/js/classes/Toast.js';
 import * as History from '/js/core/history.js';
 import * as Storage from '/js/core/storage.js';
 import * as WakeLock from '/js/core/wake-lock.js';
-import Modal from '/js/classes/Modal.js';
-import Toast from '/js/classes/Toast.js';
 import * as Settings from '/js/views/settings.js';
 import * as NavTab from '/js/components/nav-tab.js';
 

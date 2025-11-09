@@ -19,13 +19,11 @@ export default class Toast
      * @constructor
      * @param {string} [text] The text of the toast.
      * @param {number} [duration] The duration of the toast.
-     * @returns {Toast}
      */
     constructor (text = "", duration = Toast.DURATION_DEFAULT)
     {
         this.text = text;
         this.duration = duration;
-        return this;
     }
 
     /**
@@ -66,6 +64,8 @@ export default class Toast
      */
     show()
     {
+        let duration = this.duration * STG.toast_duration;
+
         setTimeout(() => {
 
             Toast.$toast.innerHTML = this.text;
@@ -75,7 +75,7 @@ export default class Toast
 
             // Reactivate the transition and show the toast.
             Toast.$toast.classList.remove('instant');
-            Toast.toastTimeout = Toast.$toast.addClassTemporarily('show', this.duration);
+            Toast.toastTimeout = Toast.$toast.addClassTemporarily('show', duration);
 
         }, this.delay);
     }

@@ -361,7 +361,7 @@
                     data-name="audio_calibration" data-allow-reset
                     data-value=0 data-suffix=" dB" data-min=-30 data-max=30 data-step=0.5 data-plus-sign
                     data-title="Calibrage audio"
-                    data-info="Ajuste le volume audio global affiché par l'application. À étalonner avec un sonomètre."
+                    data-info="Ajuste le volume audio global affiché par l'application. À étalonner avec un sonomètre externe."
                 ></setting-range>
 
                 <setting-list
@@ -493,8 +493,8 @@
                 ></setting-switch>
 
                 <setting-action
-                    data-name="delete_all_bpm_saves" data-groups="tempo"
-                    data-module="widgets/bpm-manager" data-action="reset" data-vibrate-on="validation" data-require-confirmation
+                    data-name="delete_all_bpm_saves" data-groups="tempo" data-danger
+                    data-module="widgets/bpm-manager" data-action="reset" data-vibrate-on="modal-close" data-require-confirmation
                     data-title="Effacer les tempos enregistrés"
                     data-info="Le gestionnaire de tempos sera vidé."
                 ></setting-action>
@@ -518,6 +518,13 @@
                     data-info="Permet une meilleure précision dans le calcul de la vitesse du son."
                 ></setting-range>
 
+                <setting-action
+                    data-name="delete_notepad_content" data-groups="toolbox" data-danger
+                    data-module="views/toolbox" data-action="notepadReset" data-vibrate-on="modal-close" data-require-confirmation
+                    data-title="Effacer le contenu du bloc-notes"
+                    data-info="Toutes vos notes seront supprimées."
+                ></setting-action>
+
             </section>
 
             <!-- Accessibility Settings -->
@@ -530,6 +537,14 @@
                     data-value=100 data-suffix=" %" data-min=80 data-max=120 data-step=5
                     data-title="Niveau de zoom de l'interface"
                 ></setting-range>
+
+                <setting-list
+                    data-name="toast_duration" data-vibrate-on="validation"
+                    data-title="Durée des messages éphémères"
+                    data-info="Durée après laquelle les messages s'affichant temporairement au bas de l'écran disparaissent.">
+                        <select-item data-value=1 data-selected>Normale</select-item>
+                        <select-item data-value=2>Doublée</select-item>
+                </setting-list>
 
                 <setting-switch
                     data-name="show_last_tab_opened" data-value=true
@@ -581,7 +596,9 @@
 
                 <setting-action
                     data-name="reset_all_settings" data-danger
-                    data-module="views/settings" data-action="reset" data-vibrate-on="modal-close" data-require-confirmation
+                    data-module="views/settings" data-action="reset" data-vibrate-on="modal-close"
+                    data-require-confirmation="Voulez-vous vraiment <b>réinitialiser tous les réglages ?</b><br><br>
+                                               Vos données enregistrées (tempos, bloc-notes…) ne seront pas supprimées."
                     data-title="Réinitialiser tous les réglages"
                     data-info="Tous les réglages seront restaurés à leur valeur d'origine."
                 ></setting-action>
