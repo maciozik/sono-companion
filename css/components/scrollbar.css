@@ -33,3 +33,11 @@
         display: none;
     }
 }
+
+/**  THEME  **/
+
+:root[data-high-contrast] {
+    .scrollbar .scrollbar-thumb {
+        background-color: var(--grey) !important;
+    }
+}

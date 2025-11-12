@@ -35,3 +35,11 @@
         }
     }
 }
+
+/**  THEME  **/
+
+:root[data-high-contrast] {
+    .btn {
+        font-weight: 600;
+    }
+}

@@ -132,3 +132,11 @@
         transition: none !important;
     }
 }
+
+/**  THEME  **/
+
+:root[data-high-contrast] {
+    #overlay .modal {
+        border-color: light-dark(transparent, #DDD3);
+    }
+}

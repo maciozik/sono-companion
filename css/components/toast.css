@@ -37,3 +37,14 @@
         transition: none !important;
     }
 }
+
+/**  THEME  **/
+
+:root[data-high-contrast] {
+    #toast {
+        background-color: var(--bg-contrast);
+        -webkit-backdrop-filter: none;
+                backdrop-filter: none;
+        border-color: rgb(from var(--grey-pale) r b g / .4);
+    }
+}

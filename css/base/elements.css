@@ -67,3 +67,11 @@ textarea {
 .hide {
     display: none !important;
 }
+
+/**  THEME  **/
+
+:root[data-high-contrast] {
+    h2 {
+        font-weight: 600;
+    }
+}

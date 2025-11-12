@@ -78,3 +78,16 @@ footer {
         }
     }
 }
+
+/**  THEME  **/
+
+:root[data-high-contrast] {
+
+    header {
+        color: light-dark(var(--invert), var(--bg));
+
+        #settings-btn.active {
+            background-color: #FFF4;
+        }
+    }
+}

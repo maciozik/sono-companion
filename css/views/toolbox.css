@@ -101,3 +101,11 @@
         }
     }
 }
+
+/**  THEME  **/
+
+:root[data-high-contrast] {
+    #toolbox #toolbox-delay-converter .arrow .speed_of_sound {
+        color: var(--grey);
+    }
+}

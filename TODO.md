@@ -54,7 +54,7 @@
 
 ### Accessibilité
 
-- [ ] Thème contrasté.
+- [x] Thème contrasté.
 
 ---
 

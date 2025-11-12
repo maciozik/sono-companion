@@ -58,6 +58,15 @@
     }
 }
 
+/**  THEME  **/
+
+:root[data-high-contrast] {
+    [data-tappable].ontap::before {
+        --circle-opacity-add: 0.05;
+        opacity: calc(var(--circle-opacity) + var(--circle-opacity-add));
+    }
+}
+
 /**  ANIMATIONS  **/
 
 @keyframes circle-grow {

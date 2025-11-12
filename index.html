@@ -340,7 +340,7 @@
                 <setting-list
                     data-name="color_scheme" data-vibrate-on="modal-close"
                     data-title="Thème">
-                        <select-item data-value="system" data-selected>Système</select-item>
+                        <select-item data-value="device" data-selected>Appareil</select-item>
                         <select-item data-value="dark">Sombre</select-item>
                         <select-item data-value="light">Clair</select-item>
                 </setting-list>
@@ -437,7 +437,7 @@
 
                 <setting-switch
                     data-name="show_timestamp" data-groups="sonometer" data-value=true
-                    data-title="Afficher le chronomètre"
+                    data-title="Afficher la durée de session"
                 ></setting-switch>
 
             </section>
@@ -532,6 +532,12 @@
 
             <section data-context="accessibility">
 
+                <setting-switch
+                    data-name="high_contrast" data-value=false
+                    data-title="Contraste élevé"
+                    data-info="Augmente le contraste du thème actuel."
+                ></setting-switch>
+
                 <setting-range
                     data-name="zoom_level" data-allow-reset
                     data-value=100 data-suffix=" %" data-min=80 data-max=120 data-step=5
@@ -566,7 +572,7 @@
 
             </section>
 
-            <!-- Application Settings -->
+            <!-- About Settings -->
             <h2>À propos</h2>
 
             <section data-context="about">
@@ -597,7 +603,7 @@
                 <setting-action
                     data-name="reset_all_settings" data-danger
                     data-module="views/settings" data-action="reset" data-vibrate-on="modal-close"
-                    data-require-confirmation="Voulez-vous vraiment <b>réinitialiser tous les réglages ?</b><br><br>
+                    data-require-confirmation="Voulez-vous vraiment <b>réinitialiser tous les réglages de l'application ?</b><br><br>
                                                Vos données enregistrées (tempos, bloc-notes…) ne seront pas supprimées."
                     data-title="Réinitialiser tous les réglages"
                     data-info="Tous les réglages seront restaurés à leur valeur d'origine."

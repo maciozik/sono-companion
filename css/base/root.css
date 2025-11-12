@@ -16,6 +16,8 @@
 
     --ease-out: cubic-bezier(0, 0, 0, 1);
 
+    /**  COLOR SCHEME  **/
+
     &[data-color-scheme=dark] {
 
         color-scheme: dark;
@@ -44,6 +46,37 @@
         --grey-pale: #C0CACA;
         --bg: #F5F8F8;
         --bg-contrast: #FFFFFF;
+    }
+
+    /**  HIGH CONTRAST MODE  **/
+
+    &[data-high-contrast] {
+
+        &:is([data-color-scheme=dark]) {
+
+            --cyan: #00B5B5;
+            --yellow: #F0C000;
+            --red: #DA5050;
+
+            --invert: #E0EAEA;
+            --grey: #909898;
+            --grey-pale: #555F5F;
+            --bg: #0A0A0A;
+            --bg-contrast: #1D1D1D;
+        }
+
+        &:is([data-color-scheme=light]) {
+
+            --cyan: #009B9F;
+            --yellow: #D08000;
+            --red: #DF0000;
+
+            --invert: #000000;
+            --grey: #6A6F6F;
+            --grey-pale: #B0BABA;
+            --bg: #FFFFFF;
+            --bg-contrast: #F0F2F2;
+        }
     }
 
     font-size: calc(var(--app-font-size) * var(--app-font-size-multiplier));
