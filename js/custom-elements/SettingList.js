@@ -77,7 +77,7 @@ export default class SettingList extends Setting
      */
     set(value)
     {
-        let $selectedItem = this.$list.querySelector(`[data-value="${value}"]`);
+        const $selectedItem = this.$list.querySelector(`[data-value="${value}"]`);
 
         // If the selected value is in the list, select it.
         if ($selectedItem !== null) {
@@ -143,6 +143,18 @@ export default class SettingList extends Setting
     }
 
     /**
+     * Get the label of the selected value.
+     * @returns {string}
+     */
+    getValueAsText()
+    {
+        const $selectedItem = this.$list.querySelector(`[data-value="${this.value}"]`);
+        let selected_item_label = $selectedItem.querySelector('.label').textContent;
+
+        return selected_item_label;
+    }
+
+    /**
      * Render the HTML.
      */
     render()
@@ -175,8 +187,9 @@ export default class SettingList extends Setting
     getSelectItemsHTML()
     {
         let select_items_html = '';
+        const $items = this.querySelectorAll('select-item');
 
-        for (const $item of this.querySelectorAll('select-item')) {
+        for (const $item of $items) {
             let value = $item.dataset.value;
             let label = $item.innerHTML;
             let selected = ($item.hasAttribute('data-selected')) ? 'data-selected' : '';
@@ -184,7 +197,7 @@ export default class SettingList extends Setting
             select_items_html += /*html*/`
                 <div class="select-item" data-value="${value}" ${selected}>
                     <span class="radio-btn"></span>
-                    <span>${label}</span>
+                    <span class="label">${label}</span>
                 </div>
             `;
         }

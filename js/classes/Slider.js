@@ -159,7 +159,7 @@ export default class Slider
                 // Update the value.
                 this.setValue(value);
 
-                // Emit the 'change' event on the slider.
+                // Emit the `change` event on the slider.
                 this.emitEvent('change');
                 break;
             }
@@ -167,11 +167,11 @@ export default class Slider
     }
 
     /**
-     * Get the value with its suffix.
+     * Get the value with its suffix and its sign if necessary.
      * @param {Number} [value] *Default: the current value.*
      * @returns {string}
      */
-    getValueWithSuffix(value = this.value)
+    getValueAsText(value = this.value)
     {
         let formatted_value = value.addZeros(this.getNbDecimals(), 'trailing');
         formatted_value = formatted_value.replace("-", "−");
@@ -282,7 +282,7 @@ export default class Slider
                 // Move the slider thumb depending on the user pointer.
                 _this.move(event.clientX);
 
-                // Emit the 'move' event on the slider.
+                // Emit the `move` event on the slider.
                 _this.emitEvent('move', event);
             }
         }, {
@@ -306,7 +306,7 @@ export default class Slider
                 // Force the position of the slider thumb when the pointer is released.
                 _this.setPosition();
 
-                // Emit the 'end' event on the slider.
+                // Emit the `end` event on the slider.
                 _this.emitEvent('end', event);
 
                 // Deactivate the 'movable' state.

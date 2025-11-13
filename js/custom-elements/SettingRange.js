@@ -120,8 +120,17 @@ export default class SettingRange extends Setting
      */
     setSettingValue()
     {
-        this.$settingValue.textContent = this.Slider.getValueWithSuffix();
+        this.$settingValue.textContent = this.getValueAsText();
         this.$settingValue.style.visibility = 'visible';
+    }
+
+    /**
+     * Get the value with its suffix and its sign if necessary.
+     * @returns {string}
+     */
+    getValueAsText()
+    {
+        return this.Slider.getValueAsText();
     }
 
     /**
@@ -134,7 +143,7 @@ export default class SettingRange extends Setting
 
         // Fill with all possible values successively, and save the greatest width.
         for (let value in this.Slider.values) {
-            this.$settingValue.textContent = this.Slider.getValueWithSuffix(parseFloat(value));
+            this.$settingValue.textContent = this.Slider.getValueAsText(parseFloat(value));
             let current_width = this.$settingValue.offsetWidth;
             width = (width < current_width) ? current_width : width;
         }
@@ -242,7 +251,7 @@ export default class SettingRange extends Setting
     }
 
     // These methods are not implemented in this class.
-    trigger() { return false; }
+    trigger() { return undefined; }
 }
 
 customElements.define('setting-range', SettingRange);

@@ -76,7 +76,7 @@ export default class Setting extends HTMLElement
     trigger()
     {
         console.error("The method trigger() is not implemented.");
-        return false;
+        return undefined;
     }
 
     /**
@@ -88,6 +88,17 @@ export default class Setting extends HTMLElement
     set()
     {
         console.error("The method set() is not implemented.");
+        return undefined;
+    }
+
+    /**
+     * Get the setting value as a comprehensive text.
+     * @abstract This method **must** be implemented in the child classes.
+     * @returns {string}
+     */
+    getValueAsText()
+    {
+        console.error("The method getValueAsText() is not implemented.");
         return undefined;
     }
 

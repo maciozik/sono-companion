@@ -195,8 +195,7 @@ export function __init__()
         const $speedOfSound = $view.querySelector('#toolbox-delay-converter .speed_of_sound');
 
         // Set the temperature badge.
-        const $temperatureSettingValue = Settings.$view.querySelector('[data-name="temperature"] .slider-value');
-        $temperatureBadge.textContent = $temperatureSettingValue.textContent;
+        $temperatureBadge.textContent = event.detail.value_as_text;
 
         // Update the conversion and the max attribute of the `delay-ms` input
         $inputTo.value = convert(parseInt($inputFrom.value), 'm', 'ms') ?? "";

@@ -93,6 +93,15 @@ export default class SettingSwitch extends Setting
     }
 
     /**
+     * Get the value as a comprehensive text.
+     * @returns {'activé'|'désactivé'}
+     */
+    getValueAsText()
+    {
+        return (this.value) ? "activé" : "désactivé";
+    }
+
+    /**
      * Render the HTML.
      */
     render()

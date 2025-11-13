@@ -106,7 +106,7 @@ function remove(setting_name, context)
  */
 function getFromView(setting_name)
 {
-    let $setting = getSettingFromName(setting_name);
+    const $setting = getSettingFromName(setting_name);
     return $setting.value;
 }
 
@@ -118,7 +118,7 @@ function getFromView(setting_name)
  */
 function setInView(setting_name, value)
 {
-    let $setting = getSettingFromName(setting_name);
+    const $setting = getSettingFromName(setting_name);
 
     // Set the setting.
     return $setting.set(value);
@@ -258,9 +258,11 @@ export function reset()
 function emitEvent(setting_name, value, type = 'onsync')
 {
     let name = `setting:${type}:${setting_name}`;
+    const $setting = getSettingFromName(setting_name);
 
     document.dispatchEvent(new CustomEvent(name, { detail: {
-        value: value
+        value: value,
+        value_as_text: $setting.getValueAsText()
     }}));
 
     if (type === 'onchange') console.debugType('emit_event', name, value);
