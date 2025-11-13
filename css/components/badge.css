@@ -7,7 +7,6 @@
     font-size: .8rem;
     font-weight: 600;
     letter-spacing: -0.5px;
-    visibility: hidden;
 
     &.top-right {
         position: absolute;
@@ -15,7 +14,7 @@
         right: var(--header-padding-sides);
     }
 
-    &.show {
-        visibility: visible;
+    &.hide {
+        visibility: hidden;
     }
 }

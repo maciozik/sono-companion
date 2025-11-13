@@ -314,7 +314,7 @@ export function __init__()
     Settings.onsync('audio_calibration', event => {
         const $calibrationSettingValue = Settings.$view.querySelector('[data-name="audio_calibration"] .slider-value');
         $calibrationBadge.textContent = $calibrationSettingValue.textContent;
-        $calibrationBadge.classList.toggle('show', (event.detail.value !== 0));
+        $calibrationBadge.classList.toggle('hide', (event.detail.value === 0));
     });
 
     // Update the refresh interval of the information while running.
