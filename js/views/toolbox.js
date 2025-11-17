@@ -208,7 +208,7 @@ export function __init__()
     // Open the fullscreen textarea when the notepad is focused.
     $notepad.addEventListener('focus', function () {
         FullscreenTextarea.open($notepad, {
-            paddingInline : this.getCssProperty('--fullscreen-textarea-padding-sides', false),
+            paddingInline : this.getCssProperty('--fullscreen-textarea-padding-inline', false),
             fontSize      : this.getCssProperty('font-size', false),
             lineHeight    : this.getCssProperty('line-height', false)
         });

@@ -11,20 +11,20 @@ const TIMEOUT_DEFAULT = 10;
  */
 HTMLElement.prototype.addClassTemporarily = function (class_name, timeout = TIMEOUT_DEFAULT)
 {
-    let $this = this;
+    const _this = this;
 
     /** @type {Function} */
     let cancel;
 
-    $this.classList.add(class_name);
+    _this.classList.add(class_name);
 
     // Remove class after the transition or the animation ends.
     if (timeout === 'transitionend' || timeout === 'animationend') {
-        cancel = bindEvent($this, class_name, timeout);
+        cancel = bindEvent(_this, class_name, timeout);
     }
     // Remove class after the timeout ends.
     else {
-        cancel = runTimeout($this, class_name, timeout);
+        cancel = runTimeout(_this, class_name, timeout);
     }
 
     return { cancel: cancel };

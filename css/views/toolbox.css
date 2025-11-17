@@ -24,7 +24,7 @@
         .inputs {
             display: flex;
             align-items: center;
-            padding: 0 calc(var(--view-padding-sides) - 1px);
+            padding: 0 calc(var(--view-padding-inline) - 1px);
 
             .arrow {
                 display: flex;
@@ -74,13 +74,13 @@
         flex: 1;
 
         textarea#notepad {
-            --textarea-padding-sides: 16px;
+            --textarea-padding-inline: 16px;
             --textarea-border-width: 1.5px;
-            --fullscreen-textarea-padding-sides: calc(var(--app-padding-sides) + var(--view-padding-sides) + var(--textarea-border-width) + var(--textarea-padding-sides));
+            --fullscreen-textarea-padding-inline: calc(var(--app-padding-inline) + var(--view-padding-inline) + var(--textarea-border-width) + var(--textarea-padding-inline));
 
-            margin: 0 var(--view-padding-sides);
-            padding: 12px var(--textarea-padding-sides);
-            width: calc(100% - var(--view-padding-sides) * 2);
+            margin: 0 var(--view-padding-inline);
+            padding: 12px var(--textarea-padding-inline);
+            width: calc(100% - var(--view-padding-inline) * 2);
             height: 100%;
             border-width: var(--textarea-border-width);
             color: var(--grey);

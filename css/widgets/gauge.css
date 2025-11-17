@@ -1,4 +1,5 @@
 .gauge {
+    --gauge-padding-inline: 10%;
     --gauge-arc-thickness: 7px;
     --gauge-graduations-size: 12px;
     --gauge-graduations-thickness: 4.5px;
@@ -7,14 +8,13 @@
     --gauge-pointer-tip-size: 2px;
     --gauge-pointer-transition-duration: 0ms; /* Overridden in JS. */
 
-    --gauge-padding-sides: 10%;
     --gauge-clip-path-margins: 20px;
     --gcp-bm: calc(100% + 20px);
-    --gcp-pl: calc(var(--gauge-padding-sides) - 1px);
-    --gcp-pr: calc(100% - var(--gauge-padding-sides) + 1px);
+    --gcp-pl: calc(var(--gauge-padding-inline) - 1px);
+    --gcp-pr: calc(100% - var(--gauge-padding-inline) + 1px);
 
     display: grid;
-    padding: var(--gauge-clip-path-margins) var(--gauge-padding-sides) 0;
+    padding: var(--gauge-clip-path-margins) var(--gauge-padding-inline) 0;
     clip-path: polygon(0 0, 100% 0, 100% var(--gcp-bm), var(--gcp-pr) var(--gcp-bm), var(--gcp-pr) 100%, var(--gcp-pl) 100%, var(--gcp-pl) var(--gcp-bm), 0 var(--gcp-bm));
 
     .gauge-arcs {
@@ -62,7 +62,6 @@
                         text-align: center;
                         font-size: .7rem;
                         font-weight: 600;
-                        opacity: .5;
                         transition: all 80ms linear 20ms;
                     }
 
@@ -79,9 +78,7 @@
 
                     &.active {
                         &::before {
-                            /* TODO Light effect on active values? */
-                            /* text-shadow: 0 0 5px currentColor; */
-                            opacity: 1;
+                            text-shadow: 0 0 5px rgb(from currentColor r g b / .7);
                             transition: none;
                         }
                     }

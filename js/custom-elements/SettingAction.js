@@ -30,25 +30,17 @@ import Toast from '/js/classes/Toast.js';
  */
 export default class SettingAction extends Setting
 {
-    /**
-     * The module to load if needed.
-     * @type {string|null}
-     */
+    /** @type {string|null} The module to load if needed. */
     module = new String();
 
-    /**
-     * The method to call from the module, or a standalone code.
-     * @type {Function}
-     */
+    /** @type {Function} The method to call from the module, or a standalone code. */
     action = new Function();
 
     has_action = new Boolean();
     require_confirmation = new Boolean();
     open_new_window = new Boolean();
 
-    /**
-     * @type {'validation'|'modal-close'|null}
-     */
+    /** @type {'validation'|'modal-close'|null} */
     vibrate_on = new String();
 
     constructor ()

@@ -1,11 +1,11 @@
 #settings {
-    --setting-padding-sides: calc(var(--app-padding-sides) + var(--view-padding-sides));
+    --setting-padding-inline: calc(var(--app-padding-inline) + var(--view-padding-inline));
     display: block;
     padding-left: 0;
     padding-right: 0;
 
     h2 {
-        margin-left: var(--setting-padding-sides);
+        margin-left: var(--setting-padding-inline);
         margin-bottom: 8px;
     }
 
@@ -24,7 +24,7 @@
         .setting-text {
             grid-area: text;
             align-self: center;
-            padding-left: var(--setting-padding-sides);
+            padding-left: var(--setting-padding-inline);
 
             .setting-title {
                 font-size: .85rem;
@@ -59,7 +59,7 @@
             justify-self: right;
             align-items: center;
             padding-top: 2px;
-            padding-right: var(--setting-padding-sides);
+            padding-right: var(--setting-padding-inline);
             white-space: nowrap;
 
             .select-list, .slider-value {
@@ -121,8 +121,7 @@
             grid-area: slider;
             margin-top: 5px;
             margin-bottom: -5px;
-            padding-left: var(--setting-padding-sides);
-            padding-right: var(--setting-padding-sides);
+            padding-inline: var(--setting-padding-inline);
         }
 
         /* Blink effect */
@@ -165,7 +164,7 @@
 
     .reminder-badge {
         margin: 5px 0 12px;
-        margin-left: calc(var(--setting-padding-sides) - 1px);
+        margin-left: calc(var(--setting-padding-inline) - 1px);
         padding-block: 1.5px;
         background-color: rgb(from var(--grey-pale) r g b / .3);
         color: var(--grey);

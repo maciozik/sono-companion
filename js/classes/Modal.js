@@ -44,14 +44,12 @@ export default class Modal
      * @constructor
      * @param {string|null} [title] The title of the modal (no title if null).
      * @param {string} [text] The text of the modal.
-     * @returns {Modal}
      */
     constructor (title = null, text = "")
     {
         this.title = title;
         this.text = text;
         Modal.#listenersAbort = new AbortController();
-        return this;
     }
 
     /**

@@ -3,13 +3,14 @@
  *
  * @description
  * A tappable is an interactive element that can trigger a growing circle animation when pressed.
- * It is defined by the presence of the 'data-tappable' attribute.
+ * It is defined by the presence of the `data-tappable` attribute.
  *
- * Several options may be defined in this attribute, separated by white spaces:
+ * Several options may be defined in this attribute, separated by spaces:
  *  - `click`            : Trigger the element on click event *(default)*.
  *  - `pointerdown`      : Trigger the element on pointerdown event.
  *  - `pointerup`        : Trigger the element on pointerup event.
  *  - `trigger-manually` : The element will not be triggered by an event and must be triggered manually.
+ *     - The {@link trigger} method is accessible via the `_Tappable` instance bind to the tappable element.
  *  - `follow-tap`       : The circle animation is triggered at the position of the tap.
  *  - `no-circle`        : The circle animation will not be shown.
  *  - **Any raw number** : The opacity of the circle (e.g. `0.2`).
@@ -66,7 +67,7 @@ export default class Tappable {
         // Run the circle animation.
         this.runCircleAnimation(pointer);
 
-        // Emit the 'trigger' event.
+        // Emit the `trigger` event.
         this.$tappable.dispatchEvent(new CustomEvent('trigger'));
     }
 

@@ -24,15 +24,10 @@ export default class SettingList extends Setting
     value = new String();
     default_value = new String();
 
-    /**
-     * The `select-list` element that must be copied in the modal.
-     * @type {HTMLElement}
-     */
+    /** @type {HTMLElement} The `select-list` element that must be copied in the modal. */
     $list;
 
-    /**
-     * @type {'validation'|'modal-close'|null}
-     */
+    /** @type {'validation'|'modal-close'|null} */
     vibrate_on = new String();
 
     constructor ()

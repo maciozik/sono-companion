@@ -11,7 +11,7 @@
     &.top-right {
         position: absolute;
         top: 20px;
-        right: var(--header-padding-sides);
+        right: var(--header-padding-inline);
     }
 
     &.hide {

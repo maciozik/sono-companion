@@ -2,7 +2,7 @@ header {
     display: flex;
     align-items: center;
     position: relative;
-    padding-left: var(--header-padding-sides);
+    padding-left: var(--header-padding-inline);
     height: var(--header-height);
     color: light-dark(var(--bg), var(--invert));
     background-color: var(--cyan);
@@ -49,7 +49,7 @@ main {
 
 footer {
     position: relative;
-    padding: 13px var(--app-padding-sides) 12px;
+    padding: 13px var(--app-padding-inline) 12px;
     width: 100%;
     height: var(--footer-height);
     z-index: 1000;
