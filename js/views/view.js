@@ -28,6 +28,9 @@ export function load(view)
     const $view = document.getElementById(view_id);
     let view_title = $view.dataset.name;
 
+    // Hide all existing modals instantly.
+    Modal.close(0, true);
+
     // Update the title.
     $h1.textContent = view_title;
 
@@ -228,10 +231,6 @@ export function __init__()
     for (const $loadViewBtn of $loadViewBtns) {
 
         $loadViewBtn.addEventListener('trigger', function () {
-
-            // Hide all existing modals instantly.
-            Modal.close(0, true);
-
             let view_id = this.dataset.load;
             load(view_id);
         });

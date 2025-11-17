@@ -154,9 +154,10 @@ export function checkVisibility()
 /**
  * Scroll to the setting and make it blink.
  * @param {string} setting_name
- * @param {number} [delay_before_blink] The delay before making the setting blink.
+ * @param {'instant'|'smooth'} [behavior] The way the scroll moves to its destination. – *Default: `instant`*
+ * @param {number} [delay_before_blink] The delay before making the setting blink (in ms). – *Default: O*
  */
-export function highlight(setting_name, delay_before_blink = 0)
+export function goto(setting_name, behavior = 'instant', delay_before_blink = 0)
 {
     if (setting_name === undefined) return;
 
@@ -166,7 +167,10 @@ export function highlight(setting_name, delay_before_blink = 0)
     let view_height = $view.clientHeight;
     let scroll = offsetTop - (view_height / 2) + (offsetHeight / 2);
 
-    $view.scrollTop = scroll;
+    $view.scrollTo({
+        top: scroll,
+        behavior: behavior
+    });
 
     setTimeout(() => {
         $setting.addClassTemporarily('blink', 'animationend');
@@ -176,11 +180,11 @@ export function highlight(setting_name, delay_before_blink = 0)
 /**
  * Get the setting element with the name given.
  * @param {string} setting_name
- * @returns {HTMLElement & Setting}
+ * @returns {(HTMLElement & Setting)|null}
  */
-function getSettingFromName(setting_name)
+export function getSettingFromName(setting_name)
 {
-    return $view.querySelector(`[data-name="${setting_name}"]`);
+    return document.getElementById('settings').querySelector(`[data-name="${setting_name}"]`);
 }
 
 /**
@@ -289,6 +293,7 @@ function bindEvent(setting_names, callback, type)
  *                                                  or `null` to listen to the global `settings:oninit` event.
  * @param {Function} callback The callback to call.
  */
+// TODO First argument is useless?
 export function oninit(setting_names, callback)
 {
     if (setting_names !== null) {
@@ -340,9 +345,9 @@ export function __init__()
             let transition_duration = $view.getCssProperty('transition-duration') - 50;
 
             // Scroll instantly to the setting, then make it blink.
-            highlight(setting_name, transition_duration);
+            goto(setting_name, 'instant', transition_duration);
 
-            // Display the scrollbar and make the setting blink if necessary.
+            // Display the scrollbar.
             setTimeout(() => {
                 $view._Scrollbar.setVisibility(true);
             }, transition_duration);

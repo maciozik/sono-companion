@@ -339,7 +339,8 @@
 
                 <setting-list
                     data-name="color_scheme" data-vibrate-on="modal-close"
-                    data-title="Thème">
+                    data-title="Thème"
+                    data-reminder="high_contrast">
                         <select-item data-value="device" data-selected>Appareil</select-item>
                         <select-item data-value="dark">Sombre</select-item>
                         <select-item data-value="light">Clair</select-item>
@@ -477,13 +478,14 @@
                 ></setting-range>
 
                 <setting-switch
-                    data-name="metronome_tick" data-groups="tempo" data-value=false
-                    data-title="Activer le clic sonore"
+                    data-name="metronome_vibrate" data-groups="tempo vibrations" data-value=true
+                    data-title="Vibrer à chaque battement"
+                    data-reminder="allow_vibrations"
                 ></setting-switch>
 
                 <setting-switch
-                    data-name="metronome_vibrate" data-groups="tempo vibrations" data-value=true
-                    data-title="Vibrer à chaque battement"
+                    data-name="metronome_tick" data-groups="tempo" data-value=false
+                    data-title="Activer le clic sonore"
                 ></setting-switch>
 
                 <setting-switch

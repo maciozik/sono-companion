@@ -151,6 +151,30 @@
                 color: var(--grey-pale);
                 transition: none;
             }
+
+            & + .reminder-badge {
+                opacity: .8;
+
+                .value {
+                    color: var(--grey);
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    .reminder-badge {
+        margin: 5px 0 12px;
+        margin-left: calc(var(--setting-padding-sides) - 1px);
+        padding-block: 1.5px;
+        background-color: rgb(from var(--grey-pale) r g b / .3);
+        color: var(--grey);
+        font-size: .7rem;
+        font-weight: 500;
+
+        .value {
+            color: var(--cyan);
+            opacity: .8;
         }
     }
 

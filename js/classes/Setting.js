@@ -33,11 +33,11 @@ export default class Setting extends HTMLElement
     /** @type {Array<string|undefined>} */
     groups = new Array();
 
-    /**
-     * Other settings that can disable this setting on true or false.
-     * @type {Map<Setting, boolean>}
-     */
+    /** @type {Map<Setting, boolean>} Other settings that can disable this setting on true or false. */
     parent_settings = new Map();
+
+    /** @type {Setting|null} The setting that must displayed as reminder under this setting. */
+    $reminder_setting;
 
     constructor ()
     {
@@ -51,11 +51,14 @@ export default class Setting extends HTMLElement
         this.danger = this.hasBooleanAttribute('data-danger');
         this.groups = this.dataset.groups?.split(' ') ?? [];
 
+        this.$reminder_setting = Settings.getSettingFromName(this.dataset.reminder) ?? null;
+
         // Remove the useless attributes.
         this.removeAttribute('data-title');
         this.removeAttribute('data-info');
         this.removeAttribute('data-allow-reset');
         this.removeAttribute('data-danger');
+        this.removeAttribute('data-reminder');
 
         // Add the attributes again without values for CSS purpose.
         this.toggleAttribute('data-danger', this.danger);
@@ -122,7 +125,7 @@ export default class Setting extends HTMLElement
     }
 
     /**
-     * Set the all the switch parent settings that can disable this setting.
+     * Set all the switch parent settings that can disable this setting.
      */
     setParentSettings()
     {
@@ -147,6 +150,32 @@ export default class Setting extends HTMLElement
     }
 
     /**
+     * Set the content of the reminder badge and link it to the setting to remind.
+     */
+    setReminderBadge()
+    {
+        if (this.$reminder_setting === null) return;
+
+        let reminder_name  = this.$reminder_setting.name;
+        let reminder_title = this.$reminder_setting.title;
+        let reminder_value = this.$reminder_setting.getValueAsText();
+
+        // Create and insert the badge in the DOM.
+        const $reminderBadge = this.getReminderBadge(reminder_title, reminder_value);
+        this.after($reminderBadge);
+
+        // Update the value of the reminder badge if the setting changes.
+        Settings.onchange(reminder_name, event => {
+            $reminderBadge.querySelector('.value').textContent = event.detail.value_as_text;
+        });
+
+        // Move to the reminder setting on click.
+        $reminderBadge.addEventListener('click', function() {
+            Settings.goto(reminder_name, 'smooth', 500);
+        });
+    }
+
+    /**
      * Set the setting to its default value.
      * @return {string|number|boolean} The default value.
      */
@@ -168,7 +197,7 @@ export default class Setting extends HTMLElement
     }
 
     /**
-     * Get the HTML of the info tag if there is an info to show.
+     * Get the HTML of the info tag if there is one to show.
      * @returns {string|''}
      */
     getInfoHTML()
@@ -199,6 +228,28 @@ export default class Setting extends HTMLElement
     }
 
     /**
+     * Create and return the reminder badge if there is one to show.
+     * @param {string} title
+     * @param {string} value
+     * @returns {HTMLElement}
+     */
+    getReminderBadge(title, value)
+    {
+        const $template = document.createElement('template');
+
+        // Fill the temporary template with the reminder badge HTML.
+        $template.innerHTML = /*html*/`
+            <div class="badge reminder-badge">
+                <g-icon data-name="info_outline" data-x=-1.5 data-y=1.5></g-icon>
+                <span>${title}</span>&nbsp;: <span class="value">${value}</span>
+            </div>
+        `;
+
+        // Return the reminder badge HTML node.
+        return $template.content.firstElementChild;
+    }
+
+    /**
      * Bind some generic events to the setting.
      * This method **should** be implemented in the child classes.
      */
@@ -221,6 +272,9 @@ export default class Setting extends HTMLElement
         });
 
         // Wait for all the settings to be initialized.
-        Settings.oninit(null, this.setParentSettings());
+        Settings.oninit(null, () => {
+            this.setParentSettings();
+            this.setReminderBadge();
+        });
     }
 }
