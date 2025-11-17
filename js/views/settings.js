@@ -190,7 +190,6 @@ export function getSettingFromName(setting_name)
 /**
  * Initialize the settings in the app with storage data, or create them in storage if they don't exist yet.
  * @fires settings:oninit
- * @fires setting:oninit:`setting_name`
  * @fires setting:onsync:`setting_name`
  */
 function init()
@@ -223,9 +222,8 @@ function init()
     // When everything is loaded.
     window.addEventListener('load', () => {
 
-        // Emit the `oninit` and `onsync` events on all settings.
+        // Emit the `onsync` events on all settings.
         for (let setting of settings) {
-            emitEvent(setting.name, setting.value, 'oninit');
             emitEvent(setting.name, setting.value, 'onsync');
         }
 
@@ -256,7 +254,7 @@ export function reset()
  * Emit an event to notify the change of a setting.
  * @param {string} setting_name
  * @param {string|number|boolean} value
- * @param {'onsync'|'oninit'|'onchange'} [type] The event type to emit. – *Default: `onsync`*
+ * @param {'onsync'|'onchange'} [type] The event type to emit. – *Default: `onsync`*
  * @fires setting:`type`:`setting_name`
  */
 function emitEvent(setting_name, value, type = 'onsync')
@@ -276,7 +274,7 @@ function emitEvent(setting_name, value, type = 'onsync')
  * Bind an event listener to call a callback.
  * @param {string|Array<string>} setting_names The name of the setting(s) to listen.
  * @param {Function} callback The callback to call.
- * @param {'onsync'|'oninit'|'onchange'} type The event type to listen.
+ * @param {'onsync'|'onchange'} type The event type to listen.
  */
 function bindEvent(setting_names, callback, type)
 {
@@ -288,19 +286,12 @@ function bindEvent(setting_names, callback, type)
 }
 
 /**
- * Listen when the setting(s) are initialized.
- * @param {string|Array<string>|null} setting_names The name of the setting(s) to listen,
- *                                                  or `null` to listen to the global `settings:oninit` event.
+ * Listen when all the settings are initialized.
  * @param {Function} callback The callback to call.
  */
-// TODO First argument is useless?
-export function oninit(setting_names, callback)
+export function oninit(callback)
 {
-    if (setting_names !== null) {
-        bindEvent(setting_names, callback, 'oninit');
-    } else {
-        document.addEventListener('settings:oninit', callback);
-    }
+    document.addEventListener('settings:oninit', callback);
 }
 
 /**

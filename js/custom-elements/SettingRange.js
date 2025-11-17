@@ -84,7 +84,7 @@ export default class SettingRange extends Setting
 
         // Wait for the zoom setting to correctly set the width of the setting value, then set the real setting value.
         // FIXME The width does not change dynamically when the zoom setting changes.
-        Settings.oninit(null, () => {
+        Settings.oninit(() => {
             this.setSettingValueWidth();
             this.setSettingValue();
         });

@@ -132,7 +132,7 @@ function convertToDegree(value)
 export function __init__()
 {
     // Create the gauge once the settings are initialized.
-    Settings.oninit(null, create);
+    Settings.oninit(create);
 
     // Recreate the gauge if the settings change.
     Settings.onchange(['gauge_min', 'gauge_max', 'danger_zone', 'gauge_step'], recreate);

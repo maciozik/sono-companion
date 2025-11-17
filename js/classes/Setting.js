@@ -272,7 +272,7 @@ export default class Setting extends HTMLElement
         });
 
         // Wait for all the settings to be initialized.
-        Settings.oninit(null, () => {
+        Settings.oninit(() => {
             this.setParentSettings();
             this.setReminderBadge();
         });

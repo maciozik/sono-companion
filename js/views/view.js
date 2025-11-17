@@ -263,7 +263,7 @@ export function __init__()
     });
 
     // Load the correct view at launch.
-    Settings.oninit(null, () => {
+    Settings.oninit(() => {
 
         // If the user allowed it, load the last view loaded if visible, or the first visible view.
         if (STG.show_last_tab_opened) {
