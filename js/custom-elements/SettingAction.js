@@ -24,9 +24,9 @@ import Toast from '/js/classes/Toast.js';
  * @example // For a `reset` method to call from a module js/views/settings.js.
  *  <setting-action
  *      data-name="reset_settings"
- *      data-module="views/settings" data-action="reset" data-require-confirmation
- *      data-title="Reset all the settings"
- *  ></setting-action>
+ *      data-module="views/settings" data-action="reset" data-require-confirmation>
+ *          <h3>Reset all the settings</h3>
+ *  </setting-action>
  */
 export default class SettingAction extends Setting
 {
@@ -186,9 +186,9 @@ export default class SettingAction extends Setting
         // Set the content.
         this.innerHTML = /*html*/`
             <div class="setting-text">
-                <p class="setting-title">
+                <h3 class="setting-title">
                     ${this.title}
-                </p>
+                </h3>
                 ${this.getInfoHTML()}
             </div>
             <div class="setting-choice">

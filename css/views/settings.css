@@ -28,6 +28,7 @@
 
             .setting-title {
                 font-size: .85rem;
+                font-weight: normal;
 
                 .reset-btn {
                     display: inline-block;
@@ -45,6 +46,7 @@
             }
 
             .setting-info {
+                display: block;
                 margin-top: 3px;
                 color: var(--grey);
                 font-size: .7rem;
@@ -62,7 +64,7 @@
             padding-right: var(--setting-padding-inline);
             white-space: nowrap;
 
-            .select-list, .slider-value {
+            .list-items, .slider-value {
                 color: var(--grey);
                 font-size: .8rem;
                 font-weight: 500;
@@ -71,10 +73,10 @@
                 transition: color 80ms linear;
             }
 
-            .select-list {
+            .list-items {
                 display: grid;
 
-                .select-item {
+                .list-item {
                     grid-area: 1 / 1;
                     visibility: hidden;
 
@@ -144,7 +146,7 @@
 
             .setting-title .reset-btn,
             .setting-info,
-            .setting-choice :is(.select-list, .slider-value, g-icon),
+            .setting-choice :is(.list-items, .slider-value, g-icon),
             .switch,
             .slider {
                 color: var(--grey-pale);

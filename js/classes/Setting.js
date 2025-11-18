@@ -11,14 +11,18 @@ import * as Settings from '/js/views/settings.js';
  *
  * The following global attributes **must** be declared on all settings:
  *  - `data-name`  : The id of the setting that will be used as key in the storage (in snake case).
- *  - `data-title` : The main title of the setting.
  *
  * The following global attributes may also be declared optionally on any setting:
- *  - `data-info`        : The description that gives more information about the setting.
- *  - `data-allow-reset` : Whether the setting can be set to its default value with a reset button.
- *  - `data-danger`      : Whether the setting must be considered as a "sensitive" setting.
  *  - `data-groups`      : One or several groups (in snake case and separated by spaces) that can be enabled or
  *                         disabled when the value of a {@link SettingSwitchImport.default SettingSwitch} changes.
+ *  - `data-allow-reset` : Whether the setting can be set to its default value with a reset button.
+ *  - `data-danger`      : Whether the setting must be considered as a "sensitive" setting.
+ *
+ * The following global elements **must** be declared as children of all settings:
+ *  - `<h3>`: The main title of the setting.
+ *
+ * The following global elements may also be declared as children of any setting:
+ *  - `<small>`: The description that gives more information about the setting.
  */
 export default class Setting extends HTMLElement
 {
@@ -37,25 +41,23 @@ export default class Setting extends HTMLElement
     parent_settings = new Map();
 
     /** @type {Setting|null} The setting that must displayed as reminder under this setting. */
-    $reminder_setting;
+    $reminderSetting;
 
     constructor ()
     {
         super();
 
         this.name = this.dataset.name;
-        this.title = this.dataset.title;
-        this.info = this.dataset.info ?? "";
+        this.title = this.querySelector('h3').innerHTML;
+        this.info = this.querySelector('small')?.innerHTML ?? "";
 
         this.allow_reset = this.hasBooleanAttribute('data-allow-reset');
         this.danger = this.hasBooleanAttribute('data-danger');
         this.groups = this.dataset.groups?.split(' ') ?? [];
 
-        this.$reminder_setting = Settings.getSettingFromName(this.dataset.reminder) ?? null;
+        this.$reminderSetting = Settings.getSettingFromName(this.dataset.reminder) ?? null;
 
         // Remove the useless attributes.
-        this.removeAttribute('data-title');
-        this.removeAttribute('data-info');
         this.removeAttribute('data-allow-reset');
         this.removeAttribute('data-danger');
         this.removeAttribute('data-reminder');
@@ -154,11 +156,11 @@ export default class Setting extends HTMLElement
      */
     setReminderBadge()
     {
-        if (this.$reminder_setting === null) return;
+        if (this.$reminderSetting === null) return;
 
-        let reminder_name  = this.$reminder_setting.name;
-        let reminder_title = this.$reminder_setting.title;
-        let reminder_value = this.$reminder_setting.getValueAsText();
+        let reminder_name  = this.$reminderSetting.name;
+        let reminder_title = this.$reminderSetting.title;
+        let reminder_value = this.$reminderSetting.getValueAsText();
 
         // Create and insert the badge in the DOM.
         const $reminderBadge = this.getReminderBadge(reminder_title, reminder_value);
@@ -203,7 +205,7 @@ export default class Setting extends HTMLElement
     getInfoHTML()
     {
         return (this.info !== "") ? /*html*/`
-            <p class="setting-info">${this.info}</p>
+            <small class="setting-info">${this.info}</small>
         ` : '';
     }
 

@@ -339,17 +339,17 @@
 
                 <setting-list
                     data-name="color_scheme" data-vibrate-on="modal-close"
-                    data-title="Thème"
                     data-reminder="high_contrast">
-                        <select-item data-value="device" data-selected>Appareil</select-item>
-                        <select-item data-value="dark">Sombre</select-item>
-                        <select-item data-value="light">Clair</select-item>
+                    <h3>Thème</h3>
+                        <list-item data-value="device" data-selected>Appareil</list-item>
+                        <list-item data-value="dark">Sombre</list-item>
+                        <list-item data-value="light">Clair</list-item>
                 </setting-list>
 
                 <setting-switch
-                    data-name="allow_vibrations" data-disable-group-on-false="vibrations" data-value=true
-                    data-title="Autoriser les vibrations"
-                ></setting-switch>
+                    data-name="allow_vibrations" data-value=true data-disable-group-on-false="vibrations">
+                    <h3>Autoriser les vibrations</h3>
+                </setting-switch>
 
             </section>
 
@@ -360,25 +360,25 @@
 
                 <setting-range
                     data-name="audio_calibration" data-allow-reset
-                    data-value=0 data-suffix=" dB" data-min=-30 data-max=30 data-step=0.5 data-plus-sign
-                    data-title="Calibrage audio"
-                    data-info="Ajuste le volume audio global affiché par l'application. À étalonner avec un sonomètre externe."
-                ></setting-range>
+                    data-value=0 data-suffix=" dB" data-min=-30 data-max=30 data-step=0.5 data-plus-sign>
+                    <h3>Calibrage audio</h3>
+                    <small>Ajuste le volume audio global affiché par l'application. À étalonner avec un sonomètre externe.</small>
+                </setting-range>
 
                 <setting-list
-                    data-name="frequency_weighting" data-vibrate-on="validation" data-allow-reset
-                    data-title="Pondération fréquentielle">
-                        <select-item data-value="A" data-selected>dB(A)</select-item>
-                        <select-item data-value="B">dB(B)</select-item>
-                        <select-item data-value="U">dB(U)</select-item>
+                    data-name="frequency_weighting" data-vibrate-on="validation" data-allow-reset>
+                    <h3>Pondération fréquentielle</h3>
+                        <list-item data-value="A" data-selected>dB(A)</list-item>
+                        <list-item data-value="B">dB(B)</list-item>
+                        <list-item data-value="U">dB(U)</list-item>
                 </setting-list>
 
                 <setting-list
-                    data-name="microphone" data-vibrate-on="validation"
-                    data-title="Microphone"
-                    data-info="Microphone à utiliser pour capter le son.">
-                        <select-item data-value="front" data-selected>Avant</select-item>
-                        <select-item data-value="back">Arrière</select-item>
+                    data-name="microphone" data-vibrate-on="validation">
+                    <h3>Microphone</h3>
+                    <small>Microphone à utiliser pour capter le son.</small>
+                        <list-item data-value="front" data-selected>Avant</list-item>
+                        <list-item data-value="back">Arrière</list-item>
                 </setting-list>
 
             </section>
@@ -389,57 +389,57 @@
             <section data-context="sonometer">
 
                 <setting-switch
-                    data-name="enable_sonometer" data-disable-group-on-false="sonometer" data-value=true
-                    data-title="Afficher l'onglet Sonomètre"
-                ></setting-switch>
+                    data-name="enable_sonometer" data-value=true data-disable-group-on-false="sonometer">
+                    <h3>Afficher l'onglet Sonomètre</h3>
+                </setting-switch>
 
                 <setting-range
                     data-name="gauge_min" data-groups="sonometer" data-allow-reset
-                    data-value=0 data-suffix=" dB" data-min=0 data-max=50 data-step={gauge_step}
-                    data-title="Minimum de la jauge"
-                ></setting-range>
+                    data-value=0 data-suffix=" dB" data-min=0 data-max=50 data-step={gauge_step}>
+                    <h3>Minimum de la jauge</h3>
+                </setting-range>
 
                 <setting-range
                     data-name="gauge_max" data-groups="sonometer" data-allow-reset
-                    data-value=130 data-suffix=" dB" data-min=120 data-max=150 data-step={gauge_step}
-                    data-title="Maximum de la jauge"
-                ></setting-range>
+                    data-value=130 data-suffix=" dB" data-min=120 data-max=150 data-step={gauge_step}>
+                    <h3>Maximum de la jauge</h3>
+                </setting-range>
 
                 <setting-range
                     data-name="danger_zone" data-groups="sonometer" data-allow-reset
-                    data-value=100 data-suffix=" dB" data-min=70 data-max=110 data-step={gauge_step}
-                    data-title="Zone de danger"
-                    data-info="Niveau au-delà duquel la jauge devient rouge."
-                ></setting-range>
+                    data-value=100 data-suffix=" dB" data-min=70 data-max=110 data-step={gauge_step}>
+                    <h3>Zone de danger</h3>
+                    <small>Niveau au-delà duquel la jauge devient rouge.</small>
+                </setting-range>
 
                 <setting-list
-                    data-name="gauge_step" data-groups="sonometer" data-vibrate-on="validation"
-                    data-title="Écart entre les graduations">
-                        <select-item data-value="5">5</select-item>
-                        <select-item data-value="10" data-selected>10</select-item>
+                    data-name="gauge_step" data-groups="sonometer" data-vibrate-on="validation">
+                    <h3>Écart entre les graduations</h3>
+                        <list-item data-value="5">5</list-item>
+                        <list-item data-value="10" data-selected>10</list-item>
                 </setting-list>
 
                 <setting-list
-                    data-name="gauge_sensitivity" data-groups="sonometer" data-vibrate-on="validation" data-allow-reset
-                    data-title="Sensibilité de la jauge"
-                    data-info="Temps de transition de l'aiguille de la jauge entre deux valeurs.">
-                        <select-item data-value="0">Instantanée</select-item>
-                        <select-item data-value="80" data-selected>Réactive</select-item>
-                        <select-item data-value="160">Moyenne</select-item>
-                        <select-item data-value="320">Lente</select-item>
+                    data-name="gauge_sensitivity" data-groups="sonometer" data-vibrate-on="validation" data-allow-reset>
+                    <h3>Sensibilité de la jauge</h3>
+                    <small>Temps de transition de l'aiguille de la jauge entre deux valeurs.</small>
+                        <list-item data-value="0">Instantanée</list-item>
+                        <list-item data-value="80" data-selected>Réactive</list-item>
+                        <list-item data-value="160">Moyenne</list-item>
+                        <list-item data-value="320">Lente</list-item>
                 </setting-list>
 
                 <setting-range
                     data-name="refresh_info_interval" data-groups="sonometer" data-allow-reset
-                    data-value=200 data-suffix=" ms" data-min=100 data-max=1000 data-step=100
-                    data-title="Rafraichissement du volume"
-                    data-info="Interval de rafraichissement des informations de volume affichées sous la jauge."
-                ></setting-range>
+                    data-value=200 data-suffix=" ms" data-min=100 data-max=1000 data-step=100>
+                    <h3>Rafraichissement du volume</h3>
+                    <small>Interval de rafraichissement des informations de volume affichées sous la jauge.</small>
+                </setting-range>
 
                 <setting-switch
-                    data-name="show_timestamp" data-groups="sonometer" data-value=true
-                    data-title="Afficher la durée de session"
-                ></setting-switch>
+                    data-name="show_timestamp" data-groups="sonometer" data-value=true>
+                    <h3>Afficher la durée de session</h3>
+                </setting-switch>
 
             </section>
 
@@ -449,9 +449,9 @@
             <section data-context="spectrum">
 
                 <setting-switch
-                    data-name="enable_spectrum" data-disable-group-on-false="spectrum" data-value=true
-                    data-title="Afficher l'onglet Spectre"
-                ></setting-switch>
+                    data-name="enable_spectrum" data-value=true data-disable-group-on-false="spectrum">
+                    <h3>Afficher l'onglet Spectre</h3>
+                </setting-switch>
 
             </section>
 
@@ -461,45 +461,45 @@
             <section data-context="tempo">
 
                 <setting-switch
-                    data-name="enable_tempo" data-disable-group-on-false="tempo" data-value=true
-                    data-title="Afficher l'onglet Tempo"
-                ></setting-switch>
+                    data-name="enable_tempo" data-value=true data-disable-group-on-false="tempo">
+                    <h3>Afficher l'onglet Tempo</h3>
+                </setting-switch>
 
                 <setting-range
                     data-name="bpm_min" data-groups="tempo" data-allow-reset
-                    data-value=30 data-suffix=" bpm" data-min=10 data-max=60 data-step=10
-                    data-title="BPM minimum"
-                ></setting-range>
+                    data-value=30 data-suffix=" bpm" data-min=10 data-max=60 data-step=10>
+                    <h3>BPM minimum</h3>
+                </setting-range>
 
                 <setting-range
                     data-name="bpm_max" data-groups="tempo" data-allow-reset
-                    data-value=360 data-suffix=" bpm" data-min=120 data-max=360 data-step=10
-                    data-title="BPM maximum"
-                ></setting-range>
+                    data-value=360 data-suffix=" bpm" data-min=120 data-max=360 data-step=10>
+                    <h3>BPM maximum</h3>
+                </setting-range>
 
                 <setting-switch
                     data-name="metronome_vibrate" data-groups="tempo vibrations" data-value=true
-                    data-title="Vibrer à chaque battement"
-                    data-reminder="allow_vibrations"
-                ></setting-switch>
+                    data-reminder="allow_vibrations">
+                    <h3>Vibrer à chaque battement</h3>
+                </setting-switch>
 
                 <setting-switch
-                    data-name="metronome_tick" data-groups="tempo" data-value=false
-                    data-title="Activer le clic sonore"
-                ></setting-switch>
+                    data-name="metronome_tick" data-groups="tempo" data-value=false>
+                    <h3>Activer le clic sonore</h3>
+                </setting-switch>
 
                 <setting-switch
-                    data-name="show_bpm_manager" data-groups="tempo" data-value=true data-allow-reset
-                    data-title="Afficher le gestionnaire de tempos"
-                    data-info="Permet d'enregistrer plusieurs tempos pour les rappeler à tout moment facilement."
-                ></setting-switch>
+                    data-name="show_bpm_manager" data-groups="tempo" data-value=true data-allow-reset>
+                    <h3>Afficher le gestionnaire de tempos</h3>
+                    <small>Permet d'enregistrer plusieurs tempos pour les rappeler à tout moment facilement.</small>
+                </setting-switch>
 
                 <setting-action
                     data-name="delete_all_bpm_saves" data-groups="tempo" data-danger
-                    data-module="widgets/bpm-manager" data-action="reset" data-vibrate-on="modal-close" data-require-confirmation
-                    data-title="Effacer les tempos enregistrés"
-                    data-info="Le gestionnaire de tempos sera vidé."
-                ></setting-action>
+                    data-module="widgets/bpm-manager" data-action="reset" data-vibrate-on="modal-close" data-require-confirmation>
+                    <h3>Effacer les tempos enregistrés</h3>
+                    <small>Le gestionnaire de tempos sera vidé.</small>
+                </setting-action>
 
             </section>
 
@@ -509,23 +509,23 @@
             <section data-context="toolbox">
 
                 <setting-switch
-                    data-name="enable_toolbox" data-disable-group-on-false="toolbox" data-value=true
-                    data-title="Afficher l'onglet Toolbox"
-                ></setting-switch>
+                    data-name="enable_toolbox" data-value=true data-disable-group-on-false="toolbox">
+                    <h3>Afficher l'onglet Toolbox</h3>
+                </setting-switch>
 
                 <setting-range
                     data-name="temperature" data-groups="toolbox" data-allow-reset
-                    data-value=20 data-suffix=" °C" data-min=-20 data-max=50 data-step=1
-                    data-title="Température ambiante"
-                    data-info="Permet une meilleure précision dans le calcul de la vitesse du son."
-                ></setting-range>
+                    data-value=20 data-suffix=" °C" data-min=-20 data-max=50 data-step=1>
+                    <h3>Température ambiante</h3>
+                    <small>Permet une meilleure précision dans le calcul de la vitesse du son.</small>
+                </setting-range>
 
                 <setting-action
                     data-name="delete_notepad_content" data-groups="toolbox" data-danger
-                    data-module="views/toolbox" data-action="notepadReset" data-vibrate-on="modal-close" data-require-confirmation
-                    data-title="Effacer le contenu du bloc-notes"
-                    data-info="Toutes vos notes seront supprimées."
-                ></setting-action>
+                    data-module="views/toolbox" data-action="notepadReset" data-vibrate-on="modal-close" data-require-confirmation>
+                    <h3>Effacer le contenu du bloc-notes</h3>
+                    <small>Toutes vos notes seront supprimées.</small>
+                </setting-action>
 
             </section>
 
@@ -535,42 +535,42 @@
             <section data-context="accessibility">
 
                 <setting-switch
-                    data-name="high_contrast" data-value=false
-                    data-title="Contraste élevé"
-                    data-info="Augmente le contraste du thème actuel."
-                ></setting-switch>
+                    data-name="high_contrast" data-value=false>
+                    <h3>Contraste élevé</h3>
+                    <small>Augmente le contraste du thème actuel.</small>
+                </setting-switch>
 
                 <setting-range
                     data-name="zoom_level" data-allow-reset
-                    data-value=100 data-suffix=" %" data-min=80 data-max=120 data-step=5
-                    data-title="Niveau de zoom de l'interface"
-                ></setting-range>
+                    data-value=100 data-suffix=" %" data-min=80 data-max=120 data-step=5>
+                    <h3>Niveau de zoom de l'interface</h3>
+                </setting-range>
 
                 <setting-list
-                    data-name="toast_duration" data-vibrate-on="validation"
-                    data-title="Durée des messages éphémères"
-                    data-info="Durée après laquelle les messages s'affichant temporairement au bas de l'écran disparaissent.">
-                        <select-item data-value=1 data-selected>Normale</select-item>
-                        <select-item data-value=2>Doublée</select-item>
+                    data-name="toast_duration" data-vibrate-on="validation">
+                    <h3>Durée des messages éphémères</h3>
+                    <small>Durée après laquelle les messages s'affichant temporairement au bas de l'écran disparaissent.</small>
+                        <list-item data-value=1 data-selected>Normale</list-item>
+                        <list-item data-value=2>Doublée</list-item>
                 </setting-list>
 
                 <setting-switch
-                    data-name="show_last_tab_opened" data-value=true
-                    data-title="Afficher le dernier onglet ouvert"
-                    data-info="Lance l'application sur le dernier onglet ouvert."
-                ></setting-switch>
+                    data-name="show_last_tab_opened" data-value=true>
+                    <h3>Afficher le dernier onglet ouvert</h3>
+                    <small>Lance l'application sur le dernier onglet ouvert.</small>
+                </setting-switch>
 
                 <setting-switch
-                    data-name="keep_screen_awake_on_run" data-groups="wake_lock" data-value=true
-                    data-title="Garder l'écran allumé si actif"
-                    data-info="Empêche l'extinction de l'écran si l'onglet affiché est actif."
-                ></setting-switch>
+                    data-name="keep_screen_awake_on_run" data-groups="wake_lock" data-value=true>
+                    <h3>Garder l'écran allumé si actif</h3>
+                    <small>Empêche l'extinction de l'écran si l'onglet affiché est actif.</small>
+                </setting-switch>
 
                 <setting-switch
-                    data-name="always_keep_screen_awake" data-disable-group-on-true="wake_lock" data-value=false
-                    data-title="Toujours garder l'écran allumé"
-                    data-info="Empêche l'extinction de l'écran tant que l'application est ouverte. <b>Peut consommer davantage la batterie.</b>"
-                ></setting-switch>
+                    data-name="always_keep_screen_awake" data-value=false data-disable-group-on-true="wake_lock">
+                    <h3>Toujours garder l'écran allumé</h3>
+                    <small>Empêche l'extinction de l'écran tant que l'application est ouverte. <b>Peut consommer davantage la batterie.</b></small>
+                </setting-switch>
 
             </section>
 
@@ -580,36 +580,37 @@
             <section data-context="about">
 
                 <setting-action
-                    data-name="version"
-                    data-title="Version" data-info="<i>(Indisponible... Veuillez accéder au GitHub)</i>"
-                ></setting-action>
+                    data-name="version">
+                    <h3>Version</h3>
+                    <small><i>(Indisponible... Veuillez accéder au GitHub)</i></small>
+                </setting-action>
 
                 <setting-action
                     data-name="open_github"
-                    data-action="window.open(`https://github.com/${ENV.GITHUB}`, '_blank');" data-new-window
-                    data-title="GitHub du projet"
-                ></setting-action>
+                    data-action="window.open(`https://github.com/${ENV.GITHUB}`, '_blank');" data-new-window>
+                    <h3>GitHub du projet</h3>
+                </setting-action>
 
                 <setting-action
                     data-name="open_in_browser"
-                    data-action="window.open(ENV.URL, '_blank');" data-new-window
-                    data-title="Ouvrir dans le navigateur"
-                ></setting-action>
+                    data-action="window.open(ENV.URL, '_blank');" data-new-window>
+                    <h3>Ouvrir dans le navigateur</h3>
+                </setting-action>
 
                 <setting-action
                     data-name="see_disclaimer"
-                    data-module="components/disclaimer-modal" data-action="show"
-                    data-title="Lire l'avertissement"
-                ></setting-action>
+                    data-module="components/disclaimer-modal" data-action="show">
+                    <h3>Lire l'avertissement</h3>
+                </setting-action>
 
                 <setting-action
                     data-name="reset_all_settings" data-danger
                     data-module="views/settings" data-action="reset" data-vibrate-on="modal-close"
                     data-require-confirmation="Voulez-vous vraiment <b>réinitialiser tous les réglages de l'application ?</b><br><br>
-                                               Vos données enregistrées (tempos, bloc-notes…) ne seront pas supprimées."
-                    data-title="Réinitialiser tous les réglages"
-                    data-info="Tous les réglages seront restaurés à leur valeur d'origine."
-                ></setting-action>
+                                               Vos données enregistrées (tempos, bloc-notes…) ne seront pas supprimées.">
+                    <h3>Réinitialiser tous les réglages</h3>
+                    <small>Tous les réglages seront restaurés à leur valeur d'origine.</small>
+                </setting-action>
 
             </section>
 

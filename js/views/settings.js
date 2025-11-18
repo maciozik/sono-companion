@@ -320,10 +320,10 @@ export function onsync(setting_names, callback)
  */
 export function __init__()
 {
-    // Click on a select item in the modal.
+    // Click on a list item in the modal.
     // REFACTOR Create a custom element to generate a new modal each time it is needed?
     //          In that case, bind the modal to its setting and move this code into the bindEvents() function of SettingList.
-    Modal.$modal.addDynamicEventListener('click', '.select-item', function () {
+    Modal.$modal.addDynamicEventListener('click', '.list-item', function () {
         SettingList.selectItem(this, Modal.$modal);
     });
 

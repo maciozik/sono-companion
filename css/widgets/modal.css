@@ -52,12 +52,11 @@
 
         /* Setting List */
 
-        .select-item {
-            --select-item-color: var(--grey);
+        .list-item {
             display: flex;
             align-items: center;
             padding: 16px 0;
-            color: var(--select-item-color);
+            color: var(--grey);
             font-size: .95rem;
 
             &:first-child {
@@ -78,10 +77,12 @@
                 border: 2px solid currentColor;
                 border-radius: 50%;
 
+                /* Radio button Bullet */
                 &::before {
+                    --radio-btn-bullet-size: 58%;
                     content: "";
                     display: block;
-                    height: 60%;
+                    height: 100%;
                     aspect-ratio: 1;
                     background-color: currentColor;
                     border-radius: 50%;
@@ -91,10 +92,10 @@
             }
 
             &[data-selected] {
-                --select-item-color: var(--cyan);
+                color: var(--cyan);
 
                 .radio-btn::before {
-                    transform: scale(1);
+                    transform: scale(var(--radio-btn-bullet-size));
                 }
             }
         }

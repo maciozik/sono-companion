@@ -21,9 +21,10 @@ import * as Settings from '/js/views/settings.js';
  *
  * @example
  *  <setting-range
- *      data-name="gauge_max" data-title="Gauge maximum" data-suffix=" dB"
- *      data-value="130" data-min="100" data-max="150" data-step="{gauge_step}"
- *  ></setting-range>
+ *      data-name="gauge_max" data-suffix=" dB"
+ *      data-value="130" data-min="100" data-max="150" data-step="{gauge_step}">
+ *          <h3>Maximum of the gauge</h3>
+ *  </setting-range>
  */
 export default class SettingRange extends Setting
 {
@@ -198,9 +199,9 @@ export default class SettingRange extends Setting
         // Set the content.
         this.innerHTML = /*html*/`
             <div class="setting-text">
-                <p class="setting-title ${ this.danger ? 'danger' : ''}">
+                <h3 class="setting-title ${ this.danger ? 'danger' : ''}">
                     ${this.title}&nbsp;${super.getResetButtonHTML()}
-                </p>
+                </h3>
                 ${super.getInfoHTML()}
             </div>
             <div class="setting-choice">

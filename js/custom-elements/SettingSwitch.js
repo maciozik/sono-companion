@@ -113,9 +113,9 @@ export default class SettingSwitch extends Setting
         // Set the content.
         this.innerHTML = /*html*/`
             <div class="setting-text">
-                <p class="setting-title ${ this.danger ? 'danger' : ''}">
+                <h3 class="setting-title ${ this.danger ? 'danger' : ''}">
                     ${this.title} ${super.getResetButtonHTML()}
-                </p>
+                </h3>
                 ${super.getInfoHTML()}
             </div>
             <div class="setting-choice">

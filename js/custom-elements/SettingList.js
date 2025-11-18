@@ -9,14 +9,15 @@ import * as Settings from '/js/views/settings.js';
  *  - `data-vibrate-on` : If set to `validation`, a vibration will occur when the validation button of the modal is triggered.
  *                        If set to `modal-close`, a vibration will occur only after the modal closes completely.
  *
- * The text of each choice **must** be declared in a `<select-item>` child tag, with the following attributes:
+ * The text of each choice **must** be declared in a `<list-item>` child tag, with the following attributes:
  *  - `data-value`    : The id of the choice (in snake case).
  *  - `data-selected` : To declare only once on the default choice.
  *
  * @example
- *  <setting-list data-name="theme" data-title="Theme">
- *      <select-item data-value="dark" data-selected>Dark</select-item>
- *      <select-item data-value="light">Light</select-item>
+ *  <setting-list data-name="theme">
+ *      <h3>Theme</h3>
+ *      <list-item data-value="dark" data-selected>Dark</list-item>
+ *      <list-item data-value="light">Light</list-item>
  *  </setting-list>
  */
 export default class SettingList extends Setting
@@ -24,7 +25,7 @@ export default class SettingList extends Setting
     value = new String();
     default_value = new String();
 
-    /** @type {HTMLElement} The `select-list` element that must be copied in the modal. */
+    /** @type {HTMLElement} The `list-items` element that must be copied in the modal. */
     $list;
 
     /** @type {'validation'|'modal-close'|null} */
@@ -54,7 +55,7 @@ export default class SettingList extends Setting
         this.bindEvents();
 
         // Set the necessary elements.
-        this.$list = this.querySelector('.select-list');
+        this.$list = this.querySelector('.list-items');
     }
 
     /**
@@ -66,7 +67,7 @@ export default class SettingList extends Setting
     }
 
     /**
-     * Set the item value as selected in the select list.
+     * Set the item value as selected in the list.
      * @param {string} value The value of the selected item.
      * @returns {string} The new value, or the default value if it is not in the list.
      */
@@ -87,7 +88,7 @@ export default class SettingList extends Setting
     }
 
     /**
-     * Show the select list in the modal.
+     * Show the list of items in the modal.
      */
     showList()
     {
@@ -106,11 +107,11 @@ export default class SettingList extends Setting
     /**
      * Select the item selected by the user in the modal.
      * @param {HTMLElement} $selectedItem
-     * @param {HTMLElement} $container The container of the items to update (either the select list or the modal).
+     * @param {HTMLElement} $container The container of the items to update (either the list of items or the modal).
      */
     static selectItem($selectedItem, $container)
     {
-        const $items = $container.querySelectorAll('.select-item');
+        const $items = $container.querySelectorAll('.list-item');
 
         $items.forEach($item => $item.removeAttribute('data-selected'));
         $selectedItem.setAttribute('data-selected', '');
@@ -138,7 +139,7 @@ export default class SettingList extends Setting
     }
 
     /**
-     * Get the label of the selected value.
+     * Get the label of the selected item.
      * @returns {string}
      */
     getValueAsText()
@@ -161,14 +162,14 @@ export default class SettingList extends Setting
         // Set the content.
         this.innerHTML = /*html*/`
             <div class="setting-text">
-                <p class="setting-title ${ this.danger ? 'danger' : ''}">
+                <h3 class="setting-title ${ this.danger ? 'danger' : ''}">
                     ${this.title} ${super.getResetButtonHTML()}
-                </p>
+                </h3>
                 ${super.getInfoHTML()}
             </div>
             <div class="setting-choice">
-                <div class="select-list">
-                    ${this.getSelectItemsHTML()}
+                <div class="list-items">
+                    ${this.getItemsHTML()}
                 </div>
                 <g-icon data-name="chevron_right" data-y=0.3></g-icon>
             </div>
@@ -176,28 +177,28 @@ export default class SettingList extends Setting
     }
 
     /**
-     * Get the HTML of the list of all the select items.
+     * Get the HTML of all the items of the list.
      * @returns {string}
      */
-    getSelectItemsHTML()
+    getItemsHTML()
     {
-        let select_items_html = '';
-        const $items = this.querySelectorAll('select-item');
+        let items_html = '';
+        const $items = this.querySelectorAll('list-item');
 
         for (const $item of $items) {
             let value = $item.dataset.value;
             let label = $item.innerHTML;
             let selected = ($item.hasAttribute('data-selected')) ? 'data-selected' : '';
 
-            select_items_html += /*html*/`
-                <div class="select-item" data-value="${value}" ${selected}>
+            items_html += /*html*/`
+                <div class="list-item" data-value="${value}" ${selected}>
                     <span class="radio-btn"></span>
                     <span class="label">${label}</span>
                 </div>
             `;
         }
 
-        return select_items_html;
+        return items_html;
     }
 
     /**
