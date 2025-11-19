@@ -211,9 +211,9 @@ function createAudioContext() {
 export function __init__()
 {
     // Listen the events emitted by the view.
-    document.addEventListener('run:tempo', () => {
+    Tempo.$view.addEventListener('run', () => {
         createAudioContext();
         run();
     });
-    document.addEventListener('stop:tempo', stop);
+    Tempo.$view.addEventListener('stop', stop);
 }

@@ -11,6 +11,7 @@ export const SETTINGS_VIEW = 'settings';
 
 export const $header = document.querySelector('header');
 export const $h1     = $header.querySelector('h1');
+export const $main   = document.querySelector('main');
 export const $views  = document.querySelectorAll('.view');
 export const $footer = document.querySelector('footer');
 
@@ -19,8 +20,8 @@ export const $loadViewBtns = document.querySelectorAll('[data-load]');
 /**
  * Load a view.
  * @param {string} view The id of the view, or settings:`setting_name` to make the setting blink.
- * @fires load
- * @fires load:`view_id`
+ * @fires load on $main.
+ * @fires load on $view.
  */
 export function load(view)
 {
@@ -44,17 +45,16 @@ export function load(view)
         Storage.set('last_view_loaded', view_id);
     }
 
-    // Emit 'load' events.
-    const event_detail = { $view, setting_name };
-    document.dispatchEvent(new CustomEvent('load', { detail: event_detail }));
-    document.dispatchEvent(new CustomEvent(`load:${view_id}`, { detail: event_detail }));
+    // Emit the 'load' events.
+    $main.dispatchEvent(new CustomEvent('load', { detail: { $view, setting_name } }));
+    $view.dispatchEvent(new CustomEvent('load', { detail: { setting_name } }));
 }
 
 /**
  * Set the `run` state on a view.
  * @param {string} [view_id] *Default: current view.*
- * @fires run
- * @fires run:`view_id`
+ * @fires run on $main.
+ * @fires run on $view.
  */
 export function run(view_id = getCurrent().id)
 {
@@ -65,16 +65,16 @@ export function run(view_id = getCurrent().id)
     WakeLock.handle();
     Storage.setOnce('has_been_run', true);
 
-    // Emit 'run' events.
-    document.dispatchEvent(new CustomEvent('run', { detail: { view_id: view_id } }));
-    document.dispatchEvent(new CustomEvent(`run:${view_id}`));
+    // Emit the 'run' events.
+    $main.dispatchEvent(new CustomEvent('run', { detail: { view_id } }));
+    $view.dispatchEvent(new CustomEvent('run'));
 }
 
 /**
  * Set the `pause` state on a view.
  * @param {string} [view_id] *Default: current view.*
- * @fires pause
- * @fires pause:`view_id`
+ * @fires pause on $main.
+ * @fires pause on $view.
  */
 export function pause(view_id = getCurrent().id)
 {
@@ -83,16 +83,16 @@ export function pause(view_id = getCurrent().id)
 
     WakeLock.handle();
 
-    // Emit 'pause' events.
-    document.dispatchEvent(new CustomEvent('pause', { detail: { view_id: view_id } }));
-    document.dispatchEvent(new CustomEvent(`pause:${view_id}`));
+    // Emit the 'pause' events.
+    $main.dispatchEvent(new CustomEvent('pause', { detail: { view_id } }));
+    $view.dispatchEvent(new CustomEvent('pause'));
 }
 
 /**
  * Unset the `run` or `pause` state from a view.
  * @param {string} [view_id] *Default: current view.*
- * @fires stop
- * @fires stop:`view_id`
+ * @fires stop on $main.
+ * @fires stop on $view.
  */
 export function stop(view_id = getCurrent().id)
 {
@@ -101,9 +101,9 @@ export function stop(view_id = getCurrent().id)
 
     WakeLock.handle();
 
-    // Emit 'stop' events.
-    document.dispatchEvent(new CustomEvent('stop', { detail: { view_id: view_id } }));
-    document.dispatchEvent(new CustomEvent(`stop:${view_id}`));
+    // Emit the 'stop' events.
+    $main.dispatchEvent(new CustomEvent('stop', { detail: { view_id } }));
+    $view.dispatchEvent(new CustomEvent(`stop`));
 }
 
 /**
@@ -236,8 +236,8 @@ export function __init__()
         });
     }
 
-    // When a view is loaded.
-    document.addEventListener('load', event => {
+    // When any view is loaded.
+    $main.addEventListener('load', event => {
 
         const view_id = event.detail.$view.id;
 

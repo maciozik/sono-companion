@@ -63,15 +63,15 @@ export function __init__() {
         });
     };
 
-    // Run the tab if the view is running.
-    document.addEventListener('run', event => {
+    // Run the tab if its view is running.
+    View.$main.addEventListener('run', event => {
         const $tab = getTabFromViewId(event.detail.view_id);
         $tab.classList.add('run');
     });
 
     // Stop the tab if the view is paused or stopped.
     ['pause', 'stop'].forEach(event_type => {
-        document.addEventListener(event_type, event => {
+        View.$main.addEventListener(event_type, event => {
             const $tab = getTabFromViewId(event.detail.view_id);
             $tab.classList.remove('run');
         });

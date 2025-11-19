@@ -5,6 +5,7 @@ import Toast from '/js/classes/Toast.js';
 import SettingList from '/js/custom-elements/SettingList.js';
 import SettingAction from '/js/custom-elements/SettingAction.js';
 import * as Storage from '/js/core/storage.js';
+import * as View from '/js/views/view.js';
 
 export const $view = document.getElementById('settings');
 
@@ -327,11 +328,11 @@ export function __init__()
         SettingList.selectItem(this, Modal.$modal);
     });
 
-    // When a view is loaded.
-    document.addEventListener('load', event => {
+    // When any view is loaded.
+    View.$main.addEventListener('load', event => {
 
         // If the view loaded is the settings view.
-        if (event.detail.$view.id === $view.id) {
+        if (event.detail.$view === $view) {
             let setting_name = event.detail.setting_name;
             let transition_duration = $view.getCssProperty('transition-duration') - 50;
 
@@ -344,6 +345,7 @@ export function __init__()
             }, transition_duration);
         }
         else {
+            // Hide the scrollbar.
             $view._Scrollbar.setVisibility(false);
         }
     });

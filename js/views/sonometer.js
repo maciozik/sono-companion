@@ -333,7 +333,7 @@ export function __init__()
     });
 
     // Listen the events emitted by the view.
-    document.addEventListener('run:sonometer', run);
-    document.addEventListener('pause:sonometer', pause);
-    document.addEventListener('stop:sonometer', reset);
+    $view.addEventListener('run', run);
+    $view.addEventListener('pause', pause);
+    $view.addEventListener('stop', reset);
 }
