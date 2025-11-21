@@ -126,4 +126,15 @@ export function __init__()
     $closeBtn.addEventListener('click', () => {
         close();
     });
+
+    // Prevent the "ghost scroll" when the keyboard is open (Chromium only).
+    if ('virtualKeyboard' in navigator) {
+        navigator.virtualKeyboard.overlaysContent = true;
+        $fullscreen.style.height = /*css*/ `calc(100% - env(keyboard-inset-height))`;
+
+        navigator.virtualKeyboard.addEventListener('geometrychange', () => {
+            $textarea._Scrollbar.setHeight();
+            $textarea._Scrollbar.update();
+        });
+    }
 }

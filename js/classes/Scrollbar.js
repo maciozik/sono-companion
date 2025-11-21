@@ -88,6 +88,9 @@ export default class Scrollbar
      */
     setHeight()
     {
+        // Get the height of the scrollable element again.
+        this.scrollable.inner_height = this.$scrollable.clientHeight;
+
         this.scrollbar_height = this.scrollable.inner_height - (Scrollbar.MARGIN_BLOCK * 2);
         this.$scrollbar.style.height = `${this.scrollbar_height}px`;
     }
