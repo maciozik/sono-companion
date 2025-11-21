@@ -21,6 +21,11 @@ const ATTRIBUTES_TO_COPY = [
 /** @type {HTMLTextAreaElement} The textarea linked to the fullscreen textarea. */
 let $textareaSource;
 
+/** @type {number} The height of the virtual keyboard (Chromium only). */
+let keyboard_height = 0;
+
+let is_open = false;
+
 /**
  * Open the fullscreen textarea.
  * @param {HTMLTextAreaElement} $from The source textarea that opens the fullscreen textarea.
@@ -32,6 +37,7 @@ export function open($from, styles)
     init(styles);
 
     $fullscreen.classList.add('active');
+    is_open = true;
 
     // Create a state in the history.
     History.push('fullscreen-textarea', () => {
@@ -45,6 +51,7 @@ export function open($from, styles)
  */
 export function close()
 {
+    is_open = false;
     $fullscreen.classList.remove('active');
     $textarea.blur();
 
@@ -129,12 +136,24 @@ export function __init__()
 
     // Prevent the "ghost scroll" when the keyboard is open (Chromium only).
     if ('virtualKeyboard' in navigator) {
+
+        // Prevent the layout to be pushed up when the keyboard opens.
         navigator.virtualKeyboard.overlaysContent = true;
-        $fullscreen.style.height = /*css*/ `calc(100% - env(keyboard-inset-height))`;
 
         navigator.virtualKeyboard.addEventListener('geometrychange', () => {
-            $textarea._Scrollbar.setHeight();
-            $textarea._Scrollbar.update();
+
+            let current_keyboard_height = navigator.virtualKeyboard.boundingRect.height;
+            $fullscreen.style.height = /*css*/ `calc(100% - ${current_keyboard_height}px)`;
+
+            // Update the scroll and scrollbar after the height changed.
+            if (is_open && current_keyboard_height > keyboard_height) {
+                $textarea.blur();
+                $textarea.focus();
+                $textarea._Scrollbar.setHeight();
+                $textarea._Scrollbar.update();
+            }
+
+            keyboard_height = current_keyboard_height;
         });
     }
 }
