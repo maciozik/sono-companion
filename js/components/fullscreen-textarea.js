@@ -1,10 +1,14 @@
 import Scrollbar from '/js/classes/Scrollbar.js';
 import * as History from '/js/core/history.js';
 
+export const SAVED_BADGE_DISPLAY_DURATION = 1500;
+
 export const $fullscreen = document.querySelector('#fullscreen-textarea');
+export const $textareaHeader = $fullscreen.querySelector('header');
 export const $textarea = $fullscreen.querySelector('textarea');
 
-const $closeBtn = $fullscreen.querySelector('.close-btn');
+const $savedBadge = $textareaHeader.querySelector('.saved-badge');
+const $closeBtn = $textareaHeader.querySelector('.close-btn');
 
 const ATTRIBUTES_TO_COPY = [
     'maxlength',
@@ -18,13 +22,17 @@ const ATTRIBUTES_TO_COPY = [
     'enterkeyhint'
 ];
 
+/** @type {boolean} */
+export let is_open = false;
+
 /** @type {HTMLTextAreaElement} The textarea linked to the fullscreen textarea. */
 let $textareaSource;
 
 /** @type {number} The height of the virtual keyboard (Chromium only). */
 let keyboard_height = 0;
 
-let is_open = false;
+/** @type {number} */
+let savedBadgeTimeout;
 
 /**
  * Open the fullscreen textarea.
@@ -51,8 +59,10 @@ export function open($from, styles)
  */
 export function close()
 {
-    is_open = false;
     $fullscreen.classList.remove('active');
+    $savedBadge.classList.remove('show');
+    is_open = false;
+
     $textarea.blur();
 
     // Copy the scroll to the source textarea.
@@ -67,7 +77,8 @@ export function close()
     History.cancel('fullscreen-textarea');
 
     // Emit the `edit-done` event on the source textarea.
-    $textareaSource.dispatchEvent(new Event('edit-done'));
+    $textareaSource.dispatchEvent(new CustomEvent('edit-done'));
+    $textareaSource = undefined;
 }
 
 /**
@@ -82,6 +93,29 @@ function replacePunctuationSpaces()
         $textarea.value = value_replaced;
         $textarea.setSelectionRange(selectionStart, selectionEnd);
     }
+}
+
+/**
+ * Update the textarea length and maxlength counter.
+ */
+function updateCounter()
+{
+    const $textareaCounter = $textareaHeader.querySelector('.textarea-counter');
+    let limit = ($textarea.value.length >= $textarea.maxLength);
+
+    $textareaCounter.querySelector('.length').textContent = $textarea.value.length;
+    $textareaCounter.querySelector('.maxlength').textContent = $textarea.maxLength;
+
+    $textareaCounter.classList.toggle('limit', limit);
+}
+
+/**
+ * Show the saved badge temporarily.
+ */
+function showSavedBadge()
+{
+    savedBadgeTimeout?.cancel();
+    savedBadgeTimeout = $savedBadge.addClassTemporarily('show', SAVED_BADGE_DISPLAY_DURATION);
 }
 
 /**
@@ -112,7 +146,7 @@ function init(styles)
         $target.focus();
     });
 
-    // Update the scrollbar.
+    updateCounter();
     $target._Scrollbar.update();
 }
 
@@ -122,15 +156,25 @@ function init(styles)
  */
 export function __init__()
 {
-    // Copy the content to the source textarea.
+    // When the user types.
     $textarea.addEventListener('input', function () {
         replacePunctuationSpaces();
+        updateCounter();
+
+        // Copy the content to the source textarea.
         $textareaSource.value = this.value;
         $textareaSource.dispatchEvent(new Event('input'));
     });
 
+    // When the textarea content is saved.
+    $textarea.addEventListener('saved', () => {
+        if (is_open) {
+            showSavedBadge();
+        }
+    });
+
     // Click on the close button.
-    $closeBtn.addEventListener('click', () => {
+    $closeBtn.addEventListener('trigger', () => {
         close();
     });
 

@@ -1,4 +1,6 @@
 #fullscreen-textarea {
+    display: flex;
+    flex-direction: column;
     position: fixed;
     top: -100%;
     left: 0;
@@ -10,23 +12,43 @@
     opacity: 0;
     z-index: 5000;
 
+    header {
+
+        .header-left, .header-right {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .textarea-counter {
+            font-size: .95rem;
+            font-weight: 500;
+            letter-spacing: -0.5px;
+
+            &.limit {
+                color: var(--red);
+                font-weight: 600;
+            }
+        }
+
+        .saved-badge {
+            color: light-dark(var(--bg), var(--invert));
+            --badge-background-opacity: .4;
+        }
+
+        .close-btn {
+            font-size: 2rem;
+        }
+    }
+
     textarea {
         margin: 0;
         padding: 35px 30px 30px;
         width: 100%;
-        height: 100%;
+        flex-grow: 1;
         border: none;
         border-radius: 0;
         outline: none;
-    }
-
-    .close-btn {
-        position: absolute;
-        top: 0;
-        right: 6px;
-        padding: 5px 5px;
-        color: var(--grey);
-        font-size: 1.7rem;
     }
 
     &.active {
@@ -37,12 +59,25 @@
 
 body:has(#fullscreen-textarea.active) {
 
-    header, footer {
+    & > :is(header, footer) {
         display: none !important;
     }
 
     main {
         position: absolute !important;
         height: 0 !important;
+    }
+}
+
+/**  THEME  **/
+
+:root[data-high-contrast] {
+
+    #fullscreen-textarea {
+        .saved-badge {
+            color: light-dark(var(--invert), var(--bg));
+            --badge-background-color: light-dark(var(--bg), var(--invert));
+            --badge-background-opacity: .9;
+        }
     }
 }

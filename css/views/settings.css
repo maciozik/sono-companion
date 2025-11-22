@@ -168,7 +168,7 @@
         margin: 5px 0 12px;
         margin-left: calc(var(--setting-padding-inline) - 1px);
         padding-block: 1.5px;
-        background-color: rgb(from var(--grey-pale) r g b / .3);
+        --badge-background-opacity: .3;
         color: var(--grey);
         font-size: .7rem;
         font-weight: 500;

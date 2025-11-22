@@ -1,5 +1,6 @@
 header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     position: relative;
     padding-left: var(--header-padding-inline);
@@ -8,8 +9,19 @@ header {
     background-color: var(--cyan);
     z-index: 1000;
 
+    .header-btn {
+        display: grid;
+        place-items: center;
+        height: 100%;
+        aspect-ratio: 1;
+        font-size: 1.7rem;
+    }
+}
+
+/* Main Header */
+body > header {
+
     h1 {
-        flex-grow: 1;
         margin-top: -2px;
         font-size: 1.25rem;
         font-weight: 500;
@@ -18,15 +30,6 @@ header {
     }
 
     #settings-btn {
-        display: grid;
-        place-items: center;
-        height: 100%;
-        aspect-ratio: 1;
-
-        g-icon {
-            font-size: 1.6rem;
-            line-height: var(--header-height);
-        }
 
         &.active {
             background-color: #FFF2;
@@ -85,7 +88,9 @@ footer {
 
     header {
         color: light-dark(var(--invert), var(--bg));
+    }
 
+    body > header {
         #settings-btn.active {
             background-color: #FFF4;
         }

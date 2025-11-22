@@ -1,8 +1,11 @@
 .badge {
+    --badge-background-color: var(--grey-pale);
+    --badge-background-opacity: .6;
+
     display: inline-block;
     padding: 1.5px 9px 1px;
     color: var(--invert);
-    background-color: rgb(from var(--grey-pale) r g b / .6);
+    background-color: rgb(from var(--badge-background-color) r g b / var(--badge-background-opacity));
     border-radius: 100vw;
     font-size: .8rem;
     font-weight: 600;
@@ -16,5 +19,25 @@
 
     &.hide {
         visibility: hidden;
+    }
+}
+
+.badge.saved-badge {
+    padding: 0px 8px 2px 5.5px;
+    font-size: .7rem;
+    letter-spacing: -0.2px;
+    opacity: 0;
+    transition: opacity 100ms linear;
+
+    g-icon {
+        margin-right: 1.5px;
+        font-size: 1.25em;
+        font-weight: inherit;
+        transform: translateY(2.5px);
+    }
+
+    &.show {
+        opacity: 1;
+        transition: none;
     }
 }

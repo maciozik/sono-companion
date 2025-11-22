@@ -4,13 +4,18 @@ import * as Storage from '/js/core/storage.js';
 import * as Settings from '/js/views/settings.js';
 import * as FullscreenTextarea from '/js/components/fullscreen-textarea.js';
 
+const SPEED_OF_SOUND_DEFAULT = 340; // In m/s.
+const NOTEPAD_SAVE_AFTER_LAST_INPUT_DELAY = 800;
+
 export const $view = document.getElementById('toolbox');
 
 const $inputs = $view.querySelectorAll('input');
 const $temperatureBadge = $view.querySelector('.temperature-badge');
 const $notepad = $view.querySelector('textarea#notepad');
+const $savedBadge = $view.querySelector('.saved-badge');
 
-const SPEED_OF_SOUND_DEFAULT = 340; // In m/s.
+/** @type {number} */
+let notepadSaveTimeout;
 
 /**
  * Set the value of an input.
@@ -118,18 +123,25 @@ function notepadRestoreFromStorage(content)
 }
 
 /**
- * Save the notepad content in the storage.
+ * Save the notepad content in the storage if it changed.
+ * @fires `saved` on FullscreenTextarea.$textarea.
  */
 // TODO Persist the data better? (IndexedDB/.txt)
 function notepadSaveInStorage()
 {
-    let notepad_content = $notepad.value;
+    let notepad_current = $notepad.value;
+    let notepad_stored = Storage.get('toolbox.notepad');
 
-    if (notepad_content !== "") {
-        Storage.set('toolbox.notepad', notepad_content);
+    if (notepad_current === notepad_stored) return;
+
+    if (notepad_current !== "") {
+        Storage.set('toolbox.notepad', notepad_current);
     } else {
         Storage.remove('toolbox.notepad');
     }
+
+    // Emit the `saved` event on the fullscreen textarea.
+    FullscreenTextarea.$textarea.dispatchEvent(new CustomEvent('saved'));
 }
 
 /**
@@ -210,21 +222,27 @@ export function __init__()
         FullscreenTextarea.open($notepad, {
             paddingInline : this.getCssProperty('--fullscreen-textarea-padding-inline', false),
             fontSize      : this.getCssProperty('font-size', false),
-            lineHeight    : this.getCssProperty('line-height', false)
+            lineHeight    : this.getCssProperty('line-height', false),
+            letterSpacing : this.getCssProperty('letter-spacing', false)
         });
     });
 
-    // Save the notepad content in storage while the user is typing.
+    // Save the notepad content in storage after the user stopped typing.
     $notepad.addEventListener('input', function () {
-        notepadSaveInStorage();
+        clearTimeout(notepadSaveTimeout);
+        notepadSaveTimeout = setTimeout(() => {
+            this.value = this.value.trimEnd();
+            notepadSaveInStorage();
+        }, NOTEPAD_SAVE_AFTER_LAST_INPUT_DELAY);
     });
 
     // When the edition in the fullscreen textarea is done.
     $notepad.addEventListener('edit-done', function () {
-        this.value = this.value.trimEnd();
+        clearTimeout(notepadSaveTimeout);
         notepadSaveInStorage();
 
-        this.addClassTemporarily('edit-done');
+        this.addClassTemporarily('edit-done', 100);
+        $savedBadge.addClassTemporarily('show', FullscreenTextarea.SAVED_BADGE_DISPLAY_DURATION);
     });
 
     // Highlight the notepad content on scroll.

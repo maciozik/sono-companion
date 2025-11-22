@@ -30,7 +30,7 @@
 
         <h1>Sono Companion</h1>
 
-        <div id="settings-btn" data-load="settings" data-tappable="pointerdown 0.4 250ms">
+        <div class="header-btn" id="settings-btn" data-load="settings" data-tappable="pointerdown 0.4 250ms">
             <g-icon data-name="tune"></g-icon>
         </div>
 
@@ -318,7 +318,10 @@
 
             <section id="toolbox-notepad">
 
-                <h2>Bloc-notes</h2>
+                <h2>
+                    Bloc-notes
+                    <div class="badge saved-badge"><g-icon data-name="check"></g-icon>Enregistré</div>
+                </h2>
 
                 <textarea id="notepad" placeholder="✎ Rédigez vos notes et mémos." maxlength=50000 data-scrollable
                           wrap="soft" enterkeyhint="enter" spellcheck=false readonly>
@@ -663,14 +666,25 @@
 
     <!-- TEXTAREA FULLSCREEN -->
 
-    <div id="fullscreen-textarea">
+    <section id="fullscreen-textarea">
+
+        <header>
+            <div class="header-left">
+                <div class="textarea-counter"><span class="length"></span> / <span class="maxlength"></span></div>
+            </div>
+            <div class="header-right">
+                <div class="badge saved-badge"><g-icon data-name="check"></g-icon>Enregistré</div>
+                <div class="header-btn close-btn" data-tappable><g-icon data-name="close" data-y=-0.5></g-icon></div>
+            </div>
+        </header>
+
         <textarea data-scrollable></textarea>
-        <div class="close-btn"><g-icon data-name="exit_to_app"></g-icon></div>
-    </div>
+
+    </section>
 
     <!-- OVERLAY -->
 
-    <div id="overlay" data-context="view">
+    <section id="overlay" data-context="view">
         <div class="modal" role="dialog">
             <div class="modal-title"></div>
             <div class="modal-text"></div>
@@ -679,7 +693,7 @@
                 <div class="modal-btn-primary btn btn-no-fill" data-tappable></div>
             </div>
         </div>
-    </div>
+    </section>
 
     <!-- TOAST -->
 
