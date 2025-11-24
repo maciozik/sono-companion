@@ -32,12 +32,15 @@
         }
 
         .saved-badge {
+            margin-right: 15px;
             color: light-dark(var(--bg), var(--invert));
             --badge-background-opacity: .4;
         }
 
-        .close-btn {
+        .close-btn g-icon {
             font-size: 2rem;
+            rotate: 70deg;
+            transition: none;
         }
     }
 
@@ -54,6 +57,11 @@
     &.active {
         top: 0;
         opacity: 1;
+
+        .close-btn g-icon {
+            rotate: 0deg;
+            transition: rotate 350ms var(--ease-out);
+        }
     }
 }
 

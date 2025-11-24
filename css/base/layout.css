@@ -15,6 +15,12 @@ header {
         height: 100%;
         aspect-ratio: 1;
         font-size: 1.7rem;
+        transition: none;
+
+        &.active {
+            background-color: #FFF2;
+            transition: background-color 200ms linear;
+        }
     }
 }
 
@@ -30,12 +36,9 @@ body > header {
     }
 
     #settings-btn {
-
         &.active {
-            background-color: #FFF2;
-            transition: background-color 200ms linear 100ms;
+            transition-delay: 100ms;
         }
-
         /* Tappable */
         &::before {
             background-color: white !important;
