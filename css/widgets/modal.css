@@ -23,10 +23,6 @@
         .modal-title {
             margin-bottom: 20px;
             font-size: 1.05rem;
-
-            &.hide {
-                display: none;
-            }
         }
 
         .modal-text {
@@ -42,12 +38,6 @@
             align-items: center;
             margin-top: 30px;
             margin-right: calc(-1 * var(--btn-padding-left-right));
-
-            .modal-btn-secondary {
-                &.hide {
-                    display: none !important;
-                }
-            }
         }
 
         /* Setting List */

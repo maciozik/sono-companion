@@ -186,8 +186,4 @@
             color: var(--grey-pale);
         }
     }
-
-    &.hide {
-        display: none;
-    }
 }

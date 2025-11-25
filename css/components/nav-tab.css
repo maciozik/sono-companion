@@ -48,8 +48,4 @@
             background-color: var(--grey);
         }
     }
-
-    &.hide {
-        display: none;
-    }
 }

@@ -17,7 +17,7 @@
         right: var(--header-padding-inline);
     }
 
-    &.hide {
+    &.off {
         visibility: hidden;
     }
 }

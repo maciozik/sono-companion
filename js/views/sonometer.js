@@ -313,7 +313,7 @@ export function __init__()
     // Set the calibration badge.
     Settings.onsync('audio_calibration', event => {
         $calibrationBadge.textContent = event.detail.value_as_text;
-        $calibrationBadge.classList.toggle('hide', (event.detail.value === 0));
+        $calibrationBadge.classList.toggle('off', (event.detail.value === 0));
     });
 
     // Update the refresh interval of the information while running.
