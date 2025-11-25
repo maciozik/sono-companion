@@ -22,19 +22,19 @@
             top: -7px;
             right: 60%;
             padding: .5px 6px .2px;
+            translate: 3px 0;
             font-size: .65rem;
             font-weight: 500;
             color: light-dark(var(--bg), var(--invert));
             background-color: light-dark(var(--grey), var(--grey-pale));
             border-radius: 100vw;
-            transform: translateX(3px);
             opacity: 0;
+            pointer-events: none;
             transition-property: all;
             transition-duration: 100ms;
-            pointer-events: none;
 
             &.show {
-                transform: none;
+                translate: none;
                 opacity: .9;
                 transition-duration: 60ms;
             }
@@ -75,27 +75,27 @@
         .bpm-save {
             position: absolute;
 
-            /* Previous and after next. */
+            /* Previous and after next */
             &:not(:is(.current, .next, .add, .remove)) {
+                translate: 0 24px;
                 color: var(--grey-pale);
                 font-size: .5rem;
                 font-weight: 600;
-                transform: translateY(24px);
                 opacity: 0;
             }
 
             &.previous {
-                transform: translateY(-24px);
+                translate: 0 -24px;
             }
 
             &:is(.current, .add, .remove) {
+                translate: 0 -6px;
                 color: var(--invert);
                 font-size: 1.05rem;
                 font-weight: 500;
-                transform: translateY(-6px);
 
                 &:only-child, &.only-child {
-                    transform: none;
+                    translate: none;
                 }
             }
 
@@ -119,10 +119,10 @@
             }
 
             &.next {
+                translate: 0 10px;
                 color: var(--grey-pale);
                 font-size: .7rem;
                 font-weight: 600;
-                transform: translateY(10px);
             }
         }
 

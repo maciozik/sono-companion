@@ -16,6 +16,10 @@
         opacity: 0;
         transition: opacity 100ms linear;
 
+        &.play {
+            translate: -0.5px 0;
+        }
+
         &.pause {
             font-size: 56cqh;
         }
@@ -26,9 +30,9 @@
         margin: var(--play-btn-adaptative-margins);
         top: calc(50% - var(--play-btn-adaptative-margins));
         left: calc(50% - var(--play-btn-adaptative-margins));
-        transform: translateX(-50%) translateY(-50%);
         max-width: 130px;
         max-height: 130px;
+        translate: -50% -50%;
     }
 
     &.pulse {
@@ -37,7 +41,9 @@
 
         g-icon.play {
             transform-origin: center bottom;
-            animation: bounce var(--animation-duration) ease-out infinite var(--animation-duration);
+            animation: bounce var(--animation-duration) ease-out;
+            animation-delay: var(--animation-duration);
+            animation-iteration-count: infinite;
         }
 
         /* Pulsation */

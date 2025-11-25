@@ -75,7 +75,7 @@
                 &::after {
                     right: 0;
                     margin-right: 2px;
-                    transform: translateX(50%);
+                    translate: 50% 0;
                 }
             }
 
@@ -86,7 +86,7 @@
                 &::after {
                     left: 0;
                     margin-left: 2px;
-                    transform: translateX(-50%);
+                    translate: -50% 0;
                 }
             }
         }
@@ -104,15 +104,15 @@
                 .bpm-value {
                     font-size: 3.6rem;
                     font-weight: 300;
-                    transition: transform 100ms linear;
+                    transition: translate 100ms linear;
 
                     &.blink {
                         color: var(--cyan);
                     }
 
                     &.tap-tempo-listen {
+                        translate: 0 -16px;
                         color: var(--yellow);
-                        transform: translateY(-16px);
 
                         & + g-icon {
                             opacity: 1;

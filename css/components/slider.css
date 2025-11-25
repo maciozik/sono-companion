@@ -37,7 +37,7 @@
             left: var(--slider-thumb-left);
             width: var(--slider-thumb-size);
             aspect-ratio: 1;
-            transform: translateX(-50%);
+            translate: -50% 0;
             background-color: currentColor;
             border-radius: 50%;
             transition: box-shadow 100ms linear;

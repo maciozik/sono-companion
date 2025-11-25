@@ -31,9 +31,13 @@
 
     g-icon {
         margin-right: 1.5px;
+        translate: 0 2.5px;
         font-size: 1.25em;
         font-weight: inherit;
-        transform: translateY(2.5px);
+    }
+
+    &::after {
+        content: "Enregistré";
     }
 
     &.show {

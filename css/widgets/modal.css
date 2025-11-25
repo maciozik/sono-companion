@@ -13,12 +13,12 @@
     .modal {
         padding: 25px 25px 12px;
         width: 85%;
+        translate: 0 -10px;
         background-color: light-dark(var(--bg), var(--bg-contrast));
         border: 1px solid light-dark(transparent, #DDD1);
         border-radius: 8px;
         overflow: auto;
-        transform: translateY(-10px);
-        transition: transform 100ms linear;
+        transition: translate 100ms linear;
 
         .modal-title {
             margin-bottom: 20px;
@@ -86,8 +86,8 @@
                     aspect-ratio: 1;
                     background-color: currentColor;
                     border-radius: 50%;
-                    transform: scale(0);
-                    transition: transform 100ms linear;
+                    scale: 0;
+                    transition: scale 100ms linear;
                 }
             }
 
@@ -95,7 +95,7 @@
                 color: var(--cyan);
 
                 .radio-btn::before {
-                    transform: scale(var(--radio-btn-bullet-size));
+                    scale: var(--radio-btn-bullet-size);
                 }
             }
         }
@@ -124,8 +124,8 @@
         transition: top 0ms linear, opacity 150ms linear 100ms;
 
         .modal {
-            transform: translateY(0);
-            transition: transform 100ms linear 150ms;
+            translate: none;
+            transition: translate 100ms linear 150ms;
         }
     }
 

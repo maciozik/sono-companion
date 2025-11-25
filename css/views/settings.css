@@ -33,11 +33,11 @@
                 .reset-btn {
                     display: inline-block;
                     padding: 2px 2px 0;
+                    translate: 0 2px;
                     color: var(--yellow);
                     font-size: .98em;
                     font-weight: bold;
                     line-height: 0;
-                    transform: translateY(2px);
 
                     &.hide {
                         display: none;

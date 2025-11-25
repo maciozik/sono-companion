@@ -11,6 +11,9 @@ export default class GIcon extends HTMLElement
     constructor ()
     {
         super();
+
+        this.x = (this.dataset.x !== undefined && this.dataset.x !== '') ? parseFloat(this.dataset.x) : 0;
+        this.y = (this.dataset.y !== undefined && this.dataset.y !== '') ? parseFloat(this.dataset.y) : 0;
     }
 
     /**
@@ -31,16 +34,12 @@ export default class GIcon extends HTMLElement
 
         this.classList.add(`material-icons${this.theme}`);
 
-        // Get the possible transform property of the existing element.
+        // Get the transform property of the existing element if it exists.
         let transform = this.getCssProperty('transform');
         transform = (transform !== 'none') ? transform : '';
 
-        // Set the translateX value if needed.
-        this.x = (this.dataset.x !== undefined && this.dataset.x !== '') ? parseFloat(this.dataset.x) : 0;
+        // Set the translation.
         transform += (this.x !== 0) ? ` translateX(${this.x}px)` : '';
-
-        // Set the translateY value if needed.
-        this.y = (this.dataset.y !== undefined && this.dataset.y !== '') ? parseFloat(this.dataset.y) : 0;
         transform += (this.y !== 0) ? ` translateY(${this.y}px)` : '';
 
         this.style.transform = transform;

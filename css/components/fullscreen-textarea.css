@@ -38,8 +38,8 @@
         }
 
         .close-btn g-icon {
-            font-size: 2rem;
             rotate: 70deg;
+            font-size: 2rem;
             transition: none;
         }
     }
@@ -60,7 +60,7 @@
 
         .close-btn g-icon {
             rotate: 0deg;
-            transition: rotate 350ms var(--ease-out);
+            transition: rotate 300ms var(--ease-out);
         }
     }
 }

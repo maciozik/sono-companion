@@ -4,13 +4,14 @@
     place-items: center;
     position: absolute;
     left: 50%;
-    transform: translateX(-50%);
     bottom: var(--app-height);
     padding: 7px 24px 8px;
-    width: 100%; /* Fallback if max-content is not available. */
+    width: 100%; /* Fallback if max-content is not supported. */
     width: max-content;
     max-width: 85%;
     min-height: 3.2em;
+    translate: -50% 0;
+
     color: var(--invert);
     background-color: light-dark(#4441, #DFF1);
     -webkit-backdrop-filter: blur(6px);

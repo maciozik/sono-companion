@@ -52,28 +52,27 @@
                 transition: opacity 50ms linear;
             }
 
+            /* Animation on stop. */
             &:not(.no-timestamp) g-icon {
-                transition: margin-top 150ms ease-out,
-                            margin-left 0ms linear 150ms,
-                            transform 50ms linear 150ms,
-                            opacity 0ms linear 150ms;
+                transition: margin-top  100ms ease-out,
+                            scale       100ms linear 150ms,
+                            opacity     0ms   linear 180ms;
             }
         }
     }
 
     &.run {
+
+        /* Animation on run. */
         .play-btn:not(.no-timestamp) {
+
             g-icon {
                 margin-top: -29px;
-                transform: scale(.8) !important;
-                transition: transform 50ms linear,
+                scale: .8 !important;
+                transition: scale      50ms  linear,
                             margin-top 250ms ease-out 150ms,
-                            opacity 0ms linear 150ms
+                            opacity    0ms   linear   150ms
                             !important;
-
-                &.play {
-                    margin-left: -1px;
-                }
             }
 
             .timestamp {

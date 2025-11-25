@@ -21,7 +21,7 @@
         background-color: var(--bg);
         border: 2px solid currentColor;
         border-radius: 50%;
-        transition: transform 200ms var(--ease-out), border-color 0ms linear 20ms;
+        transition: translate 200ms var(--ease-out), border-color 0ms linear 20ms;
         z-index: 10;
     }
 
@@ -29,7 +29,7 @@
         color: var(--cyan);
 
         &::before {
-            transform: translateX(calc(var(--switch-width) - 100%));
+            translate: calc(var(--switch-width) - 100%) 0;
         }
     }
 }

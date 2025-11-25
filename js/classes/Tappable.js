@@ -13,6 +13,7 @@
  *     - The {@link trigger} method is accessible via the `_Tappable` instance bind to the tappable element.
  *  - `follow-tap`       : The circle animation is triggered at the position of the tap.
  *  - `no-circle`        : The circle animation will not be shown.
+ *  - `depress`          : The element will depress briefly when triggered.
  *  - **Any raw number** : The opacity of the circle (e.g. `0.2`).
  *  - **Any duration**   : The animation duration of the circle (e.g. `200ms`, `1s`).
  *

@@ -20,7 +20,7 @@
     .gauge-arcs {
         --gauge-arcs-rotation: 0deg; /* Overridden in JS. */
         position: relative;
-        transform: rotate(calc(-180deg + var(--gauge-arcs-rotation)));
+        rotate: calc(-180deg + var(--gauge-arcs-rotation));
         transform-origin: 50% calc(100% - (var(--gauge-graduations-thickness) / 2));
 
         .gauge-arc-safe, .gauge-arc-danger {
@@ -31,6 +31,7 @@
             border: var(--gauge-arc-thickness) solid currentColor;
             border-bottom: none;
             border-radius: 100vw 100vw 0 0;
+            transform: translate3d(0, 0, 0); /* Avoid aliasing on the invisible part.*/
             transform-origin: 50% 100%;
 
             .gauge-graduations {
@@ -39,6 +40,7 @@
                 bottom: 0;
                 width: calc(50% + 1px);
                 height: var(--gauge-graduations-thickness);
+                translate: -100% 0;
                 transform-origin: 100% 50%;
 
                 .graduation {
@@ -46,8 +48,8 @@
                     width: 100%;
                     height: 100%;
                     background: linear-gradient(90deg,
-                        currentColor var(--gauge-graduations-size),
-                        transparent var(--gauge-graduations-size));
+                                currentColor var(--gauge-graduations-size),
+                                transparent var(--gauge-graduations-size));
                     transform-origin: 100% 50%;
 
                     /* Gauge Values */
@@ -55,10 +57,10 @@
                         content: attr(data-value);
                         position: absolute;
                         width: 30px;
-                        color: var(--grey);
                         transform: rotate(-90deg)
-                            translateX(calc(-1/2 * var(--gauge-graduations-thickness) + 8px))
-                            translateY(calc(-24px - var(--gauge-arc-thickness)));
+                                   translateX(calc(-1/2 * var(--gauge-graduations-thickness) + 8px))
+                                   translateY(calc(-24px - var(--gauge-arc-thickness)));
+                        color: var(--grey);
                         text-align: center;
                         font-size: .7rem;
                         font-weight: 600;
@@ -85,7 +87,7 @@
 
                     &.indicator-reverse {
                         &::after {
-                            transform: rotate(180deg);
+                            rotate: 180deg;
                         }
                     }
                 }
@@ -95,10 +97,9 @@
         .gauge-arc-safe {
             position: relative;
             color: var(--cyan);
-            transform: translate3d(0, 0, 0);
 
             .gauge-graduations {
-                transform: translateX(-100%) rotate(180deg);
+                rotate: 180deg;
 
                 .graduation {
                     color: var(--cyan);
@@ -116,11 +117,10 @@
             position: absolute;
             top: 0;
             margin-top: calc(-1 * var(--gauge-graduations-thickness));
+            rotate: 180deg;
             color: var(--red);
-            transform: rotate(180deg) translate3d(0, 0, 0);
 
             .gauge-graduations {
-                transform: translateX(-100%);
 
                 .graduation {
                     color: var(--red);
@@ -136,7 +136,7 @@
 
         &.reduce-values {
             --gauge-graduations-size: 10px;
-            --gauge-graduations-thickness: 3.5px;
+            --gauge-graduations-thickness: 3px;
 
             .gauge-arc-safe {
                 /* Hide even graduations + the last one. */
@@ -168,9 +168,9 @@
         margin-left: calc(-1 * var(--gauge-pointer-size));
         width: var(--gauge-pointer-size);
         height: var(--gauge-pointer-thickness);
-        transform: rotate(0deg);
+        rotate: 0deg;
         transform-origin: 100% 50%;
-        transition: transform var(--gauge-pointer-transition-duration) ease-out;
+        transition: rotate var(--gauge-pointer-transition-duration) ease-out;
 
         /* Triangle Pointer */
         &::after {

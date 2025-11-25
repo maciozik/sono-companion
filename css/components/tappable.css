@@ -10,6 +10,7 @@
     position: relative;
     z-index: 10;
 
+    /* Tappable Circle */
     &::before {
         content: "";
         position: absolute;
@@ -17,9 +18,9 @@
         left: 0;
         width: 100%;
         aspect-ratio: 1;
+        scale: 0;
         background-color: var(--circle-background);
         border-radius: 50%;
-        transform: scale(0);
         opacity: 0;
         z-index: -1;
     }
@@ -48,8 +49,8 @@
             animation: circle-grow var(--circle-animation-duration) ease-out;
             animation-fill-mode: forwards;
         }
-        &[data-tappable~=shrink] {
-            transform: scale(.92);
+        &[data-tappable~=depress] {
+            scale: .92;
         }
     }
 
@@ -71,14 +72,14 @@
 
 @keyframes circle-grow {
     from {
-        transform: scale(0);
+        scale: 0;
         filter: opacity(1);
     }
     30% {
         filter: opacity(1);
     }
     to {
-        transform: scale(1);
+        scale: 1;
         filter: opacity(0);
     }
 }

@@ -26,7 +26,7 @@ export function create()
 
     // Rotate the safe gauge a bit more to create the gap between the two gauges.
     let arc_safe_rotation = convertToDegree((-1 * step));
-    $gaugeArcSafe.style.transform = `rotate(${arc_safe_rotation}deg) translate3D(0, 0, 0)`;
+    $gaugeArcSafe.style.rotate = `${arc_safe_rotation}deg`;
 
     // Reduce the number of displayed values if there are too many.
     $gaugeArcs.classList.toggle('reduce-values', (nb_values >= 20));
@@ -55,12 +55,12 @@ export function create()
         // Rotate and add the graduation to the right gauge.
         if (value < danger) {
             let rotation = convertToDegree(value - danger + step);
-            $graduation.style.transform = `rotate(${rotation}deg)`;
+            $graduation.style.rotate = `${rotation}deg`;
             $gaugeArcSafe.querySelector('.gauge-graduations').appendChild($graduation);
         }
         else {
             let rotation = convertToDegree(value - danger);
-            $graduation.style.transform = `rotate(${rotation}deg)`;
+            $graduation.style.rotate = `${rotation}deg`;
             $gaugeArcDanger.querySelector('.gauge-graduations').appendChild($graduation);
         }
     }
@@ -103,7 +103,7 @@ export function update(db)
 
     // Rotate the pointer.
     let rotation = convertToDegree(db - min);
-    $gaugePointer.style.transform = `rotate(${rotation}deg)`;
+    $gaugePointer.style.rotate = `${rotation}deg`;
 }
 
 /**

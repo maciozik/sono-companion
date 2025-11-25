@@ -119,7 +119,7 @@ export default class Scrollbar
 
         if (!isFinite(scrollbar_thumb_y)) return;
 
-        this.$scrollbarThumb.style.transform = `translateY(${scrollbar_thumb_y}px)`;
+        this.$scrollbarThumb.style.translate = `0 ${scrollbar_thumb_y}px`;
     }
 
     /**

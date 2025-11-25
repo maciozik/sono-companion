@@ -54,6 +54,7 @@ input {
 textarea {
     border-radius: 10px;
     resize: none;
+    caret-color: light-dark(black, white);
 }
 
 .cyan {

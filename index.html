@@ -110,7 +110,7 @@
                 <!-- Play button -->
                 <div class="sonometer-play">
                     <div class="play-btn adaptative" data-tappable="pointerup">
-                        <g-icon data-name="play_arrow" data-x=-1 class="play"></g-icon>
+                        <g-icon data-name="play_arrow" class="play"></g-icon>
                         <g-icon data-name="pause" class="pause"></g-icon>
                         <div class="timestamp blink">0:00:00</div>
                     </div>
@@ -208,7 +208,7 @@
                 <!-- Play button -->
                 <div class="metronome-play">
                     <div class="play-btn adaptative" data-tappable="pointerdown">
-                        <g-icon data-name="play_arrow" data-x=-1 class="play"></g-icon>
+                        <g-icon data-name="play_arrow" class="play"></g-icon>
                         <g-icon data-name="stop" class="stop"></g-icon>
                     </div>
                 </div>
@@ -320,7 +320,7 @@
 
                 <h2>
                     Bloc-notes
-                    <div class="badge saved-badge"><g-icon data-name="check"></g-icon>Enregistré</div>
+                    <div class="badge saved-badge"><g-icon data-name="check"></g-icon></div>
                 </h2>
 
                 <textarea id="notepad" placeholder="✎ Rédigez vos notes et mémos." maxlength=50000 data-scrollable
@@ -427,8 +427,8 @@
                     <h3>Sensibilité de la jauge</h3>
                     <small>Temps de transition de l'aiguille de la jauge entre deux valeurs.</small>
                         <list-item data-value="0">Instantanée</list-item>
-                        <list-item data-value="80" data-selected>Réactive</list-item>
-                        <list-item data-value="160">Moyenne</list-item>
+                        <list-item data-value="80">Réactive</list-item>
+                        <list-item data-value="160" data-selected>Moyenne</list-item>
                         <list-item data-value="320">Lente</list-item>
                 </setting-list>
 
@@ -476,7 +476,7 @@
 
                 <setting-range
                     data-name="bpm_max" data-groups="tempo" data-allow-reset
-                    data-value=360 data-suffix=" bpm" data-min=120 data-max=360 data-step=10>
+                    data-value=300 data-suffix=" bpm" data-min=120 data-max=360 data-step=10>
                     <h3>BPM maximum</h3>
                 </setting-range>
 
@@ -673,7 +673,7 @@
                 <div class="textarea-counter"><span class="length"></span> / <span class="maxlength"></span></div>
             </div>
             <div class="header-right">
-                <div class="badge saved-badge"><g-icon data-name="check"></g-icon>Enregistré</div>
+                <div class="badge saved-badge"><g-icon data-name="check"></g-icon></div>
                 <div class="header-btn close-btn active" data-tappable><g-icon data-name="close" data-y=-0.5></g-icon></div>
             </div>
         </header>
