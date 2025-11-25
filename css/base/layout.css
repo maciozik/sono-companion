@@ -7,7 +7,7 @@ header {
     height: var(--header-height);
     color: light-dark(var(--bg), var(--invert));
     background-color: var(--cyan);
-    z-index: 1000;
+    z-index: 20;
 
     .header-btn {
         display: grid;
@@ -58,7 +58,7 @@ footer {
     padding: 13px var(--app-padding-inline) 12px;
     width: 100%;
     height: var(--footer-height);
-    z-index: 1000;
+    z-index: 20;
 
     nav {
         display: flex;

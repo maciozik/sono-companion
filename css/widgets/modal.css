@@ -102,7 +102,7 @@
     }
 
     &[data-context=view] {
-        z-index: 100;
+        z-index: 10;
 
         .modal {
             margin-top: calc(-1 * (var(--footer-height) - var(--header-height)));
@@ -111,7 +111,7 @@
     }
 
     &[data-context=app] {
-        z-index: 10000;
+        z-index: 30;
 
         .modal {
             max-height: calc(100% - 150px);

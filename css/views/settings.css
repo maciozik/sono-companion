@@ -134,7 +134,7 @@
             color: transparent;
             background-color: currentColor;
             opacity: .2;
-            z-index: -10;
+            z-index: -1;
         }
 
         &.blink::after {

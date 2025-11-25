@@ -9,7 +9,7 @@
     width: 100dvw;
     height: var(--app-height);
     background: var(--bg);
-    z-index: 100000;
+    z-index: calc(infinity);
 
     .loader-animation {
         display: flex;
