@@ -126,8 +126,8 @@
             }
         }
 
-        &[data-tappable]::before {
-            left: -1px;
+        &[data-ripple]::before {
+            margin-left: -1px;
         }
     }
 
@@ -147,12 +147,12 @@
             font-size: calc(56cqh * var(--app-font-size-multiplier));
         }
 
-        &[data-tappable] {
-            --circle-opacity: .2;
-            --circle-background: var(--red);
+        &[data-ripple] {
+            --ripple-background: var(--red);
+            --ripple-opacity: .2;
 
             &::before {
-                left: 2px;
+                margin-left: 2px;
             }
         }
     }
@@ -176,9 +176,9 @@
             opacity: .6;
             pointer-events: none;
 
-            &[data-tappable] {
-                --circle-opacity: .1;
-                --circle-background: white;
+            &[data-ripple] {
+                --ripple-background: white;
+                --ripple-opacity: .1;
             }
         }
 

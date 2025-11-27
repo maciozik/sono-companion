@@ -30,7 +30,7 @@
 
         <h1>Sono Companion</h1>
 
-        <div class="header-btn" id="settings-btn" data-load="settings" data-tappable="pointerdown 0.4 250ms">
+        <div class="header-btn" id="settings-btn" data-load="settings" data-trigger="pointerdown" data-ripple="0.4 250ms">
             <g-icon data-name="tune"></g-icon>
         </div>
 
@@ -45,7 +45,7 @@
         <section class="view active" id="sonometer" data-name="Sonomètre" data-needs-audio-permission>
 
             <!-- Calibration badge -->
-            <div class="badge calibration-badge top-right" data-load="settings:audio_calibration" data-tappable="no-circle"></div>
+            <div class="badge calibration-badge top-right" data-load="settings:audio_calibration" data-trigger></div>
 
             <!-- Gauge -->
             <section id="sonometer-gauge" data-rows=10>
@@ -102,14 +102,14 @@
             <section id="sonometer-controls" data-rows=7>
 
                 <!-- Reset button -->
-                <div class="sonometer-reset-btn tile grey disabled" data-tappable="pointerup">
+                <div class="sonometer-reset-btn tile grey disabled" data-trigger="pointerup" data-ripple>
                     <g-icon data-name="settings_backup_restore"></g-icon>
                     <p class="label">Réinitialiser</p>
                 </div>
 
                 <!-- Play button -->
                 <div class="sonometer-play">
-                    <div class="play-btn adaptative" data-tappable="pointerup">
+                    <div class="play-btn adaptative" data-trigger="pointerup" data-ripple>
                         <g-icon data-name="play_arrow" class="play"></g-icon>
                         <g-icon data-name="pause" class="pause"></g-icon>
                         <div class="timestamp blink">0:00:00</div>
@@ -138,7 +138,7 @@
             <section id="tempo-metronome" data-rows=5>
                 <div class="metronome disabled">
                     <div class="metronome-line">
-                        <div class="metronome-circle"></div>
+                        <div class="metronome-thumb"></div>
                     </div>
                 </div>
             </section>
@@ -148,12 +148,12 @@
 
                 <!-- Decrease bpm -->
                 <div class="bpm-divide">
-                    <div class="bpm-modifier-btn" data-modifier="/2" data-sign="÷" data-tappable>2</div>
-                    <div class="bpm-modifier-btn" data-modifier="/3" data-sign="÷" data-tappable>3</div>
+                    <div class="bpm-modifier-btn" data-modifier="/2" data-sign="÷" data-trigger data-ripple>2</div>
+                    <div class="bpm-modifier-btn" data-modifier="/3" data-sign="÷" data-trigger data-ripple>3</div>
                 </div>
                 <div class="bpm-decrease">
-                    <div class="bpm-modifier-btn" data-modifier="-5" data-sign="−" data-tappable>5</div>
-                    <div class="bpm-modifier-btn" data-modifier="-1" data-sign="−" data-tappable>1</div>
+                    <div class="bpm-modifier-btn" data-modifier="-5" data-sign="−" data-trigger data-ripple>5</div>
+                    <div class="bpm-modifier-btn" data-modifier="-1" data-sign="−" data-trigger data-ripple>1</div>
                 </div>
 
                 <!-- Bpm wheel -->
@@ -166,12 +166,12 @@
 
                 <!-- Increase bpm -->
                 <div class="bpm-increase">
-                    <div class="bpm-modifier-btn" data-modifier="+5" data-sign="+" data-tappable>5</div>
-                    <div class="bpm-modifier-btn" data-modifier="+1" data-sign="+" data-tappable>1</div>
+                    <div class="bpm-modifier-btn" data-modifier="+5" data-sign="+" data-trigger data-ripple>5</div>
+                    <div class="bpm-modifier-btn" data-modifier="+1" data-sign="+" data-trigger data-ripple>1</div>
                 </div>
                 <div class="bpm-multiply">
-                    <div class="bpm-modifier-btn" data-modifier="*2" data-sign="×" data-tappable>2</div>
-                    <div class="bpm-modifier-btn" data-modifier="*3" data-sign="×" data-tappable>3</div>
+                    <div class="bpm-modifier-btn" data-modifier="*2" data-sign="×" data-trigger data-ripple>2</div>
+                    <div class="bpm-modifier-btn" data-modifier="*3" data-sign="×" data-trigger data-ripple>3</div>
                 </div>
 
             </section>
@@ -200,21 +200,21 @@
             <section id="tempo-controls" data-rows=4>
 
                 <!-- Replay button -->
-                <div class="metronome-replay-btn tile grey disabled" data-tappable="pointerdown">
+                <div class="metronome-replay-btn tile grey disabled" data-trigger="pointerdown" data-ripple>
                     <g-icon data-name="replay"></g-icon>
                     <p class="label">Relancer</p>
                 </div>
 
                 <!-- Play button -->
                 <div class="metronome-play">
-                    <div class="play-btn adaptative" data-tappable="pointerdown">
+                    <div class="play-btn adaptative" data-trigger="pointerdown" data-ripple>
                         <g-icon data-name="play_arrow" class="play"></g-icon>
                         <g-icon data-name="stop" class="stop"></g-icon>
                     </div>
                 </div>
 
                 <!-- Tap Tempo button -->
-                <div class="tap-tempo-btn tile grey" data-tappable="pointerdown">
+                <div class="tap-tempo-btn tile grey" data-trigger="pointerdown" data-ripple>
                     <g-icon data-name="touch_app"></g-icon>
                     <p class="label">Tap Tempo</p>
                 </div>
@@ -226,14 +226,14 @@
 
                 <div class="bpm-manager disabled">
 
-                    <div class="bpm-add-btn" data-tappable="250ms">
+                    <div class="bpm-add-btn" data-trigger data-ripple="250ms">
                         <div class="bpm-count-badge"></div>
                         <g-icon data-name="add"></g-icon>
                     </div>
 
-                    <div class="bpm-next-btn" data-tappable="0.06 200ms"></div>
+                    <div class="bpm-next-btn" data-trigger data-ripple="0.06 200ms"></div>
 
-                    <div class="bpm-remove-btn" data-tappable="250ms">
+                    <div class="bpm-remove-btn" data-trigger data-ripple="250ms">
                         <g-icon data-name="delete_forever"></g-icon>
                     </div>
 
@@ -267,7 +267,7 @@
                     </div>
 
                     <!-- Arrow -->
-                    <div class="arrow swap" data-target-id-left="tempo-bpm" data-target-id-right="tempo-ms" data-tappable>
+                    <div class="arrow swap" data-target-id-left="tempo-bpm" data-target-id-right="tempo-ms" data-trigger data-ripple>
                         <g-icon data-name="swap_horiz"></g-icon>
                     </div>
 
@@ -287,7 +287,7 @@
 
                 <h2>
                     Convertisseur de délai sonore
-                    <div class="badge temperature-badge" data-load="settings:temperature" data-tappable="no-circle"></div>
+                    <div class="badge temperature-badge" data-load="settings:temperature" data-trigger></div>
                 </h2>
 
                 <div class="inputs">
@@ -319,7 +319,10 @@
             <section id="toolbox-notepad">
 
                 <h2>
-                    Bloc-notes
+                    <!-- REMOVE Fill textarea with lorem. -->
+                    <span onClick="fetch('https://lorem-api.com/api/article/fill').then(response => response.json()).then(data => document.getElementById('notepad').value = data.content);">
+                        Bloc-notes
+                    </span>
                     <div class="badge saved-badge"><g-icon data-name="check"></g-icon></div>
                 </h2>
 
@@ -632,31 +635,31 @@
 
         <nav>
 
-            <section class="nav-tab hide" data-load="sonometer" data-tappable>
+            <section class="nav-tab hide" data-load="sonometer" data-trigger data-ripple>
                 <g-icon data-name="speed" data-y=1></g-icon>
                 <p class="tab-title">Sonomètre</p>
                 <p class="tab-label"></p>
             </section>
 
-            <section class="nav-tab hide" data-load="spectrum" data-tappable>
+            <section class="nav-tab hide" data-load="spectrum" data-trigger data-ripple>
                 <g-icon data-name="graphic_eq"></g-icon>
                 <p class="tab-title">Spectre</p>
                 <p class="tab-label"></p>
             </section>
 
-            <section class="nav-tab hide" data-load="tempo" data-tappable>
+            <section class="nav-tab hide" data-load="tempo" data-trigger data-ripple>
                 <g-icon data-name="swipe_down" data-x=-1></g-icon>
                 <p class="tab-title">Tempo</p>
                 <p class="tab-label"></p>
             </section>
 
-            <section class="nav-tab hide" data-load="toolbox" data-tappable>
+            <section class="nav-tab hide" data-load="toolbox" data-trigger data-ripple>
                 <g-icon data-name="construction"></g-icon>
                 <p class="tab-title">Toolbox</p>
                 <p class="tab-label"></p>
             </section>
 
-            <p class="no-tab" data-load="settings:enable_sonometer" data-tappable="no-circle">
+            <p class="no-tab" data-load="settings:enable_sonometer" data-trigger>
                 Veuillez afficher au moins un onglet dans les réglages.
             </p>
 
@@ -671,8 +674,8 @@
             <div class="modal-title"></div>
             <div class="modal-text"></div>
             <div class="modal-btns">
-                <div class="modal-btn-secondary btn btn-no-fill" data-tappable></div>
-                <div class="modal-btn-primary btn btn-no-fill" data-tappable></div>
+                <div class="modal-btn-secondary btn btn-no-fill" data-trigger data-ripple></div>
+                <div class="modal-btn-primary btn btn-no-fill" data-trigger data-ripple></div>
             </div>
         </div>
     </section>
@@ -687,7 +690,7 @@
             </div>
             <div class="header-right">
                 <div class="badge saved-badge"><g-icon data-name="check"></g-icon></div>
-                <div class="header-btn close-btn active" data-tappable><g-icon data-name="close" data-y=-0.5></g-icon></div>
+                <div class="header-btn close-btn active" data-trigger><g-icon data-name="close" data-y=-0.5></g-icon></div>
             </div>
         </header>
 
@@ -715,7 +718,7 @@
         </div>
         <div class="too-long-msg">
             Le chargement prend plus de temps que prévu.<br>
-            <div class="btn btn-no-fill" data-tappable="0.02 300ms">Réessayer</div>
+            <div class="btn btn-no-fill" data-trigger data-ripple="0.02 300ms">Réessayer</div>
         </div>
     </div>
 

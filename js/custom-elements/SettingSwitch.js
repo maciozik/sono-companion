@@ -106,9 +106,10 @@ export default class SettingSwitch extends Setting
      */
     render()
     {
-        // Add the class and the tappable options.
+        // Add the class, and the trigger/ripple options.
         this.classList.add('setting');
-        this.dataset.tappable = 'click follow-tap';
+        this.dataset.trigger = 'click';
+        this.dataset.ripple = 'follow-tap';
 
         // Set the content.
         this.innerHTML = /*html*/`

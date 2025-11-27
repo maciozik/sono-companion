@@ -1,16 +1,16 @@
 .metronome {
     --metronome-transition-duration: 667ms; /* Overridden in JS. */
-    --metronome-circle-size: 30px;
+    --metronome-thumb-size: 30px;
     display: flex;
     align-items: center;
     width: 100%;
-    height: var(--metronome-circle-size);
+    height: var(--metronome-thumb-size);
 
     .metronome-line {
         display: flex;
         align-items: center;
         position: relative;
-        margin: 0 calc(var(--metronome-circle-size) / 2);
+        margin: 0 calc(var(--metronome-thumb-size) / 2);
         width: 100%;
         height: 2px;
         background-color: var(--grey-pale);
@@ -18,10 +18,10 @@
         border-top: 1px solid light-dark(white, black);
         box-sizing: content-box;
 
-        .metronome-circle {
+        .metronome-thumb {
             position: absolute;
             margin-left: 0;
-            width: var(--metronome-circle-size);
+            width: var(--metronome-thumb-size);
             aspect-ratio: 1;
             translate: -50% 0;
             background-color: var(--cyan);
@@ -31,30 +31,30 @@
     }
 
     &.left {
-        .metronome-circle {
+        .metronome-thumb {
             margin-left: 0;
         }
     }
     &.right {
-        .metronome-circle {
+        .metronome-thumb {
             margin-left: 100%;
         }
     }
 
     &.jump, &.instant {
-        .metronome-circle {
+        .metronome-thumb {
             transition: none !important;
         }
     }
     &.fix {
-        .metronome-circle {
+        .metronome-thumb {
             margin-left: 0 !important;
             background-color: var(--invert);
         }
     }
 
     &.disabled {
-        .metronome-circle {
+        .metronome-thumb {
             margin-left: 0 !important;
             background-color: light-dark(var(--grey-pale), var(--grey));
         }

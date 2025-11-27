@@ -14,9 +14,9 @@
         overflow: visible;
     }
 
-    &:not(.btn-no-fill)[data-tappable] {
-        --circle-opacity: .2 !important;
-        --circle-background: black !important;
+    &:not(.btn-no-fill)[data-ripple] {
+        --ripple-background: black !important;
+        --ripple-opacity: .2 !important;
     }
 
     g-icon {

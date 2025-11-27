@@ -195,14 +195,14 @@
 /**  THEME  **/
 
 :root[data-color-scheme=dark] {
-    .setting[data-tappable] {
-        --circle-opacity: 0.015 !important;
+    .setting[data-ripple] {
+        --ripple-opacity: 0.015 !important;
     }
 }
 
 :root[data-color-scheme=light] {
-    .setting[data-tappable] {
-        --circle-opacity: 0.03 !important;
+    .setting[data-ripple] {
+        --ripple-opacity: 0.03 !important;
     }
 }
 

@@ -216,7 +216,7 @@ export default class Setting extends HTMLElement
     getResetButtonHTML()
     {
         return (this.allow_reset)
-            ? /*html*/ `<g-icon class="reset-btn" data-name="restore" data-tappable="click no-circle"></g-icon>`
+            ? /*html*/ `<g-icon class="reset-btn" data-name="restore" data-trigger="click"></g-icon>`
             : '';
     }
 

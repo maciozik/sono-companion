@@ -154,10 +154,10 @@ export function __init__()
         tap();
     });
 
-    // Click on any tappable other than the Tap Tempo button.
-    const $tappables = document.querySelectorAll('[data-tappable]:not(.tap-tempo-btn)');
-    for (const $tappable of $tappables) {
-        $tappable.addEventListener('trigger', function(event) {
+    // Click on any triggerable element other than the Tap Tempo button.
+    const $triggerables = document.querySelectorAll('[data-trigger]:not(.tap-tempo-btn)');
+    for (const $triggerable of $triggerables) {
+        $triggerable.addEventListener('trigger', function(event) {
             // If the Tap Tempo is active.
             if ($tapBtn.classList.contains('active')) {
                 resetTap();

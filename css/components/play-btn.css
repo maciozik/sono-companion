@@ -61,10 +61,10 @@
         }
     }
 
-    &[data-tappable] {
-        --circle-opacity: .15 !important;
-        --circle-animation-duration: 300ms !important;
-        --circle-background: var(--cyan) !important;
+    &[data-ripple] {
+        --ripple-opacity: .15 !important;
+        --ripple-animation-duration: 300ms !important;
+        --ripple-background: var(--cyan) !important;
     }
 }
 

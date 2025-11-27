@@ -75,8 +75,8 @@
         color: var(--grey);
     }
 
-    &[data-tappable] {
-        --circle-animation-duration: 200ms !important;
+    &[data-ripple] {
+        --ripple-animation-duration: 200ms !important;
     }
 
     &.disabled > * {

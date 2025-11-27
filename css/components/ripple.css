@@ -1,0 +1,77 @@
+[data-ripple] {
+    --pointer-x: 0px;        /* Overridden in JS. */
+    --pointer-y: 0px;        /* Overridden in JS. */
+    --ripple-background: light-dark(black, white);
+    --ripple-opacity: .05;
+    --ripple-animation-duration: 350ms;
+
+    position: relative;
+    z-index: 1;
+
+    /* Ripple effect */
+    &::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        aspect-ratio: 1;
+        translate: -50% -50%;
+        scale: 0;
+        background-color: var(--ripple-background);
+        border-radius: 50%;
+        opacity: 0;
+        z-index: -1;
+    }
+
+    &[data-ripple~=follow-tap] {
+        &::before {
+            top: var(--pointer-y);
+            left: var(--pointer-x);
+        }
+    }
+
+    &:not([data-trigger~=manually]) {
+        cursor: pointer;
+    }
+
+    &.ontap {
+        &::before {
+            opacity: var(--ripple-opacity);
+            animation: ripple-grow var(--ripple-animation-duration) ease-out;
+            animation-fill-mode: forwards;
+        }
+        &[data-trigger~=depress] {
+            scale: .92;
+        }
+    }
+
+    &.disabled {
+        pointer-events: none;
+    }
+}
+
+/**  THEME  **/
+
+:root[data-high-contrast] {
+    [data-ripple].ontap::before {
+        --ripple-opacity-add: 0.05;
+        opacity: calc(var(--ripple-opacity) + var(--ripple-opacity-add));
+    }
+}
+
+/**  ANIMATIONS  **/
+
+@keyframes ripple-grow {
+    from {
+        scale: 0;
+        filter: opacity(1);
+    }
+    30% {
+        filter: opacity(1);
+    }
+    to {
+        scale: 1;
+        filter: opacity(0);
+    }
+}

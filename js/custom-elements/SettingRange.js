@@ -41,7 +41,7 @@ export default class SettingRange extends Setting
     $settingValue;
 
     /** @type {Slider} */
-    Slider;
+    _Slider;
 
     constructor ()
     {
@@ -81,7 +81,7 @@ export default class SettingRange extends Setting
         this.$settingValue = this.querySelector('.slider-value');
 
         // Create and link the Slider instance to the setting.
-        this.Slider = new Slider(this.$slider);
+        this._Slider = new Slider(this.$slider);
 
         // Wait for the zoom setting to correctly set the width of the setting value, then set the real setting value.
         // FIXME The width does not change dynamically when the zoom setting changes.
@@ -91,8 +91,8 @@ export default class SettingRange extends Setting
         });
 
         // Bind the pointer events to the slider, and init it.
-        this.Slider.bindEvents();
-        this.Slider.setPosition();
+        this._Slider.bindEvents();
+        this._Slider.setPosition();
 
         // Bind the events to the setting.
         this.bindEvents();
@@ -106,11 +106,11 @@ export default class SettingRange extends Setting
     set(value)
     {
         // Update the value of the slider.
-        value = this.Slider.setValue(value);
+        value = this._Slider.setValue(value);
 
         // Update the position of the slider thumb and the setting value.
         this.value = value;
-        this.Slider.setPosition();
+        this._Slider.setPosition();
         this.setSettingValue();
 
         return this.value;
@@ -131,7 +131,7 @@ export default class SettingRange extends Setting
      */
     getValueAsText()
     {
-        return this.Slider.getValueAsText();
+        return this._Slider.getValueAsText();
     }
 
     /**
@@ -143,8 +143,8 @@ export default class SettingRange extends Setting
         this.$settingValue.style.visibility = 'hidden';
 
         // Fill with all possible values successively, and save the greatest width.
-        for (let value in this.Slider.values) {
-            this.$settingValue.textContent = this.Slider.getValueAsText(parseFloat(value));
+        for (let value in this._Slider.values) {
+            this.$settingValue.textContent = this._Slider.getValueAsText(parseFloat(value));
             let current_width = this.$settingValue.offsetWidth;
             width = (width < current_width) ? current_width : width;
         }
@@ -161,7 +161,7 @@ export default class SettingRange extends Setting
         this.step = step;
 
         // Reinitialize the slider with the new step.
-        this.Slider.setStep(step);
+        this._Slider.setStep(step);
 
         // Round the value if it does not fit the step anymore, and store it.
         let value = this.set(this.value);
@@ -192,9 +192,10 @@ export default class SettingRange extends Setting
      */
     render()
     {
-        // Add the class and the tappable options.
+        // Add the class, and the trigger/ripple options.
         this.classList.add('setting');
-        this.dataset.tappable = 'trigger-manually follow-tap';
+        this.dataset.trigger = 'manually';
+        this.dataset.ripple = 'follow-tap';
 
         // Set the content.
         this.innerHTML = /*html*/`
@@ -242,9 +243,9 @@ export default class SettingRange extends Setting
             // Update the value in the storage.
             Settings.change(_this.name, _this.value, _this.context);
 
-            // Unhighlight the setting value, and trigger the tappable element.
+            // Unhighlight the setting value, and trigger the triggerable element.
             _this.$settingValue.classList.remove('highlight');
-            _this._Tappable.trigger(event.detail.source_event);
+            _this._TriggerHandler.trigger(event.detail.source_event);
 
             // Make the device vibrate.
             app.vibrate();

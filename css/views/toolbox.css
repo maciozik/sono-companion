@@ -41,9 +41,9 @@
                 &.swap {
                     color: var(--grey);
 
-                    &[data-tappable] {
-                        --circle-opacity: .08 !important;
-                        --circle-animation-duration: 200ms !important;
+                    &[data-ripple] {
+                        --ripple-opacity: .08 !important;
+                        --ripple-animation-duration: 200ms !important;
                     }
                 }
             }

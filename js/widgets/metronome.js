@@ -7,7 +7,7 @@ const METRONOME_ENABLED_BPM_LIMIT   = 300;
 const METRONOME_AUDIO_TICK_PATH = '../../audio/metronome_tick.mp3';
 
 export const $metronome = document.querySelector('#tempo #tempo-metronome .metronome');
-const $metronomeCircle = $metronome.querySelector('.metronome-circle');
+const $metronomeThumb = $metronome.querySelector('.metronome-thumb');
 
 export const $playBtn = document.querySelector('#tempo #tempo-controls .play-btn');
 export const $replayBtn = document.querySelector('#tempo #tempo-controls .metronome-replay-btn');
@@ -81,9 +81,9 @@ export function replay()
 }
 
 /**
- * Set the direction of the metronome circle.
- * @param {'left'|'right'|'reverse'} to The direction the circle must go, or `reverse` to invert the current direction.
- * @param {boolean} instant Whether the circle must go to the direction instantly.
+ * Set the direction of the metronome thumb.
+ * @param {'left'|'right'|'reverse'} to The direction the thumb must go, or `reverse` to invert the current direction.
+ * @param {boolean} instant Whether the thumb must go to the direction instantly.
  */
 function goto(to, instant = false)
 {

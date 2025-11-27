@@ -30,7 +30,7 @@ import Toast from '/js/classes/Toast.js';
  */
 export default class SettingAction extends Setting
 {
-    /** @type {string|null} The module to load if needed. */
+    /** @type {string|null} The module to load if necessary. */
     module = new String();
 
     /** @type {Function} The method to call from the module, or a standalone code. */
@@ -87,7 +87,7 @@ export default class SettingAction extends Setting
     }
 
     /**
-     * Set the action to execute if needed.
+     * Set the action to execute if necessary.
      */
     setAction()
     {
@@ -113,7 +113,8 @@ export default class SettingAction extends Setting
     }
 
     /**
-     * Handle the interection with the setting, by either showing a confirmation modal if needed, or executing the action directly.
+     * Handle the interection with the setting,
+     * by either showing a confirmation modal if necessary, or executing the action directly.
      */
     handle()
     {
@@ -176,11 +177,12 @@ export default class SettingAction extends Setting
      */
     render()
     {
-        // Add the class and the tappable options if needed.
+        // Add the class, and the trigger/ripple options if necessary.
         this.classList.add('setting');
 
         if (this.has_action) {
-            this.dataset.tappable = 'click follow-tap';
+            this.dataset.trigger = 'click';
+            this.dataset.ripple = 'follow-tap';
         }
 
         // Set the content.
