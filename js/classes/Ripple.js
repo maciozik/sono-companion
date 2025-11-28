@@ -1,75 +1,97 @@
-import TriggerHandler from '/js/classes/TriggerHandler.js';
-
 /**
- * Represents a ripple effect on a triggerable element.
+ * Represents a ripple effect on a rippleable element.
  *
  * @description
- * A ripple effect is a growing circle animation that can be run on a triggerable element that received an interaction.
- * It is defined by the presence of the `data-ripple` attribute, on an element that has a `data-trigger` attribute.
+ * A ripple effect is a growing circle animation that can be run in the background of an element.
+ * It is defined by the presence of the `data-ripple` attribute, and often follows an interaction with the element.
  *
  * Several options may be defined as values of this `data-ripple` attribute, separated by spaces:
- *  - `follow-tap`       : The circle animation is triggered at the position of the tap.
+ *  - `follow-pointer`   : The ripple effect is run at the position of the user interaction, instead of at its center.
  *  - **Any raw number** : The opacity of the circle (e.g. `0.2`).
- *  - **Any duration**   : The animation duration of the circle (e.g. `200ms`).
+ *  - **Any duration**   : The animation duration of the circle (in ms or s).
  *
- * @see {@link TriggerHandler} for available options of the `data-trigger` attribute.
+ * The {@link run} method is accessible via the `_Ripple` instance bind to the rippleable element.
  */
 
 export default class Ripple {
 
     options = new Array();
 
-    /** @type {TriggerHandler} */
-    _TriggerHandler;
+    /** @type {HTMLElement & { _Ripple: Ripple }} The element to apply the ripple effect on. */
+    $rippleable;
 
     /**
      * @constructor
-     * @param {TriggerHandler} _TriggerHandler The instance of {@link TriggerHandler} bind to the triggerable element.
+     * @param {HTMLElement} $rippleable
      */
-    constructor(_TriggerHandler)
+    constructor($rippleable)
     {
-        this._TriggerHandler = _TriggerHandler;
-        this.init();
+        this.$rippleable = $rippleable;
+        this.options = this.$rippleable.dataset.ripple.split(' ');
+
+        this.setStyle();
+
+        // Bind this instance to the DOM element.
+        this.$rippleable._Ripple = this;
     }
 
     /**
-     * Set and trigger the ripple.
-     * @param {Event} event The event that triggered the triggerable element.
+     * Set the position of the ripple effect if necessary, and run it.
+     *
+     * Can be called from outside:
+     * ```js
+     * $rippleable._Ripple.run(event);
+     * ```
+     *
+     * @param {Event} [event] The event that triggered the rippleable element.
      */
-    trigger(event)
+    run(event)
     {
-        let triggerable = this._TriggerHandler.$triggerable.getBoundingClientRect();
+        if (event !== undefined) {
+            this.setPosition(event);
+        }
 
-        // Define the ripple position, and clamp it inside the element if the pointer overflows.
-        let pointer = new DOMPoint(
-            Math.clamp((event.clientX - triggerable.left), 0, triggerable.width),
-            Math.clamp((event.clientY - triggerable.top), 0, triggerable.height)
-        );
-
-        // Set and run the ripple animation.
-        this.setPosition(pointer);
-        this.run();
+        this.$rippleable.addClassTemporarily('ontap', 'animationend');
     }
 
     /**
-     * Set the position of the ripple (only with `follow-tap` option).
-     * @param {DOMPoint} pointer
+     * Set the position of the ripple (only with the `follow-pointer` option).
+     * @param {Event} event The event that triggered the rippleable element.
      * @returns
      */
-    setPosition(pointer)
+    setPosition(event)
     {
-        if (!this.has('follow-tap')) return;
+        if (!this.has('follow-pointer')) return;
 
-        this._TriggerHandler.$triggerable.style.setProperty('--pointer-x', `${pointer.x}px`);
-        this._TriggerHandler.$triggerable.style.setProperty('--pointer-y', `${pointer.y}px`);
+        let rippleable = this.$rippleable.getBoundingClientRect();
+
+        // Define the ripple origin position, and clamp it inside the element if the pointer overflows.
+        let pointer = {
+            x: Math.clamp((event.clientX - rippleable.left), 0, rippleable.width),
+            y: Math.clamp((event.clientY - rippleable.top), 0, rippleable.height)
+        };
+
+        this.$rippleable.style.setProperty('--pointer-x', `${pointer.x}px`);
+        this.$rippleable.style.setProperty('--pointer-y', `${pointer.y}px`);
     }
 
     /**
-     * Run the ripple animation.
+     * Set the style of the ripple.
      */
-    run()
+    setStyle()
     {
-        this._TriggerHandler.$triggerable.addClassTemporarily('ontap', 'animationend');
+        for (let option of this.options) {
+
+            // If the option is a number.
+            if (isFinite(option)) {
+                this.$rippleable.style.setProperty('--ripple-opacity', option);
+            }
+
+            // If the option is a duration.
+            if (option.endsWith('ms') || option.endsWith('s')) {
+                this.$rippleable.style.setProperty('--ripple-animation-duration', option);
+            }
+        }
     }
 
     /**
@@ -80,28 +102,5 @@ export default class Ripple {
     has(option)
     {
         return this.options.includes(option);
-    }
-
-    /**
-     * Initialize the ripple.
-     */
-    init()
-    {
-        // Set the options from the `data-ripple` attribute.
-        this.options = this._TriggerHandler.$triggerable.dataset.ripple.split(' ');
-
-        // Set the style of the ripple.
-        for (let option of this.options) {
-
-            // If the option is a number.
-            if (isFinite(option)) {
-                this._TriggerHandler.$triggerable.style.setProperty('--ripple-opacity', option);
-            }
-
-            // If the option is a duration.
-            if (option.endsWith('ms') || option.endsWith('s')) {
-                this._TriggerHandler.$triggerable.style.setProperty('--ripple-animation-duration', option);
-            }
-        }
     }
 }

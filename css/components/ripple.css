@@ -24,7 +24,7 @@
         z-index: -1;
     }
 
-    &[data-ripple~=follow-tap] {
+    &[data-ripple~=follow-pointer] {
         &::before {
             top: var(--pointer-y);
             left: var(--pointer-x);

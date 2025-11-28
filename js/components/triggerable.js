@@ -1,7 +1,8 @@
 import TriggerHandler from '/js/classes/TriggerHandler.js';
 
 /**
- * @see {@link TriggerHandler} for usage and available options of the `data-trigger` and `data-ripple` attributes.
+ * @type {NodeListOf<HTMLElement>}
+ * @see {@link TriggerHandler} for usage and available options of the `data-trigger` attributes.
  */
 const $triggerables = document.querySelectorAll('[data-trigger]');
 
@@ -11,6 +12,7 @@ const $triggerables = document.querySelectorAll('[data-trigger]');
  */
 export function __init__() {
 
+    // Make the elements triggerable.
     for (const $triggerable of $triggerables) {
         new TriggerHandler($triggerable);
     }

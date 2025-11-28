@@ -5,14 +5,13 @@ import Ripple from '/js/classes/Ripple.js';
  *
  * @description
  * A triggerable is an interactive element that emits a `trigger` event when interected with.
- * It can also run a ripple effect on itself when triggered
  * It is defined by the presence of the `data-trigger` attribute.
  *
  * Several options may be defined as values of this `data-trigger` attribute, separated by spaces:
  *  - `click`       : Trigger the element on click event *(default)*.
  *  - `pointerdown` : Trigger the element on pointerdown event.
  *  - `pointerup`   : Trigger the element on pointerup event.
- *  - `manually`    : The element will not be triggered by any event and must be triggered manually.
+ *  - `manually`    : The element will not be triggered by any interaction and must be triggered manually.
  *     - The {@link trigger} method is accessible via the `_TriggerHandler` instance bind to the triggerable element.
  *  - `depress`     : The element will depress briefly when triggered.
  *
@@ -21,20 +20,19 @@ import Ripple from '/js/classes/Ripple.js';
  *  - `cancel-trigger` : If applied to a child element, any action targeting that element or its descendants
  *                       will no longer trigger the triggerable element.
  *
- * Other options for the ripple effect can be defined in a `data-ripple` attribute.
+ * A triggerable element can also run a ripple effect on itself when triggered.
  * @see {@link Ripple} for available options of the `data-ripple` attribute.
  */
 
 export default class TriggerHandler {
 
-    options = new Array();
     event_type = new String();
-    has_ripple = new Boolean();
+    options = new Array();
 
     /** @type {Ripple} */
     _Ripple;
 
-    /** @type {HTMLElement & { _TriggerHandler: TriggerHandler }} */
+    /** @type {HTMLElement & { _TriggerHandler: TriggerHandler }} The interactive element. */
     $triggerable;
 
     /**
@@ -44,14 +42,10 @@ export default class TriggerHandler {
     constructor($triggerable)
     {
         this.$triggerable = $triggerable;
-        this.has_ripple = this.$triggerable.hasAttribute('data-ripple');
+        this.options = this.$triggerable.dataset.trigger.split(' ');
 
-        this.init();
-
-        // Create and bind the ripple if necessary.
-        if (this.has_ripple) {
-            this._Ripple = new Ripple(this);
-        }
+        this.setEventType();
+        this.bindEvents();
 
         // Bind this instance to the DOM element.
         this.$triggerable._TriggerHandler = this;
@@ -65,18 +59,31 @@ export default class TriggerHandler {
      * $triggerable._TriggerHandler.trigger(event);
      * ```
      *
-     * @param {Event} event The event that triggered the triggerable element.
+     * @param {Event} [event] The event that triggered the triggerable element.
      * @fires `trigger` on $triggerable.
      */
     trigger(event)
     {
-        // Trigger the ripple if necessary.
-        if (this.has_ripple) {
-            this._Ripple.trigger(event);
-        }
-
         // Emit the `trigger` event.
-        this.$triggerable.dispatchEvent(new CustomEvent('trigger'));
+        this.$triggerable.dispatchEvent(new CustomEvent('trigger', { detail: {
+            event_source: event ?? undefined
+        }}));
+    }
+
+    /**
+     * Set the type of event to bind to the triggerable element.
+     */
+    setEventType()
+    {
+        if (this.has('pointerdown')) {
+            this.event_type = 'pointerdown';
+        }
+        else if (this.has('pointerup')) {
+            this.event_type = 'pointerup';
+        }
+        else {
+            this.event_type = 'click';
+        }
     }
 
     /**
@@ -87,27 +94,6 @@ export default class TriggerHandler {
     has(option)
     {
         return this.options.includes(option);
-    }
-
-    /**
-     * Initialize the triggerable element.
-     */
-    init()
-    {
-        // Set the options from the `data-tigger` attribute.
-        this.options = this.$triggerable.dataset.trigger.split(' ');
-
-        // Define the type of event.
-        this.event_type = 'click';
-
-        if (this.has('pointerdown')) {
-            this.event_type = 'pointerdown';
-        }
-        else if (this.has('pointerup')) {
-            this.event_type = 'pointerup';
-        }
-
-        this.bindEvents();
     }
 
     /**

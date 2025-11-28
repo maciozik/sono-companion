@@ -47,6 +47,7 @@ import * as NavTab             from '/js/components/nav-tab.js';
 import * as PlayBtn            from '/js/components/play-btn.js';
 import * as InputBox           from '/js/components/input-box.js';
 import * as Triggerable        from '/js/components/triggerable.js';
+import * as Rippleable         from '/js/components/rippleable.js';
 import * as FullscreenTextarea from '/js/components/fullscreen-textarea.js';
 import * as Scrollbar          from '/js/components/scrollbar.js';
 
@@ -66,6 +67,7 @@ const modules = {
     PlayBtn,
     InputBox,
     Triggerable,
+    Rippleable,
     FullscreenTextarea,
     Scrollbar,
 };

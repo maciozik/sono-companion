@@ -158,7 +158,7 @@ export default class SettingList extends Setting
         // Add the class, and the trigger/ripple options.
         this.classList.add('setting');
         this.dataset.trigger = 'click';
-        this.dataset.ripple = 'follow-tap';
+        this.dataset.ripple = 'follow-pointer';
 
         // Set the content.
         this.innerHTML = /*html*/`

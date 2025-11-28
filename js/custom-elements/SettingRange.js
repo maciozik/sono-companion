@@ -195,7 +195,7 @@ export default class SettingRange extends Setting
         // Add the class, and the trigger/ripple options.
         this.classList.add('setting');
         this.dataset.trigger = 'manually';
-        this.dataset.ripple = 'follow-tap';
+        this.dataset.ripple = 'follow-pointer';
 
         // Set the content.
         this.innerHTML = /*html*/`
@@ -245,7 +245,7 @@ export default class SettingRange extends Setting
 
             // Unhighlight the setting value, and trigger the triggerable element.
             _this.$settingValue.classList.remove('highlight');
-            _this._TriggerHandler.trigger(event.detail.source_event);
+            _this._TriggerHandler.trigger(event.detail.event_source);
 
             // Make the device vibrate.
             app.vibrate();

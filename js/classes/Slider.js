@@ -339,14 +339,14 @@ export default class Slider
     /**
      * Emit an event to notify when the value or the state of the slider changes.
      * @param {'move'|'change'|'end'} type The type of the event to emit.
-     * @param {Event|null} source_event The event that triggered the emission.
+     * @param {Event|null} event_source The event that triggered the emission.
      * @fires `move`|`change`|`end` on $slider.
      */
-    emitEvent(type, source_event = null)
+    emitEvent(type, event_source = null)
     {
         this.$slider.dispatchEvent(new CustomEvent(type, { detail: {
             value: this.value,
-            source_event: source_event
+            event_source: event_source
         }}));
 
         if (type !== 'move') console.debugType('emit_event', type, this.value);
