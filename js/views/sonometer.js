@@ -24,7 +24,7 @@ let audioContext;
 /** @type {Promise<MediaStream>} */
 let stream;
 
-let volume = {
+const volume = {
     current: {
         real_time: 0,
         max_local: 0
@@ -155,7 +155,7 @@ function setMaxLocal(db)
 function setAverage(db)
 {
     // Revert the current average to its sum, and calculate the new average.
-    let sum = ((volume.average.nb) * Math.pow(10, volume.average.value / 10)) + Math.pow(10, db / 10);
+    const sum = ((volume.average.nb) * Math.pow(10, volume.average.value / 10)) + Math.pow(10, db / 10);
     volume.average.nb++;
     volume.average.value = 10 * Math.log10(sum / volume.average.nb);
 }
@@ -176,7 +176,7 @@ function setMax(db)
 function getThreshold()
 {
     // Calculate the tolerance to add to the basic threshold (+3 dB(A) for half the time).
-    let tolerance = -1 * (3 * Math.log2(timestamp / THRESHOLD.period));
+    const tolerance = -1 * (3 * Math.log2(timestamp / THRESHOLD.period));
     return THRESHOLD.value + tolerance;
 }
 
@@ -188,7 +188,7 @@ function getThreshold()
  */
 function refreshAllInfo(as_current_volume = 'max_local')
 {
-    let current = volume.current[as_current_volume];
+    const current = volume.current[as_current_volume];
 
     refreshCurrent(current);
     refreshAverage(volume.average.value);
@@ -215,9 +215,9 @@ function refreshCurrent(current)
     const gauge_half = (STG.gauge_min + STG.gauge_max) / 2;
 
     // Update the icon above the current volume.
-    let classname = (current === gauge_min) ? 'low'
-                  : (current < gauge_half) ? 'normal'
-                  : 'loud';
+    const classname = (current === gauge_min) ? 'low'
+                    : (current < gauge_half) ? 'normal'
+                    : 'loud';
     setVolumeIcon(classname);
 
     // Update the label of the tab with current volume.
@@ -252,10 +252,10 @@ function refreshMax(max)
  */
 function refreshTimestamp()
 {
-    let timestamp_s = Math.trunc(timestamp);
-    let h = Math.floor(timestamp_s / 3600);
-    let m = Math.floor((timestamp_s % 3600) / 60);
-    let s = timestamp_s % 60;
+    const timestamp_s = Math.trunc(timestamp);
+    const h = Math.floor(timestamp_s / 3600);
+    const m = Math.floor((timestamp_s % 3600) / 60);
+    const s = timestamp_s % 60;
 
     $timestamp.textContent = `${h.addZeros(1)}:${m.addZeros(2)}:${s.addZeros(2)}`;
 }
@@ -293,7 +293,7 @@ async function getVolume()
 
     // Get the volume after processed by the Volume Audio Worklet.
     VolumeNode.port.onmessage = (event) => {
-        let db = Math.roundFloat(event.data, 1);
+        const db = Math.roundFloat(event.data, 1);
         update(db);
     };
 }

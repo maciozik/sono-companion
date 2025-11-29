@@ -196,7 +196,7 @@
 
 :root[data-color-scheme=dark] {
     .setting[data-ripple] {
-        --ripple-opacity: 0.015 !important;
+        --ripple-opacity: 0.02 !important;
     }
 }
 

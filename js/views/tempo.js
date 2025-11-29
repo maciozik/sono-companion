@@ -31,10 +31,10 @@ let tapTempoTimeout;
  */
 export function get(unit = 'bpm')
 {
-    let tempo = parseInt($bpmValue.dataset.bpm);
-    tempo = Toolbox.convert(tempo, 'bpm', unit, false);
+    const tempo = parseInt($bpmValue.dataset.bpm);
 
-    return tempo;
+    let converted_tempo = Toolbox.convert(tempo, 'bpm', unit, false);
+    return converted_tempo;
 }
 
 /**
@@ -69,10 +69,10 @@ export function set(bpm, clamp = true)
  */
 export function tap()
 {
-    let timestamp = Date.now();
+    const timestamp = Date.now();
 
     // Save the timestamp of the new tap.
-    let ts_length = tapTempoTimestamps.push(timestamp);
+    const ts_length = tapTempoTimestamps.push(timestamp);
 
     // Reset the timeout at each tap.
     resetTap(TAP_TEMPO_RESET_DELAY);
@@ -82,12 +82,12 @@ export function tap()
 
     // If the user tapped at least two times.
     if (ts_length > 1) {
-        let prev_value = tapTempoTimestamps[ts_length-2];
-        let curr_value = tapTempoTimestamps[ts_length-1];
-        let interval = curr_value - prev_value;
+        const prev_value = tapTempoTimestamps[ts_length-2];
+        const curr_value = tapTempoTimestamps[ts_length-1];
+        const interval = curr_value - prev_value;
 
         // Save the time gap between the new tap and the previous.
-        let i_length = tapTempoTimeGaps.push(interval);
+        const i_length = tapTempoTimeGaps.push(interval);
 
         // Remove the oldest time gap if there are too many time gaps.
         if (i_length > TAP_TEMPO_INTERVALS_LIMIT) {
@@ -95,7 +95,7 @@ export function tap()
         }
 
         // Calculate the average.
-        let average = tapTempoTimeGaps.reduce((a, b) => a + b) / i_length;
+        const average = tapTempoTimeGaps.reduce((a, b) => a + b) / i_length;
         set(Toolbox.convert(average, 'ms', 'bpm'));
 
         // Toggle the visual clues.
@@ -133,7 +133,7 @@ export function __init__()
     for (const $bpmModifierBtn of $bpmModifierBtns) {
 
         $bpmModifierBtn.addEventListener('trigger', function () {
-            let modifier = this.dataset.modifier;
+            const modifier = this.dataset.modifier;
             let bpm = get('bpm');
 
             bpm = eval(bpm + modifier);
@@ -167,7 +167,7 @@ export function __init__()
 
     // Update the bpm if the settings change.
     Settings.onchange(['bpm_min', 'bpm_max'], event => {
-        let bpm = get();
+        const bpm = get();
         set(bpm);
 
         View.stop('tempo');

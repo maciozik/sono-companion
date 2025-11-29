@@ -8,7 +8,7 @@
  */
 HTMLElement.prototype.getCssProperty = function (property, as_number = true)
 {
-    let value = window.getComputedStyle(this).getPropertyValue(property);
+    const value = window.getComputedStyle(this).getPropertyValue(property);
 
     if (as_number) {
 

@@ -63,10 +63,10 @@ export default class Ripple {
     {
         if (!this.has('follow-pointer')) return;
 
-        let rippleable = this.$rippleable.getBoundingClientRect();
+        const rippleable = this.$rippleable.getBoundingClientRect();
 
         // Define the ripple origin position, and clamp it inside the element if the pointer overflows.
-        let pointer = {
+        const pointer = {
             x: Math.clamp((event.clientX - rippleable.left), 0, rippleable.width),
             y: Math.clamp((event.clientY - rippleable.top), 0, rippleable.height)
         };
@@ -80,7 +80,7 @@ export default class Ripple {
      */
     setStyle()
     {
-        for (let option of this.options) {
+        for (const option of this.options) {
 
             // If the option is a number.
             if (isFinite(option)) {

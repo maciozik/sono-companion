@@ -25,8 +25,8 @@ let metronomeInterval;
  */
 export function run()
 {
-    let bpm = Tempo.get('bpm');
-    let duration = Tempo.get('ms');
+    const bpm = Tempo.get('bpm');
+    const duration = Tempo.get('ms');
 
     // Set the transition duration to match with the bpm.
     $metronome.style.setProperty('--metronome-transition-duration', `${duration}ms`);
@@ -75,7 +75,7 @@ export function replay()
 
     // Let the time to reset before looping again.
     requestAnimationFrame(() => {
-        let immediate = (isMode('normal'));
+        const immediate = (isMode('normal'));
         animate(immediate);
     });
 }
@@ -106,7 +106,7 @@ function goto(to, instant = false)
  */
 function animate(immediate = true)
 {
-    let duration = Tempo.get('ms');
+    const duration = Tempo.get('ms');
 
     const animation = () => {
         goto('reverse');
@@ -127,7 +127,7 @@ function initMode()
 
     // Change the mode if the bpm exceeds the predefined limits.
     if (!isMode('normal')) {
-        let mode = getMode();
+        const mode = getMode();
         $metronome.classList.add(mode);
     }
 }
@@ -138,7 +138,7 @@ function initMode()
  */
 function getMode()
 {
-    let bpm = Tempo.get('bpm');
+    const bpm = Tempo.get('bpm');
 
     return (bpm > METRONOME_ENABLED_BPM_LIMIT)   ? 'fix'
          : (bpm > METRONOME_ANIMATION_BPM_LIMIT) ? 'jump'

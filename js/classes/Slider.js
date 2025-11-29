@@ -73,8 +73,8 @@ export default class Slider
      */
     roundValue(value = this.value)
     {
-        let values = Object.keys(this.values);
-        let closest_value = values.reduce((a, b) =>
+        const values = Object.keys(this.values);
+        const closest_value = values.reduce((a, b) =>
             Math.abs(a - value) < Math.abs(b - value) ? a : b
         );
 
@@ -108,7 +108,7 @@ export default class Slider
      */
     getPositionFromValue(value)
     {
-        let position = this.values[value]?.position;
+        const position = this.values[value]?.position;
         return (position !== undefined) ? position : null;
     }
 
@@ -149,8 +149,9 @@ export default class Slider
     {
         for (let value in this.values) {
 
-            let threshold_left = this.values[value].threshold_left;
-            let threshold_right = this.values[value].threshold_right;
+            const threshold_left = this.values[value].threshold_left;
+            const threshold_right = this.values[value].threshold_right;
+
             value = parseFloat(value);
 
             // If the position is inside its threshold.
@@ -190,7 +191,7 @@ export default class Slider
      */
     getNbDecimals()
     {
-        let step_float = Math.float(this.step);
+        const step_float = Math.float(this.step);
         return (step_float === '0') ? 0 : step_float.length;
     }
 
@@ -203,17 +204,17 @@ export default class Slider
         this.$sliderLine.width = this.$sliderLine.offsetWidth;
 
         // Define the properties of all the possible values of the slider.
-        let nb_values = (this.range / this.step) + 1;
-        let nb_decimals = this.getNbDecimals();
+        const nb_values = (this.range / this.step) + 1;
+        const nb_decimals = this.getNbDecimals();
 
         this.values = {};
         this.gap = this.$sliderLine.width / (nb_values - 1);
 
         for (let i = this.min; i <= this.max; i = Math.roundFloat((i + this.step), nb_decimals)) {
 
-            let position = (i - this.min) / this.step * this.gap;
-            let threshold_left = position - (this.gap / 2);
-            let threshold_right = position + (this.gap / 2);
+            const position = (i - this.min) / this.step * this.gap;
+            const threshold_left = position - (this.gap / 2);
+            const threshold_right = position + (this.gap / 2);
 
             this.values[i] = {
                 position: position,
@@ -357,7 +358,7 @@ export default class Slider
     {
         for (let i = this.min; i <= this.max; i += this.step) {
 
-            let $value = document.createElement('div');
+            const $value = document.createElement('div');
             Object.assign($value.style, {
                 position: 'absolute',
                 left: `${this.values[i].position}px`,
@@ -366,7 +367,7 @@ export default class Slider
             });
             this.$slider.querySelector('.slider-line').appendChild($value);
 
-            let $range = document.createElement('div');
+            const $range = document.createElement('div');
             Object.assign($range.style, {
                 position: 'absolute',
                 left: `${this.values[i].threshold_left}px`,

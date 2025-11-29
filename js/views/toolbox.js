@@ -44,10 +44,10 @@ export function convert(value, unit_from, unit_to, useTemperature = true)
 {
     if (value === 0 || isNaN(value)) return null;
 
+    const speed_of_sound = (useTemperature ? getSpeedOfSound() : SPEED_OF_SOUND_DEFAULT);
+
     let bpm = new Number();
     let converted_value = new Number();
-
-    let speed_of_sound = (useTemperature ? getSpeedOfSound() : SPEED_OF_SOUND_DEFAULT);
 
     // First convert to bpm.
     switch (unit_from) {
@@ -73,9 +73,9 @@ export function convert(value, unit_from, unit_to, useTemperature = true)
 function validateInput($input)
 {
     const $inputBox = $input.closest('.input-box');
-    let min = parseInt($input.min);
-    let max = parseInt($input.max);
-    let max_length = parseInt($input.dataset.maxlength);
+    const min = parseInt($input.min);
+    const max = parseInt($input.max);
+    const max_length = parseInt($input.dataset.maxlength);
 
     // Remove non-numeric characters.
     $input.value = $input.value.replace(/[^0-9]/g, "");
@@ -129,8 +129,8 @@ function notepadRestoreFromStorage(content)
 // TODO Persist the data better? (IndexedDB/.txt)
 function notepadSaveInStorage()
 {
-    let notepad_current = $notepad.value;
-    let notepad_stored = Storage.get('toolbox.notepad');
+    const notepad_current = $notepad.value;
+    const notepad_stored = Storage.get('toolbox.notepad');
 
     if (notepad_current === notepad_stored) return;
 
@@ -168,12 +168,12 @@ export function __init__()
         // When the user types.
         $input.addEventListener('input', function () {
             const $target = document.getElementById(this.dataset.targetId);
-            let unit_from = this.dataset.unit;
-            let unit_to = $target.dataset.unit;
+            const unit_from = this.dataset.unit;
+            const unit_to = $target.dataset.unit;
 
             // Validate the input value, then set the converted value.
-            let valid = validateInput(this);
-            let converted_value = convert(parseInt(this.value), unit_from, unit_to);
+            const valid = validateInput(this);
+            const converted_value = convert(parseInt(this.value), unit_from, unit_to);
             setInput($target, (valid ? converted_value : null));
         });
 
@@ -193,7 +193,7 @@ export function __init__()
             const $inputLeft = document.getElementById(this.dataset.targetIdLeft);
             const $inputRight = document.getElementById(this.dataset.targetIdRight);
 
-            let value_left = $inputLeft.value;
+            const value_left = $inputLeft.value;
             $inputLeft.value = $inputRight.value;
             $inputRight.value = value_left;
         });

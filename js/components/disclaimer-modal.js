@@ -2,9 +2,9 @@ import Modal from '/js/classes/Modal.js';
 
 export function show() {
 
-    let title = "Avertissement";
+    const title = "Avertissement";
 
-    let text = /*html*/`
+    const text = /*html*/`
         <div style="font-size: .9em;">
             <p><b data-w=700>${ENV.APP.NAME}</b> est une application gratuite développée par des amateurs de musique et de son.</p>
             <p>En raison des algorithmes utilisés et de la diversité technique des appareils sur lesquels l'application peut être installée, les mesures fournies pourraient dans certains cas s'avérer approximatives, voire inexactes.</p>

@@ -76,7 +76,7 @@ export default class SettingSwitch extends Setting
      */
     toggle()
     {
-        let value = (this.value === true) ? false : true;
+        const value = (this.value === true) ? false : true;
 
         // Set the value of the switch.
         this.set(value);
@@ -88,7 +88,7 @@ export default class SettingSwitch extends Setting
         Settings.checkVisibility();
 
         // Make the device vibrate (longer for the allow_vibrations setting).
-        let vibration_duration = (this.name === 'allow_vibrations') ? 300 : ((this.value) ? 30 : 10);
+        const vibration_duration = (this.name === 'allow_vibrations') ? 300 : ((this.value) ? 30 : 10);
         app.vibrate(vibration_duration);
     }
 

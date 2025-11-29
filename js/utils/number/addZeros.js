@@ -11,7 +11,7 @@ Number.prototype.addZeros = function (digits, position = 'leading')
 {
     if (digits <= 0) return this.toString();
 
-    let sign = (Math.sign(this) === -1) ? '-' : '';
+    const sign = (Math.sign(this) === -1) ? '-' : '';
     let [integral, float] = Math.abs(this).toString().split('.');
 
     switch (position) {

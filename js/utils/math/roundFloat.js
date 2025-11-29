@@ -7,7 +7,7 @@
  */
 Math.roundFloat = function (value, decimals)
 {
-    let precision = Math.pow(10, decimals);
+    const precision = Math.pow(10, decimals);
     return Math.round(value * precision) / precision;
 };
 
@@ -20,7 +20,7 @@ Math.roundFloat = function (value, decimals)
  */
 Math.ceilFloat = function (value, decimals)
 {
-   let precision = Math.pow(10, decimals);
+   const precision = Math.pow(10, decimals);
    return Math.ceil(value * precision) / precision;
 };
 
@@ -33,6 +33,6 @@ Math.ceilFloat = function (value, decimals)
  */
 Math.floorFloat = function (value, decimals)
 {
-    let precision = Math.pow(10, decimals);
+    const precision = Math.pow(10, decimals);
     return Math.floor(value * precision) / precision;
 };

@@ -18,7 +18,7 @@ export function grant(onGranted = null, onPrompt = null, onDenied = null)
             console.info("🎤 Audio permission granted.");
         })
         .catch((error) => {
-            // TODO Handle the other possible errors.
+            // TODO Handle the other possible errors and add a default case.
             navigator.permissions.query({ name: 'microphone' })
                 .then((permissionStatus) => {
                     // On prompt.
@@ -65,8 +65,8 @@ export function check(onGranted = null, onUnknown = null, onDenied = null)
  */
 export function openPromptModal()
 {
-    let title = "Accès au microphone";
-    let text = /*html*/`
+    const title = "Accès au microphone";
+    const text = /*html*/`
         <p><b>${ENV.APP.NAME}</b> a besoin de l'accès au microphone de votre appareil pour analyser le son ambiant.</p>
         <p>Sans votre autorisation, certains outils comme le sonomètre ou l'analyseur de fréquences ne pourront pas fonctionner.</p>
     `;
@@ -95,11 +95,11 @@ export function openPromptModal()
  */
 export function openDenyModal()
 {
-    let title = /*html*/`
+    const title = /*html*/`
         <g-icon class="red" data-name="mic_off" data-x=-2 data-y=2></g-icon> Accès au microphone refusé
     `;
 
-    let text = /*html*/`
+    const text = /*html*/`
         <p>
             L'outil que vous essayez de lancer ne peut pas fonctionner, car vous n'avez pas autorisé
             <b>${ENV.APP.NAME}</b> a accéder au microphone de votre appareil.

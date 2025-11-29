@@ -10,10 +10,10 @@
  */
 console.debugType = function (type, label, value)
 {
-    let _blue_ = 'color: skyblue';
-    let _purple_ = 'color: #87F';
-    let _grey_ = 'color: lightslategrey';
-    let __ = 'color: inherit';
+    const _blue_   = 'color: skyblue';
+    const _purple_ = 'color: #87F';
+    const _grey_   = 'color: lightslategrey';
+    const __       = 'color: inherit';
 
     switch (type) {
 

@@ -1,7 +1,7 @@
 // Global object for fast access to storage.
 window.STO = new Proxy({}, {
     get(_, property) {
-        let value = get(property);
+        const value = get(property);
         if (value === null) console.info(`STO Proxy: The key '${property}' does not exist in the storage or is not a valid JSON.`);
         return value;
     },

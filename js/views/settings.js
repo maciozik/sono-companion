@@ -15,7 +15,7 @@ export const $settings = $view.getElementsByClassName('setting');
 // Global object for fast access to settings.
 window.STG = new Proxy({}, {
     get(_, property) {
-        let value = get(property);
+        const value = get(property);
         if (value === null) console.error(`STG Proxy: The setting '${property}' does not exist or is not a valid JSON.`);
         return value;
     },
@@ -33,7 +33,7 @@ export function get(setting_name)
 {
     const keys = Storage.getKeys();
 
-    for (let key of keys) {
+    for (const key of keys) {
         if (key.startsWith('setting') && key.endsWith(setting_name)) {
             return Storage.get(key);
         }
@@ -81,7 +81,7 @@ export function change(setting_name, value, context)
 {
     if (value === get(setting_name)) return;
 
-    let value_converted = set(setting_name, value, context);
+    const value_converted = set(setting_name, value, context);
 
     // Emit the 'onchange' and 'onsync' events.
     emitEvent(setting_name, value_converted, 'onchange');
@@ -136,8 +136,8 @@ export function checkVisibility()
         // For each parent setting that can disable this setting.
         for (const parent_setting of $setting.parent_settings) {
 
-            let $parentSetting = parent_setting[0];
-            let on = parent_setting[1];
+            const $parentSetting = parent_setting[0];
+            const on = parent_setting[1];
 
             // If that parent setting that disable on true is true / that disable on false is false,
             // disable this child setting, then continue to the next setting.
@@ -164,9 +164,9 @@ export function goto(setting_name, behavior = 'instant', delay_before_blink = 0)
 
     const $setting = getSettingFromName(setting_name);
 
-    let {offsetTop, offsetHeight} = $setting;
-    let view_height = $view.clientHeight;
-    let scroll = offsetTop - (view_height / 2) + (offsetHeight / 2);
+    const {offsetTop, offsetHeight} = $setting;
+    const view_height = $view.clientHeight;
+    const scroll = offsetTop - (view_height / 2) + (offsetHeight / 2);
 
     $view.scrollTo({
         top: scroll,
@@ -196,7 +196,7 @@ export function getSettingFromName(setting_name)
 function init()
 {
     /** @type {Array<{ name: string, value: string|number|boolean }>} */
-    let settings = new Array();
+    const settings = new Array();
 
     for (const $setting of $settings) {
 
@@ -224,7 +224,7 @@ function init()
     window.addEventListener('load', () => {
 
         // Emit the `onsync` events on all settings.
-        for (let setting of settings) {
+        for (const setting of settings) {
             emitEvent(setting.name, setting.value, 'onsync');
         }
 
@@ -260,7 +260,7 @@ export function reset()
  */
 function emitEvent(setting_name, value, type = 'onsync')
 {
-    let name = `setting:${type}:${setting_name}`;
+    const name = `setting:${type}:${setting_name}`;
     const $setting = getSettingFromName(setting_name);
 
     document.dispatchEvent(new CustomEvent(name, { detail: {
@@ -281,7 +281,7 @@ function bindEvent(setting_names, callback, type)
 {
     setting_names = (typeof setting_names === 'string') ? [setting_names] : setting_names;
 
-    for (let setting_name of setting_names) {
+    for (const setting_name of setting_names) {
         document.addEventListener(`setting:${type}:${setting_name}`, callback);
     }
 }
@@ -333,8 +333,8 @@ export function __init__()
 
         // If the view loaded is the settings view.
         if (event.detail.$view === $view) {
-            let setting_name = event.detail.setting_name;
-            let transition_duration = $view.getCssProperty('transition-duration') - 50;
+            const setting_name = event.detail.setting_name;
+            const transition_duration = $view.getCssProperty('transition-duration') - 50;
 
             // Scroll instantly to the setting, then make it blink.
             goto(setting_name, 'instant', transition_duration);
@@ -356,7 +356,7 @@ export function __init__()
 
     // Change the gauge parameters.
     onsync('gauge_step', event => {
-        let value = parseFloat(event.detail.value);
+        const value = parseFloat(event.detail.value);
         $view.querySelector('[data-name=gauge_min]').setStep(value);
         $view.querySelector('[data-name=gauge_max]').setStep(value);
         $view.querySelector('[data-name=danger_zone]').setStep(value);
@@ -364,8 +364,8 @@ export function __init__()
 
     // Display a toast after a change of the toast duration.
     onchange('toast_duration', event => {
-        let text = (event.detail.value === 1) ? "La durée des messages éphémères a été remise par défaut."
-                                              : "La durée des messages éphémères est maintenant doublée.";
+        const text = (event.detail.value === 1) ? "La durée des messages éphémères a été remise par défaut."
+                                                : "La durée des messages éphémères est maintenant doublée.";
         (new Toast(text)).setDuration(4000).show();
     });
 

@@ -131,7 +131,7 @@ export default class Setting extends HTMLElement
      */
     setParentSettings()
     {
-        for (let group of this.groups) {
+        for (const group of this.groups) {
 
             // Get all the parent settings that can disable the group.
             const $parent_settings_disable_on_true = document.querySelectorAll(`
@@ -158,9 +158,9 @@ export default class Setting extends HTMLElement
     {
         if (this.$reminderSetting === null) return;
 
-        let reminder_name  = this.$reminderSetting.name;
-        let reminder_title = this.$reminderSetting.title;
-        let reminder_value = this.$reminderSetting.getValueAsText();
+        const reminder_name  = this.$reminderSetting.name;
+        const reminder_title = this.$reminderSetting.title;
+        const reminder_value = this.$reminderSetting.getValueAsText();
 
         // Create and insert the badge in the DOM.
         const $reminderBadge = this.getReminderBadge(reminder_title, reminder_value);
@@ -172,7 +172,7 @@ export default class Setting extends HTMLElement
         });
 
         // Move to the reminder setting on click.
-        $reminderBadge.addEventListener('click', function() {
+        $reminderBadge.addEventListener('click', function () {
             Settings.goto(reminder_name, 'smooth', 500);
         });
     }
@@ -269,7 +269,7 @@ export default class Setting extends HTMLElement
 
         // Show or hide the reset button when the setting changes.
         Settings.onsync(this.name, event => {
-            let is_default = event.detail.value == this.default_value;
+            const is_default = event.detail.value == this.default_value;
             this.getResetButton()?.classList.toggle('hide', is_default);
         });
 

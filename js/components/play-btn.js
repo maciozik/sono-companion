@@ -5,7 +5,7 @@ import * as View from '/js/views/view.js';
 export const $playBtns = document.querySelectorAll('.play-btn');
 
 /**
- * Check audio permission if needed before running the view.
+ * Check audio permission if necessary, before running the view.
  * @param {HTMLElement} $view
  */
 function checkAudioPermission($view)

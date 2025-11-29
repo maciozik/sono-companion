@@ -13,19 +13,19 @@ const $gaugePointer = $gauge.querySelector('.gauge-pointer');
  */
 export function create()
 {
-    let min = STG.gauge_min,
-        max = STG.gauge_max,
-        danger = STG.danger_zone,
-        half = (max + min) / 2,
-        step = STG.gauge_step,
-        nb_values = ((max - min) / step) + 1;
+    const min       = STG.gauge_min,
+          max       = STG.gauge_max,
+          danger    = STG.danger_zone,
+          half      = (max + min) / 2,
+          step      = STG.gauge_step,
+          nb_values = ((max - min) / step) + 1;
 
     // Rotate the gauge arcs
-    let gauge_rotation = convertToDegree(danger - min);
+    const gauge_rotation = convertToDegree(danger - min);
     $gaugeArcs.style.setProperty('--gauge-arcs-rotation', `${gauge_rotation}deg`);
 
     // Rotate the safe gauge a bit more to create the gap between the two gauges.
-    let arc_safe_rotation = convertToDegree((-1 * step));
+    const arc_safe_rotation = convertToDegree((-1 * step));
     $gaugeArcSafe.style.rotate = `${arc_safe_rotation}deg`;
 
     // Reduce the number of displayed values if there are too many.
@@ -54,12 +54,12 @@ export function create()
 
         // Rotate and add the graduation to the right gauge.
         if (value < danger) {
-            let rotation = convertToDegree(value - danger + step);
+            const rotation = convertToDegree(value - danger + step);
             $graduation.style.rotate = `${rotation}deg`;
             $gaugeArcSafe.querySelector('.gauge-graduations').appendChild($graduation);
         }
         else {
-            let rotation = convertToDegree(value - danger);
+            const rotation = convertToDegree(value - danger);
             $graduation.style.rotate = `${rotation}deg`;
             $gaugeArcDanger.querySelector('.gauge-graduations').appendChild($graduation);
         }
@@ -102,7 +102,7 @@ export function update(db)
     }
 
     // Rotate the pointer.
-    let rotation = convertToDegree(db - min);
+    const rotation = convertToDegree(db - min);
     $gaugePointer.style.rotate = `${rotation}deg`;
 }
 

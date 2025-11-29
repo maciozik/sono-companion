@@ -125,7 +125,7 @@ export default class SettingList extends Setting
         const _this = this;
 
         // Get the value of the current selected item.
-        let selected_item_value = Modal.$modal.querySelector('[data-selected]').dataset.value;
+        const selected_item_value = Modal.$modal.querySelector('[data-selected]').dataset.value;
 
         // Close the modal, then set the selected item as selected in the settings view.
         Modal.close().then(() => {
@@ -145,7 +145,7 @@ export default class SettingList extends Setting
     getValueAsText()
     {
         const $selectedItem = this.$list.querySelector(`[data-value="${this.value}"]`);
-        let selected_item_label = $selectedItem.querySelector('.label').textContent;
+        const selected_item_label = $selectedItem.querySelector('.label').textContent;
 
         return selected_item_label;
     }
@@ -183,13 +183,13 @@ export default class SettingList extends Setting
      */
     getItemsHTML()
     {
-        let items_html = '';
         const $items = this.querySelectorAll('list-item');
+        let items_html = '';
 
         for (const $item of $items) {
-            let value = $item.dataset.value;
-            let label = $item.innerHTML;
-            let selected = ($item.hasAttribute('data-selected')) ? 'data-selected' : '';
+            const value = $item.dataset.value;
+            const label = $item.innerHTML;
+            const selected = ($item.hasAttribute('data-selected')) ? 'data-selected' : '';
 
             items_html += /*html*/`
                 <div class="list-item" data-value="${value}" ${selected}>

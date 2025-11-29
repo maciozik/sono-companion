@@ -123,7 +123,7 @@ export default class Modal
      */
     open()
     {
-        // Set the buttons if needed and not already defined.
+        // Set the buttons if necessary and not already defined.
         if (this.#primaryCallback === null) {
             this.setPrimaryBtn();
         }
@@ -181,7 +181,7 @@ export default class Modal
         // Unbind the callbacks from the buttons and the "tap outside" event.
         Modal.#listenersAbort.abort("Modal closed");
 
-        // Deactivate the transitions if needed.
+        // Deactivate the transitions if necessary.
         Modal.$overlay.classList.toggle('instant', instant);
 
         // Hide the modal after the delay.

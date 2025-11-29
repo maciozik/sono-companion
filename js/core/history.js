@@ -5,7 +5,7 @@
  */
 
 /** @type {Array<State>} */
-let states = new Array();
+const states = new Array();
 
 let skipNextPopstate = false;
 
@@ -21,7 +21,7 @@ export function push(name, callback)
 
     states.push({ name, callback });
 
-    let url = '?' + name;
+    const url = '?' + name;
     history.pushState({ name }, '', url);
 
     console.debugType('history:push', name);

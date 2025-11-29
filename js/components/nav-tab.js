@@ -43,8 +43,7 @@ function setTabVisibility(view_id, is_visible)
     }
 
     // Display a message if no tab is visible.
-    let is_there_tab_visible = View.getFirstVisible() !== null;
-    $nav.querySelector('p.no-tab').classList.toggle('show', !is_there_tab_visible);
+    $nav.querySelector('p.no-tab').classList.toggle('show', (View.getFirstVisible() === null));
 }
 
 /**
@@ -55,8 +54,8 @@ export function __init__() {
 
     // Listen the settings to toggle the visibility of the tabs if necessary.
     for (const $tab of $tabs) {
-        let view_id = $tab.dataset.load;
-        let event_type = `enable_${view_id}`;
+        const view_id = $tab.dataset.load;
+        const event_type = `enable_${view_id}`;
 
         Settings.onsync(event_type, event => {
             setTabVisibility(view_id, event.detail.value);

@@ -39,7 +39,7 @@ function next()
  */
 function add()
 {
-    let bpm = Tempo.get('bpm');
+    const bpm = Tempo.get('bpm');
     const $current = getCurrent();
 
     // Create a new save.
@@ -240,9 +240,9 @@ function getAfterNext()
  */
 function stateOf($save)
 {
-    let states = ['current', 'next', 'add', 'remove'];
+    const states = ['current', 'next', 'add', 'remove'];
 
-    for (let state of states) {
+    for (const state of states) {
         if ($save.classList.contains(state)) {
             return state;
         }
@@ -294,14 +294,14 @@ function setTempo(bpm)
  */
 function setVisibility()
 {
-    let is_manager_disabled = (getCount() === 0);
-    let is_add_btn_disabled = (getCount() >= SAVES_MAX);
+    const is_manager_disabled = (getCount() === 0);
+    const is_add_btn_disabled = (getCount() >= SAVES_MAX);
 
     $bpmManager.classList.toggle('disabled', is_manager_disabled);
     $addBtn.classList.toggle('disabled', is_add_btn_disabled);
 
     requestAnimationFrame(() => {
-        let is_manager_active = (Tempo.$bpmValue.textContent === getCurrent()?.textContent);
+        const is_manager_active = (Tempo.$bpmValue.textContent === getCurrent()?.textContent);
         $bpmManager.classList.toggle('active', is_manager_active);
     });
 }
@@ -311,8 +311,8 @@ function setVisibility()
  */
 function setCountBadge()
 {
-    let count = getCount();
-    let is_show = count >= SHOW_BADGE_COUNT_THRESHOLD;
+    const count = getCount();
+    const is_show = count >= SHOW_BADGE_COUNT_THRESHOLD;
 
     $countBadge.classList.toggle('show', is_show);
     $countBadge.textContent = (is_show) ? getCount() : SHOW_BADGE_COUNT_THRESHOLD;
@@ -324,15 +324,15 @@ function setCountBadge()
 function restoreFromStorage()
 {
     /** @type {Array<number>} */
-    let bpm_saves = Storage.get('tempo.bpm_saves');
+    const bpm_saves = Storage.get('tempo.bpm_saves');
     /** @type {number} */
-    let current_save_id = Storage.get('tempo.current_save_id') ?? 0;
+    const current_save_id = Storage.get('tempo.current_save_id') ?? 0;
 
     if (bpm_saves === null) return;
 
-    for (let id in Object.keys(bpm_saves)) {
+    for (const id in Object.keys(bpm_saves)) {
 
-        let bpm = bpm_saves[id];
+        const bpm = bpm_saves[id];
         const $save = createSave(bpm);
 
         // Set the save as current.
@@ -359,9 +359,9 @@ function saveInStorage()
     const $bpmSaves = $nextBtn.querySelectorAll('.bpm-save:not(.remove)');
 
     /** @type {Array<number>} */
-    let bpm_saves = new Array();
+    const bpm_saves = new Array();
 
-    for (let id in Object.keys($bpmSaves)) {
+    for (const id in Object.keys($bpmSaves)) {
         const $save = $bpmSaves[id];
 
         bpm_saves.push(parseInt($save.textContent));
@@ -419,7 +419,7 @@ export function __init__()
     // Block interactions on the manager temporarily at each trigger of any button.
     [$addBtn, $nextBtn, $removeBtn].forEach($btn => {
         $btn.addEventListener('trigger', () => {
-            let trigger_btns_delay = $bpmManager.getCssProperty('--transition-duration') + 20;
+            const trigger_btns_delay = $bpmManager.getCssProperty('--transition-duration') + 20;
             $bpmManager.addClassTemporarily('no-interaction', trigger_btns_delay);
         });
     });
@@ -430,7 +430,7 @@ export function __init__()
 
     // Show or hide the bpm manager and adjust the view grid.
     Settings.onsync('show_bpm_manager', event => {
-        let value = event.detail.value;
+        const value = event.detail.value;
         $bpmManager.classList.toggle('hide', !value);
         Tempo.$view.style.setProperty('--view-grid-rows', (value) ? 24 : 22);
     });

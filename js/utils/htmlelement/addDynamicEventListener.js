@@ -9,7 +9,9 @@
 function addDynamicEventListener(type, selector, listener, options = false)
 {
     this.addEventListener(type, function(event) {
+
         const $element = event.target.closest(selector);
+
         if ($element !== null) {
             listener.call($element, event);
         }

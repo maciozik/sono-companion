@@ -42,7 +42,7 @@ window.fetch(`https://api.github.com/repos/${ENV.GITHUB}/tags`)
     .then(tags => {
         const $version = document.querySelector('.setting[data-name=version] .setting-info');
         const $credits = document.querySelector('.app-credits .app-version');
-        let version = tags?.[0]?.name?.replace(/^v/, "");
+        const version = tags?.[0]?.name?.replace(/^v/, "");
 
         $version.textContent = version + ENV.APP.VERSION_SUFFIX;
         $credits.textContent = "v" + version;

@@ -25,9 +25,9 @@ export const $loadViewBtns = document.querySelectorAll('[data-load]');
  */
 export function load(view)
 {
-    let [view_id, setting_name] = view.split(':');
+    const [view_id, setting_name] = view.split(':');
     const $view = document.getElementById(view_id);
-    let view_title = $view.dataset.name;
+    const view_title = $view.dataset.name;
 
     // Hide all existing modals instantly.
     Modal.close(0, true);
@@ -164,9 +164,9 @@ export function getLastLoaded()
  */
 export function getFirstVisible()
 {
-    let first_tab_visible = NavTab.$nav.querySelector('.nav-tab:not(.hide)');
-    let view = first_tab_visible?.dataset.load ?? null;
-    return view;
+    const first_tab_visible = NavTab.$nav.querySelector('.nav-tab:not(.hide)');
+    const view_id = first_tab_visible?.dataset.load ?? null;
+    return view_id;
 }
 
 /**
@@ -175,7 +175,7 @@ export function getFirstVisible()
  */
 export function getLastLoadedOrFirstVisible()
 {
-    let last_view_loaded = getLastLoaded();
+    const last_view_loaded = getLastLoaded();
 
     if (isVisible(last_view_loaded)) {
         return last_view_loaded;
@@ -190,7 +190,7 @@ export function getLastLoadedOrFirstVisible()
  * @returns {boolean}
  */
 export function isVisible(view_id = getCurrent().id) {
-    let $tab = NavTab.getTabFromViewId(view_id);
+    const $tab = NavTab.getTabFromViewId(view_id);
     return !$tab.classList.contains('hide');
 }
 
@@ -231,7 +231,7 @@ export function __init__()
     for (const $loadViewBtn of $loadViewBtns) {
 
         $loadViewBtn.addEventListener('trigger', function () {
-            let view_id = this.dataset.load;
+            const view_id = this.dataset.load;
             load(view_id);
         });
     }
@@ -243,7 +243,7 @@ export function __init__()
 
         // Add .active on the button that loads the selected view.
         for (const $loadViewBtn of $loadViewBtns) {
-            let is_active = ($loadViewBtn.dataset.load === view_id);
+            const is_active = ($loadViewBtn.dataset.load === view_id);
             $loadViewBtn.classList.toggle('active', is_active);
         }
 
@@ -279,6 +279,7 @@ export function __init__()
     let suspended_views_count = 0;
 
     // Pause or stop the view when the app loses focus.
+    // TODO Move to wake_lock.js?
     document.addEventListener('visibilitychange', () => {
 
         if (document.visibilityState === 'hidden') {
@@ -295,7 +296,7 @@ export function __init__()
 
     // Set the zoom level.
     Settings.onsync('zoom_level', event => {
-        let font_size_multiplier = event.detail.value / 100;
+        const font_size_multiplier = event.detail.value / 100;
         document.documentElement.style.setProperty('--app-font-size-multiplier', font_size_multiplier);
     });
 }

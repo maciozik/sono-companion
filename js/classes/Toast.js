@@ -64,7 +64,7 @@ export default class Toast
      */
     show()
     {
-        let duration = this.duration * STG.toast_duration;
+        const duration = this.duration * STG.toast_duration;
 
         setTimeout(() => {
 
@@ -89,7 +89,7 @@ export default class Toast
         // Cancel the timeout.
         Toast.toastTimeout?.cancel();
 
-        // Deactivate the transition if needed and hide the toast.
+        // Deactivate the transition if necessary, and hide the toast.
         Toast.$toast.classList.toggle('instant', instant);
         Toast.$toast.classList.remove('show');
     }

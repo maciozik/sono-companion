@@ -76,8 +76,8 @@ export default class Scrollbar
      */
     setPosition()
     {
-        let scrollbar_right = this.$scrollable.offsetParent.clientWidth - this.scrollable.x - this.scrollable.full_width + this.scrollable.border_left;
-        let scrollbar_top = this.scrollable.y + this.scrollable.border_top + Scrollbar.MARGIN_BLOCK;
+        const scrollbar_right = this.$scrollable.offsetParent.clientWidth - this.scrollable.x - this.scrollable.full_width + this.scrollable.border_left;
+        const scrollbar_top = this.scrollable.y + this.scrollable.border_top + Scrollbar.MARGIN_BLOCK;
 
         this.$scrollbar.style.top = `${scrollbar_top}px`;
         this.$scrollbar.style.right = `${scrollbar_right}px`;
@@ -101,7 +101,7 @@ export default class Scrollbar
     update()
     {
         // Show the scrollbar if the content overflows the height.
-        let is_visible = (this.getContentHeight() > this.scrollable.inner_height);
+        const is_visible = (this.getContentHeight() > this.scrollable.inner_height);
         this.setVisibility(is_visible);
 
         this.setThumbSize();
@@ -114,8 +114,8 @@ export default class Scrollbar
     // TODO Allow drag and move on the thumb directly?
     moveThumb()
     {
-        let scroll_ratio = this.getContentScroll() / (this.getContentHeight() - this.scrollable.inner_height);
-        let scrollbar_thumb_y = (this.scrollbar_height - this.scrollbar_thumb_height) * scroll_ratio;
+        const scroll_ratio = this.getContentScroll() / (this.getContentHeight() - this.scrollable.inner_height);
+        const scrollbar_thumb_y = (this.scrollbar_height - this.scrollbar_thumb_height) * scroll_ratio;
 
         if (!isFinite(scrollbar_thumb_y)) return;
 
@@ -127,8 +127,8 @@ export default class Scrollbar
      */
     setThumbSize()
     {
-        let ratio = Math.pow(this.scrollable.inner_height / this.getContentHeight(), Scrollbar.THUMB_SIZE_INTERPOLATION_FACTOR);
-        let scrollbar_thumb_height = this.scrollbar_height * ratio;
+        const ratio = Math.pow(this.scrollable.inner_height / this.getContentHeight(), Scrollbar.THUMB_SIZE_INTERPOLATION_FACTOR);
+        const scrollbar_thumb_height = this.scrollbar_height * ratio;
 
         if (!isFinite(scrollbar_thumb_height)) return;
 

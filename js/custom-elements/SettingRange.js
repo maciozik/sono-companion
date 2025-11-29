@@ -143,9 +143,9 @@ export default class SettingRange extends Setting
         this.$settingValue.style.visibility = 'hidden';
 
         // Fill with all possible values successively, and save the greatest width.
-        for (let value in this._Slider.values) {
+        for (const value in this._Slider.values) {
             this.$settingValue.textContent = this._Slider.getValueAsText(parseFloat(value));
-            let current_width = this.$settingValue.offsetWidth;
+            const current_width = this.$settingValue.offsetWidth;
             width = (width < current_width) ? current_width : width;
         }
 
@@ -164,7 +164,7 @@ export default class SettingRange extends Setting
         this._Slider.setStep(step);
 
         // Round the value if it does not fit the step anymore, and store it.
-        let value = this.set(this.value);
+        const value = this.set(this.value);
         Settings.change(this.name, value, this.context);
     }
 
@@ -176,8 +176,8 @@ export default class SettingRange extends Setting
     getParameterValue(attr)
     {
         // Get the name of the setting on which the parameter depends, if it exists.
-        let attr_value = this.getAttribute(attr);
-        let setting_name = attr_value.match(/^\{(.+)\}$/);
+        const attr_value = this.getAttribute(attr);
+        const setting_name = attr_value.match(/^\{(.+)\}$/);
 
         if (setting_name) {
             return parseFloat(Settings.get(setting_name[1]));

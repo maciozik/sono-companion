@@ -66,7 +66,7 @@ export function close()
     $textarea.blur();
 
     // Copy the scroll to the source textarea.
-    let scroll_top_ratio = $textarea.scrollTop / ($textarea.scrollHeight - $textarea.clientHeight);
+    const scroll_top_ratio = $textarea.scrollTop / ($textarea.scrollHeight - $textarea.clientHeight);
     $textareaSource.scrollTop = scroll_top_ratio * ($textareaSource.scrollHeight - $textareaSource.clientHeight);
 
     // Remove the behavior attributes, the custom styles, and the content.
@@ -86,8 +86,8 @@ export function close()
  */
 function replacePunctuationSpaces()
 {
-    let { selectionStart, selectionEnd, value } = $textarea;
-    let value_replaced = value.replace(/ ([!?:;])/g, "\u00A0$1");
+    const { selectionStart, selectionEnd, value } = $textarea;
+    const value_replaced = value.replace(/ ([!?:;])/g, "\u00A0$1");
 
     if (value_replaced !== value) {
         $textarea.value = value_replaced;
@@ -101,7 +101,7 @@ function replacePunctuationSpaces()
 function updateCounter()
 {
     const $textareaCounter = $textareaHeader.querySelector('.textarea-counter');
-    let limit = ($textarea.value.length >= $textarea.maxLength);
+    const limit = ($textarea.value.length >= $textarea.maxLength);
 
     $textareaCounter.querySelector('.length').textContent = $textarea.value.length;
     $textareaCounter.querySelector('.maxlength').textContent = $textarea.maxLength;
@@ -186,7 +186,7 @@ export function __init__()
 
         navigator.virtualKeyboard.addEventListener('geometrychange', () => {
 
-            let current_keyboard_height = navigator.virtualKeyboard.boundingRect.height;
+            const current_keyboard_height = navigator.virtualKeyboard.boundingRect.height;
             $fullscreen.style.height = /*css*/ `calc(100% - ${current_keyboard_height}px)`;
 
             // Update the scroll and scrollbar after the height changed.
