@@ -35,10 +35,10 @@ export default class Modal
 
     static $overlay = document.getElementById('overlay');
     static $modal = Modal.$overlay.querySelector('.modal');
-    static $modalTitle = Modal.$modal.querySelector('.modal-title');
-    static $modalText = Modal.$modal.querySelector('.modal-text');
-    static $modalBtnPrimary = Modal.$modal.querySelector('.modal-btn-primary');
-    static $modalBtnSecondary = Modal.$modal.querySelector('.modal-btn-secondary');
+    static $title = Modal.$modal.querySelector('.modal-title');
+    static $text = Modal.$modal.querySelector('.modal-text');
+    static $primaryBtn = Modal.$modal.querySelector('.modal-btn-primary');
+    static $secondaryBtn = Modal.$modal.querySelector('.modal-btn-secondary');
 
     /**
      * @constructor
@@ -87,7 +87,7 @@ export default class Modal
         this.#primaryCallback = (callback !== undefined) ? callback : Modal.CALLBACK_DEFAULT;
 
         // Bind the callback to the button.
-        Modal.$modalBtnPrimary.addEventListener('trigger', this.#primaryCallback.bind(this), {
+        Modal.$primaryBtn.addEventListener('trigger', this.#primaryCallback.bind(this), {
             signal: Modal.#listenersAbort.signal
         });
 
@@ -109,7 +109,7 @@ export default class Modal
             this.#secondaryCallback = (callback !== undefined) ? callback : Modal.CALLBACK_DEFAULT;
 
             // Bind the callback to the button.
-            Modal.$modalBtnSecondary.addEventListener('trigger', this.#secondaryCallback.bind(this), {
+            Modal.$secondaryBtn.addEventListener('trigger', this.#secondaryCallback.bind(this), {
                 signal: Modal.#listenersAbort.signal
             });
         }
@@ -132,15 +132,15 @@ export default class Modal
         }
 
         // Fill the modal and set the context.
-        Modal.$modalTitle.innerHTML = this.title;
-        Modal.$modalText.innerHTML = this.text;
-        Modal.$modalBtnPrimary.innerHTML = this.primary_btn;
-        Modal.$modalBtnSecondary.innerHTML = this.secondary_btn;
+        Modal.$title.innerHTML = this.title;
+        Modal.$text.innerHTML = this.text;
+        Modal.$primaryBtn.innerHTML = this.primary_btn;
+        Modal.$secondaryBtn.innerHTML = this.secondary_btn;
         Modal.$overlay.dataset.context = this.context;
 
         // Remove the title and secondary button if null.
-        Modal.$modalTitle.classList.toggle('hide', (this.title === null));
-        Modal.$modalBtnSecondary.classList.toggle('hide', (this.secondary_btn === null));
+        Modal.$title.classList.toggle('hide', (this.title === null));
+        Modal.$secondaryBtn.classList.toggle('hide', (this.secondary_btn === null));
 
         // Allow a tap outside the modal to close it.
         setTimeout(() => {
@@ -151,7 +151,9 @@ export default class Modal
             }, { signal: Modal.#listenersAbort.signal });
         }, 200); // Prevent accidental tap.
 
-        // Reactivate the transitions and show the modal.
+        // Reactivate buttons and transitions, and show the modal.
+        Modal.$primaryBtn.classList.remove('disabled');
+        Modal.$secondaryBtn.classList.remove('disabled');
         Modal.$overlay.classList.remove('instant');
         Modal.$overlay.classList.add('active');
 
@@ -181,7 +183,9 @@ export default class Modal
         // Unbind the callbacks from the buttons and the "tap outside" event.
         Modal.#listenersAbort.abort("Modal closed");
 
-        // Deactivate the transitions if necessary.
+        // Deactivate buttons and transitions if necessary.
+        Modal.$primaryBtn.classList.add('disabled');
+        Modal.$secondaryBtn.classList.add('disabled');
         Modal.$overlay.classList.toggle('instant', instant);
 
         // Hide the modal after the delay.
