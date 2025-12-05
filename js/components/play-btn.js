@@ -2,7 +2,11 @@ import * as Storage from '/js/core/storage.js';
 import * as AudioPermission from '/js/audio/audio-permission.js';
 import * as View from '/js/views/view.js';
 
+const HIGHLIGHT_INTERVAL = 4000;
+
 export const $playBtns = document.querySelectorAll('.play-btn');
+
+let hightlightInterval;
 
 /**
  * Check audio permission if necessary, before running the view.
@@ -22,12 +26,13 @@ function checkAudioPermission($view)
 }
 
 /**
- * Whether the play buttons must pulse.
- * @param {boolean} isPulse
+ * Make the play buttons pulse and the icons bounce.
  */
-export function pulse(isPulse)
+export function highlight()
 {
-    $playBtns.forEach($playBtn => $playBtn.classList.toggle('pulse', isPulse));
+    hightlightInterval = setInterval(() => {
+        $playBtns.forEach($playBtn => $playBtn.addClassTemporarily('highlight', (HIGHLIGHT_INTERVAL - 1000)));
+    }, HIGHLIGHT_INTERVAL);
 }
 
 /**
@@ -49,12 +54,13 @@ export function __init__() {
                 View.suspend($view.id);
             }
 
-            pulse(false);
+            // Deactivate the highlight if it exists.
+            clearInterval(hightlightInterval);
         });
     }
 
-    // Make play buttons pulse if no view has been run yet (first launch tip).
+    // Highlight play buttons if no view has been run yet (first launch tip).
     if (STO.has_been_run === null) {
-        pulse(true);
+        highlight();
     }
 }

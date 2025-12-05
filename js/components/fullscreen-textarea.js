@@ -115,7 +115,15 @@ function updateCounter()
 function showSavedBadge()
 {
     savedBadgeTimeout?.cancel();
-    savedBadgeTimeout = $savedBadge.addClassTemporarily('show', SAVED_BADGE_DISPLAY_DURATION);
+
+    // Animate the check icon if the badge is still visible.
+    if ($savedBadge.classList.contains('show')) {
+        $savedBadge.querySelector('g-icon').addClassTemporarily('bounce', 'animationend');
+    }
+
+    requestAnimationFrame(() => {
+        savedBadgeTimeout = $savedBadge.addClassTemporarily('show', SAVED_BADGE_DISPLAY_DURATION);
+    });
 }
 
 /**

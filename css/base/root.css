@@ -111,6 +111,15 @@ body {
 
 /**  ANIMATIONS  **/
 
+@keyframes bounce {
+    from     { transform: translateY(0)    scale(1); }
+     15%     { transform: translateY(0)    scale(1.2, .6); }
+     40%     { transform: translateY(-5px) scale(.9, 1.1); }
+     65%     { transform: translateY(0)    scale(1.1, .8); }
+     85%     { transform: translateY(-2px) scale(.95, 1.05); }
+      to     { transform: translateY(0)    scale(1); }
+}
+
 @keyframes reset-blink {
     from, 50% {
         background-color: rgb(from var(--red) r g b / .35);

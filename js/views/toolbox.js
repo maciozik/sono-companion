@@ -243,6 +243,10 @@ export function __init__()
 
         this.addClassTemporarily('edit-done', 100);
         $savedBadge.addClassTemporarily('show', FullscreenTextarea.SAVED_BADGE_DISPLAY_DURATION);
+
+        setTimeout(() => {
+            $savedBadge.querySelector('g-icon').addClassTemporarily('bounce', 'animationend');
+        }, 100);
     });
 
     // Highlight the notepad content on scroll.

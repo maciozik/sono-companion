@@ -279,7 +279,6 @@ export function __init__()
     let suspended_views_count = 0;
 
     // Pause or stop the view when the app loses focus.
-    // TODO Move to wake_lock.js?
     document.addEventListener('visibilitychange', () => {
 
         if (document.visibilityState === 'hidden') {

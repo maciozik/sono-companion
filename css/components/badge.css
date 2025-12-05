@@ -34,6 +34,11 @@
         translate: 0 2.5px;
         font-size: 1.25em;
         font-weight: inherit;
+        transform-origin: center bottom;
+
+        &.bounce {
+            animation: bounce 320ms ease-out;
+        }
     }
 
     &::after {

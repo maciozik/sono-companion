@@ -35,15 +35,12 @@
         translate: -50% -50%;
     }
 
-    &.pulse {
-        --animation-duration: 4000ms;
+    &.highlight {
         overflow: visible;
 
         g-icon.play {
             transform-origin: center bottom;
-            animation: bounce var(--animation-duration) ease-out;
-            animation-delay: var(--animation-duration);
-            animation-iteration-count: infinite;
+            animation: bounce 500ms ease-out;
         }
 
         /* Pulsation */
@@ -57,7 +54,7 @@
             border-color: transparent;
             box-sizing: content-box;
             opacity: .5;
-            animation: pulse var(--animation-duration) var(--ease-out) infinite var(--animation-duration);
+            animation: play-btn-pulse 650ms var(--ease-out);
         }
     }
 
@@ -70,21 +67,12 @@
 
 /**  ANIMATIONS  **/
 
-@keyframes bounce {
-    from     { transform: translateY(0)    scale(1); }
-      2%     { transform: translateY(0)    scale(1.2, .6); }
-      5%     { transform: translateY(-5px) scale(.9, 1.1); }
-      8%     { transform: translateY(0)    scale(1.1, .8); }
-     10%     { transform: translateY(-2px) scale(.95, 1.05); }
-     12%, to { transform: translateY(0)    scale(1); }
-}
-
-@keyframes pulse {
+@keyframes play-btn-pulse {
     from {
         border-width: 0;
         border-color: var(--cyan);
     }
-    15%, to {
+    to {
         border-width: 22px;
         border-color: transparent;
     }
