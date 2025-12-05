@@ -102,29 +102,21 @@ body {
     font-family: 'Noto Sans', Arial, sans-serif;
     line-height: 1.4;
     letter-spacing: .2px;
-    /* transition: background-color 400ms; */
+    transition: background-color 300ms linear 300ms;
 
     &.blink {
-        animation: reset-blink 600ms linear;
+        background-color: rgb(from var(--red) r g b / .35);
+        transition: none;
     }
 }
 
 /**  ANIMATIONS  **/
 
 @keyframes bounce {
-    from     { transform: translateY(0)    scale(1); }
-     15%     { transform: translateY(0)    scale(1.2, .6); }
-     40%     { transform: translateY(-5px) scale(.9, 1.1); }
-     65%     { transform: translateY(0)    scale(1.1, .8); }
-     85%     { transform: translateY(-2px) scale(.95, 1.05); }
-      to     { transform: translateY(0)    scale(1); }
-}
-
-@keyframes reset-blink {
-    from, 50% {
-        background-color: rgb(from var(--red) r g b / .35);
-    }
-    to {
-        background-color: var(--bg);
-    }
+    from  { transform: translateY(0)    scale(1); }
+     15%  { transform: translateY(0)    scale(1.2, .6); }
+     40%  { transform: translateY(-5px) scale(.9, 1.1); }
+     65%  { transform: translateY(0)    scale(1.1, .8); }
+     85%  { transform: translateY(-2px) scale(.95, 1.05); }
+      to  { transform: translateY(0)    scale(1); }
 }

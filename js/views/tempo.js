@@ -66,7 +66,6 @@ export function set(bpm, clamp = true)
 /**
  * Save the Tap Tempos and calculate the average tempo.
  */
-// TODO Ripple effect on each tap, even quick (possibility to create several ripple circle at once)?
 export function tap()
 {
     const timestamp = Date.now();
