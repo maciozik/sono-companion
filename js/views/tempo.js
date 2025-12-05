@@ -4,10 +4,9 @@ import * as Settings from '/js/views/settings.js';
 import * as Metronome from '/js/widgets/metronome.js';
 
 export const BPM_DEFAULT = 90;
-
 export const BPM_BLINK_DURATION = 100;
 
-const TAP_TEMPO_RESET_DELAY = 2000;
+const TAP_TEMPO_RESET_DELAY = 2500;
 const TAP_TEMPO_INTERVALS_LIMIT = 20;
 
 export const $view = document.getElementById('tempo');
@@ -21,7 +20,7 @@ const $tempoM = $view.querySelector('#tempo-info .tempo-m .info');
 export const $tapBtn = $view.querySelector('#tempo-controls .tap-tempo-btn');
 
 let tapTempoTimestamps = new Array();
-let tapTempoTimeGaps = new Array();
+let tapTempoIntervals = new Array();
 let tapTempoTimeout;
 
 /**
@@ -67,40 +66,41 @@ export function set(bpm, clamp = true)
 /**
  * Save the Tap Tempos and calculate the average tempo.
  */
+// TODO Ripple effect on each tap, even quick (possibility to create several ripple circle at once)?
 export function tap()
 {
     const timestamp = Date.now();
 
     // Save the timestamp of the new tap.
-    const ts_length = tapTempoTimestamps.push(timestamp);
+    const timestamps_length = tapTempoTimestamps.push(timestamp);
 
     // Reset the timeout at each tap.
     resetTap(TAP_TEMPO_RESET_DELAY);
 
     // Change the color.
-    $tapBtn.classList.add('active', 'blink');
+    $tapBtn.classList.add('active', 'warning');
 
     // If the user tapped at least two times.
-    if (ts_length > 1) {
-        const prev_value = tapTempoTimestamps[ts_length-2];
-        const curr_value = tapTempoTimestamps[ts_length-1];
-        const interval = curr_value - prev_value;
+    if (timestamps_length > 1) {
+        const previous_value = tapTempoTimestamps[timestamps_length-2];
+        const current_value = tapTempoTimestamps[timestamps_length-1];
+        const interval = current_value - previous_value;
 
-        // Save the time gap between the new tap and the previous.
-        const i_length = tapTempoTimeGaps.push(interval);
+        // Save the time interval between the new tap and the previous.
+        const intervals_length = tapTempoIntervals.push(interval);
 
         // Remove the oldest time gap if there are too many time gaps.
-        if (i_length > TAP_TEMPO_INTERVALS_LIMIT) {
-            tapTempoTimeGaps.shift();
+        if (intervals_length > TAP_TEMPO_INTERVALS_LIMIT) {
+            tapTempoIntervals.shift();
         }
 
         // Calculate the average.
-        const average = tapTempoTimeGaps.reduce((a, b) => a + b) / i_length;
+        const average = tapTempoIntervals.reduce((a, b) => a + b) / intervals_length;
         set(Toolbox.convert(average, 'ms', 'bpm'));
 
         // Toggle the visual clues.
         $bpmValue.classList.add('tap-tempo-listen');
-        $tapBtn.classList.remove('blink');
+        $tapBtn.classList.remove('warning');
     }
 }
 
@@ -114,9 +114,9 @@ export function resetTap(delay = 0)
 
     tapTempoTimeout = setTimeout(() => {
         tapTempoTimestamps = [];
-        tapTempoTimeGaps = [];
+        tapTempoIntervals = [];
         $bpmValue.classList.remove('tap-tempo-listen');
-        $tapBtn.classList.remove('active', 'blink');
+        $tapBtn.classList.remove('active', 'warning');
     }, delay);
 }
 

@@ -159,10 +159,14 @@
 
             &.active {
                 color: var(--yellow);
+
+                g-icon {
+                    filter: brightness(.95);
+                }
             }
 
-            &.blink {
-                animation: tap-tempo-btn-blink 250ms linear 450ms infinite;
+            &.warning g-icon {
+                animation: tap-tempo-btn-warning 250ms linear 1000ms;
                 animation-iteration-count: infinite;
                 animation-direction: alternate;
             }
@@ -178,11 +182,13 @@
 
 /**  ANIMATIONS  **/
 
-@keyframes tap-tempo-btn-blink {
-    from, 30% {
+@keyframes tap-tempo-btn-warning {
+    from, 25% {
+        scale: 1;
         color: var(--yellow);
     }
-    70%, to {
-        color: var(--grey);
+    75%, to {
+        scale: .85;
+        color: hsl(from var(--yellow) h s calc(l - 5));
     }
 }
