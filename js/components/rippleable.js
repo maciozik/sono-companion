@@ -12,14 +12,12 @@ const $rippleables = document.querySelectorAll('[data-ripple]');
  */
 export function __init__() {
 
-    // Bind the ripple effect to the elements.
+    // Click on a rippleable.
     for (const $rippleable of $rippleables) {
 
-        new Ripple($rippleable);
-
-        // Click on a rippleable.
         $rippleable.addEventListener('trigger', function (event) {
-            this._Ripple.run(event.detail.event_source);
-        })
+            const event_source = event.detail.event_source;
+            new Ripple($rippleable, event_source.clientX, event_source.clientY);
+        });
     }
 }

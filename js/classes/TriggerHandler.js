@@ -29,9 +29,6 @@ export default class TriggerHandler {
     event_type = new String();
     options = new Array();
 
-    /** @type {Ripple} */
-    _Ripple;
-
     /** @type {HTMLElement & { _TriggerHandler: TriggerHandler }} The interactive element. */
     $triggerable;
 
@@ -64,6 +61,10 @@ export default class TriggerHandler {
      */
     trigger(event)
     {
+        if (this.has('depress')) {
+            this.$triggerable.addClassTemporarily('depress', 150);
+        }
+
         // Emit the `trigger` event.
         this.$triggerable.dispatchEvent(new CustomEvent('trigger', { detail: {
             event_source: event ?? undefined

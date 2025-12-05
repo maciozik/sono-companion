@@ -9,98 +9,91 @@
  *  - `follow-pointer`   : The ripple effect is run at the position of the user interaction, instead of at its center.
  *  - **Any raw number** : The opacity of the circle (e.g. `0.2`).
  *  - **Any duration**   : The animation duration of the circle (in ms or s).
- *
- * The {@link run} method is accessible via the `_Ripple` instance bind to the rippleable element.
  */
 
 export default class Ripple {
 
-    options = new Array();
+    follow_pointer = new Boolean();
 
-    /** @type {HTMLElement & { _Ripple: Ripple }} The element to apply the ripple effect on. */
+    /** @type {HTMLElement} The element to apply the ripple effect on. */
     $rippleable;
 
+    /** @type {HTMLElement} The ripple effect. */
+    $ripple;
+
     /**
-     * @constructor
+     * @constructor Create and run the ripple effect.
      * @param {HTMLElement} $rippleable
+     * @param {number} [client_x] The horizontal coordinate of the pointer within the viewport.
+     * @param {number} [client_y] The vertical coordinate of the pointer within the viewport.
      */
-    constructor($rippleable)
+    constructor($rippleable, client_x, client_y)
     {
         this.$rippleable = $rippleable;
-        this.options = this.$rippleable.dataset.ripple.split(' ');
+        this.follow_pointer = this.$rippleable.dataset.ripple.includes('follow-pointer');
+
+        // Create the ripple.
+        this.$ripple = document.createElement('div');
+        this.$ripple.className = 'ripple';
+        this.$ripple.addEventListener('animationend', this.remove.bind(this));
+
+        this.$rippleable.appendChild(this.$ripple);
 
         this.setStyle();
 
-        // Bind this instance to the DOM element.
-        this.$rippleable._Ripple = this;
-    }
-
-    /**
-     * Set the position of the ripple effect if necessary, and run it.
-     *
-     * Can be called from outside:
-     * ```js
-     * $rippleable._Ripple.run(event);
-     * ```
-     *
-     * @param {Event} [event] The event that triggered the rippleable element.
-     */
-    run(event)
-    {
-        if (event !== undefined) {
-            this.setPosition(event);
+        if (client_x !== undefined && client_y !== undefined) {
+            this.setPosition(client_x, client_y);
         }
-
-        this.$rippleable.addClassTemporarily('ontap', 'animationend');
     }
 
     /**
      * Set the position of the ripple (only with the `follow-pointer` option).
-     * @param {Event} event The event that triggered the rippleable element.
+     * @param {number} client_x The horizontal coordinate of the pointer within the viewport.
+     * @param {number} client_y The vertical coordinate of the pointer within the viewport.
      * @returns
      */
-    setPosition(event)
+    setPosition(client_x, client_y)
     {
-        if (!this.has('follow-pointer')) return;
+        if (!this.follow_pointer) return;
 
         const rippleable = this.$rippleable.getBoundingClientRect();
 
         // Define the ripple origin position, and clamp it inside the element if the pointer overflows.
         const pointer = {
-            x: Math.clamp((event.clientX - rippleable.left), 0, rippleable.width),
-            y: Math.clamp((event.clientY - rippleable.top), 0, rippleable.height)
+            x: Math.clamp((client_x - rippleable.left), 0, rippleable.width),
+            y: Math.clamp((client_y - rippleable.top), 0, rippleable.height)
         };
 
-        this.$rippleable.style.setProperty('--pointer-x', `${pointer.x}px`);
-        this.$rippleable.style.setProperty('--pointer-y', `${pointer.y}px`);
+        this.$ripple.style.top = `${pointer.y}px`;
+        this.$ripple.style.left = `${pointer.x}px`;
     }
 
     /**
-     * Set the style of the ripple.
+     * Set the opacity and animation duration of the ripple.
      */
     setStyle()
     {
-        for (const option of this.options) {
+        const options = this.$rippleable.dataset.ripple.split(' ');
+
+        for (const option of options) {
 
             // If the option is a number.
             if (isFinite(option)) {
-                this.$rippleable.style.setProperty('--ripple-opacity', option);
+                this.$ripple.style.opacity = option;
             }
 
             // If the option is a duration.
             if (option.endsWith('ms') || option.endsWith('s')) {
-                this.$rippleable.style.setProperty('--ripple-animation-duration', option);
+                this.$ripple.style.animationDuration = option;
             }
         }
     }
 
     /**
-     * Whether the ripple has an option.
-     * @param {string} option
-     * @returns {boolean}
+     * Remove the ripple from the DOM.
      */
-    has(option)
+    remove()
     {
-        return this.options.includes(option);
+        this.$ripple.remove();
     }
 }
