@@ -55,22 +55,28 @@
         height: 42px;
         overflow: hidden;
 
-        .bpm-save:is(.previous, .current, .next, .add, .remove), &.bpm-remove-btn {
+        .bpm-saves-list .bpm-save:is(.previous, .current, .next, .add, .remove),
+        &.bpm-remove-btn {
             transition: all var(--transition-duration) ease-out;
         }
     }
 
     .bpm-next-btn {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
         position: relative;
         padding-right: 3px;
         width: 65px;
         background-color: var(--bg-contrast);
         border-top-right-radius: var(--btns-border-radius);
         border-bottom-right-radius: var(--btns-border-radius);
+
+        .bpm-saves-list {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            width: 100%;
+            height: 100%;
 
         .bpm-save {
             position: absolute;
@@ -123,10 +129,11 @@
                 color: var(--grey-pale);
                 font-size: .7rem;
                 font-weight: 600;
+                }
             }
         }
 
-        &[data-ripple]::before {
+        &[data-ripple] .ripple {
             margin-left: -1px;
         }
     }
@@ -151,14 +158,14 @@
             --ripple-background: var(--red);
             --ripple-opacity: .2;
 
-            &::before {
+            .ripple {
                 margin-left: 2px;
             }
         }
     }
 
     &.active {
-        .bpm-save.current {
+        .bpm-saves-list .bpm-save.current {
             color: var(--invert);
         }
         .bpm-remove-btn {
@@ -182,7 +189,7 @@
             }
         }
 
-        .bpm-save.current, .bpm-remove-btn {
+        .bpm-saves-list .bpm-save.current, .bpm-remove-btn {
             color: var(--grey-pale);
         }
     }

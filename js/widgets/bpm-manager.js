@@ -15,6 +15,7 @@ const $addBtn = $bpmManager.querySelector('.bpm-add-btn');
 const $nextBtn = $bpmManager.querySelector('.bpm-next-btn');
 const $removeBtn = $bpmManager.querySelector('.bpm-remove-btn');
 
+const $bpmSavesList = $nextBtn.querySelector('.bpm-saves-list');
 const $countBadge = $addBtn.querySelector('.bpm-count-badge');
 
 /**
@@ -51,7 +52,7 @@ function add()
         $current.after($add);
     } else {
         $add.classList.add('only-child');
-        $nextBtn.append($add);
+        $bpmSavesList.append($add);
     }
 
     // Set it as the current save.
@@ -91,7 +92,7 @@ function remove()
  */
 export function reset()
 {
-    $nextBtn.innerHTML = "";
+    $bpmSavesList.innerHTML = "";
 
     setVisibility();
     setCountBadge();
@@ -196,7 +197,7 @@ function handleCountBasedCases(action)
  */
 function getPrevious()
 {
-    return $nextBtn.querySelector('.bpm-save.previous') ?? null;
+    return $bpmSavesList.querySelector('.bpm-save.previous') ?? null;
 }
 
 /**
@@ -205,8 +206,8 @@ function getPrevious()
  */
 function getCurrent()
 {
-    return $nextBtn.querySelector('.bpm-save.current')
-        ?? $nextBtn.querySelector('.bpm-save.add')
+    return $bpmSavesList.querySelector('.bpm-save.current')
+        ?? $bpmSavesList.querySelector('.bpm-save.add')
         ?? null;
 }
 
@@ -216,9 +217,9 @@ function getCurrent()
  */
 function getNext()
 {
-    return $nextBtn.querySelector('.bpm-save.next')
+    return $bpmSavesList.querySelector('.bpm-save.next')
         ?? getCurrent()?.nextElementSibling
-        ?? $nextBtn.querySelectorAll('.bpm-save:not(.current)')[0]
+        ?? $bpmSavesList.querySelectorAll('.bpm-save:not(.current)')[0]
         ?? null;
 }
 
@@ -229,7 +230,7 @@ function getNext()
 function getAfterNext()
 {
     return getNext()?.nextElementSibling
-        ?? $nextBtn.querySelectorAll('.bpm-save')[0]
+        ?? $bpmSavesList.querySelectorAll('.bpm-save')[0]
         ?? null;
 }
 
@@ -255,7 +256,7 @@ function stateOf($save)
  */
 function getCount()
 {
-    const $bpmSaves = $nextBtn.querySelectorAll('.bpm-save:not(.remove)');
+    const $bpmSaves = $bpmSavesList.querySelectorAll('.bpm-save:not(.remove)');
     return $bpmSaves.length;
 }
 
@@ -341,7 +342,7 @@ function restoreFromStorage()
             $save.classList.add('current');
         }
 
-        $nextBtn.append($save);
+        $bpmSavesList.append($save);
     }
 
     // Set the next save.
@@ -356,7 +357,7 @@ function restoreFromStorage()
  */
 function saveInStorage()
 {
-    const $bpmSaves = $nextBtn.querySelectorAll('.bpm-save:not(.remove)');
+    const $bpmSaves = $bpmSavesList.querySelectorAll('.bpm-save:not(.remove)');
 
     /** @type {Array<number>} */
     const bpm_saves = new Array();
