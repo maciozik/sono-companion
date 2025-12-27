@@ -1,9 +1,9 @@
 /** @type {Object<string, Function>} Global utility functions. */
 window.app = new Object;
 
-// Run the service worker.
+// Register the service worker.
 if ('serviceWorker' in navigator && ENV.PROD) {
-    navigator.serviceWorker.register('js/core/service-worker.js')
+    navigator.serviceWorker.register('/sw.js')
         .then(registration => console.debug("Service Worker registered:", registration))
         .catch(error => console.error("Service Worker not registered:", error));
 }
