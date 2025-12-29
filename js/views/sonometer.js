@@ -15,8 +15,9 @@ const $current = $view.querySelector('#sonometer-info .db-current');
 const $max = $view.querySelector('#sonometer-info .db-max .info');
 const $timestamp = $view.querySelector('#sonometer-controls .timestamp');
 
-export const $playBtn = $view.querySelector('#sonometer-controls .play-btn');
-export const $resetBtn = $view.querySelector('#sonometer-controls .sonometer-reset-btn');
+const $playBtn = $view.querySelector('#sonometer-controls .play-btn');
+const $resetBtn = $view.querySelector('#sonometer-controls .sonometer-reset-btn');
+const $resetMaxBtn = $view.querySelector('#sonometer-info .db-max .reset-max-btn');
 const $calibrationBadge = $view.querySelector('.calibration-badge');
 
 /** @type {AudioContext} */
@@ -64,8 +65,9 @@ export function run()
         refreshTimestamp();
     }, 100);
 
-    // Enable the reset button.
+    // Enable the reset buttons.
     $resetBtn.classList.remove('disabled');
+    $resetMaxBtn.classList.remove('disabled');
 }
 
 /**
@@ -108,8 +110,9 @@ export function reset()
     Gauge.update(volume.current.real_time);
     setVolumeIcon('off');
 
-    // Disable the reset button.
+    // Disable the reset buttons.
     $resetBtn.classList.add('disabled');
+    $resetMaxBtn.classList.add('disabled');
 
     // Make the device vibrate.
     app.vibrate();
@@ -170,6 +173,15 @@ function setMax(db)
 }
 
 /**
+ * Reset the maximum volume.
+ */
+function resetMax()
+{
+    volume.max = 0;
+    refreshMax();
+}
+
+/**
  * Get the threshold that the average volume should not exceed, depending on the current timestamp.
  * @returns {number}
  */
@@ -191,8 +203,8 @@ function refreshAllInfo(as_current_volume = 'max_local')
     const current = volume.current[as_current_volume];
 
     refreshCurrent(current);
-    refreshAverage(volume.average.value);
-    refreshMax(volume.max);
+    refreshAverage();
+    refreshMax();
 
     // TODO Threshold, and limit on the last 15 minutes?
     if (volume.average.value > getThreshold()) {
@@ -229,9 +241,9 @@ function refreshCurrent(current)
 
 /**
  * Overwrite the average volume in the view.
- * @param {number} average
+ * @param {number} [average] – *Default: current average value.*
  */
-function refreshAverage(average)
+function refreshAverage(average = volume.average.value)
 {
     $average.querySelector('.integral').textContent = Math.trunc(average).addZeros(2);
     $average.querySelector('.decimal').textContent = '.' + Math.float(average, 1);
@@ -239,9 +251,9 @@ function refreshAverage(average)
 
 /**
  * Overwrite the max volume in the view.
- * @param {number} max
+ * @param {number} [max] – *Default: current max value.*
  */
-function refreshMax(max)
+function refreshMax(max = volume.max)
 {
     $max.querySelector('.integral').textContent = Math.trunc(max).addZeros(2);
     $max.querySelector('.decimal').textContent = '.' + Math.float(max, 1);
@@ -306,8 +318,14 @@ export function __init__()
 {
     // Click on the reset button.
     // TODO Keep pressing for 0.5s to reset?
-    $resetBtn.addEventListener('trigger', function () {
+    $resetBtn.addEventListener('trigger', () => {
         View.stop();
+    });
+
+    // Click on the reset max button.
+    $resetMaxBtn.addEventListener('trigger', () => {
+        resetMax();
+        app.vibrate();
     });
 
     // Set the calibration badge.

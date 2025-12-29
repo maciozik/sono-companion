@@ -27,6 +27,18 @@
                 }
             }
         }
+
+        .db-max g-icon {
+            color: var(--yellow);
+            font-size: inherit;
+            font-weight: 500;
+            opacity: .95;
+
+            &.disabled {
+                color: var(--grey-pale);
+                font-weight: 600;
+            }
+        }
     }
 
     #sonometer-controls {
