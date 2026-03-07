@@ -4,6 +4,7 @@ const ENV = {
 
     APP: {
         NAME: "Sono Companion",
+        DESCRIPTION: "A companion app with various tools to help sound engineers.",
         VERSION: '', // Initialized asynchronously in init.js.
         VERSION_SUFFIX: '–dev',
         PWA_MODE: true, // Initialized in init.js.

@@ -1,6 +1,6 @@
 import Modal from '/js/classes/Modal.js';
 
-export function show() {
+export function open() {
 
     const title = "Avertissement";
 

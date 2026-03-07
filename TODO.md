@@ -53,6 +53,7 @@
 ### Accessibilité
 
 - [x] Thème contrasté.
+  - [ ] Utiliser les view transitions pour switcher de thème ?
 - [ ] Tout remettre en lowercase ?
 
 ---
