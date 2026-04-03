@@ -646,29 +646,35 @@
 
         <nav>
 
-            <section class="nav-tab hide" data-load="sonometer" data-trigger data-ripple>
-                <g-icon data-name="speed" data-y=1></g-icon>
-                <p class="tab-title">Sonomètre</p>
-                <p class="tab-label"></p>
+            <section class="nav-tabs">
+
+                <section class="nav-tab hide" data-load="sonometer" data-trigger>
+                    <g-icon data-name="speed" data-y=1></g-icon>
+                    <p class="tab-title">Sonomètre</p>
+                    <p class="tab-label"></p>
+                </section>
+
+                <section class="nav-tab hide" data-load="spectrum" data-trigger>
+                    <g-icon data-name="equalizer"></g-icon>
+                    <p class="tab-title">Spectre</p>
+                    <p class="tab-label"></p>
+                </section>
+
+                <section class="nav-tab hide" data-load="tempo" data-trigger>
+                    <g-icon data-name="swipe" data-x=-1 style="scale: .98;"></g-icon>
+                    <p class="tab-title">Tempo</p>
+                    <p class="tab-label"></p>
+                </section>
+
+                <section class="nav-tab hide" data-load="toolbox" data-trigger>
+                    <g-icon data-name="design_services"></g-icon>
+                    <p class="tab-title">Toolbox</p>
+                    <p class="tab-label"></p>
+                </section>
+
             </section>
 
-            <section class="nav-tab hide" data-load="spectrum" data-trigger data-ripple>
-                <g-icon data-name="equalizer"></g-icon>
-                <p class="tab-title">Spectre</p>
-                <p class="tab-label"></p>
-            </section>
-
-            <section class="nav-tab hide" data-load="tempo" data-trigger data-ripple>
-                <g-icon data-name="swipe" data-x=-1 data-y=-0.5></g-icon>
-                <p class="tab-title">Tempo</p>
-                <p class="tab-label"></p>
-            </section>
-
-            <section class="nav-tab hide" data-load="toolbox" data-trigger data-ripple>
-                <g-icon data-name="design_services"></g-icon>
-                <p class="tab-title">Toolbox</p>
-                <p class="tab-label"></p>
-            </section>
+            <div class="active-tab-indicator"></div>
 
             <p class="no-tab" data-load="settings:enable_sonometer" data-trigger>
                 Veuillez afficher au moins un onglet dans les réglages.

@@ -3,15 +3,17 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 25%;
+    flex: 1;
+    padding-bottom: 1px;
     height: 100%;
     color: var(--grey);
     font-size: .75rem;
     font-weight: 500;
     letter-spacing: -0.1px;
     overflow: hidden;
+    z-index: 1;
 
-    & > g-icon {
+    g-icon {
         margin-bottom: 3px;
         font-size: 1.4rem;
     }
@@ -21,12 +23,13 @@
         position: absolute;
         margin-top: 27px;
         padding: .2px 6.5px 0 6.5px;
-        color: var(--bg-contrast);
-        background-color: var(--cyan);
+        color: var(--cyan);
+        background-color: var(--bg-contrast);
         border-radius: 100vw;
         font-size: .7rem;
         font-weight: 600;
         letter-spacing: -0.3px;
+        opacity: .8;
     }
 
     &.active {
@@ -45,7 +48,9 @@
         }
 
         &:not(.active) .tab-label {
+            color: var(--bg-contrast);
             background-color: var(--grey);
+            opacity: .9;
         }
     }
 }

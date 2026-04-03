@@ -63,6 +63,7 @@
 - [ ] **Style :** Changer l'icone play, pause et stop à l'intérieur des boutons en les slidant vers le haut ou le bas ?
 - [ ] Notification Push lorsque l'application est mise en arrière-plan pour prévenir de la mise en pause, en plus du Toast ? (Service Worker nécessaire ?)
 - [ ] Fixer un seul bouton play et les boutons secondaires en bas pour toutes les vues.
+- [ ] Utiliser la méthode BEM pour les noms de classes ?
 
 ---
 
