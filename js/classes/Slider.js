@@ -3,7 +3,7 @@
  */
 export default class Slider
 {
-    /** @type {number} @readonly */
+    /** @readonly */
     static POINTER_X_DECAY_ALLOW_MOVABLE = 10;
 
     value = new Number();

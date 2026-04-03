@@ -17,7 +17,7 @@ export function __init__() {
 
         $rippleable.addEventListener('trigger', function (event) {
             const event_source = event.detail.event_source;
-            new Ripple($rippleable, event_source.clientX, event_source.clientY);
+            new Ripple(this, event_source.clientX, event_source.clientY);
         });
     }
 }

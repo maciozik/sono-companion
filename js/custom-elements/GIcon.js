@@ -1,7 +1,7 @@
 export default class GIcon extends HTMLElement
 {
-    /** @type {string} @readonly */
-    static _THEME_DEFAULT = 'round';
+    /** @readonly */
+    static THEME_DEFAULT = 'round';
 
     name = new String();
     theme = new String();
@@ -27,7 +27,7 @@ export default class GIcon extends HTMLElement
 
         // Set the theme.
         switch (this.dataset.theme) {
-            case undefined: this.theme = '-' + GIcon._THEME_DEFAULT; break;
+            case undefined: this.theme = '-' + GIcon.THEME_DEFAULT; break;
             case ''       : this.theme = ''; break;
             default       : this.theme = '-' + this.dataset.theme; break;
         }

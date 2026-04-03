@@ -3,7 +3,7 @@
  */
 export default class Toast
 {
-    /** @type {number} @readonly */
+    /** @readonly */
     static DURATION_DEFAULT = 3000;
 
     text = new String();

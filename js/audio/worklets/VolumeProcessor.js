@@ -3,8 +3,8 @@
  */
 class VolumeProcessor extends AudioWorkletProcessor {
 
-    /** @type {number} @readonly */
-    DB_GAIN = 94;
+    /** @readonly */
+    static DB_GAIN = 94;
 
     constructor ()
     {
@@ -36,7 +36,7 @@ class VolumeProcessor extends AudioWorkletProcessor {
         const db = 20 * Math.log10(rms);
 
         // Send the volume to the node.
-        this.port.postMessage(db + this.DB_GAIN);
+        this.port.postMessage(db + VolumeProcessor.DB_GAIN);
 
         // Keep receiving datas.
         return true;

@@ -5,16 +5,16 @@ import * as History from '/js/core/history.js';
  */
 export default class Modal
 {
-    /** @type {string} @readonly */
+    /** @readonly */
     static PRIMARY_BTN_DEFAULT = "Valider";
 
-    /** @type {string} @readonly */
+    /** @readonly */
     static SECONDARY_BTN_DEFAULT = "Annuler";
 
     /** @type {Function} @readonly */
     static CALLBACK_DEFAULT = () => Modal.close();
 
-    /** @type {number} @readonly */
+    /** @readonly */
     static CLOSE_DELAY = 100;
 
     title = new String();

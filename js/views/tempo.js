@@ -143,7 +143,7 @@ export function __init__()
     }
 
     // Click on the metronome replay button.
-    Metronome.$replayBtn.addEventListener('trigger', function () {
+    Metronome.$replayBtn.addEventListener('trigger', () => {
         Metronome.replay();
     });
 
@@ -156,7 +156,7 @@ export function __init__()
     // Click on any triggerable element other than the Tap Tempo button.
     const $triggerables = document.querySelectorAll('[data-trigger]:not(.tap-tempo-btn)');
     for (const $triggerable of $triggerables) {
-        $triggerable.addEventListener('trigger', function(event) {
+        $triggerable.addEventListener('trigger', event => {
             // If the Tap Tempo is active.
             if ($tapBtn.classList.contains('active')) {
                 resetTap();

@@ -18,7 +18,7 @@
         border-radius: 0;
         font-size: 1.4em;
         text-align: center;
-        outline: none !important;
+        outline-color: transparent !important;
     }
 
     .unit {

@@ -51,7 +51,7 @@
         flex-grow: 1;
         border: none;
         border-radius: 0;
-        outline: none;
+        outline-color: transparent;
     }
 
     &.active {
