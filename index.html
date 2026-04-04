@@ -133,21 +133,21 @@
 
         </section>
 
-        <!-- VIEW: Tempo -->
+        <!-- VIEW: Metronome -->
 
-        <section class="view" id="tempo" data-name="Métronome">
+        <section class="view" id="metronome" data-name="Métronome">
 
-            <!-- Metronome -->
-            <section id="tempo-metronome" data-rows=5>
-                <div class="metronome disabled">
-                    <div class="metronome-line">
-                        <div class="metronome-thumb"></div>
+            <!-- Bpm Visualizer -->
+            <section id="metronome-bpm-visualizer" data-rows=5>
+                <div class="bpm-visualizer disabled">
+                    <div class="bpm-visualizer-line">
+                        <div class="bpm-visualizer-thumb"></div>
                     </div>
                 </div>
             </section>
 
             <!-- Bpm Selector -->
-            <section id="tempo-bpm-selector" data-rows=4>
+            <section id="metronome-bpm-selector" data-rows=4>
 
                 <!-- Decrease bpm -->
                 <div class="bpm-divide">
@@ -180,7 +180,7 @@
             </section>
 
             <!-- Information -->
-            <section id="tempo-info" data-rows=7>
+            <section id="metronome-info" data-rows=7>
 
                 <div class="tempo-ms tile">
                     <g-icon data-name="timer"></g-icon>
@@ -200,7 +200,7 @@
             </section>
 
             <!-- Controls -->
-            <section id="tempo-controls" data-rows=4>
+            <section id="metronome-controls" data-rows=4>
 
                 <!-- Replay button -->
                 <div class="metronome-replay-btn tile grey disabled" data-trigger="pointerdown" data-ripple>
@@ -225,7 +225,7 @@
             </section>
 
             <!-- Bpm Manager -->
-            <section id="tempo-bpm-manager" data-rows=4>
+            <section id="metronome-bpm-manager" data-rows=4>
 
                 <div class="bpm-manager disabled">
 
@@ -466,47 +466,47 @@
 
             </section>
 
-            <!-- Tempo Settings -->
+            <!-- Metronome Settings -->
             <h2>Métronome</h2>
 
-            <section data-context="tempo">
+            <section data-context="metronome">
 
                 <setting-switch
-                    data-name="enable_tempo" data-value=true data-disable-group-on-false="tempo">
-                    <h3>Afficher l'onglet Tempo</h3>
+                    data-name="enable_metronome" data-value=true data-disable-group-on-false="metronome">
+                    <h3>Afficher l'onglet Métronome</h3>
                 </setting-switch>
 
                 <setting-range
-                    data-name="bpm_min" data-groups="tempo" data-allow-reset
+                    data-name="bpm_min" data-groups="metronome" data-allow-reset
                     data-value=30 data-suffix=" bpm" data-min=10 data-max=60 data-step=10>
                     <h3>BPM minimum</h3>
                 </setting-range>
 
                 <setting-range
-                    data-name="bpm_max" data-groups="tempo" data-allow-reset
+                    data-name="bpm_max" data-groups="metronome" data-allow-reset
                     data-value=300 data-suffix=" bpm" data-min=120 data-max=360 data-step=10>
                     <h3>BPM maximum</h3>
                 </setting-range>
 
                 <setting-switch
-                    data-name="metronome_vibrate" data-groups="tempo vibrations" data-value=true
+                    data-name="metronome_vibrate" data-groups="metronome vibrations" data-value=true
                     data-reminder="allow_vibrations">
                     <h3>Vibrer à chaque battement</h3>
                 </setting-switch>
 
                 <setting-switch
-                    data-name="metronome_tick" data-groups="tempo" data-value=false>
+                    data-name="metronome_tick" data-groups="metronome" data-value=false>
                     <h3>Activer le clic sonore</h3>
                 </setting-switch>
 
                 <setting-switch
-                    data-name="show_bpm_manager" data-groups="tempo" data-value=true data-allow-reset>
+                    data-name="show_bpm_manager" data-groups="metronome" data-value=true data-allow-reset>
                     <h3>Afficher le gestionnaire de tempos</h3>
                     <small>Permet d'enregistrer plusieurs tempos pour les rappeler à tout moment facilement.</small>
                 </setting-switch>
 
                 <setting-action
-                    data-name="delete_all_bpm_saves" data-groups="tempo" data-danger
+                    data-name="delete_all_bpm_saves" data-groups="metronome" data-danger
                     data-module="widgets/bpm-manager" data-action="reset" data-vibrate-on="modal-close" data-require-confirmation>
                     <h3>Effacer les tempos enregistrés</h3>
                     <small>Le gestionnaire de tempos sera vidé.</small>
@@ -660,9 +660,9 @@
                     <p class="tab-label"></p>
                 </section>
 
-                <section class="nav-tab hide" data-load="tempo" data-trigger>
+                <section class="nav-tab hide" data-load="metronome" data-trigger>
                     <g-icon data-name="swipe" data-x=-1 style="scale: .98;"></g-icon>
-                    <p class="tab-title">Tempo</p>
+                    <p class="tab-title">Métronome</p>
                     <p class="tab-label"></p>
                 </section>
 

@@ -1,7 +1,7 @@
 import Toast from '/js/classes/Toast.js';
 import * as Storage from '/js/core/storage.js';
 import * as View from '/js/views/view.js';
-import * as Tempo from '/js/views/tempo.js';
+import * as Metronome from '/js/views/metronome.js';
 import * as Settings from '/js/views/settings.js';
 
 const SAVES_MAX = 50;
@@ -9,7 +9,7 @@ const SHOW_BADGE_COUNT_THRESHOLD = 10;
 
 const ADD_BLINK_DURATION = 120;
 
-export const $bpmManager = document.querySelector('#tempo #tempo-bpm-manager .bpm-manager');
+export const $bpmManager = document.querySelector('#metronome #metronome-bpm-manager .bpm-manager');
 
 const $addBtn = $bpmManager.querySelector('.bpm-add-btn');
 const $nextBtn = $bpmManager.querySelector('.bpm-next-btn');
@@ -40,7 +40,7 @@ function next()
  */
 function add()
 {
-    const bpm = Tempo.get('bpm');
+    const bpm = Metronome.get('bpm');
     const $current = getCurrent();
 
     // Create a new save.
@@ -287,7 +287,7 @@ function setAs(state, $save)
  */
 function setTempo(bpm)
 {
-    Tempo.set((parseInt(bpm) || null), false);
+    Metronome.set((parseInt(bpm) || null), false);
 }
 
 /**
@@ -302,7 +302,7 @@ function setVisibility()
     $addBtn.classList.toggle('disabled', is_add_btn_disabled);
 
     requestAnimationFrame(() => {
-        const is_manager_active = (Tempo.$bpmValue.textContent === getCurrent()?.textContent);
+        const is_manager_active = (Metronome.$bpmValue.textContent === getCurrent()?.textContent);
         $bpmManager.classList.toggle('active', is_manager_active);
     });
 }
@@ -325,9 +325,9 @@ function setCountBadge()
 function restoreFromStorage()
 {
     /** @type {Array<number>} */
-    const bpm_saves = Storage.get('tempo.bpm_saves');
+    const bpm_saves = Storage.get('metronome.bpm_saves');
     /** @type {number} */
-    const current_save_id = Storage.get('tempo.current_save_id') ?? 0;
+    const current_bpm_save_id = Storage.get('metronome.current_bpm_save_id') ?? 0;
 
     if (bpm_saves === null) return;
 
@@ -337,7 +337,7 @@ function restoreFromStorage()
         const $save = createSave(bpm);
 
         // Set the save as current.
-        if (parseInt(id) === current_save_id) {
+        if (parseInt(id) === current_bpm_save_id) {
             setTempo(bpm);
             $save.classList.add('current');
         }
@@ -369,11 +369,11 @@ function saveInStorage()
 
         // Save the id of the current save.
         if (stateOf($save) === 'current') {
-            Storage.set('tempo.current_save_id', parseInt(id));
+            Storage.set('metronome.current_bpm_save_id', parseInt(id));
         }
     }
 
-    Storage.set('tempo.bpm_saves', bpm_saves);
+    Storage.set('metronome.bpm_saves', bpm_saves);
 }
 
 /**
@@ -381,8 +381,8 @@ function saveInStorage()
  */
 function resetStorage()
 {
-    Storage.remove('tempo.bpm_saves');
-    Storage.remove('tempo.current_save_id');
+    Storage.remove('metronome.bpm_saves');
+    Storage.remove('metronome.current_bpm_save_id');
 }
 
 /**
@@ -427,12 +427,12 @@ export function __init__()
 
     // Observe modifications from the bpm value to set the visibility of the manager.
     const setVisibilityObserver = new MutationObserver(() => setVisibility());
-    setVisibilityObserver.observe(Tempo.$bpmValue, { childList: true });
+    setVisibilityObserver.observe(Metronome.$bpmValue, { childList: true });
 
     // Show or hide the bpm manager and adjust the view grid.
     Settings.onsync('show_bpm_manager', event => {
         const value = event.detail.value;
         $bpmManager.classList.toggle('hide', !value);
-        Tempo.$view.style.setProperty('--view-grid-rows', (value) ? 24 : 22);
+        Metronome.$view.style.setProperty('--view-grid-rows', (value) ? 24 : 22);
     });
 }

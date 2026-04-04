@@ -9,13 +9,13 @@
 /**  VIEWS  **/
 @import url(./views/view.css);
 @import url(./views/sonometer.css);
-@import url(./views/tempo.css);
+@import url(./views/metronome.css);
 @import url(./views/toolbox.css);
 @import url(./views/settings.css);
 
 /**  WIDGETS  **/
 @import url(./widgets/gauge.css);
-@import url(./widgets/metronome.css);
+@import url(./widgets/bpm-visualizer.css);
 @import url(./widgets/bpm-manager.css);
 @import url(./widgets/modal.css);
 

@@ -16,7 +16,7 @@
 - [ ] Affichage temporaire des derniers pics atteints en tout point du spectre ?
 - [ ] Spectogramme ?
 
-### Tempo
+### Metronome
 
 - [ ] Molette pour sélectionner le bpm (en glassmorphism ?).
   - Clic / maintien sur le bpm pour faire apparaître la molette ?
@@ -46,7 +46,7 @@
 - [ ] Changer pour des paramètres indépendants pour chaque vue ?
 - [ ] **Pour toutes les vues :** choix de l'info à afficher dans le **nav tab** ?
 
-### Tempo
+### Metronome
 
 - [ ] Choix des infos affichées ?
 
@@ -71,7 +71,7 @@
 
 - [ ] La statut-bar du téléphone ne change pas de couleur en mode sombre.
 - [ ] Bloquer l'orientation portrait en autorisant le 180° (`"orientation": "portrait"` n'autorise pas le 180°).
-- [ ] Problème avec le multitap *(ex. tap en même temps sur les boutons* `play` *et* `replay` *de la vue **Tempo**)*.
+- [ ] Problème avec le multitap *(ex. tap en même temps sur les boutons* `play` *et* `replay` *de la vue **Metronome**)*.
 - [ ] Le bouton `reset` du setting **Calibrage audio** fait remonter d'un pixel les boutons `reset` suivants **!?**
 - [ ] Bouger le curseur à +30db sur le paramètre **Calibrage audio** change la taille du bloc info ?
 - [ ] En relançant après une pause du sonomètre, le volume courant reviens à 0dB temporairement, le temps de recevoir les données audio.

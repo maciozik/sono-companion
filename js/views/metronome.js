@@ -1,7 +1,7 @@
 import * as View from '/js/views/view.js';
 import * as Toolbox from '/js/views/toolbox.js';
 import * as Settings from '/js/views/settings.js';
-import * as Metronome from '/js/widgets/metronome.js';
+import * as BpmVisualizer from '/js/widgets/bpm-visualizer.js';
 
 export const BPM_DEFAULT = 90;
 export const BPM_BLINK_DURATION = 100;
@@ -9,15 +9,19 @@ export const BPM_BLINK_DURATION = 100;
 const TAP_TEMPO_RESET_DELAY = 2500;
 const TAP_TEMPO_INTERVALS_LIMIT = 20;
 
-export const $view = document.getElementById('tempo');
+export const METRONOME_AUDIO_TICK_PATH = '../../audio/metronome_tick.mp3';
 
-export const $bpmModifierBtns = $view.querySelectorAll('#tempo-bpm-selector .bpm-modifier-btn');
-export const $bpmValue = $view.querySelector('#tempo-bpm-selector .bpm-value');
+export const $view = document.getElementById('metronome');
 
-const $tempoMs = $view.querySelector('#tempo-info .tempo-ms .info');
-const $tempoM = $view.querySelector('#tempo-info .tempo-m .info');
+export const $bpmModifierBtns = $view.querySelectorAll('#metronome-bpm-selector .bpm-modifier-btn');
+export const $bpmValue = $view.querySelector('#metronome-bpm-selector .bpm-value');
 
-export const $tapBtn = $view.querySelector('#tempo-controls .tap-tempo-btn');
+const $tempoMs = $view.querySelector('#metronome-info .tempo-ms .info');
+const $tempoM = $view.querySelector('#metronome-info .tempo-m .info');
+
+export const $playBtn = $view.querySelector('#metronome-controls .play-btn');
+export const $replayBtn = $view.querySelector('#metronome-controls .metronome-replay-btn');
+export const $tapBtn = $view.querySelector('#metronome-controls .tap-tempo-btn');
 
 let tapTempoTimestamps = new Array();
 let tapTempoIntervals = new Array();
@@ -143,8 +147,8 @@ export function __init__()
     }
 
     // Click on the metronome replay button.
-    Metronome.$replayBtn.addEventListener('trigger', () => {
-        Metronome.replay();
+    $replayBtn.addEventListener('trigger', () => {
+        BpmVisualizer.replay();
     });
 
     // Click on the Tap Tempo button.
@@ -169,6 +173,6 @@ export function __init__()
         const bpm = get();
         set(bpm);
 
-        View.stop('tempo');
+        View.stop('metronome');
     });
 }

@@ -1,16 +1,11 @@
-import * as Tempo from '/js/views/tempo.js';
+import * as Metronome from '/js/views/metronome.js';
 import * as NavTab from '/js/components/nav-tab.js';
 
-const METRONOME_ANIMATION_BPM_LIMIT = 240;
-const METRONOME_ENABLED_BPM_LIMIT   = 300;
+const BPM_VISUALIZER_ANIMATION_BPM_LIMIT = 240;
+const BPM_VISUALIZER_ENABLED_BPM_LIMIT   = 300;
 
-const METRONOME_AUDIO_TICK_PATH = '../../audio/metronome_tick.mp3';
-
-export const $metronome = document.querySelector('#tempo #tempo-metronome .metronome');
-const $metronomeThumb = $metronome.querySelector('.metronome-thumb');
-
-export const $playBtn = document.querySelector('#tempo #tempo-controls .play-btn');
-export const $replayBtn = document.querySelector('#tempo #tempo-controls .metronome-replay-btn');
+export const $bpmVisualizer = document.querySelector('#metronome #metronome-bpm-visualizer .bpm-visualizer');
+const $bpmVisualizerThumb = $bpmVisualizer.querySelector('.bpm-visualizer-thumb');
 
 /** @type {AudioContext} */
 let audioContext;
@@ -18,23 +13,23 @@ let audioContext;
 let audioTickBuffer;
 
 let direction;
-let metronomeInterval;
+let bpmVisualizerInterval;
 
 /**
- * Run the metronome.
+ * Run the bpm visualizer.
  */
 export function run()
 {
-    const bpm = Tempo.get('bpm');
-    const duration = Tempo.get('ms');
+    const bpm = Metronome.get('bpm');
+    const duration = Metronome.get('ms');
 
     // Set the transition duration to match with the bpm.
-    $metronome.style.setProperty('--metronome-transition-duration', `${duration}ms`);
+    $bpmVisualizer.style.setProperty('--bpm-visualizer-transition-duration', `${duration}ms`);
 
-    // Set the mode of the metronome.
+    // Set the mode of the visualizer.
     initMode();
-    $metronome.classList.remove('disabled');
-    $replayBtn.classList.remove('disabled');
+    $bpmVisualizer.classList.remove('disabled');
+    Metronome.$replayBtn.classList.remove('disabled');
 
     // Run the loop.
     animate();
@@ -44,29 +39,29 @@ export function run()
 }
 
 /**
- * Stop the metronome.
+ * Stop the bpm visualizer.
  */
 export function stop()
 {
-    clearInterval(metronomeInterval);
+    clearInterval(bpmVisualizerInterval);
 
-    $metronome.classList.add('disabled');
-    $replayBtn.classList.add('disabled');
+    $bpmVisualizer.classList.add('disabled');
+    Metronome.$replayBtn.classList.add('disabled');
 
     reset();
 }
 
 /**
- * Reset the metronome.
+ * Reset the bpm visualizer.
  */
 function reset()
 {
-    clearInterval(metronomeInterval);
+    clearInterval(bpmVisualizerInterval);
     goto('left', true);
 }
 
 /**
- * Replay the metronome.
+ * Replay the bpm visualizer.
  */
 export function replay()
 {
@@ -81,7 +76,7 @@ export function replay()
 }
 
 /**
- * Set the direction of the metronome thumb.
+ * Set the direction of the bpm visualizer thumb.
  * @param {'left'|'right'|'reverse'} to The direction the thumb must go, or `reverse` to invert the current direction.
  * @param {boolean} instant Whether the thumb must go to the direction instantly.
  */
@@ -94,10 +89,10 @@ function goto(to, instant = false)
         direction = to;
     }
 
-    $metronome.classList.toggle('instant', instant);
+    $bpmVisualizer.classList.toggle('instant', instant);
 
-    $metronome.classList.remove('left', 'right');
-    $metronome.classList.add(direction);
+    $bpmVisualizer.classList.remove('left', 'right');
+    $bpmVisualizer.classList.add(direction);
 }
 
 /**
@@ -106,7 +101,7 @@ function goto(to, instant = false)
  */
 function animate(immediate = true)
 {
-    const duration = Tempo.get('ms');
+    const duration = Metronome.get('ms');
 
     const animation = () => {
         goto('reverse');
@@ -115,38 +110,38 @@ function animate(immediate = true)
 
     // First run the animation once if necessary, then run the loop.
     if (immediate) animation();
-    metronomeInterval = setInterval(animation, duration);
+    bpmVisualizerInterval = setInterval(animation, duration);
 }
 
 /**
- * Initialize how the metronome must behave depending on the bpm.
+ * Initialize how the bpm visualizer must behave depending on the bpm.
  */
 function initMode()
 {
-    $metronome.classList.remove('jump', 'fix');
+    $bpmVisualizer.classList.remove('jump', 'fix');
 
     // Change the mode if the bpm exceeds the predefined limits.
     if (!isMode('normal')) {
         const mode = getMode();
-        $metronome.classList.add(mode);
+        $bpmVisualizer.classList.add(mode);
     }
 }
 
 /**
- * Get how the metronome must behave depending on the bpm.
+ * Get how the bpm visualizer must behave depending on the bpm.
  * @returns {'normal'|'jump'|'fix'} The current mode.
  */
 function getMode()
 {
-    const bpm = Tempo.get('bpm');
+    const bpm = Metronome.get('bpm');
 
-    return (bpm > METRONOME_ENABLED_BPM_LIMIT)   ? 'fix'
-         : (bpm > METRONOME_ANIMATION_BPM_LIMIT) ? 'jump'
+    return (bpm > BPM_VISUALIZER_ENABLED_BPM_LIMIT)   ? 'fix'
+         : (bpm > BPM_VISUALIZER_ANIMATION_BPM_LIMIT) ? 'jump'
          : 'normal';
 }
 
 /**
- * Check if the metronome is in a specific mode.
+ * Check if the bpm visualizer is in a specific mode.
  * @param {'normal'|'jump'|'fix'} mode
  * @returns {boolean}
  */
@@ -161,7 +156,7 @@ export function isMode(mode) {
  */
 function feedback(tick, vibrate)
 {
-    Tempo.$bpmValue.addClassTemporarily('blink', Tempo.BPM_BLINK_DURATION);
+    Metronome.$bpmValue.addClassTemporarily('blink', Metronome.BPM_BLINK_DURATION);
 
     if (tick && STG.metronome_tick) {
         playAudioTick();
@@ -196,7 +191,7 @@ function createAudioContext() {
         audioContext = new AudioContext();
 
         // Set the buffer for audio ticks.
-        fetch(METRONOME_AUDIO_TICK_PATH)
+        fetch(Metronome.METRONOME_AUDIO_TICK_PATH)
             .then(response => response.arrayBuffer())
             .then(arrayBuffer => audioContext.decodeAudioData(arrayBuffer))
             .then(audioBuffer => audioTickBuffer = audioBuffer)
@@ -211,9 +206,9 @@ function createAudioContext() {
 export function __init__()
 {
     // Listen the events emitted by the view.
-    Tempo.$view.addEventListener('run', () => {
+    Metronome.$view.addEventListener('run', () => {
         createAudioContext();
         run();
     });
-    Tempo.$view.addEventListener('stop', stop);
+    Metronome.$view.addEventListener('stop', stop);
 }

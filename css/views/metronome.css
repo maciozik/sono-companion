@@ -1,12 +1,12 @@
-#tempo {
+#metronome {
 
-    #tempo-metronome {
+    #metronome-bpm-visualizer {
         display: grid;
         align-items: center;
         padding: 0 22px;
     }
 
-    #tempo-bpm-selector {
+    #metronome-bpm-selector {
         display: flex;
         gap: 12px;
         padding: 0 var(--view-padding-inline);
@@ -140,7 +140,7 @@
         }
     }
 
-    #tempo-info {
+    #metronome-info {
         display: flex;
 
         & > div {
@@ -148,7 +148,7 @@
         }
     }
 
-    #tempo-controls {
+    #metronome-controls {
         display: flex;
 
         & > div {
@@ -173,7 +173,7 @@
         }
     }
 
-    #tempo-bpm-manager {
+    #metronome-bpm-manager {
         display: flex;
         justify-content: end;
         align-items: end;

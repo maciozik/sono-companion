@@ -27,20 +27,20 @@ import '/js/custom-elements/GIcon.js';
 // import '/js/custom-elements/IncludeHTML.js';
 
 /**  CORE  **/
-import * as History from  '/js/core/history.js';
+import * as History  from  '/js/core/history.js';
 import * as WakeLock from '/js/core/wake-lock.js';
 
 /**  VIEWS  **/
 import * as View      from '/js/views/view.js';
 import * as Sonometer from '/js/views/sonometer.js';
-import * as Tempo     from '/js/views/tempo.js';
+import * as Metronome from '/js/views/metronome.js';
 import * as Toolbox   from '/js/views/toolbox.js';
 import * as Settings  from '/js/views/settings.js';
 
 /**  WIDGETS  **/
-import * as Gauge      from '/js/widgets/gauge.js';
-import * as Metronome  from '/js/widgets/metronome.js';
-import * as BpmManager from '/js/widgets/bpm-manager.js';
+import * as Gauge         from '/js/widgets/gauge.js';
+import * as BpmVisualizer from '/js/widgets/bpm-visualizer.js';
+import * as BpmManager    from '/js/widgets/bpm-manager.js';
 
 /**  COMPONENTS  **/
 import * as NavTab             from '/js/components/nav-tab.js';
@@ -58,10 +58,10 @@ const modules = {
     WakeLock,
     View,
     Sonometer,
-    Tempo,
+    Metronome,
     Toolbox,
     Gauge,
-    Metronome,
+    BpmVisualizer,
     BpmManager,
     NavTab,
     PlayBtn,
