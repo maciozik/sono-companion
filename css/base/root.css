@@ -1,6 +1,7 @@
 :root {
     --header-height: 56px;
     --footer-height: 94px;
+    --nav-height: 70px;
     --app-padding-inline: 10px;
     --view-padding-inline: 8px;
 
@@ -95,6 +96,7 @@ html {
 }
 
 body {
+    position: relative;
     width: 100dvw;
     height: var(--app-height); /* `dvh` worked historically, but a bug appeared without code changes. */
     color: var(--invert);

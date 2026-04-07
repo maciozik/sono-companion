@@ -48,15 +48,19 @@ body > header {
 main {
     position: relative;
     width: 100vw;
-    height: var(--view-height);
+    height: calc(var(--view-height) + var(--footer-height));
     overflow: hidden;
 }
 
 footer {
-    position: relative;
-    padding: 13px var(--app-padding-inline) 12px;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    padding-inline: var(--app-padding-inline);
     width: 100%;
     height: var(--footer-height);
+    background: linear-gradient(to top, var(--bg), 40%, transparent);
     z-index: 20;
 }
 

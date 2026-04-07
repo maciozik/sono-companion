@@ -3,16 +3,24 @@
     display: grid;
     grid-template-rows: repeat(var(--view-grid-rows), 1fr);
     position: absolute;
+    padding-top: 10px;
+    padding-inline: var(--app-padding-inline);
     width: 100%;
     min-width: 320px;
     height: 100%;
     min-height: 480px;
-    padding: 10px var(--app-padding-inline) 0;
     scale: .95;
     opacity: 0;
     overflow-x: hidden;
     overflow-y: auto;
     z-index: -1;
+
+    /* Simulate the space of the footer. */
+    &::after {
+        content: "";
+        display: block;
+        height: var(--footer-height);
+    }
 
     &.right {
         margin-left: 100dvw;
