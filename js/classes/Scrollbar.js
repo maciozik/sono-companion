@@ -66,8 +66,11 @@ export default class Scrollbar
 
         this.$scrollable.after(this.$scrollbar);
 
+        // If there is already a custom height defined in CSS for the scrollbar, use it.
+        const scrollbar_height = this.$scrollbar.getCssProperty('height', true) || undefined;
+
         this.setPosition();
-        this.setHeight();
+        this.setHeight(scrollbar_height);
         this.update();
     }
 
@@ -85,13 +88,14 @@ export default class Scrollbar
 
     /**
      * Set the height of the scrollbar.
+     * @param {number} [scrollbar_height] *Default: the height of the scrollable element.*
      */
-    setHeight()
+    setHeight(scrollbar_height = this.$scrollable.clientHeight)
     {
         // Get the height of the scrollable element again.
         this.scrollable.inner_height = this.$scrollable.clientHeight;
 
-        this.scrollbar_height = this.scrollable.inner_height - (Scrollbar.MARGIN_BLOCK * 2);
+        this.scrollbar_height = scrollbar_height - (Scrollbar.MARGIN_BLOCK * 2);
         this.$scrollbar.style.height = `${this.scrollbar_height}px`;
     }
 
