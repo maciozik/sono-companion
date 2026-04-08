@@ -192,18 +192,23 @@ export function __init__()
         // Prevent the layout to be pushed up when the keyboard opens.
         navigator.virtualKeyboard.overlaysContent = true;
 
+        // When the keyboard height changes (opens, closes, or resizes).
         navigator.virtualKeyboard.addEventListener('geometrychange', () => {
+
+            if (!is_open) return;
 
             const current_keyboard_height = navigator.virtualKeyboard.boundingRect.height;
             $fullscreen.style.height = /*css*/ `calc(100% - ${current_keyboard_height}px)`;
 
-            // Update the scroll and scrollbar after the height changed.
-            if (is_open && current_keyboard_height > keyboard_height) {
+            // Only when the keyboard opens, force the focus.
+            if (current_keyboard_height > keyboard_height) {
                 $textarea.blur();
                 $textarea.focus();
-                $textarea._Scrollbar.setHeight();
-                $textarea._Scrollbar.update();
             }
+
+            // Update the scroll and scrollbar height.
+            $textarea._Scrollbar.setHeight();
+            $textarea._Scrollbar.update();
 
             keyboard_height = current_keyboard_height;
         });
