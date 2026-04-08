@@ -35,6 +35,10 @@
         color: var(--cyan);
         font-weight: 600;
         letter-spacing: -0.3px;
+
+        g-icon {
+            animation: tab-icon-pop 300ms var(--ease-out);
+        }
     }
 
     &.run {
@@ -51,5 +55,16 @@
             background-color: var(--grey);
             opacity: .9;
         }
+    }
+}
+
+/**  ANIMATIONS  **/
+
+@keyframes tab-icon-pop {
+    40% {
+        scale: 1.15;
+    }
+    to {
+       scale: 1;
     }
 }

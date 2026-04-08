@@ -25,7 +25,7 @@ nav {
         inset: var(--nav-padding);
         padding-inline: var(--nav-tabs-margin-inline);
         translate: 0; /* Overridden in JS. */
-        width: 0; /* Overridden in JS. */
+        width: 0;     /* Overridden in JS. */
         background-color: var(--cyan);
         border-radius: 100vw;
         box-sizing: content-box;
