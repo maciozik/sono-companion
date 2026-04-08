@@ -183,13 +183,10 @@
     }
 
     & ~ .scrollbar {
+        --scrollbar-thumb-color: light-dark(var(--grey), #000);
         right: 0 !important;
         margin-right: 3px;
         height: var(--view-height);
-
-        .scrollbar-thumb {
-            background: light-dark(var(--grey-pale), #0C0C0C);
-        }
     }
 }
 

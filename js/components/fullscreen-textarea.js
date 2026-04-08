@@ -45,6 +45,7 @@ export function open($from, styles)
     init(styles);
 
     $fullscreen.classList.add('active');
+    $textarea.classList.remove('highlight');
     is_open = true;
 
     // Create a state in the history.

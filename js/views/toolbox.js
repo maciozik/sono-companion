@@ -109,6 +109,7 @@ function validateInput($input)
  * Get the speed of sound depending on the temperature setting.
  * @returns {number}
  */
+/* TODO Move to a notepad widget component? */
 function getSpeedOfSound()
 {
     return 20.05 * Math.sqrt(273.15 + STG.temperature);
@@ -248,10 +249,4 @@ export function __init__()
             $savedBadge.querySelector('g-icon').addClassTemporarily('bounce', 'animationend');
         }, 100);
     });
-
-    // Highlight the notepad content on scroll.
-    if ('onscrollend' in window) {
-        $notepad.addEventListener('scroll',    () => { $notepad.classList.add('highlight'); });
-        $notepad.addEventListener('scrollend', () => { $notepad.classList.remove('highlight'); });
-    }
 }

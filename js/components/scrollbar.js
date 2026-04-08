@@ -16,5 +16,11 @@ export function __init__() {
         // Bind the events to the scrollable element.
         $scrollable.addEventListener('input',  () => _Scrollbar.update());
         $scrollable.addEventListener('scroll', () => _Scrollbar.moveThumb());
+
+        // Highlight the scrollable element on scroll.
+        if ('onscrollend' in window) {
+            $scrollable.addEventListener('scroll',    () => { $scrollable.classList.add('highlight'); });
+            $scrollable.addEventListener('scrollend', () => { $scrollable.classList.remove('highlight'); });
+        }
     }
 }

@@ -1,4 +1,5 @@
 .scrollbar {
+    --scrollbar-thumb-color: var(--grey-pale);
     display: none;
     position: absolute;
     top: 0;    /* Overridden in JS. */
@@ -14,12 +15,20 @@
         height: 0; /* Overridden in JS. */
         min-height: 12px;
         max-height: 100%;
-        background-color: rgb(from var(--grey-pale) r g b / .5);
+        background-color: var(--scrollbar-thumb-color);
         border-radius: 100vw;
+        opacity: .4;
+        transition: opacity 50ms linear;
     }
 
     &.show {
         display: block;
+    }
+}
+
+[data-scrollable] {
+    &.highlight ~ .scrollbar .scrollbar-thumb {
+        opacity: .8 !important;
     }
 }
 
@@ -37,7 +46,7 @@
 /**  THEME  **/
 
 :root[data-high-contrast] {
-    .scrollbar .scrollbar-thumb {
-        background-color: var(--grey) !important;
+    .scrollbar {
+        --scrollbar-thumb-color: var(--grey) !important;
     }
 }
