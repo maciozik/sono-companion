@@ -35,10 +35,8 @@ export function load(view)
     // Update the title.
     $h1.textContent = view_title;
 
-    // Remove .active for all views.
-    for (const $view of $views) $view.classList.remove('active');
-    // Add .active for the selected view.
-    $view.classList.add('active');
+    // Change the view.
+    animate(view_id);
 
     // Store the view as the last loaded view in the storage (except the Settings view).
     if (view_id !== SETTINGS_VIEW) {
@@ -48,6 +46,31 @@ export function load(view)
     // Emit the 'load' events.
     $main.dispatchEvent(new CustomEvent('load', { detail: { $view, setting_name } }));
     $view.dispatchEvent(new CustomEvent('load', { detail: { setting_name } }));
+}
+
+/**
+ * Reorganize the views and run the animation.
+ * @param {string} view_id The id of the view to animate to.
+ */
+function animate(view_id)
+{
+    const $view_to = document.getElementById(view_id);
+    const $view_from = getCurrent() ?? $view_to;
+    const view_to_index = [...$views].indexOf($view_to);
+
+    $views.forEach($view => $view.classList.remove('animate'));
+    $view_from.classList.remove('active');
+    $view_to.classList.add('active');
+
+    // Reorganize the views to the left and right of the new active view.
+    for (const [index, $view] of $views.entries()) {
+        $view.classList.toggle('left',  index < view_to_index);
+        $view.classList.toggle('right', index > view_to_index);
+    }
+
+    // Animate only the concerned views.
+    $view_from.addClassTemporarily('animate', 'transitionend');
+    $view_to.addClassTemporarily('animate', 'transitionend');
 }
 
 /**

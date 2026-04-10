@@ -50,6 +50,7 @@ main {
     width: 100vw;
     height: calc(var(--view-height) + var(--footer-height));
     overflow: hidden;
+    z-index: 0;
 }
 
 footer {

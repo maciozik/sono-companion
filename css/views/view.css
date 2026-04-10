@@ -9,11 +9,11 @@
     min-width: 320px;
     height: 100%;
     min-height: 480px;
-    scale: .95;
-    opacity: 0;
+    scale: .9;
     overflow-x: hidden;
     overflow-y: auto;
-    z-index: -1;
+    pointer-events: none;
+    transition: none;
 
     /* Simulate the space of the footer. */
     &::after {
@@ -22,24 +22,24 @@
         height: var(--footer-height);
     }
 
-    &.right {
-        margin-left: 100dvw;
+    &.active {
+        translate: 0 0;
+        scale: 1;
+        pointer-events: auto;
     }
 
-    &.active {
-        scale: 1;
-        opacity: 1;
-        z-index: 1;
-        transition-property: scale, opacity;
-        transition-duration: 100ms;
-        transition-timing-function: linear;
+    &.left {
+        translate: -100dvw 0;
+        scale: .8;
+    }
 
-        &.right {
-            margin-left: 0;
-            transition-property: margin-left, opacity;
-            transition-duration: 300ms;
-            transition-timing-function: var(--ease-out);
-        }
+    &.right {
+        translate: 100dvw 0;
+        scale: .8;
+    }
+
+    &.animate {
+        transition: all 250ms var(--ease-out);
     }
 
     &.run:not(.pause) {
