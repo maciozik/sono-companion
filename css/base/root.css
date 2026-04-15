@@ -104,12 +104,6 @@ body {
     font-family: 'Noto Sans', Arial, sans-serif;
     line-height: 1.4;
     letter-spacing: .2px;
-    transition: background-color 300ms linear 300ms;
-
-    &.blink {
-        background-color: rgb(from var(--red) r g b / .35);
-        transition: none;
-    }
 }
 
 /**  ANIMATIONS  **/

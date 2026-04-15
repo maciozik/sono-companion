@@ -245,7 +245,7 @@ export function reset()
         $setting.reset(false);
     }
 
-    document.body.addClassTemporarily('blink');
+    $view.addClassTemporarily('blink');
     (new Toast("Réglages par défaut restaurés.")).show();
 
     checkVisibility();
