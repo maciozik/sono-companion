@@ -3,6 +3,10 @@
     display: block;
     padding-left: 0;
     padding-right: 0;
+    translate: 100dvw 0;
+    scale: 1;
+    background-color: var(--bg);
+    transition: translate 300ms var(--ease-out);
 
     h2 {
         margin-left: var(--setting-padding-inline);

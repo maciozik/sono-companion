@@ -14,6 +14,7 @@
     overflow-y: auto;
     pointer-events: none;
     transition: none;
+    will-change: translate, scale, filter;
 
     /* Simulate the space of the footer. */
     &::after {
@@ -23,9 +24,9 @@
     }
 
     &.active {
-        translate: 0 0;
-        scale: 1;
-        pointer-events: auto;
+        translate: 0 0 !important;
+        scale: 1 !important;
+        pointer-events: auto !important;
     }
 
     &.left {
@@ -39,7 +40,21 @@
     }
 
     &.animate {
-        transition: all 250ms var(--ease-out);
+        transition-property: translate, scale !important;
+        transition-duration: 250ms !important;
+        transition-timing-function: var(--ease-out) !important;
+    }
+
+    /* The animation of the other views when the settings view is active. */
+    main:has(#settings.active) &:not(#settings) {
+        margin-left: -80px;
+        scale: .95;
+        filter: blur(4px); /* INFO Make the transition a bit laggy. */
+    }
+    &:not(#settings) {
+        transition-property: margin-left, scale, filter;
+        transition-duration: 250ms;
+        transition-timing-function: ease-out;
     }
 
     &.run:not(.pause) {

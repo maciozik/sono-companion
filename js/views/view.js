@@ -9,11 +9,12 @@ import * as NavTab from '/js/components/nav-tab.js';
 export const DEFAULT_VIEW = 'sonometer';
 export const SETTINGS_VIEW = 'settings';
 
-export const $header = document.querySelector('header');
-export const $h1     = $header.querySelector('h1');
-export const $main   = document.querySelector('main');
-export const $views  = document.querySelectorAll('.view');
-export const $footer = document.querySelector('footer');
+export const $header    = document.querySelector('header');
+export const $h1        = $header.querySelector('h1');
+export const $main      = document.querySelector('main');
+export const $views_all = document.querySelectorAll('.view');
+export const $views     = document.querySelectorAll('.view:not(#settings)');
+export const $footer    = document.querySelector('footer');
 
 export const $loadViewBtns = document.querySelectorAll('[data-load]');
 
@@ -62,13 +63,19 @@ function animate(view_id)
     $view_from.classList.remove('active');
     $view_to.classList.add('active');
 
+    // Skip the reorganization and the standard animations when the settings view is loaded.
+    if ($view_to.id === SETTINGS_VIEW) return;
+
     // Reorganize the views to the left and right of the new active view.
     for (const [index, $view] of $views.entries()) {
         $view.classList.toggle('left',  index < view_to_index);
         $view.classList.toggle('right', index > view_to_index);
     }
 
-    // Animate only the concerned views.
+    // Skip the standard animations when the settings view is unloaded.
+    if ($view_from.id === SETTINGS_VIEW) return;
+
+    // Animate the concerned views.
     $view_from.addClassTemporarily('animate', 'transitionend');
     $view_to.addClassTemporarily('animate', 'transitionend');
 }
