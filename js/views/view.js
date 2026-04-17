@@ -261,7 +261,15 @@ export function __init__()
     for (const $loadViewBtn of $loadViewBtns) {
 
         $loadViewBtn.addEventListener('trigger', function () {
+
             const view_id = this.dataset.load;
+
+            // Toggle off the Settings view if already active.
+            if (getCurrent().id === SETTINGS_VIEW && view_id === SETTINGS_VIEW) {
+                load(getLastLoadedOrFirstVisible());
+                return;
+            }
+
             load(view_id);
         });
     }
