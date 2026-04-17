@@ -131,7 +131,7 @@ export default class Scrollbar
      */
     setThumbSize()
     {
-        const ratio = Math.pow(this.scrollable.inner_height / this.getContentHeight(), Scrollbar.THUMB_SIZE_INTERPOLATION_FACTOR);
+        const ratio = (this.scrollable.inner_height / this.getContentHeight()) ** Scrollbar.THUMB_SIZE_INTERPOLATION_FACTOR;
         const scrollbar_thumb_height = this.scrollbar_height * ratio;
 
         if (!isFinite(scrollbar_thumb_height)) return;

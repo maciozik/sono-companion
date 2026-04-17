@@ -9,12 +9,12 @@ import * as NavTab from '/js/components/nav-tab.js';
 export const DEFAULT_VIEW = 'sonometer';
 export const SETTINGS_VIEW = 'settings';
 
-export const $header    = document.querySelector('header');
-export const $h1        = $header.querySelector('h1');
-export const $main      = document.querySelector('main');
-export const $views_all = document.querySelectorAll('.view');
-export const $views     = document.querySelectorAll('.view:not(#settings)');
-export const $footer    = document.querySelector('footer');
+export const $header   = document.querySelector('header');
+export const $h1       = $header.querySelector('h1');
+export const $main     = document.querySelector('main');
+export const $viewsAll = document.querySelectorAll('.view');
+export const $views    = document.querySelectorAll('.view:not(#settings)');
+export const $footer   = document.querySelector('footer');
 
 export const $loadViewBtns = document.querySelectorAll('[data-load]');
 
@@ -65,7 +65,7 @@ function animate(view_id)
     $view_from.classList.remove('active');
     $view_to.classList.add('active');
 
-    // Skip the reorganization and the standard animations when the settings view is loaded.
+    // Skip the reorganization and the standard animations when the Settings view is loaded.
     if ($view_to.id === SETTINGS_VIEW) return;
 
     // Reorganize the views to the left and right of the new active view.
@@ -74,7 +74,7 @@ function animate(view_id)
         $view.classList.toggle('right', index > view_to_index);
     }
 
-    // Skip the standard animations when the settings view is unloaded.
+    // Skip the standard animations when the Settings view is unloaded.
     if ($view_from.id === SETTINGS_VIEW) return;
 
     // Animate the concerned views.
@@ -281,7 +281,7 @@ export function __init__()
 
         const view_id = event.detail.$view.id;
 
-        // Add .active on the button that loads the selected view.
+        // Add `.active` on the button that loads the selected view.
         for (const $loadViewBtn of $loadViewBtns) {
             const is_active = ($loadViewBtn.dataset.load === view_id);
             $loadViewBtn.classList.toggle('active', is_active);

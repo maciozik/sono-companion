@@ -69,7 +69,7 @@ export default class SettingList extends Setting
     /**
      * Set the item value as selected in the list.
      * @param {string} value The value of the selected item.
-     * @returns {string} The new value, or the default value if it is not in the list.
+     * @returns {string} The new value, or the default value if not in the list.
      */
     set(value)
     {
@@ -127,7 +127,7 @@ export default class SettingList extends Setting
         // Get the value of the current selected item.
         const selected_item_value = Modal.$modal.querySelector('[data-selected]').dataset.value;
 
-        // Close the modal, then set the selected item as selected in the settings view.
+        // Close the modal, then set the selected item as selected in the Settings view.
         Modal.close().then(() => {
             _this.set(selected_item_value);
             Settings.change(_this.name, selected_item_value, _this.context);

@@ -57,7 +57,7 @@ export default class SettingSwitch extends Setting
     /**
      * Set the value of the switch.
      * @param {boolean} value
-     * @returns {boolean} The new value, or the default value if it is not a boolean.
+     * @returns {boolean} The new value, or the default value if not a boolean.
      */
     set(value)
     {

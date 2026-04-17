@@ -45,7 +45,7 @@
         transition-timing-function: var(--ease-out) !important;
     }
 
-    /* The animation of the other views when the settings view is active. */
+    /* The animation of the other views when the Settings view is active. */
     main:has(#settings.active) &:not(#settings) {
         margin-left: -80px;
         scale: .95;

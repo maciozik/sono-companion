@@ -30,7 +30,7 @@ class VolumeProcessor extends AudioWorkletProcessor {
         this._buffer = inputs[0][0];
 
         // Get the volume in dB.
-        const sum = this._buffer.reduce((a, b) => a + Math.pow(b, 2), 0);
+        const sum = this._buffer.reduce((a, b) => a + (b ** 2), 0);
         const average = sum / this._buffer.length;
         const rms = Math.sqrt(average);
         const db = 20 * Math.log10(rms);

@@ -331,7 +331,7 @@ export function __init__()
     // When any view is loaded.
     View.$main.addEventListener('load', event => {
 
-        // If the view loaded is the settings view.
+        // If the view loaded is the Settings view.
         if (event.detail.$view === $view) {
             const setting_name = event.detail.setting_name;
             const transition_duration = $view.getCssProperty('transition-duration') - 50;
