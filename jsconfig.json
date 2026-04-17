@@ -8,9 +8,8 @@
         "checkJs": false,
         "strictFunctionTypes": true,
         "strictNullChecks": true,
-        "baseUrl": ".",
         "paths": {
-            "/js/*": ["js/*"]
+            "/js/*": ["./js/*"]
         }
     },
     "include": [

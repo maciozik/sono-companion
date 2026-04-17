@@ -16,7 +16,9 @@ import '/js/utils/math/clamp.js';
 import '/js/utils/math/float.js';
 import '/js/utils/console/debugType.js';
 
-// TODO Init settings here before anything else?
+// Initialize settings.
+import * as Settings from '/js/views/settings.js';
+Settings.__init__();
 
 /**  CUSTOM ELEMENTS  **/
 import '/js/custom-elements/SettingSwitch.js';
@@ -35,7 +37,6 @@ import * as View      from '/js/views/view.js';
 import * as Sonometer from '/js/views/sonometer.js';
 import * as Metronome from '/js/views/metronome.js';
 import * as Toolbox   from '/js/views/toolbox.js';
-import * as Settings  from '/js/views/settings.js';
 
 /**  WIDGETS  **/
 import * as Gauge         from '/js/widgets/gauge.js';
@@ -53,7 +54,6 @@ import * as Scrollbar          from '/js/components/scrollbar.js';
 
 /**  MODULES  **/
 const modules = {
-    Settings,
     History,
     WakeLock,
     View,
