@@ -1,4 +1,5 @@
 [data-ripple] {
+    --ripple-width: 100%;
     --ripple-background: light-dark(black, white);
     --ripple-opacity: .05;
     --ripple-animation-duration: 350ms;
@@ -12,7 +13,7 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 100%;
+        width: var(--ripple-width);
         aspect-ratio: 1;
         translate: -50% -50%;
         scale: 0;
@@ -22,6 +23,15 @@
         z-index: -1;
         animation: ripple-grow var(--ripple-animation-duration) ease-out;
         animation-fill-mode: forwards;
+
+        &.persist {
+            filter: opacity(.5) !important;
+
+            &.remove {
+                opacity: 0 !important;
+                transition: opacity 100ms linear;
+            }
+        }
     }
 }
 

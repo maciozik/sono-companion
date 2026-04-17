@@ -15,10 +15,11 @@ header {
         height: 100%;
         aspect-ratio: 1;
         font-size: 1.7rem;
+        overflow: hidden;
         transition: none;
 
         &.active {
-            background-color: #FFF2;
+            background-color: rgb(255 255 255 / calc(0.3 * 0.5));
             transition: background-color 200ms linear;
         }
     }
@@ -37,7 +38,7 @@ body > header {
 
     #settings-btn {
         &.active {
-            transition-delay: 100ms;
+            background-color: transparent;
         }
         &[data-ripple] {
             --ripple-background: white;

@@ -39,9 +39,11 @@ export function load(view)
     // Change the view.
     animate(view_id);
 
-    // Store the view as the last loaded view in the storage (except the Settings view).
+    // For any view except the Settings view, store it as the last loaded view in the storage
+    // and remove the persistent ripple from the Settings view button.
     if (view_id !== SETTINGS_VIEW) {
         Storage.set('last_view_loaded', view_id);
+        $header.querySelector('#settings-btn').removePersistRipple();
     }
 
     // Emit the 'load' events.
