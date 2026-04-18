@@ -109,7 +109,7 @@ export default class SettingSwitch extends Setting
         // Add the class, and the trigger/ripple options.
         this.classList.add('setting');
         this.dataset.trigger = 'click';
-        this.dataset.ripple = 'follow-pointer';
+        this.dataset.ripple = '300ms follow-pointer';
 
         // Set the content.
         this.innerHTML = /*html*/`

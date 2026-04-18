@@ -2,7 +2,9 @@
     --ripple-width: 100%;
     --ripple-background: light-dark(black, white);
     --ripple-opacity: .05;
-    --ripple-animation-duration: 350ms;
+    --ripple-animation-duration: 250ms;
+
+    --ripple-opacity-multiply-for-persist: .5;
 
     position: relative;
     z-index: 1;
@@ -25,7 +27,7 @@
         animation-fill-mode: forwards;
 
         &.persist {
-            filter: opacity(.5) !important;
+            filter: opacity(var(--ripple-opacity-multiply-for-persist)) !important;
 
             &.remove {
                 opacity: 0 !important;
@@ -62,14 +64,14 @@
 /**  ANIMATIONS  **/
 
 @keyframes ripple-grow {
-    from {
+    0% {
         scale: 0;
         filter: opacity(1);
     }
     30% {
         filter: opacity(1);
     }
-    to {
+    100% {
         scale: 1;
         filter: opacity(0);
     }

@@ -69,7 +69,7 @@
 /**  ANIMATIONS  **/
 
 @keyframes bar-grow {
-    from {
+    0% {
         transform: default;
         background-color: default;
     }
@@ -83,7 +83,7 @@
     80% {
         transform: default;
     }
-    to {
+    100% {
         transform: default;
         background-color: default;
     }

@@ -182,7 +182,7 @@ export default class SettingAction extends Setting
 
         if (this.has_action) {
             this.dataset.trigger = 'click';
-            this.dataset.ripple = 'follow-pointer';
+            this.dataset.ripple = '300ms follow-pointer';
         }
 
         // Set the content.

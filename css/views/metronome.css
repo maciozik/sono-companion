@@ -64,7 +64,6 @@
 
                 &[data-ripple] {
                     --ripple-opacity: .08 !important;
-                    --ripple-animation-duration: 250ms !important;
                 }
             }
 

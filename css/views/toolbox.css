@@ -40,11 +40,6 @@
 
                 &.swap {
                     color: var(--grey);
-
-                    &[data-ripple] {
-                        --ripple-opacity: .08 !important;
-                        --ripple-animation-duration: 200ms !important;
-                    }
                 }
             }
         }
