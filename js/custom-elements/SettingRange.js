@@ -195,7 +195,7 @@ export default class SettingRange extends Setting
         // Add the class, and the trigger/ripple options.
         this.classList.add('setting');
         this.dataset.trigger = 'manually';
-        this.dataset.ripple = '300ms follow-pointer';
+        this.dataset.ripple = '500ms fill follow-pointer';
 
         // Set the content.
         this.innerHTML = /*html*/`

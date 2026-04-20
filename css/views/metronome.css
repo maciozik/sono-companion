@@ -12,6 +12,7 @@
         padding: 0 var(--view-padding-inline);
 
         .bpm-divide, .bpm-decrease, .bpm-increase, .bpm-multiply {
+            --bpm-modifier-btn-border-radius: 6px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -44,7 +45,7 @@
                 aspect-ratio: 1;
                 min-width: 36px;
                 background-color: var(--bg-contrast);
-                border-radius: 6px;
+                border-radius: var(--bpm-modifier-btn-border-radius);
                 font-family: 'Roboto';
                 font-weight: 500;
                 line-height: 0;
@@ -70,6 +71,7 @@
             &:is(.bpm-divide, .bpm-decrease) .bpm-modifier-btn {
                 align-self: start;
                 padding-right: 1px;
+                clip-path: inset(0 -5px 0 0 round var(--bpm-modifier-btn-border-radius)); /** Prevent the ripple from overflowing but not the modifier signs. */
 
                 &::after {
                     right: 0;
@@ -81,6 +83,7 @@
             &:is(.bpm-increase, .bpm-multiply) .bpm-modifier-btn {
                 align-self: end;
                 padding-left: 1px;
+                clip-path: inset(0 0 0 -5px round var(--bpm-modifier-btn-border-radius)); /** Prevent the ripple from overflowing but not the modifier signs. */
 
                 &::after {
                     left: 0;

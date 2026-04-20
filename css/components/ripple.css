@@ -1,10 +1,10 @@
 [data-ripple] {
-    --ripple-width: 100%;
+    --ripple-width: 100%; /* Overridden in JS. */
     --ripple-background: light-dark(black, white);
     --ripple-opacity: .05;
     --ripple-animation-duration: 250ms;
 
-    --ripple-opacity-multiply-for-persist: .5;
+    --ripple-opacity-multiplier-for-persist: .5;
 
     position: relative;
     z-index: 1;
@@ -27,7 +27,7 @@
         animation-fill-mode: forwards;
 
         &.persist {
-            filter: opacity(var(--ripple-opacity-multiply-for-persist)) !important;
+            filter: opacity(var(--ripple-opacity-multiplier-for-persist)) !important;
 
             &.remove {
                 opacity: 0 !important;
@@ -56,8 +56,8 @@
 
 :root[data-high-contrast] {
     [data-ripple] .ripple {
-        --ripple-opacity-add: 0.05;
-        opacity: calc(var(--ripple-opacity) + var(--ripple-opacity-add));
+        --ripple-opacity-adder: 0.05;
+        opacity: calc(var(--ripple-opacity) + var(--ripple-opacity-adder));
     }
 }
 

@@ -8,18 +8,20 @@ import { removePersistRipple } from '/js/components/rippleable.js';
  * It is defined by the presence of the `data-ripple` attribute, and often follows an interaction with the element.
  *
  * Several options may be defined as values of this `data-ripple` attribute, separated by spaces:
- *  - `follow-pointer`   : The ripple effect is run at the position of the user interaction, instead of at its center.
- *  - `persist`          : The ripple effect is set to persistent. It will cover the entire rippleable element
- *                         and will not disappear after its animation. Following ripples will behave normally.
+ *  - `fill`             : The ripple effect will fill the entire rippleable element, instead of being width-limited.
+ *  - `persist`          : The ripple effect will not disappear after its animation. Following ripples will still
+ *                         behave normally as long as there is a persistent ripple present.
  *     - A {@link removePersistRipple} function is accessible on the rippleable element to remove the persistent ripple.
+ *  - `follow-pointer`   : The ripple effect is run at the position of the user interaction, instead of at its center.
  *  - **Any raw number** : The opacity of the circle (e.g. `0.2`).
  *  - **Any duration**   : The animation duration of the circle (in ms or s).
  */
 
 export default class Ripple {
 
+    fill           = new Boolean();
+    persist        = new Boolean();
     follow_pointer = new Boolean();
-    persist = new Boolean();
 
     /** @type {{ x: number, y: number }} The position of the pointer relative to the rippleable element if it exists. */
     pointer = {
@@ -43,8 +45,9 @@ export default class Ripple {
     {
         this.$rippleable = $rippleable;
 
-        this.follow_pointer = this.$rippleable.dataset.ripple.includes('follow-pointer');
+        this.fill           = this.$rippleable.dataset.ripple.includes('fill');
         this.persist        = this.$rippleable.dataset.ripple.includes('persist');
+        this.follow_pointer = this.$rippleable.dataset.ripple.includes('follow-pointer');
 
         const is_persist_ripple_present = $rippleable.querySelector('.ripple.persist') !== null;
 
@@ -57,11 +60,13 @@ export default class Ripple {
             this.setPosition(client_x, client_y);
         }
 
+        this.setWidth();
+
         // Choose the way to handle the end of the animation (normal or persistent).
         if (!this.persist || is_persist_ripple_present) {
             this.$ripple.addEventListener('animationend', this.remove.bind(this));
         } else {
-            this.handlePersist();
+            this.setAsPersistent();
         }
 
         this.$rippleable.appendChild(this.$ripple);
@@ -88,6 +93,32 @@ export default class Ripple {
     }
 
     /**
+     * Set the width of the ripple.
+     */
+    setWidth()
+    {
+        const rippleable = this.$rippleable.getBoundingClientRect();
+        let ripple_width = rippleable.width;
+
+        if (this.fill) {
+
+            // Set the width as the distance from the pointer to the most distant corner of the rippleable element.
+            if (this.follow_pointer) {
+                ripple_width = 2 * Math.hypot(
+                    Math.max(this.pointer.x, rippleable.width - this.pointer.x),
+                    Math.max(this.pointer.y, rippleable.height - this.pointer.y)
+                );
+            }
+            // Set the width as the diagonal of the rippleable element.
+            else {
+                ripple_width = Math.hypot(rippleable.width, rippleable.height);
+            }
+        }
+
+        this.$ripple.style.setProperty('--ripple-width', ripple_width + 'px');
+    }
+
+    /**
      * Set the opacity and animation duration of the ripple.
      */
     setStyle()
@@ -109,27 +140,13 @@ export default class Ripple {
     }
 
     /**
-     * Handle the ripple effect when set as persistent.
+     * Define the ripple behavior when set as persistent.
      */
-    handlePersist()
+    setAsPersistent()
     {
-        const rippleable = this.$rippleable.getBoundingClientRect();
-        const pointer_distances = {
-            to_top_left: Math.sqrt(this.pointer.x ** 2 + this.pointer.y ** 2),
-            to_top_right: Math.sqrt((rippleable.width - this.pointer.x) ** 2 + this.pointer.y ** 2),
-            to_bottom_left: Math.sqrt(this.pointer.x ** 2 + (rippleable.height - this.pointer.y) ** 2),
-            to_bottom_right: Math.sqrt((rippleable.width - this.pointer.x) ** 2 + (rippleable.height - this.pointer.y) ** 2)
-        };
-
-        // Choose the correct width to fill the entire rippleable element.
-        const ripple_width = (this.follow_pointer)
-                           ? Math.max(...Object.values(pointer_distances)) * 2
-                           : Math.sqrt(rippleable.width ** 2 + rippleable.height ** 2);
-
-        this.$ripple.style.setProperty('--ripple-width', ripple_width + 'px');
         this.$ripple.classList.add('persist');
 
-        // Remove the persistent ripple when `removePersistRipple` is called on the rippleable element.
+        // Bind the event to remove the persistent ripple when `removePersistRipple` is called on the rippleable element.
         this.$ripple.addEventListener('transitionend', this.remove.bind(this));
     }
 
