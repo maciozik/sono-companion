@@ -9,8 +9,8 @@
     --view-height: calc(var(--app-height) - var(--header-height) - var(--footer-height));
     --header-padding-inline: calc(var(--app-padding-inline) + var(--view-padding-inline) - 2px);
 
-    --btn-padding-top-bottom: 12px;
-    --btn-padding-left-right: 18px;
+    --btn-padding-block: 12px;
+    --btn-padding-inline: 18px;
 
     --app-font-size: 16px;
     --app-font-size-multiplier: 1; /* Overridden in JS. */
