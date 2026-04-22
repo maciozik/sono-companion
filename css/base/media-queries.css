@@ -2,21 +2,27 @@
 @media (aspect-ratio >= 9/16) {
 
     :root {
+        --footer-height: 80px;
         --maximum-view-width: calc(var(--app-height) * 9/16);
     }
 
     main {
+
         .view {
             justify-self: center;
             inset: 0;
             width: var(--maximum-view-width);
         }
+
+        #settings {
+            width: 100%;
+            max-width: 960px;
+        }
     }
 
     footer {
-        padding-bottom: 0;
-        padding-left: 0;
-        padding-right: 0;
+        align-items: end;
+        padding-inline: 0;
 
         nav {
             border-radius: 0;
