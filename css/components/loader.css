@@ -59,7 +59,7 @@
         }
     }
 
-    &.hide {
+    &.hidden {
         .loader-animation span {
             animation: none;
         }

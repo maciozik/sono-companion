@@ -196,7 +196,7 @@ export function getLastLoaded()
  */
 export function getFirstVisible()
 {
-    const first_tab_visible = NavTab.$nav.querySelector('.nav-tab:not(.hide)');
+    const first_tab_visible = NavTab.$nav.querySelector('.nav-tab:not(.hidden)');
     const view_id = first_tab_visible?.dataset.load ?? null;
     return view_id;
 }
@@ -223,7 +223,7 @@ export function getLastLoadedOrFirstVisible()
  */
 export function isVisible(view_id = getCurrent().id) {
     const $tab = NavTab.getTabFromViewId(view_id);
-    return !$tab.classList.contains('hide');
+    return !$tab.classList.contains('hidden');
 }
 
 /**

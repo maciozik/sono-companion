@@ -352,7 +352,7 @@ export function __init__()
 
     // Hide the "Open in browser" setting action if the app is already running in browser.
     const $openInBrowser = $view.querySelector('[data-name=open_in_browser]');
-    $openInBrowser.classList.toggle('hide', !ENV.APP.PWA_MODE);
+    $openInBrowser.classList.toggle('hidden', !ENV.APP.PWA_MODE);
 
     // Change the gauge parameters.
     onsync('gauge_step', event => {

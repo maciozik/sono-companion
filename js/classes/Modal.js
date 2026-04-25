@@ -139,8 +139,8 @@ export default class Modal
         Modal.$overlay.dataset.context = this.context;
 
         // Remove the title and secondary button if null.
-        Modal.$title.classList.toggle('hide', (this.title === null));
-        Modal.$secondaryBtn.classList.toggle('hide', (this.secondary_btn === null));
+        Modal.$title.classList.toggle('hidden', (this.title === null));
+        Modal.$secondaryBtn.classList.toggle('hidden', (this.secondary_btn === null));
 
         // Allow a tap outside the modal to close it.
         setTimeout(() => {

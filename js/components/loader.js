@@ -5,7 +5,7 @@ const $loaderTooLongMsgBtn = $loaderTooLongMsg.querySelector('.btn');
 // Hide the loader after all is loaded.
 window.addEventListener('load', () => {
     setTimeout(() => {
-        $loader.classList.add('hide');
+        $loader.classList.add('hidden');
     }, 200);
 });
 

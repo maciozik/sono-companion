@@ -150,6 +150,7 @@
             <section id="metronome-bpm-selector" data-rows=4>
 
                 <!-- Decrease bpm -->
+                <!-- TODO Extract to component? -->
                 <div class="bpm-divide">
                     <div class="bpm-modifier-btn" data-modifier="/2" data-sign="÷" data-trigger data-ripple="fill">2</div>
                     <div class="bpm-modifier-btn" data-modifier="/3" data-sign="÷" data-trigger data-ripple="fill">3</div>
@@ -648,25 +649,25 @@
 
             <section class="nav-tabs">
 
-                <section class="nav-tab hide" data-load="sonometer" data-trigger>
+                <section class="nav-tab hidden" data-load="sonometer" data-trigger>
                     <g-icon data-name="speed" data-y=1></g-icon>
                     <p class="tab-title">Sonomètre</p>
                     <p class="tab-label"></p>
                 </section>
 
-                <section class="nav-tab hide" data-load="spectrum" data-trigger>
+                <section class="nav-tab hidden" data-load="spectrum" data-trigger>
                     <g-icon data-name="equalizer"></g-icon>
                     <p class="tab-title">Spectre</p>
                     <p class="tab-label"></p>
                 </section>
 
-                <section class="nav-tab hide" data-load="metronome" data-trigger>
+                <section class="nav-tab hidden" data-load="metronome" data-trigger>
                     <g-icon data-name="swipe" data-x=-1 style="scale: .98;"></g-icon>
                     <p class="tab-title">Métronome</p>
                     <p class="tab-label"></p>
                 </section>
 
-                <section class="nav-tab hide" data-load="toolbox" data-trigger>
+                <section class="nav-tab hidden" data-load="toolbox" data-trigger>
                     <g-icon data-name="design_services"></g-icon>
                     <p class="tab-title">Toolbox</p>
                     <p class="tab-label"></p>
@@ -722,7 +723,7 @@
     <!-- SCROLLBAR TEMPLATE -->
 
     <template id="scrollbar-template">
-        <div class="scrollbar" class="hide">
+        <div class="scrollbar">
             <div class="scrollbar-thumb"></div>
         </div>
     </template>

@@ -432,7 +432,7 @@ export function __init__()
     // Show or hide the bpm manager and adjust the view grid.
     Settings.onsync('show_bpm_manager', event => {
         const value = event.detail.value;
-        $bpmManager.classList.toggle('hide', !value);
+        $bpmManager.classList.toggle('hidden', !value);
         Metronome.$view.style.setProperty('--view-grid-rows', (value) ? 24 : 22);
     });
 }

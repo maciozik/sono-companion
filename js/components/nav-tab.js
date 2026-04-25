@@ -36,7 +36,7 @@ function setTabVisibility(view_id, is_visible)
     const $tab = getTabFromViewId(view_id);
 
     // Change the visibility of the tab.
-    $tab.classList.toggle('hide', !is_visible);
+    $tab.classList.toggle('hidden', !is_visible);
 
     // Stop the view if the tab must be hide.
     if (is_visible && View.isRun(view_id)) {
@@ -53,7 +53,7 @@ function setTabVisibility(view_id, is_visible)
  */
 function countVisible()
 {
-    return $nav.querySelectorAll('.nav-tab:not(.hide)').length;
+    return $nav.querySelectorAll('.nav-tab:not(.hidden)').length;
 }
 
 /**
