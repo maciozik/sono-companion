@@ -2,10 +2,21 @@
 @media (aspect-ratio >= 9/16) {
 
     :root {
-        --footer-height: 80px;
         --maximum-view-width: calc(var(--app-height) * 9/16);
     }
 
+    /* Center the main title. */
+    body > header {
+        justify-content: end;
+
+        h1 {
+            position: absolute;
+            width: 100%;
+            text-align: center;
+        }
+    }
+
+    /* Limit the width of the views. */
     main {
 
         .view {
@@ -20,21 +31,14 @@
         }
     }
 
+    /* Limit the width of the nav. */
     footer {
-        align-items: end;
-        padding-inline: 0;
-
-        nav {
-            border-radius: 0;
-        }
-    }
-
-    #fullscreen-textarea {
-        display: flex;
         justify-content: center;
 
-        textarea {
-            max-width: var(--maximum-view-width) !important;
+        nav {
+            justify-self: center;
+            width: 100%;
+            max-width: var(--maximum-view-width);
         }
     }
 
@@ -50,6 +54,7 @@
 /* Small screens. */
 @media (width < 360px) {
 
+    /* Reduce sizes of toolbox components. */
     #toolbox :is(#toolbox-tempo-converter, #toolbox-delay-converter) {
 
         .inputs {
@@ -67,6 +72,12 @@
                     font-size: .75rem;
                 }
             }
+        }
+    }
+
+    footer {
+        nav .nav-tab {
+            font-size: .7rem;
         }
     }
 }

@@ -127,6 +127,10 @@
             padding-inline: var(--setting-padding-inline);
         }
 
+        &[data-ripple] {
+            --ripple-opacity: .03 !important;
+        }
+
         /* Blink effect */
         &::after {
             content: "";
@@ -197,20 +201,6 @@
         right: 0 !important;
         margin-right: 3px;
         height: var(--view-height);
-    }
-}
-
-/**  THEME  **/
-
-:root[data-color-scheme=dark] {
-    .setting[data-ripple] {
-        --ripple-opacity: 0.02 !important;
-    }
-}
-
-:root[data-color-scheme=light] {
-    .setting[data-ripple] {
-        --ripple-opacity: 0.03 !important;
     }
 }
 

@@ -48,7 +48,7 @@ input, textarea {
 }
 
 textarea {
-    border-radius: 10px;
+    border-radius: 20px;
     resize: none;
     caret-color: light-dark(black, white);
 }

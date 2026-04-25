@@ -28,7 +28,7 @@
         .modal-text {
             margin-top: 5px;
             color: var(--grey);
-            font-size: .85rem;
+            font-size: .8rem;
         }
 
         /* FIXME Buttons may be hidden under the scroll if the content is too long. */
@@ -36,8 +36,8 @@
             display: flex;
             justify-content: end;
             align-items: center;
-            margin-top: 30px;
-            margin-right: calc(-1 * var(--btn-padding-left-right));
+            margin-top: 24px;
+            margin-right: calc(-1 * var(--btn-padding-inline));
         }
 
         /* Setting List */
