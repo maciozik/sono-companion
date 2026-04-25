@@ -18,7 +18,7 @@
     --glass-blur: 6px;
 
     color: var(--invert);
-    border-radius: 100vw;
+    border-radius: 100vmax;
     box-shadow: 0 0 3px light-dark(transparent, #1118);
     font-size: .8rem;
     text-align: center;

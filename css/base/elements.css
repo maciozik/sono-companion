@@ -29,7 +29,7 @@ input, textarea {
     color: var(--invert);
     background-color: var(--bg-contrast);
     border: 1px solid var(--grey-pale);
-    border-radius: 100vw;
+    border-radius: 100vmax;
     font-family: inherit;
 
     &:focus {
@@ -45,10 +45,6 @@ input, textarea {
         color: var(--bg-contrast);
         background-color: var(--cyan);
     }
-}
-
-input {
-    border-radius: 100vw;
 }
 
 textarea {

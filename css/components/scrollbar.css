@@ -16,7 +16,7 @@
         min-height: 12px;
         max-height: 100%;
         background-color: var(--scrollbar-thumb-color);
-        border-radius: 100vw;
+        border-radius: 100vmax;
         opacity: .4;
         transition: opacity 50ms linear;
     }

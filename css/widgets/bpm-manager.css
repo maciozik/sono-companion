@@ -29,7 +29,7 @@
             translate: 3px 0;
             color: light-dark(var(--bg), var(--invert));
             background-color: light-dark(var(--grey), var(--grey-pale));
-            border-radius: 100vw;
+            border-radius: 100vmax;
             font-size: .65rem;
             font-weight: 500;
             letter-spacing: 0;

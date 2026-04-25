@@ -7,7 +7,7 @@
     color: var(--invert);
     background-color: var(--bg-contrast);
     border: 1.5px solid var(--grey-pale);
-    border-radius: 100vw;
+    border-radius: 10vmax;
     font-size: 1rem;
 
     input {

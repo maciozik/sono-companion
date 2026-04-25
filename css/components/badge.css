@@ -6,7 +6,7 @@
     padding: 1.5px 9px 1px;
     color: var(--invert);
     background-color: rgb(from var(--badge-background-color) r g b / var(--badge-background-opacity));
-    border-radius: 100vw;
+    border-radius: 100vmax;
     font-size: .8rem;
     font-weight: 600;
     letter-spacing: -0.5px;

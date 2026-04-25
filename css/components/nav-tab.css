@@ -24,7 +24,7 @@
         padding: .2px 6.5px 0 6.5px;
         color: var(--cyan);
         background-color: var(--bg-contrast);
-        border-radius: 100vw;
+        border-radius: 100vmax;
         font-size: .7rem;
         font-weight: 600;
         letter-spacing: -0.3px;
