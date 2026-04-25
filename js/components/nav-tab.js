@@ -38,8 +38,8 @@ function setTabVisibility(view_id, is_visible)
     // Change the visibility of the tab.
     $tab.classList.toggle('hidden', !is_visible);
 
-    // Stop the view if the tab must be hide.
-    if (is_visible && View.isRun(view_id)) {
+    // Stop the view if the tab must be hidden.
+    if (!is_visible && View.isRun(view_id)) {
         View.stop(view_id);
     }
 
