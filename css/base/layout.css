@@ -62,7 +62,7 @@ footer {
     padding-inline: var(--app-padding-inline);
     width: 100%;
     height: var(--footer-height);
-    background: linear-gradient(to top, var(--bg), 40%, transparent);
+    /* background: linear-gradient(to top, var(--bg), 40%, transparent); */
     z-index: 20;
 }
 

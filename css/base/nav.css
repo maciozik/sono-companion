@@ -7,10 +7,20 @@ nav {
     width: 100%;
     height: var(--nav-height);
     padding: var(--nav-padding);
-    background-color: var(--bg-contrast);
-    border: 1px solid light-dark(#0001, #FFF1);
+    border: 1px solid light-dark(#0001, #FFF1) !important;
     border-radius: 100vw;
     overflow: hidden;
+
+    /* Glassmorphism effect when settings view is active. */
+    body:has(#settings.active) & {
+        --glass-background: light-dark(#FFFC, #121010AA);
+        --glass-blur: 12px;
+    }
+    /* Fallback for other views, or if glassmorphism is disabled. */
+    body:not(:has(#settings.active)) &,
+    &:not(.glass) {
+        background: var(--bg-contrast);
+    }
 
     .nav-tabs {
         display: flex;

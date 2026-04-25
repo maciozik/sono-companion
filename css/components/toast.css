@@ -1,5 +1,6 @@
 #toast {
     --transition-duration-out: 1000ms;
+
     display: grid;
     place-items: center;
     position: absolute;
@@ -12,11 +13,11 @@
     min-height: 3.2em;
     translate: -50% 0;
 
+    --glass-background: light-dark(#4441, #DFF1);
+    --glass-border-color: light-dark(#FFFC, #FFF1);
+    --glass-blur: 6px;
+
     color: var(--invert);
-    background-color: light-dark(#4441, #DFF1);
-    -webkit-backdrop-filter: blur(6px);
-            backdrop-filter: blur(6px);
-    border: 1px solid light-dark(#FFFC, #FFF1);
     border-radius: 100vw;
     box-shadow: 0 0 3px light-dark(transparent, #1118);
     font-size: .8rem;
@@ -37,16 +38,5 @@
 
     :is(&.instant, &.instant.show) {
         transition: none !important;
-    }
-}
-
-/**  THEME  **/
-
-:root[data-high-contrast] {
-    #toast {
-        background-color: var(--bg-contrast);
-        -webkit-backdrop-filter: none;
-                backdrop-filter: none;
-        border-color: rgb(from var(--grey-pale) r b g / .4);
     }
 }

@@ -69,10 +69,29 @@ textarea {
     display: none !important;
 }
 
+.glass {
+    --glass-background: rgb(from var(--bg-contrast) r g b / .2);
+    --glass-border-color: rgb(from var(--grey-pale) r g b / .4);
+    --glass-blur: 10px;
+
+    background: var(--glass-background);
+    border: 1px solid var(--glass-border-color);
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+            backdrop-filter: blur(var(--glass-blur));
+}
+
 /**  THEME  **/
 
 :root[data-high-contrast] {
+
     h2 {
         font-weight: 600;
+    }
+
+    .glass {
+        background: var(--bg-contrast);
+        border-color: rgb(from var(--grey-pale) r g b / .4);
+        -webkit-backdrop-filter: none;
+                backdrop-filter: none;
     }
 }
