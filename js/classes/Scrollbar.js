@@ -7,7 +7,7 @@
 export default class Scrollbar
 {
     /** @type {number} @readonly The top and bottom margin of the scrollbar. */
-    static MARGIN_BLOCK = 5;
+    static MARGIN_BLOCK = 10;
 
     /**
      * @type {number} @readonly
