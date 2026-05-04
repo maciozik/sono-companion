@@ -54,16 +54,19 @@ nav {
     }
 
     p.no-tab {
-        display: none;
+        display: grid;
         align-items: center;
         position: absolute;
         inset: 0;
         color: var(--grey-pale);
         font-size: 0.7rem;
         text-align: center;
+    }
 
-        &.show {
-            display: grid;
+    /* Hide the message when any tab is visible. */
+    &:has(.nav-tab:not(.hidden)) {
+        p.no-tab {
+            display: none;
         }
     }
 }

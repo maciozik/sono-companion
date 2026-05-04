@@ -42,9 +42,6 @@ function setTabVisibility(view_id, is_visible)
     if (!is_visible && View.isRun(view_id)) {
         View.stop(view_id);
     }
-
-    // Display a message if no tab is visible.
-    $nav.querySelector('p.no-tab').classList.toggle('show', (countVisible() === 0));
 }
 
 /**
