@@ -35,8 +35,8 @@ function setInput($input, value)
 /**
  * Convert a value from a unit to another.
  * @param {number} value
- * @param {'bpm'|'ms'|'m'} unit_from The unit of the initial value.
- * @param {'bpm'|'ms'|'m'} unit_to The unit to convert to.
+ * @param {'bpm'|'bps'|'ms'|'m'} unit_from The unit of the initial value.
+ * @param {'bpm'|'bps'|'ms'|'m'} unit_to The unit to convert to.
  * @param {boolean} [useTemperature] Whether to use the temperature setting to define the speed of sound.
  * @returns {number|null}
  */
@@ -52,12 +52,14 @@ export function convert(value, unit_from, unit_to, useTemperature = true)
     // First convert to bpm.
     switch (unit_from) {
         case 'bpm': bpm = value; break;
+        case 'bps': bpm = value * 60; break;
         case 'ms' : bpm = 60000 / value; break;
         case 'm'  : bpm = 60 / (value / speed_of_sound); break;
     }
     // Then convert to the target unit.
     switch (unit_to) {
         case 'bpm': converted_value = bpm; break;
+        case 'bps': converted_value = Math.roundFloat((bpm / 60), 2).addZeros(2, 'trailing'); break;
         case 'ms' : converted_value = Math.round(60000 / bpm); break;
         case 'm'  : converted_value = Math.round(speed_of_sound * (60 / bpm)); break;
     }

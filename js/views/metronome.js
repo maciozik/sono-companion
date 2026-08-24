@@ -16,8 +16,8 @@ export const $view = document.getElementById('metronome');
 export const $bpmModifierBtns = $view.querySelectorAll('#metronome-bpm-selector .bpm-modifier-btn');
 export const $bpmValue = $view.querySelector('#metronome-bpm-selector .bpm-value');
 
+const $tempoBps = $view.querySelector('#metronome-info .tempo-bps .info');
 const $tempoMs = $view.querySelector('#metronome-info .tempo-ms .info');
-const $tempoM = $view.querySelector('#metronome-info .tempo-m .info');
 
 export const $playBtn = $view.querySelector('#metronome-controls .play-btn');
 export const $replayBtn = $view.querySelector('#metronome-controls .metronome-replay-btn');
@@ -63,8 +63,8 @@ export function set(bpm, clamp = true)
     $bpmValue.dataset.bpm = bpm;
     $bpmValue.textContent = bpm;
 
-    $tempoMs.querySelector('.value').textContent = get('ms');
-    $tempoM.querySelector('.value').textContent  = get('m');
+    $tempoBps.querySelector('.value').textContent = get('bps');
+    $tempoMs.querySelector('.value').textContent  = get('ms');
 }
 
 /**
