@@ -46,7 +46,7 @@ export function saveInStorage()
 export function reset()
 {
     $notepad.value = "";
-    Storage.remove('toolbox.notepad');
+    $notepad.dispatchEvent(new Event('input'));
 
     (new Toast("Bloc-notes effacé.")).show();
 }
