@@ -74,34 +74,6 @@
             --badge-background-opacity: .5;
             text-transform: capitalize;
         }
-
-        textarea#notepad {
-            --textarea-padding-inline: 16px;
-            --textarea-border-width: 1.5px;
-            --fullscreen-textarea-padding-inline: calc(var(--app-padding-inline) + var(--view-padding-inline) + var(--textarea-border-width) + var(--textarea-padding-inline));
-
-            margin: 0 var(--view-padding-inline);
-            padding: 12px var(--textarea-padding-inline);
-            width: calc(100% - var(--view-padding-inline) * 2);
-            flex-grow: 1;
-            border-width: var(--textarea-border-width);
-            color: var(--grey);
-            font-size: .88rem;
-            line-height: 1.5em;
-            letter-spacing: -0.2px;
-            transition: color 150ms linear,
-                        border-color 300ms linear;
-
-            &.highlight {
-                color: var(--invert);
-                transition: color 50ms linear;
-            }
-
-            &.edit-done {
-                border-color: var(--invert);
-                transition: none;
-            }
-        }
     }
 }
 
@@ -116,7 +88,7 @@
         }
 
         #toolbox-notepad {
-            .saved-badge {
+            h2 .saved-badge {
                 color: light-dark(var(--invert), var(--bg));
                 --badge-background-opacity: .75;
             }

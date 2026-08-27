@@ -42,6 +42,7 @@ import * as Toolbox   from '/js/views/toolbox.js';
 import * as Gauge         from '/js/widgets/gauge.js';
 import * as BpmVisualizer from '/js/widgets/bpm-visualizer.js';
 import * as BpmManager    from '/js/widgets/bpm-manager.js';
+import * as Notepad       from '/js/widgets/notepad.js';
 
 /**  COMPONENTS  **/
 import * as NavTab             from '/js/components/nav-tab.js';
@@ -63,6 +64,7 @@ const modules = {
     Gauge,
     BpmVisualizer,
     BpmManager,
+    Notepad,
     NavTab,
     PlayBtn,
     InputBox,

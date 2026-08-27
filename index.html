@@ -321,17 +321,18 @@
 
             </section>
 
+            <!-- Notepad -->
             <section id="toolbox-notepad">
 
                 <h2>
                     <!-- REMOVE Fill textarea with lorem. -->
-                    <span onClick="fetch('https://lorem-api.com/api/article/fill').then(response => response.json()).then(data => document.getElementById('notepad').value = data.content);">
+                    <span onClick="fetch('https://lorem-api.com/api/article/fill').then(response => response.json()).then(data => document.querySelector('.notepad').value = data.content);">
                         Bloc-notes
                     </span>
                     <div class="badge saved-badge"><g-icon data-name="check"></g-icon></div>
                 </h2>
 
-                <textarea id="notepad" placeholder="✎ Rédigez vos notes et mémos." maxlength=50000 data-scrollable
+                <textarea class="notepad" placeholder="✎ Rédigez vos notes et mémos." maxlength=50000 data-scrollable
                           wrap="soft" enterkeyhint="enter" spellcheck=false readonly>
                 </textarea>
 
@@ -442,7 +443,7 @@
 
                 <setting-range
                     data-name="refresh_info_interval" data-groups="sonometer" data-allow-reset
-                    data-value=200 data-suffix=" ms" data-min=100 data-max=1000 data-step=100>
+                    data-value=300 data-suffix=" ms" data-min=100 data-max=1000 data-step=100>
                     <h3>Rafraichissement du volume</h3>
                     <small>Interval de rafraichissement des informations de volume affichées sous la jauge.</small>
                 </setting-range>
@@ -533,7 +534,7 @@
 
                 <setting-action
                     data-name="delete_notepad_content" data-groups="toolbox" data-danger
-                    data-module="views/toolbox" data-action="notepadReset" data-vibrate-on="modal-close" data-require-confirmation>
+                    data-module="widgets/notepad" data-action="reset" data-vibrate-on="modal-close" data-require-confirmation>
                     <h3>Effacer le contenu du bloc-notes</h3>
                     <small>Toutes vos notes seront supprimées.</small>
                 </setting-action>
