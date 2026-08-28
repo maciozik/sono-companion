@@ -73,6 +73,7 @@
 - [ ] Bloquer l'orientation portrait en autorisant le 180° (`"orientation": "portrait"` n'autorise pas le 180°).
 - [ ] Problème avec le multitap *(ex. tap en même temps sur les boutons* `play` *et* `replay` *de la vue **Metronome**)*.
 - [ ] Le bouton `reset` du setting **Calibrage audio** fait remonter d'un pixel les boutons `reset` suivants **!?**
+- [ ] Le bouton `reset` du setting peut devenir orphelin si le titre est trop long (espace insécable ne fonctionne pas).
 - [ ] Bouger le curseur à +30db sur le paramètre **Calibrage audio** change la taille du bloc info ?
 - [ ] En relançant après une pause du sonomètre, le volume courant reviens à 0dB temporairement, le temps de recevoir les données audio.
   - Cause : re-création d'un nouvel AudioContext à chaque reprise ?

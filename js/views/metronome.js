@@ -9,7 +9,7 @@ export const BPM_BLINK_DURATION = 100;
 const TAP_TEMPO_RESET_DELAY = 2500;
 const TAP_TEMPO_INTERVALS_LIMIT = 20;
 
-export const METRONOME_AUDIO_TICK_PATH = '../../audio/metronome_tick.mp3';
+export const METRONOME_AUDIO_TICK_PATH = '../../assets/audio/metronome-tick.mp3';
 
 export const $view = document.getElementById('metronome');
 
