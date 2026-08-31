@@ -34,7 +34,7 @@ export function get(setting_name)
     const keys = Storage.getKeys();
 
     for (const key of keys) {
-        if (key.startsWith('setting') && key.endsWith(setting_name)) {
+        if (key.startsWith('setting') && key.endsWith(`.${setting_name}`)) {
             return Storage.get(key);
         }
     }
