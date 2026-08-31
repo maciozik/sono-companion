@@ -413,13 +413,18 @@
 
                 <setting-range
                     data-name="gauge_max" data-groups="sonometer" data-allow-reset
-                    data-value=130 data-suffix=" dB" data-min=120 data-max=150 data-step={gauge_step}>
+                    data-value=130 data-suffix=" dB" data-min=100 data-max=150 data-step={gauge_step}>
                     <h3>Maximum de la jauge</h3>
                 </setting-range>
 
+                <setting-switch
+                    data-name="show_danger_zone" data-groups="sonometer" data-value=true data-disable-group-on-false="danger_zone">
+                    <h3>Afficher la zone de danger</h3>
+                </setting-switch>
+
                 <setting-range
-                    data-name="danger_zone" data-groups="sonometer" data-allow-reset
-                    data-value=100 data-suffix=" dB" data-min=70 data-max=110 data-step={gauge_step}>
+                    data-name="danger_zone" data-groups="sonometer danger_zone" data-allow-reset
+                    data-value=100 data-suffix=" dB" data-min=70 data-max=120 data-step={gauge_step}>
                     <h3>Zone de danger</h3>
                     <small>Niveau au-delà duquel la jauge devient rouge.</small>
                 </setting-range>

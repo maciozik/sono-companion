@@ -13,24 +13,31 @@ const $gaugePointer = $gauge.querySelector('.gauge-pointer');
  */
 export function create()
 {
-    const min       = STG.gauge_min,
-          max       = STG.gauge_max,
-          danger    = STG.danger_zone,
-          half      = (max + min) / 2,
-          step      = STG.gauge_step,
-          nb_values = ((max - min) / step) + 1;
+    const min        = STG.gauge_min,
+          max        = STG.gauge_max,
+          has_danger = (STG.show_danger_zone && STG.danger_zone < max),
+          danger     = (has_danger) ? STG.danger_zone : max,
+          half       = (max + min) / 2,
+          step       = STG.gauge_step,
+          nb_values  = ((max - min) / step) + 1;
 
-    // Rotate the gauge arcs
+    // Rotate the gauge arcs.
     const gauge_rotation = convertToDegree(danger - min);
     $gaugeArcs.style.setProperty('--gauge-arcs-rotation', `${gauge_rotation}deg`);
 
-    // Rotate the safe gauge a bit more to create the gap between the two gauges.
-    const arc_safe_rotation = convertToDegree((-1 * step));
-    $gaugeArcSafe.style.rotate = `${arc_safe_rotation}deg`;
+    // Rotate the safe gauge a bit more to create the gap between the two gauges, if necessary.
+    if (has_danger) {
+        const arc_safe_rotation = convertToDegree((-1 * step));
+        $gaugeArcSafe.style.rotate = `${arc_safe_rotation}deg`;
+    }
+
+    // Show or hide the danger zone.
+    $gaugeArcDanger.classList.toggle('hidden', !has_danger);
 
     // Reduce the number of displayed values if there are too many.
     $gaugeArcs.classList.toggle('reduce-values', (nb_values >= 20));
 
+    // Create the graduations.
     for (let value = min; value <= max; value += step) {
 
         // Get the template of the graduation and clone it.
@@ -48,21 +55,16 @@ export function create()
         }
 
         // Show the danger indicator at the right graduation.
-        if (value === danger) {
+        if (has_danger && value === danger) {
             $graduation.dataset.indicator = DANGER_INDICATOR;
         }
 
+        const $gaugeToAppend = ((has_danger && value < danger) || !has_danger) ? $gaugeArcSafe : $gaugeArcDanger;
+        const rotation = (has_danger && value < danger) ? (value - danger + step) : (value - danger); // Adding step to compensate for the safe gauge rotation.
+
         // Rotate and add the graduation to the right gauge.
-        if (value < danger) {
-            const rotation = convertToDegree(value - danger + step);
-            $graduation.style.rotate = `${rotation}deg`;
-            $gaugeArcSafe.querySelector('.gauge-graduations').appendChild($graduation);
-        }
-        else {
-            const rotation = convertToDegree(value - danger);
-            $graduation.style.rotate = `${rotation}deg`;
-            $gaugeArcDanger.querySelector('.gauge-graduations').appendChild($graduation);
-        }
+        $graduation.style.rotate = `${convertToDegree(rotation)}deg`;
+        $gaugeToAppend.querySelector('.gauge-graduations').appendChild($graduation);
     }
 }
 
@@ -74,6 +76,7 @@ export function recreate()
     requestAnimationFrame(() => {
         $gaugeArcs.style.setProperty('--gauge-arcs-rotation', `0deg`);
         $gaugeArcSafe.style.transform = '';
+        $gaugeArcSafe.style.rotate = '0deg';
         $gaugeArcs.querySelectorAll('.graduation').forEach(graduation => graduation.remove());
 
         create();
@@ -135,7 +138,7 @@ export function __init__()
     Settings.oninit(create);
 
     // Recreate the gauge if the settings change.
-    Settings.onchange(['gauge_min', 'gauge_max', 'danger_zone', 'gauge_step'], recreate);
+    Settings.onchange(['gauge_min', 'gauge_max', 'show_danger_zone', 'danger_zone', 'gauge_step'], recreate);
 
     // Set the sensitivity of the pointer.
     Settings.onsync('gauge_sensitivity', event => {

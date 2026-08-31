@@ -157,6 +157,22 @@
                     }
                 }
             }
+
+            /* If the danger arc is hidden. */
+            &:has(.gauge-arc-danger.hidden) .gauge-arc-safe {
+                /* Restore the last graduation. */
+                .graduation:last-child {
+                    &::before {
+                        display: block;
+                    }
+                }
+                /* Hide the second-to-last one. */
+                .graduation:nth-last-child(2) {
+                    &::before {
+                        display: none;
+                    }
+                }
+            }
         }
     }
 
